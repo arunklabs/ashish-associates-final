@@ -1,0 +1,328 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+    :root {
+        --background: 222 30% 6%;
+        --foreground: 40 15% 93%;
+
+        --card: 222 22% 10%;
+        --card-foreground: 40 15% 93%;
+
+        --popover: 222 22% 10%;
+        --popover-foreground: 40 15% 93%;
+
+        --primary: 40 70% 50%;
+        --primary-foreground: 222 30% 6%;
+
+        --secondary: 222 18% 14%;
+        --secondary-foreground: 40 15% 90%;
+
+        --muted: 222 15% 18%;
+        --muted-foreground: 220 10% 65%;
+
+        --accent: 40 55% 58%;
+        --accent-foreground: 222 30% 6%;
+
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 210 40% 98%;
+
+        --border: 222 15% 16%;
+        --input: 222 15% 16%;
+        --ring: 40 70% 50%;
+
+        --radius: 0.5rem;
+
+        --sidebar-background: 222 25% 8%;
+        --sidebar-foreground: 40 15% 90%;
+        --sidebar-primary: 40 70% 50%;
+        --sidebar-primary-foreground: 222 30% 6%;
+        --sidebar-accent: 222 18% 14%;
+        --sidebar-accent-foreground: 40 15% 90%;
+        --sidebar-border: 222 15% 16%;
+        --sidebar-ring: 40 70% 50%;
+
+        --gold-gradient: linear-gradient(135deg, hsl(40 70% 50%), hsl(40 55% 68%));
+        --navy-gradient: linear-gradient(180deg, hsl(222 30% 6%), hsl(222 22% 10%));
+        --section-alt: 222 18% 8%;
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground font-sans antialiased;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-heading;
+    }
+}
+
+@layer utilities {
+    .gold-text {
+        @apply text-primary;
+    }
+
+    .gold-gradient-text {
+        background: linear-gradient(135deg, hsl(40 70% 50%), hsl(40 55% 68%));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .section-padding {
+        @apply py-16 md:py-20 lg:py-28 px-4 md:px-6 lg:px-8;
+    }
+
+    .section-alt {
+        background-color: hsl(222 18% 8%);
+    }
+
+    .card-hover {
+        @apply transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_hsl(40_70%_50%/0.2)];
+    }
+
+    .image-zoom {
+        @apply overflow-hidden;
+    }
+
+    .image-zoom img {
+        @apply transition-transform duration-700 hover:scale-110;
+    }
+
+    .btn-shine {
+        @apply relative overflow-hidden;
+    }
+
+    .btn-shine::after {
+        content: '';
+        @apply absolute inset-0 -translate-x-full;
+        background: linear-gradient(90deg, transparent, hsla(40, 70%, 50%, 0.2), transparent);
+        transition: transform 0.6s;
+    }
+
+    .btn-shine:hover::after {
+        @apply translate-x-full;
+    }
+
+    /* Pattern Backgrounds */
+    .pattern-dots {
+        background-image: radial-gradient(circle at 1px 1px, hsl(40 70% 50% / 0.1) 1px, transparent 0);
+        background-size: 24px 24px;
+    }
+
+    .pattern-grid {
+        background-image:
+            linear-gradient(hsla(222, 15%, 16%, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, hsla(222, 15%, 16%, 0.1) 1px, transparent 1px);
+        background-size: 30px 30px;
+    }
+
+    .pattern-gold {
+        background-image:
+            linear-gradient(45deg, hsl(40 70% 50% / 0.03) 25%, transparent 25%),
+            linear-gradient(-45deg, hsl(40 70% 50% / 0.03) 25%, transparent 25%);
+        background-size: 20px 20px;
+    }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: hsl(222 30% 6%);
+}
+
+::-webkit-scrollbar-thumb {
+    background: hsl(40 70% 50% / 0.3);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: hsl(40 70% 50% / 0.5);
+}
+
+/* Smooth Scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Infinite Scroll Animation */
+@keyframes infinite-scroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.animate-infinite-scroll {
+    animation: infinite-scroll 40s linear infinite;
+    width: fit-content;
+}
+
+.animate-infinite-scroll:hover {
+    animation-play-state: paused;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Scale Animation */
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.animate-scale-in {
+    animation: scaleIn 0.5s ease-out forwards;
+}
+
+/* Slide In Left */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.animate-slide-left {
+    animation: slideInLeft 0.6s ease-out forwards;
+}
+
+/* Slide In Right */
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.animate-slide-right {
+    animation: slideInRight 0.6s ease-out forwards;
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.animate-pulse-slow {
+    animation: pulse 3s ease-in-out infinite;
+}
+
+/* Gradient Animation */
+@keyframes gradient-shift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient-shift 5s ease infinite;
+}
+
+/* Rotate Animation */
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-rotate {
+    animation: rotate 20s linear infinite;
+}
+
+/* Responsive Typography */
+@media (max-width: 640px) {
+    .section-padding {
+        @apply py-12 px-4;
+    }
+
+    h1 {
+        @apply text-4xl;
+    }
+
+    h2 {
+        @apply text-3xl;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .section-padding {
+        @apply py-4;
+    }
+
+    .no-print {
+        display: none;
+    }
+}

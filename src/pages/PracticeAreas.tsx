@@ -1,0 +1,1270 @@
+"use client";
+
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowLeft, CheckCircle, Mail, Phone, MapPin, Clock, ChevronLeft, ChevronRight, Scale, Users, Award, Briefcase, BookOpen, Star, Send, ArrowRight } from "lucide-react";
+import AnimatedSection from "../components/AnimatedSection";
+
+// Individual Practice Area Data - Updated based on your list
+const corporateLaw = {
+  slug: "corporate-law",
+  title: "Corporate Law",
+  shortDesc: "Strategic counsel for businesses of all sizes, from startups to established corporations.",
+  bannerImage: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  overview: "Our corporate law practice covers business formation, corporate governance, mergers and acquisitions, joint ventures, securities regulation, and commercial contracts. We guide businesses through complex transactions with precision and foresight.",
+  keyServices: [
+    "Mergers & Acquisitions",
+    "Corporate Governance", 
+    "Securities & Compliance",
+    "Joint Ventures",
+    "Commercial Contracts",
+    "Business Formation",
+    "Private Equity",
+    "Venture Capital"
+  ],
+  industries: [
+    "Technology",
+    "Finance & Banking",
+    "Healthcare",
+    "Manufacturing",
+    "Energy & Utilities",
+    "Real Estate"
+  ],
+  featuredImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  featuredTitle: "Excellence in Corporate Law",
+  featuredSubtitle: "Trusted by businesses worldwide"
+};
+
+const criminalLaw = {
+  slug: "criminal-law",
+  title: "Criminal Law",
+  shortDesc: "Vigorous defense of your rights in criminal proceedings at all levels.",
+  bannerImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  overview: "Our criminal defense team provides aggressive representation, protecting our clients' constitutional rights while pursuing the best possible outcome. We handle cases from initial investigation through trial and appeal.",
+  keyServices: [
+    "White Collar Crime",
+    "Drug Offenses",
+    "DUI Defense",
+    "Federal Cases",
+    "Appeals",
+    "Expungement",
+    "Sex Crimes",
+    "Violent Crimes"
+  ],
+  industries: ["All Criminal Defense Matters"],
+  featuredImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  featuredTitle: "Aggressive Criminal Defense",
+  featuredSubtitle: "Protecting your rights and freedom"
+};
+
+const civilLaw = {
+  slug: "civil-law",
+  title: "Civil Law",
+  shortDesc: "Expert representation in civil disputes and litigation matters.",
+  bannerImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  overview: "Our civil law practice handles a wide range of disputes between individuals, organizations, and entities. We provide strategic counsel and aggressive representation in all phases of civil litigation.",
+  keyServices: [
+    "Contract Disputes",
+    "Property Disputes",
+    "Tort Claims",
+    "Personal Injury",
+    "Consumer Protection",
+    "Debt Recovery",
+    "Civil Rights",
+    "Alternative Dispute Resolution"
+  ],
+  industries: [
+    "Individuals",
+    "Small Businesses",
+    "Corporations",
+    "Non-Profits",
+    "Government Entities"
+  ],
+  featuredImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  featuredTitle: "Civil Litigation Experts",
+  featuredSubtitle: "Resolving disputes effectively"
+};
+
+const familyLaw = {
+  slug: "family-law",
+  title: "Family Law",
+  shortDesc: "Compassionate legal guidance for family matters and relationships.",
+  bannerImage: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  overview: "Our family law practice provides sensitive and strategic counsel for all family-related legal matters. We understand the emotional nature of these cases and work to achieve the best possible outcomes for our clients and their families.",
+  keyServices: [
+    "Divorce & Separation",
+    "Child Custody",
+    "Child Support",
+    "Spousal Support",
+    "Property Division",
+    "Adoption",
+    "Guardianship",
+    "Domestic Violence Protection"
+  ],
+  industries: ["Individuals & Families"],
+  featuredImage: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  featuredTitle: "Family Law Specialists",
+  featuredSubtitle: "Compassionate guidance for life's changes"
+};
+
+const propertyLaw = {
+  slug: "property-law",
+  title: "Property Law",
+  shortDesc: "Comprehensive legal services for all property-related matters.",
+  bannerImage: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  overview: "Our property law practice handles all aspects of real estate and property matters, from transactions and development to disputes and title issues. We provide expert guidance for both commercial and residential property matters.",
+  keyServices: [
+    "Property Transactions",
+    "Title Searches & Insurance",
+    "Land Use & Zoning",
+    "Property Disputes",
+    "Easements & Covenants",
+    "Lease Agreements",
+    "Property Development",
+    "Boundary Disputes"
+  ],
+  industries: [
+    "Real Estate Developers",
+    "Property Owners",
+    "Tenants",
+    "Investors",
+    "Financial Institutions"
+  ],
+  featuredImage: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  featuredTitle: "Property Law Experts",
+  featuredSubtitle: "Protecting your property interests"
+};
+
+const arbitration = {
+  slug: "arbitration",
+  title: "Arbitration",
+  shortDesc: "Expert arbitration services for efficient dispute resolution.",
+  bannerImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  overview: "Our arbitration practice provides expert alternative dispute resolution services, helping clients resolve conflicts efficiently and cost-effectively outside of traditional court litigation.",
+  keyServices: [
+    "Commercial Arbitration",
+    "International Arbitration",
+    "Construction Arbitration",
+    "Investment Disputes",
+    "Arbitration Advocacy",
+    "Award Enforcement",
+    "Mediation Services",
+    "Dispute Resolution Strategy"
+  ],
+  industries: [
+    "Corporate Sector",
+    "Construction Industry",
+    "International Trade",
+    "Financial Services",
+    "Energy Sector"
+  ],
+  featuredImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  featuredTitle: "Alternative Dispute Resolution",
+  featuredSubtitle: "Efficient, cost-effective solutions"
+};
+
+const intellectualProperty = {
+  slug: "intellectual-property",
+  title: "Intellectual Property",
+  shortDesc: "Protecting your innovations, creations, and brand identity.",
+  bannerImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  overview: "Our intellectual property practice helps clients protect and enforce their valuable IP rights, including patents, trademarks, copyrights, and trade secrets. We provide comprehensive IP counsel from registration to litigation.",
+  keyServices: [
+    "Patent Registration",
+    "Trademark Registration",
+    "Copyright Protection",
+    "Trade Secret Protection",
+    "IP Licensing",
+    "IP Litigation",
+    "Brand Protection",
+    "IP Portfolio Management"
+  ],
+  industries: [
+    "Technology",
+    "Creative Arts",
+    "Manufacturing",
+    "Pharmaceuticals",
+    "Software Development",
+    "Media & Entertainment"
+  ],
+  featuredImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  featuredTitle: "IP Protection Specialists",
+  featuredSubtitle: "Safeguarding your innovations"
+};
+
+const taxLaw = {
+  slug: "tax-law",
+  title: "Tax Law",
+  shortDesc: "Strategic tax planning and representation for individuals and businesses.",
+  bannerImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  overview: "Our tax law practice provides comprehensive tax planning, compliance, and dispute resolution services. We help clients navigate complex tax regulations while minimizing liabilities and ensuring compliance.",
+  keyServices: [
+    "Tax Planning",
+    "Tax Compliance",
+    "Tax Disputes & Litigation",
+    "International Taxation",
+    "Corporate Taxation",
+    "Individual Taxation",
+    "Estate & Gift Tax",
+    "Tax Audits & Appeals"
+  ],
+  industries: [
+    "Corporations",
+    "Small Businesses",
+    "High-Net-Worth Individuals",
+    "Non-Profits",
+    "International Entities"
+  ],
+  featuredImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  featuredTitle: "Tax Law Experts",
+  featuredSubtitle: "Strategic tax solutions"
+};
+
+const contractLaw = {
+  slug: "contract-and-agreement-reviewing",
+  title: "Contract & Agreement Reviewing",
+  shortDesc: "Expert review and drafting of contracts and agreements.",
+  bannerImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  overview: "Our contract law practice specializes in drafting, reviewing, and negotiating all types of contracts and agreements. We ensure your interests are protected and your agreements are legally sound and enforceable.",
+  keyServices: [
+    "Contract Drafting",
+    "Contract Review",
+    "Contract Negotiation",
+    "Employment Agreements",
+    "Service Contracts",
+    "Non-Disclosure Agreements",
+    "Partnership Agreements",
+    "Commercial Leases"
+  ],
+  industries: [
+    "All Industries",
+    "Small Businesses",
+    "Corporations",
+    "Startups",
+    "Individuals"
+  ],
+  featuredImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  featuredTitle: "Contract Law Specialists",
+  featuredSubtitle: "Protecting your contractual interests"
+};
+
+// Map all practice areas - Updated with correct mapping
+const practiceAreasMap = {
+  "corporate-law": corporateLaw,
+  "criminal-law": criminalLaw,
+  "civil-law": civilLaw,
+  "family-law": familyLaw,
+  "property-law": propertyLaw,
+  "arbitration": arbitration,
+  "intellectual-property": intellectualProperty,
+  "tax-law": taxLaw,
+  "contract-and-agreement-reviewing": contractLaw
+};
+
+// All practice areas array for listing - Updated with correct areas
+const allPracticeAreas = [
+  criminalLaw,
+  civilLaw,
+  corporateLaw,
+  familyLaw,
+  propertyLaw,
+  arbitration,
+  intellectualProperty,
+  taxLaw,
+  contractLaw
+];
+
+// Practice areas for sidebar - Updated with correct areas
+const sidebarPracticeAreas = [
+  { name: "Criminal Law", slug: "criminal-law" },
+  { name: "Civil Law", slug: "civil-law" },
+  { name: "Corporate Law", slug: "corporate-law" },
+  { name: "Family Law", slug: "family-law" },
+  { name: "Property Law", slug: "property-law" },
+  { name: "Arbitration", slug: "arbitration" },
+  { name: "Intellectual Property", slug: "intellectual-property" },
+  { name: "Tax Law", slug: "tax-law" },
+  { name: "Contract & Agreement Reviewing", slug: "contract-and-agreement-reviewing" }
+];
+
+// Why Choose Us data
+const whyChooseUs = [
+  { icon: Scale, title: "4+ Years Experience", desc: "Decades of combined legal expertise across industries" },
+  { icon: Users, title: "Dedicated Team", desc: "Personal attention from senior partners on every case" },
+  { icon: Award, title: "Award-Winning Service", desc: "Recognized by leading legal publications" },
+  { icon: Briefcase, title: "Proven Results", desc: "Favorable outcomes for clients across practice areas" },
+];
+
+// Case Studies data
+const caseStudies = [
+  {
+    id: 1,
+    title: "Complex Corporate Merger",
+    category: "Corporate Law",
+    description: "Successfully negotiated and closed a multi-million dollar merger for a growing technology company.",
+    image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    result: "Favorable terms for all parties"
+  },
+  {
+    id: 2,
+    title: "Criminal Defense Victory",
+    category: "Criminal Law",
+    description: "Secured acquittal for client in complex white-collar crime case.",
+    image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    result: "Complete acquittal"
+  },
+  {
+    id: 3,
+    title: "Property Dispute Resolution",
+    category: "Property Law",
+    description: "Successfully resolved boundary dispute through mediation, avoiding costly litigation.",
+    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    result: "Favorable settlement reached"
+  },
+  {
+    id: 4,
+    title: "Family Law Mediation",
+    category: "Family Law",
+    description: "Facilitated amicable divorce settlement preserving family relationships.",
+    image: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    result: "Mutually acceptable agreement"
+  }
+];
+
+// FAQ data
+const faqs = [
+  {
+    question: "What makes your legal practice unique?",
+    answer: "Our team combines decades of experience with innovative approaches to complex legal challenges. We've handled matters ranging from individual representation to complex corporate transactions."
+  },
+  {
+    question: "How do you structure legal fees?",
+    answer: "We offer flexible fee arrangements including hourly rates, flat fees for specific services, and contingency fees where appropriate. We'll work with you to find the best structure for your needs."
+  },
+  {
+    question: "What practice areas do you specialize in?",
+    answer: "We specialize in Criminal Law, Civil Law, Corporate Law, Family Law, Property Law, Arbitration, Intellectual Property, Tax Law, and Contract & Agreement Reviewing."
+  },
+  {
+    question: "How quickly can you respond to urgent matters?",
+    answer: "We pride ourselves on rapid response times. Most client inquiries receive initial responses within 2-4 hours, and we're available for emergencies."
+  }
+];
+
+// Animation variants
+const fadeInUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { 
+      duration: 0.9, 
+      ease: [0.25, 0.1, 0.25, 1] as const
+    } 
+  }
+};
+
+const fadeInDown = {
+  hidden: { opacity: 0, y: -40 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { 
+      duration: 0.9, 
+      ease: [0.25, 0.1, 0.25, 1] as const
+    } 
+  }
+};
+
+const slideFromLeft = {
+  hidden: { opacity: 0, x: -50 },
+  visible: { 
+    opacity: 1, 
+    x: 0, 
+    transition: { 
+      duration: 1, 
+      ease: [0.25, 0.1, 0.25, 1] as const
+    } 
+  }
+};
+
+const slideFromRight = {
+  hidden: { opacity: 0, x: 50 },
+  visible: { 
+    opacity: 1, 
+    x: 0, 
+    transition: { 
+      duration: 1, 
+      ease: [0.25, 0.1, 0.25, 1] as const
+    } 
+  }
+};
+
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: { 
+    opacity: 1, 
+    scale: 1, 
+    transition: { 
+      duration: 0.8, 
+      ease: [0.25, 0.1, 0.25, 1] as const
+    } 
+  }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.2,
+      ease: [0.25, 0.1, 0.25, 1] as const
+    }
+  }
+};
+
+export const PracticeAreas = () => {
+  return (
+    <div className="-mt-20">
+      {/* Banner Section - Dark Theme with Background Image */}
+      <section 
+        className="relative w-full bg-cover bg-center bg-no-repeat overflow-hidden"
+        style={{
+          backgroundImage: "url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+        }}
+      >
+        {/* Dark Overlay */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5 }}
+          className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/60 to-black/70"
+        />
+        
+        {/* Animated Pattern Overlay */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.1 }}
+          transition={{ duration: 2, delay: 0.5 }}
+          className="absolute inset-0 pattern-gold"
+        />
+        
+        {/* Floating particles animation */}
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ 
+                x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
+                y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000),
+                scale: 0
+              }}
+              animate={{ 
+                y: [null, -100],
+                scale: [0, 1, 0],
+                opacity: [0, 0.5, 0]
+              }}
+              transition={{
+                duration: 8 + Math.random() * 5,
+                repeat: Infinity,
+                delay: Math.random() * 5,
+                ease: "linear" as const
+              }}
+              className="absolute w-1 h-1 bg-gold-400/30 rounded-full"
+              style={{ backgroundColor: '#D4AF37' }}
+            />
+          ))}
+        </div>
+        
+        {/* Content */}
+        <div className="relative z-10 container mx-auto px-4 py-32 md:py-40 lg:py-48">
+          <motion.div 
+            initial="hidden"
+            animate="visible"
+            variants={staggerContainer}
+            className="text-center max-w-3xl mx-auto"
+          >
+            <motion.div 
+              variants={fadeInDown}
+              className="flex items-center justify-center gap-3 mb-6"
+            >
+              <motion.span 
+                initial={{ width: 0 }}
+                animate={{ width: 40 }}
+                transition={{ delay: 0.6, duration: 1.2, ease: [0.25, 0.1, 0.25, 1] as const }}
+                className="h-px bg-gold-500"
+                style={{ backgroundColor: '#D4AF37' }}
+              />
+              <motion.p 
+                variants={slideFromLeft}
+                className="text-sm uppercase tracking-[0.2em] font-semibold"
+                style={{ color: '#D4AF37' }}
+              >
+                Practice Areas
+              </motion.p>
+              <motion.span 
+                initial={{ width: 0 }}
+                animate={{ width: 40 }}
+                transition={{ delay: 0.6, duration: 1.2, ease: [0.25, 0.1, 0.25, 1] as const }}
+                className="h-px bg-gold-500"
+                style={{ backgroundColor: '#D4AF37' }}
+              />
+            </motion.div>
+            
+            <motion.h1 
+              variants={fadeInUp}
+              className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 text-white"
+            >
+              Comprehensive <motion.span 
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.2, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] as const }}
+                className="italic inline-block"
+                style={{ color: '#D4AF37' }}
+              >Legal Services</motion.span>
+            </motion.h1>
+            
+            <motion.p 
+              variants={fadeInUp}
+              className="text-gray-300 text-lg leading-relaxed max-w-2xl mx-auto"
+            >
+              Our attorneys bring deep expertise across a wide range of legal disciplines to serve your needs.
+            </motion.p>
+          </motion.div>
+        </div>
+
+        {/* Decorative bottom gradient */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5, duration: 1.5 }}
+          className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent"
+        />
+      </section>
+
+      {/* Practice Areas Grid Section - White Theme */}
+      <section className="section-padding bg-white">
+        <div className="container mx-auto">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={staggerContainer}
+            className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
+          >
+            <motion.div 
+              variants={fadeInDown}
+              className="flex items-center justify-center gap-3 mb-4"
+            >
+              <motion.span 
+                initial={{ width: 0 }}
+                whileInView={{ width: 40 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4, duration: 1.2 }}
+                className="h-px"
+                style={{ backgroundColor: '#D4AF37' }}
+              />
+              <motion.p 
+                variants={slideFromLeft}
+                className="text-sm uppercase tracking-[0.2em] font-semibold"
+                style={{ color: '#D4AF37' }}
+              >
+                Our Expertise
+              </motion.p>
+              <motion.span 
+                initial={{ width: 0 }}
+                whileInView={{ width: 40 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4, duration: 1.2 }}
+                className="h-px"
+                style={{ backgroundColor: '#D4AF37' }}
+              />
+            </motion.div>
+            
+            <motion.h2 
+              variants={fadeInUp}
+              className="text-3xl md:text-4xl font-heading font-bold text-black mb-4"
+            >
+              Areas of <span className="text-[#D4AF37] italic">Practice</span>
+            </motion.h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {allPracticeAreas.map((area, i) => (
+              <motion.div
+                key={area.slug}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={scaleIn}
+                transition={{ delay: i * 0.1 }}
+                whileHover={{ 
+                  y: -10,
+                  boxShadow: '0 20px 40px -15px rgba(212, 175, 55, 0.3)',
+                  transition: { duration: 0.4 }
+                }}
+                className="h-full"
+              >
+                <Link 
+                  href={`/practice-areas/${area.slug}`} 
+                  className="block p-8 bg-white border border-gray-200 rounded-lg shadow-sm hover:border-gold-500 transition-all duration-500 group h-full"
+                >
+                  <motion.h3 
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.1 + 0.2 }}
+                    className="text-xl font-heading font-semibold text-black mb-3 group-hover:text-gold-500 transition-colors"
+                  >
+                    {area.title}
+                  </motion.h3>
+                  
+                  <motion.p 
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ delay: i * 0.1 + 0.3 }}
+                    className="text-sm text-gray-600 leading-relaxed mb-4"
+                  >
+                    {area.shortDesc}
+                  </motion.p>
+                  
+                  <motion.span 
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: i * 0.1 + 0.4 }}
+                    className="inline-flex items-center gap-1 group-hover:gap-2 transition-all"
+                    style={{ color: '#D4AF37' }}
+                  >
+                    Learn More 
+                    <motion.div
+                      animate={{ x: [0, 5, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" as const, delay: i * 0.1 }}
+                    >
+                      <ArrowRight className="w-4 h-4" />
+                    </motion.div>
+                  </motion.span>
+
+                  {/* Animated underline on hover */}
+                  <motion.div
+                    initial={{ scaleX: 0 }}
+                    whileHover={{ scaleX: 1 }}
+                    transition={{ duration: 0.3 }}
+                    className="h-0.5 mt-4 origin-left"
+                    style={{ backgroundColor: '#D4AF37' }}
+                  />
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+// Update the PracticeAreaDetail component to accept slug as a prop
+export const PracticeAreaDetail = ({ slug }: { slug: string }) => {
+  const [currentCase, setCurrentCase] = useState(0);
+  const [selectedArea, setSelectedArea] = useState(slug || "corporate-law");
+  
+  const area = practiceAreasMap[slug as keyof typeof practiceAreasMap];
+
+  const nextCase = () => {
+    setCurrentCase((prev) => (prev + 1) % caseStudies.length);
+  };
+
+  const prevCase = () => {
+    setCurrentCase((prev) => (prev - 1 + caseStudies.length) % caseStudies.length);
+  };
+
+  if (!area) {
+    return (
+      <div className="section-padding pt-32 text-center min-h-screen">
+        <h1 className="text-2xl font-heading font-bold mb-4 text-foreground">Practice Area Not Found</h1>
+        <Link href="/practice-areas" className="text-primary hover:text-accent transition-colors">
+          ← Back to Practice Areas
+        </Link>
+      </div>
+    );
+  }
+
+  return (
+    <div className="-mt-20">
+      {/* Banner Section - Dark Theme with Background Image */}
+      <section 
+        className="relative w-full bg-cover bg-center bg-no-repeat overflow-hidden"
+        style={{
+          backgroundImage: `url('${area.bannerImage}')`,
+        }}
+      >
+        {/* Dark Overlay */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5 }}
+          className="absolute inset-0 bg-gradient-to-br from-background/60 via-background/50 to-background/60"
+        />
+        
+        {/* Animated Pattern Overlay */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.1 }}
+          transition={{ duration: 2, delay: 0.5 }}
+          className="absolute inset-0 pattern-gold"
+        />
+        
+        {/* Floating particles */}
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ 
+                x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
+                y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000),
+                scale: 0
+              }}
+              animate={{ 
+                y: [null, -100],
+                scale: [0, 1, 0],
+                opacity: [0, 0.5, 0]
+              }}
+              transition={{
+                duration: 8 + Math.random() * 5,
+                repeat: Infinity,
+                delay: Math.random() * 5,
+                ease: "linear" as const
+              }}
+              className="absolute w-1 h-1 bg-primary/30 rounded-full"
+            />
+          ))}
+        </div>
+        
+        {/* Content */}
+        <div className="relative z-10 container mx-auto px-4 py-32 md:py-40 lg:py-48">
+          <motion.div 
+            initial="hidden"
+            animate="visible"
+            variants={staggerContainer}
+            className="max-w-3xl mx-auto"
+          >
+            <motion.div variants={slideFromLeft}>
+              <Link href="/practice-areas" className="inline-flex items-center gap-2 text-primary text-sm font-semibold mb-8 hover:gap-3 transition-all">
+                <ArrowLeft className="w-4 h-4" /> All Practice Areas
+              </Link>
+            </motion.div>
+            
+            <motion.h1 
+              variants={fadeInUp}
+              className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 text-foreground"
+            >
+              {area.title}
+            </motion.h1>
+            
+            <motion.p 
+              variants={fadeInUp}
+              className="text-muted-foreground text-lg leading-relaxed"
+            >
+              {area.shortDesc}
+            </motion.p>
+          </motion.div>
+        </div>
+
+        {/* Decorative bottom gradient */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5, duration: 1.5 }}
+          className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent"
+        />
+      </section>
+
+      {/* Main Content Section - White Theme */}
+      <section className="section-padding bg-white">
+        <div className="container mx-auto">
+          <div className="grid lg:grid-cols-12 gap-8">
+            {/* Left Sidebar - Sticky */}
+            <div className="lg:col-span-4 lg:sticky lg:top-24 h-fit">
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={scaleIn}
+                className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm"
+              >
+                <h3 className="text-xl font-heading font-semibold text-black mb-6">Practice Areas</h3>
+                <div className="space-y-3">
+                  {sidebarPracticeAreas.map((item, index) => (
+                    <motion.div
+                      key={item.slug}
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                    >
+                      <Link
+                        href={`/practice-areas/${item.slug}`}
+                        onClick={() => setSelectedArea(item.slug)}
+                        className={`block p-4 rounded-lg transition-all duration-300 ${
+                          selectedArea === item.slug
+                            ? 'bg-primary/10 border-l-4 border-primary'
+                            : 'bg-gray-50 hover:bg-primary/5 border-l-4 border-transparent'
+                        }`}
+                      >
+                        <span className={`font-medium ${
+                          selectedArea === item.slug ? 'text-primary' : 'text-gray-700'
+                        }`}>
+                          {item.name}
+                        </span>
+                      </Link>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Consultation Card */}
+                <motion.div
+                  variants={scaleIn}
+                  className="mt-8 p-6 bg-gradient-to-br from-primary/10 to-primary/5 rounded-lg border border-primary/20 relative overflow-hidden group"
+                >
+                  <div className="absolute inset-0 pattern-gold opacity-10" />
+                  <div className="relative z-10">
+                    <h4 className="text-lg font-heading font-semibold text-black mb-3">Free Consultation</h4>
+                    <p className="text-sm text-gray-600 mb-4">
+                      Speak with our experienced attorneys today about your legal matter.
+                    </p>
+                    <Link
+                      href="/contact"
+                      className="inline-block w-full px-4 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-accent transition-all duration-500 text-center btn-shine mb-3"
+                    >
+                      Schedule Now
+                    </Link>
+                    <a 
+                      href="mailto:jashishadvocate@gmail.com"
+                      className="text-sm text-primary hover:text-accent transition-colors flex items-center justify-center gap-1"
+                    >
+                      <Mail className="w-4 h-4" /> jashishadvocate@gmail.com
+                    </a>
+                  </div>
+                </motion.div>
+              </motion.div>
+            </div>
+
+            {/* Right Content */}
+            <div className="lg:col-span-8 space-y-12">
+              {/* Overview Section */}
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={staggerContainer}
+                className="bg-white border border-gray-200 rounded-lg p-8"
+              >
+                <motion.h2 variants={slideFromLeft} className="text-2xl font-heading font-bold text-black mb-6">
+                  Overview
+                </motion.h2>
+                <motion.p variants={fadeInUp} className="text-gray-700 leading-relaxed mb-8">
+                  {area.overview}
+                </motion.p>
+
+                <motion.h3 variants={slideFromLeft} className="text-xl font-heading font-semibold text-black mb-4">
+                  Key Services
+                </motion.h3>
+                <div className="grid sm:grid-cols-2 gap-4 mb-8">
+                  {area.keyServices.map((service, idx) => (
+                    <motion.div
+                      key={idx}
+                      variants={scaleIn}
+                      transition={{ delay: idx * 0.05 }}
+                      className="flex items-center gap-3"
+                    >
+                      <CheckCircle className="w-5 h-5 text-primary shrink-0" />
+                      <span className="text-gray-700 text-sm">{service}</span>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <motion.h3 variants={slideFromLeft} className="text-xl font-heading font-semibold text-black mb-4">
+                  Industries We Serve
+                </motion.h3>
+                <div className="flex flex-wrap gap-2">
+                  {area.industries.map((industry, idx) => (
+                    <motion.span
+                      key={idx}
+                      variants={scaleIn}
+                      transition={{ delay: idx * 0.05 }}
+                      className="px-3 py-1.5 bg-primary/10 text-primary rounded-lg text-sm font-medium"
+                    >
+                      {industry}
+                    </motion.span>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Featured Image */}
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={scaleIn}
+                className="relative h-96 rounded-lg overflow-hidden group"
+              >
+                <img
+                  src={area.featuredImage}
+                  alt={area.title}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                <div className="absolute bottom-0 left-0 p-8">
+                  <h3 className="text-2xl font-heading font-bold text-white mb-2">{area.featuredTitle}</h3>
+                  <p className="text-gray-200">{area.featuredSubtitle}</p>
+                </div>
+              </motion.div>
+
+              {/* Why Choose Us */}
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={staggerContainer}
+                className="bg-white border border-gray-200 rounded-lg p-8"
+              >
+                <motion.h2 variants={slideFromLeft} className="text-2xl font-heading font-bold text-black mb-6">
+                  Why Choose Us
+                </motion.h2>
+                <div className="grid sm:grid-cols-2 gap-6">
+                  {whyChooseUs.map((item, idx) => (
+                    <motion.div
+                      key={idx}
+                      variants={scaleIn}
+                      transition={{ delay: idx * 0.1 }}
+                      className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg hover:bg-primary/5 transition-colors duration-500"
+                    >
+                      <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
+                        <item.icon className="w-6 h-6 text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="font-heading font-semibold text-black mb-1">{item.title}</h4>
+                        <p className="text-sm text-gray-600">{item.desc}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* FAQ Section */}
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={staggerContainer}
+                className="bg-white border border-gray-200 rounded-lg p-8"
+              >
+                <motion.h2 variants={slideFromLeft} className="text-2xl font-heading font-bold text-black mb-6">
+                  We're here to answer all your questions!
+                </motion.h2>
+                <div className="space-y-4">
+                  {faqs.map((faq, idx) => (
+                    <motion.div
+                      key={idx}
+                      variants={fadeInUp}
+                      transition={{ delay: idx * 0.1 }}
+                      className="border-b border-gray-200 last:border-0 pb-4 last:pb-0"
+                    >
+                      <h4 className="font-heading font-semibold text-black mb-2">{faq.question}</h4>
+                      <p className="text-sm text-gray-600">{faq.answer}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Case Studies Slider */}
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={staggerContainer}
+                className="bg-white border border-gray-200 rounded-lg p-8"
+              >
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                  <motion.h2 variants={slideFromLeft} className="text-2xl font-heading font-bold text-black">
+                    Case Studies
+                  </motion.h2>
+                  <div className="flex gap-2">
+                    <motion.button
+                      whileHover={{ scale: 1.1, backgroundColor: 'hsl(40 70% 50%)', color: 'white' }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={prevCase}
+                      className="w-10 h-10 rounded-full border border-primary/30 flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
+                    >
+                      <ChevronLeft className="w-5 h-5" />
+                    </motion.button>
+                    <motion.button
+                      whileHover={{ scale: 1.1, backgroundColor: 'hsl(40 70% 50%)', color: 'white' }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={nextCase}
+                      className="w-10 h-10 rounded-full border border-primary/30 flex items-center justify-center hover:bg-primary hover:text-white transition-colors"
+                    >
+                      <ChevronRight className="w-5 h-5" />
+                    </motion.button>
+                  </div>
+                </div>
+
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentCase}
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -50 }}
+                    transition={{ duration: 0.5 }}
+                    className="bg-gray-50 rounded-lg overflow-hidden"
+                  >
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="h-64 md:h-auto">
+                        <img
+                          src={caseStudies[currentCase].image}
+                          alt={caseStudies[currentCase].title}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="p-6">
+                        <span className="text-xs text-primary font-semibold uppercase tracking-wider">
+                          {caseStudies[currentCase].category}
+                        </span>
+                        <h3 className="text-xl font-heading font-semibold text-black mt-2 mb-3">
+                          {caseStudies[currentCase].title}
+                        </h3>
+                        <p className="text-gray-600 text-sm mb-4">
+                          {caseStudies[currentCase].description}
+                        </p>
+                        <div className="flex items-center gap-2 text-primary">
+                          <Star className="w-4 h-4 fill-primary" />
+                          <span className="text-sm font-medium">{caseStudies[currentCase].result}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+
+                <div className="flex justify-center gap-1 mt-4">
+                  {caseStudies.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setCurrentCase(idx)}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        currentCase === idx ? 'w-6 bg-primary' : 'bg-gray-300'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Request a Free Consultation Section - Dark Theme */}
+      <section className="section-padding bg-background relative overflow-hidden">
+        <div className="absolute inset-0 pattern-gold opacity-5" />
+        
+        <div className="container mx-auto relative z-10">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={staggerContainer}
+            className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
+          >
+            <motion.div 
+              variants={fadeInDown}
+              className="flex items-center justify-center gap-3 mb-4"
+            >
+              <motion.span 
+                initial={{ width: 0 }}
+                whileInView={{ width: 40 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4, duration: 1.2 }}
+                className="h-px bg-primary"
+              />
+              <motion.p 
+                variants={slideFromLeft}
+                className="text-sm uppercase tracking-[0.2em] text-primary font-semibold"
+              >
+                Get In Touch
+              </motion.p>
+              <motion.span 
+                initial={{ width: 0 }}
+                whileInView={{ width: 40 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4, duration: 1.2 }}
+                className="h-px bg-primary"
+              />
+            </motion.div>
+            
+            <motion.h2 
+              variants={fadeInUp}
+              className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4"
+            >
+              Request a Free <span className="text-primary">Consultation</span>
+            </motion.h2>
+          </motion.div>
+
+          <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {/* Left Column - Contact Info */}
+            <motion.div
+              variants={staggerContainer}
+              className="space-y-6"
+            >
+              <motion.div variants={scaleIn} className="bg-card border border-border rounded-lg p-6 md:p-8">
+                <h3 className="text-xl font-heading font-semibold text-foreground mb-6">Contact Information</h3>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
+                      <MapPin className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-foreground mb-1">Visit Us</p>
+                      <p className="text-sm text-muted-foreground">No. 137, Flat No. F-8, <br />
+1st Floor, Appu Manor Apartment, <br />
+Perambur Barracks Road, <br />
+Purasawalkam, Chennai 600 007.
+</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
+                      <Phone className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-foreground mb-1">Call Us</p>
+                      <a href="tel:+12125550100" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                        7373663555
+                      </a>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
+                      <Mail className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-foreground mb-1">Email Us</p>
+                      <a href="mailto:jashishadvocate@gmail.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                        jashishadvocate@gmail.com
+                      </a>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
+                      <Clock className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-foreground mb-1">Office Hours</p>
+                      <p className="text-sm text-muted-foreground">Mon – Fri: 9:00 AM – 7:00 PM</p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.div variants={scaleIn} className="bg-card border border-border rounded-lg p-6 md:p-8">
+                <h3 className="text-xl font-heading font-semibold text-foreground mb-4">Why Choose Us</h3>
+                <ul className="space-y-3">
+                  <li className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary shrink-0" />
+                    <span className="text-sm text-muted-foreground">4+ years of combined experience</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary shrink-0" />
+                    <span className="text-sm text-muted-foreground">Personal attention from senior partners</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary shrink-0" />
+                    <span className="text-sm text-muted-foreground">Free initial consultation</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <CheckCircle className="w-5 h-5 text-primary shrink-0" />
+                    <span className="text-sm text-muted-foreground">No win, no fee options available</span>
+                  </li>
+                </ul>
+              </motion.div>
+            </motion.div>
+
+            {/* Right Column - Form */}
+            <motion.div
+              variants={slideFromRight}
+              className="bg-card border border-border rounded-lg p-6 md:p-8"
+            >
+              <h3 className="text-xl font-heading font-semibold text-foreground mb-6">Send us a Message</h3>
+              <form className="space-y-4">
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-2 block">Full Name *</label>
+                  <input
+                    type="text"
+                    required
+                    className="w-full px-4 py-3 bg-secondary border border-border rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                    placeholder="Your Name"
+                  />
+                </div>
+                
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-2 block">Email *</label>
+                  <input
+                    type="email"
+                    required
+                    className="w-full px-4 py-3 bg-secondary border border-border rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                    placeholder="Your Email"
+                  />
+                </div>
+                
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-2 block">Phone</label>
+                  <input
+                    type="tel"
+                    className="w-full px-4 py-3 bg-secondary border border-border rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                    placeholder="Your Phone Number"
+                  />
+                </div>
+                
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-2 block">Practice Area *</label>
+                  <select
+                    required
+                    className="w-full px-4 py-3 bg-secondary border border-border rounded-lg text-sm text-foreground focus:outline-none focus:border-primary transition-colors"
+                  >
+                    <option value="">Select a practice area</option>
+                    {allPracticeAreas.map(area => (
+                      <option key={area.slug} value={area.title}>{area.title}</option>
+                    ))}
+                  </select>
+                </div>
+                
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-2 block">Message *</label>
+                  <textarea
+                    required
+                    rows={4}
+                    className="w-full px-4 py-3 bg-secondary border border-border rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors resize-none"
+                    placeholder="Describe your legal matter..."
+                  />
+                </div>
+                
+                <motion.button
+                  type="submit"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full px-6 py-4 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-accent transition-all duration-500 btn-shine flex items-center justify-center gap-2 group"
+                >
+                  <span>Submit Request</span>
+                  <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </motion.button>
+              </form>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default PracticeAreas;
