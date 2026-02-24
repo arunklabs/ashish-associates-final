@@ -1,12 +1,12 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
-import LegalDisclaimerModal from "@/src/components/LegalDisclaimerModal";
-import { Toaster as Sonner } from "@/src/components/ui/sonner";
 import { Toaster } from "@/src/components/ui/toaster";
+import { Toaster as Sonner } from "@/src/components/ui/sonner";
 import { TooltipProvider } from "@/src/components/ui/tooltip";
+import LegalDisclaimerModal from "@/src/components/LegalDisclaimerModal";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
@@ -31,12 +31,10 @@ export default function ClientWrapper({
     // Check if running in browser
     if (typeof window !== 'undefined') {
       const hasAccepted = localStorage.getItem("legalDisclaimerAccepted");
-      const hasSeen = localStorage.getItem("legalDisclaimerSeen");
       
       // Small delay to ensure smooth rendering
       const timer = setTimeout(() => {
-        // Only show disclaimer if user hasn't accepted or seen it
-        if (!hasAccepted && !hasSeen) {
+        if (!hasAccepted) {
           setShowDisclaimer(true);
         }
         setIsLoading(false);
@@ -58,15 +56,20 @@ export default function ClientWrapper({
   };
 
   const handleDecline = () => {
-    // Simply close the modal and allow access to the app
     setShowDisclaimer(false);
     
-    // Mark that the user has seen the disclaimer (even if declined)
-    // This prevents it from showing again during the session
+    // Try multiple methods to leave the site
     try {
-      localStorage.setItem("legalDisclaimerSeen", "true");
+      // Method 1: Try to go back in history
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        // Method 2: If no history, redirect to a safe page (Google or blank)
+        window.location.href = "https://www.google.com";
+      }
     } catch (error) {
-      console.error("Error saving to localStorage:", error);
+      // Method 3: Fallback - redirect to Google
+      window.location.href = "https://www.google.com";
     }
   };
 
