@@ -395,6 +395,8 @@ const Index = () => {
   const heroRef = useRef(null);
   const attorneysRef = useRef(null);
   const newsRef = useRef(null);
+  const [infiniteStripPointerEvents, setInfiniteStripPointerEvents] = useState<"auto" | "none">("auto");
+  const infiniteScrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const [founders, setFounders] = useState<Founder[]>([]);
     const [teamMembers, setTeamMembers] = useState<any[]>([]);
@@ -566,6 +568,24 @@ const handleSubmit = (e: React.FormEvent) => {
     }
     return () => clearInterval(attorneyTimer);
   }, [isHovering, teamMembers.length]);
+
+  // Isolate infinite scroll strip from document scroll (pointer-events off during wheel)
+  useEffect(() => {
+    const SCROLL_ISOLATION_MS = 250;
+    const onWheel = () => {
+      setInfiniteStripPointerEvents("none");
+      if (infiniteScrollTimeoutRef.current) clearTimeout(infiniteScrollTimeoutRef.current);
+      infiniteScrollTimeoutRef.current = setTimeout(() => {
+        setInfiniteStripPointerEvents("auto");
+        infiniteScrollTimeoutRef.current = null;
+      }, SCROLL_ISOLATION_MS);
+    };
+    window.addEventListener("wheel", onWheel, { passive: true });
+    return () => {
+      window.removeEventListener("wheel", onWheel);
+      if (infiniteScrollTimeoutRef.current) clearTimeout(infiniteScrollTimeoutRef.current);
+    };
+  }, []);
 
   const nextSlide = () => {
     setSlideDirection(1);
@@ -1069,12 +1089,15 @@ const cardReveal: Variants = {
   </div>
 </section>
 
-      {/* Highlighted Infinite Scroll - Slower animation */}
-      <section className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 py-8 overflow-hidden border-y border-primary/20">
+      {/* Highlighted Infinite Scroll - no text selection while scrolling */}
+      <section
+        className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 py-8 overflow-hidden border-y border-primary/20 select-none"
+        style={{ pointerEvents: infiniteStripPointerEvents }}
+      >
         <motion.div
           initial={{ x: "100%" }}
           animate={{ x: "-100%" }}
-          transition={{ duration: 45, repeat: Infinity, ease: "linear" as const }} // Increased from 30 to 45
+          transition={{ duration: 45, repeat: Infinity, ease: "linear" as const }}
           className="flex whitespace-nowrap"
         >
           {[...infiniteScrollItems, ...infiniteScrollItems].map((item, index) => (
@@ -1500,7 +1523,7 @@ const cardReveal: Variants = {
             <motion.div
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const }}
-              className="aspect-[3/4] rounded-sm overflow-hidden shadow-2xl"
+              className="aspect-[3/4] rounded-sm overflow-hidden shadow-2xl transform-gpu will-change-transform"
             >
               <img src={
     primaryFounder?.profileImage
@@ -1523,11 +1546,8 @@ const cardReveal: Variants = {
                 delay: 0.6,
                 ease: [0.25, 0.1, 0.25, 1] as const
               }}
-              whileHover={{ 
-                scale: 1.05,
-                boxShadow: "0 20px 40px rgba(0,0,0,0.2)"
-              }}
-              className="absolute -bottom-6 -right-6 bg-primary text-primary-foreground p-8 rounded-sm shadow-2xl cursor-pointer transition-all duration-500"
+              whileHover={{ scale: 1.05 }}
+              className="absolute -bottom-6 -right-6 bg-primary text-primary-foreground p-8 rounded-sm shadow-2xl cursor-pointer transform-gpu will-change-transform"
             >
               <motion.div
                 animate={{ 
@@ -2187,12 +2207,15 @@ const cardReveal: Variants = {
                 className="group relative"
               >
                 <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 h-full">
-                  <motion.div 
-                    initial={{ scaleX: 0 }}
-                    whileInView={{ scaleX: 1 }}
-                    transition={{ delay: index * 0.3, duration: 1.2 }} // Slower
-                    className={`h-2 w-full bg-gradient-to-r ${value.color} origin-left`} 
-                  />
+                  <div className="overflow-hidden min-w-0 w-full">
+                    <motion.div 
+                      initial={{ scaleX: 0 }}
+                      whileInView={{ scaleX: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.3, duration: 1.2 }}
+                      className={`h-2 w-full bg-gradient-to-r ${value.color} origin-left`} 
+                    />
+                  </div>
                   
                   <div className="p-8">
                     <motion.div 
@@ -2279,20 +2302,18 @@ const cardReveal: Variants = {
               <motion.div
                 key={area.title}
                 variants={i % 2 === 0 ? slideFromLeft : slideFromRight}
-                transition={{ delay: i * 0.15 }} // Increased stagger
-                whileHover={{ y: -15, scale: 1.02 }} // Reduced scale
-                className="group"
+                transition={{ delay: i * 0.15 }}
+                whileHover={{ y: -15, scale: 1.02 }}
+                className="group will-change-transform"
               >
                 <Link 
                   href="/practice-areas" 
-                  className="block relative h-[350px] overflow-hidden"
+                  className="block relative h-[350px] overflow-hidden will-change-transform"
                 >
                   <motion.img 
                     src={area.image} 
                     alt={area.title}
-                    className="absolute inset-0 w-full h-full object-cover"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.8 }} // Slower
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-90 group-hover:opacity-95 transition-opacity duration-700" />
@@ -2490,11 +2511,12 @@ const cardReveal: Variants = {
                 key={item.title}
                 variants={i === 0 ? slideFromLeft : i === 2 ? slideFromRight : slideFromLeft}
                 transition={{ delay: i * 0.2 }}
+                viewport={{ once: true }}
               >
                 <motion.div 
                   whileHover={{ y: -15, scale: 1.02 }}
                   transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                  className="text-center p-8 bg-card/50 backdrop-blur-sm border border-border rounded-sm shadow-xl hover:shadow-2xl transition-all duration-500"
+                  className="text-center p-8 bg-card/50 backdrop-blur-sm border border-border rounded-sm shadow-xl transition-transform duration-300"
                 >
                   <motion.div 
                     animate={{ scale: [1, 1.1, 1], rotate: [0, 5, -5, 0] }}
@@ -2564,28 +2586,27 @@ const cardReveal: Variants = {
               <motion.div
                 key={item.source}
                 variants={index % 2 === 0 ? slideFromLeft : slideFromRight}
-                transition={{ delay: index * 0.15 }} // Increased stagger
-                whileHover={{ scale: 1.05, y: -10 }} // Reduced scale
-                className="group relative"
+                transition={{ delay: index * 0.15 }}
+                viewport={{ once: true }}
+                className="group relative h-full"
               >
-                <div className="relative bg-gradient-to-br from-white to-gray-50 rounded-2xl p-6 border border-gray-200 shadow-lg hover:shadow-2xl transition-all duration-500">
-                  {/* Icon */}
+                {/* Hover via CSS only so all rows behave identically (no Framer hover delay on 2nd row) */}
+                <div className="h-full will-change-transform transform-gpu transition-transform duration-200 ease-out hover:scale-[1.05] hover:-translate-y-2.5">
+                  <div className="relative bg-gradient-to-br from-white to-gray-50 rounded-2xl p-6 border border-gray-200 shadow-lg transform-gpu transition-transform duration-300">
+                  {/* Icon - group-hover only; same duration as card for consistent hover */}
                   <div className="relative z-10 mb-4">
-                    <motion.div 
-                      whileHover={{ rotate: 180 }}
-                      transition={{ duration: 1.2 }}
-                      className="w-14 h-14 mx-auto bg-gradient-to-br from-primary to-primary/80 rounded-2xl flex items-center justify-center"
-                    >
+                    <div className="w-14 h-14 mx-auto bg-gradient-to-br from-primary to-primary/80 rounded-2xl flex items-center justify-center group-hover:rotate-180 transition-transform duration-300">
                       <item.icon className="w-7 h-7 text-white" />
-                    </motion.div>
+                    </div>
                   </div>
                   
-                  <div className="relative z-10 text-center">
+                  <div className="relative z-10 text-center min-h-[4.5rem]">
                     <h3 className="text-lg font-semibold text-gray-900 mb-1">{item.source}</h3>
                     <motion.div 
                       initial={{ scale: 0 }}
                       whileInView={{ scale: 1 }}
-                      transition={{ delay: index * 0.3, duration: 0.8 }} // Slower
+                      viewport={{ once: true }}
+                      transition={{ delay: index * 0.3, duration: 0.8 }}
                       className="text-xl font-semibold text-primary mb-2"
                     >
                       {item.rating}
@@ -2597,6 +2618,7 @@ const cardReveal: Variants = {
                           key={i}
                           initial={{ scale: 0 }}
                           whileInView={{ scale: 1 }}
+                          viewport={{ once: true }}
                           transition={{ delay: index * 0.3 + i * 0.1, duration: 0.5 }}
                         >
                           <Star className="w-4 h-4 fill-primary text-primary" />
@@ -2611,11 +2633,10 @@ const cardReveal: Variants = {
                     </div>
                   </div>
                   
-                  <motion.div 
-                    initial={{ scaleX: 0 }}
-                    whileHover={{ scaleX: 1 }}
-                    className="absolute inset-x-0 bottom-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent origin-left transition-transform duration-700"
-                  />
+                  <div className="absolute inset-x-0 bottom-0 h-1 overflow-hidden rounded-b-2xl">
+                    <div className="h-full w-full bg-gradient-to-r from-transparent via-primary to-transparent origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                  </div>
+                </div>
                 </div>
               </motion.div>
             ))}
@@ -2769,10 +2790,10 @@ const cardReveal: Variants = {
                     key={post.title}
                     whileHover={{ y: -15, scale: 1.02 }}
                     transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                    className="group cursor-pointer"
+                    className="group cursor-pointer h-full flex flex-col"
                   >
-                    <div className="bg-white border border-gray-200 rounded-sm overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
-                      <div className="relative h-48 overflow-hidden">
+                    <div className="bg-white border border-gray-200 rounded-sm overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 flex flex-col flex-1 min-h-[380px]">
+                      <div className="relative h-48 overflow-hidden shrink-0">
                         <motion.img 
                           src={getBlogImageUrl(post)} 
                           alt={post.title}
@@ -2790,8 +2811,8 @@ const cardReveal: Variants = {
                         </motion.div>
                       </div>
                       
-                      <div className="p-6">
-                        <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
+                      <div className="p-6 flex flex-col flex-1 min-h-0">
+                        <div className="flex items-center gap-2 text-sm text-gray-500 mb-3 shrink-0">
                           <Calendar className="w-4 h-4" />
                           <span>{formatDate(post.date)}</span>
                         </div>
@@ -2800,14 +2821,14 @@ const cardReveal: Variants = {
                           {post.title}
                         </h3>
                         
-                        <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-3">
+                        <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-3 flex-1 min-h-0">
                           {post.excerpt}
                         </p>
                         
                         <motion.span 
                           whileHover={{ x: 8 }}
                           transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                          className="inline-flex items-center gap-2 text-primary text-sm font-semibold group-hover:gap-3 transition-all duration-500"
+                          className="inline-flex items-center gap-2 text-primary text-sm font-semibold group-hover:gap-3 transition-all duration-500 shrink-0"
                         >
                           Read More <ArrowRight className="w-4 h-4" />
                         </motion.span>

@@ -1,10 +1,31 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram, ArrowRight, Clock } from "lucide-react";
 import { motion } from "framer-motion";
 
+const SCROLL_ISOLATION_MS = 250;
+
 const Footer = () => {
+  const [stripPointerEvents, setStripPointerEvents] = useState<"auto" | "none">("auto");
+  const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    const onWheel = () => {
+      setStripPointerEvents("none");
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+      scrollTimeoutRef.current = setTimeout(() => {
+        setStripPointerEvents("auto");
+        scrollTimeoutRef.current = null;
+      }, SCROLL_ISOLATION_MS);
+    };
+    window.addEventListener("wheel", onWheel, { passive: true });
+    return () => {
+      window.removeEventListener("wheel", onWheel);
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+    };
+  }, []);
   // Animation variants
   const cubicBezier = [0.25, 0.1, 0.25, 1] as const;
 
@@ -109,7 +130,7 @@ const infiniteText = [
   const scrollText = Array(10).fill(infiniteText).flat();
 
   return (
-    <footer className="bg-card border-t border-border px-4 md:px-0 relative overflow-hidden">
+    <footer className="bg-card border-t border-border px-4 md:px-0 relative overflow-hidden select-none">
       {/* Main Footer Content */}
       <div className="container py-12 md:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
@@ -309,7 +330,7 @@ const infiniteText = [
                 <input 
                   type="email" 
                   placeholder="Your email" 
-                  className="flex-1 px-3 py-2 bg-secondary border border-border rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                  className="flex-1 px-3 py-2 bg-secondary border border-border rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors select-text"
                 />
                 <motion.button
                   whileHover={{ scale: 1.05 }}
@@ -349,8 +370,11 @@ const infiniteText = [
         </motion.div>
       </div>
 
-      {/* Infinite Scroll Section - Improved with Legal Phrases */}
-      <div className="w-full overflow-hidden bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 py-4 border-y border-primary/20">
+      {/* Infinite Scroll Section - no text selection while scrolling */}
+      <div
+        className="w-full overflow-hidden bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 py-4 border-y border-primary/20 select-none"
+        style={{ pointerEvents: stripPointerEvents }}
+      >
         <motion.div 
           className="whitespace-nowrap inline-block"
           animate={{ 

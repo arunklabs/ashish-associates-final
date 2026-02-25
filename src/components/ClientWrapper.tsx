@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import LegalDisclaimerModal from "@/src/components/LegalDisclaimerModal";
@@ -17,29 +17,27 @@ export default function ClientWrapper({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const router = useRouter();
   const [showDisclaimer, setShowDisclaimer] = useState(false);
+  const [accepted, setAccepted] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Scroll to top
+  // Scroll to top (only when accepted so we have a DOM to scroll)
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    if (accepted) window.scrollTo(0, 0);
+  }, [pathname, accepted]);
 
-  // Disclaimer logic - runs once on mount
+  // Access gate: only from localStorage on load or from handleAccept
   useEffect(() => {
-    // Check if running in browser
-    if (typeof window !== 'undefined') {
-      const hasAccepted = localStorage.getItem("legalDisclaimerAccepted");
-      
-      // Small delay to ensure smooth rendering
+    if (typeof window !== "undefined") {
+      const hasAccepted = localStorage.getItem("legalDisclaimerAccepted") === "true";
       const timer = setTimeout(() => {
-        if (!hasAccepted) {
+        if (hasAccepted) {
+          setAccepted(true);
+        } else {
           setShowDisclaimer(true);
         }
         setIsLoading(false);
       }, 100);
-
       return () => clearTimeout(timer);
     }
   }, []);
@@ -47,35 +45,46 @@ export default function ClientWrapper({
   const handleAccept = () => {
     try {
       localStorage.setItem("legalDisclaimerAccepted", "true");
+      setAccepted(true);
       setShowDisclaimer(false);
     } catch (error) {
       console.error("Error saving to localStorage:", error);
-      // Even if localStorage fails, allow access
+      setAccepted(true);
       setShowDisclaimer(false);
     }
   };
 
   const handleDecline = () => {
-    setShowDisclaimer(false);
-    
-    // Try multiple methods to leave the site
     try {
-      // Method 1: Try to go back in history
       if (window.history.length > 1) {
         window.history.back();
       } else {
-        // Method 2: If no history, redirect to a safe page (Google or blank)
         window.location.href = "https://www.google.com";
       }
-    } catch (error) {
-      // Method 3: Fallback - redirect to Google
+    } catch {
       window.location.href = "https://www.google.com";
     }
   };
 
-  // Don't render anything while checking localStorage
   if (isLoading) {
-    return null; // or a loading spinner if you prefer
+    return null;
+  }
+
+  // Not accepted: show only modal; do not render app content
+  if (!accepted) {
+    return (
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <LegalDisclaimerModal
+            isOpen={showDisclaimer}
+            onAccept={handleAccept}
+            onDecline={handleDecline}
+          />
+        </TooltipProvider>
+      </QueryClientProvider>
+    );
   }
 
   return (
@@ -83,13 +92,11 @@ export default function ClientWrapper({
       <TooltipProvider>
         <Toaster />
         <Sonner />
-
         <LegalDisclaimerModal
-          isOpen={showDisclaimer}
+          isOpen={false}
           onAccept={handleAccept}
           onDecline={handleDecline}
         />
-
         {children}
       </TooltipProvider>
     </QueryClientProvider>
