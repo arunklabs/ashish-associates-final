@@ -1,75 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import AnimatedSection from "../components/AnimatedSection";
-import { useState } from "react";
 import { motion } from "framer-motion";
-
-const posts = [
-  { 
-    title: "Understanding Corporate Compliance in 2025", 
-    category: "Corporate Law", 
-    date: "Feb 15, 2026", 
-    excerpt: "New regulations reshaping corporate governance and what businesses need to know to stay compliant.",
-    image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-  },
-  { 
-    title: "The Evolution of Digital Privacy Laws", 
-    category: "Technology Law", 
-    date: "Feb 10, 2026", 
-    excerpt: "How emerging digital privacy legislation affects businesses and individuals in the modern landscape.",
-    image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-  },
-  { 
-    title: "Navigating International Trade Disputes", 
-    category: "Litigation", 
-    date: "Feb 5, 2026", 
-    excerpt: "Expert insights on resolving cross-border commercial disputes efficiently and effectively.",
-    image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-  },
-  { 
-    title: "Real Estate Market Legal Trends", 
-    category: "Real Estate", 
-    date: "Jan 28, 2026", 
-    excerpt: "Key legal considerations for investors and developers in the current real estate landscape.",
-    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-  },
-  { 
-    title: "Protecting Your Intellectual Property", 
-    category: "IP Law", 
-    date: "Jan 20, 2026", 
-    excerpt: "Essential strategies for safeguarding patents, trademarks, and trade secrets in a competitive market.",
-    image: "https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-  },
-  { 
-    title: "Immigration Policy Updates", 
-    category: "Immigration", 
-    date: "Jan 15, 2026", 
-    excerpt: "Recent changes to immigration policy and their impact on businesses and families.",
-    image: "https://images.unsplash.com/photo-1559128199-163556ec1b55?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-  },
-  { 
-    title: "Employment Law: Remote Work Regulations", 
-    category: "Employment Law", 
-    date: "Jan 10, 2026", 
-    excerpt: "New guidelines for employers managing remote and hybrid workforces in 2026.",
-    image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-  },
-  { 
-    title: "Mergers & Acquisitions: Legal Pitfalls", 
-    category: "Corporate Law", 
-    date: "Jan 5, 2026", 
-    excerpt: "Common legal challenges in M&A transactions and how to avoid them.",
-    image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-  },
-  { 
-    title: "Environmental Regulations Update", 
-    category: "Environmental Law", 
-    date: "Dec 28, 2025", 
-    excerpt: "Recent changes in environmental compliance requirements for businesses.",
-    image: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-  }
-];
+import { useEffect, useState } from "react";
+import { getCMSData, safeDataExtraction } from "../lib/cmsCache";
+import { BlogPost, formatDate, getBlogImageUrl } from "../lib/sanityQueries";
 
 // Animation variants
 const fadeInUp = {
@@ -87,7 +21,59 @@ const staggerContainer = {
 };
 
 const Blog = () => {
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [visiblePosts, setVisiblePosts] = useState(6);
+
+  // Load blog posts from shared CMS cache (single session-based fetch)
+  useEffect(() => {
+    const loadPosts = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        // Get all CMS data from cache (fetches only once per session)
+        const cmsData = await getCMSData();
+        const blogData = cmsData.blogs || [];
+        
+        // Apply data safety with proper fallbacks for each blog post
+        const safePosts = blogData.map((post: any) => ({
+          _id: safeDataExtraction.getString(post._id, 'unknown'),
+
+          title: safeDataExtraction.getString(post.title, 'Untitled Post'),
+
+          slug: post.slug ?? { current: '' },
+
+          category: safeDataExtraction.getString(post.category, 'General'),
+
+          date: safeDataExtraction.getString(post.date, new Date().toISOString()),
+
+          excerpt: safeDataExtraction.getString(
+            post.excerpt,
+            'No excerpt available'
+          ),
+
+          image: post.image,
+        }));
+        
+        // Use fetched data, or fallback to default data if empty
+        if (safePosts.length > 0) {
+          setPosts(safePosts);
+        } else {
+          console.warn('No blog posts found in CMS, using default data');
+        }
+      } catch (err) {
+        console.error('Error loading blog posts:', err);
+        setError('Failed to load blog posts');
+        // Use default data as fallback
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadPosts();
+  }, []);
 
   const loadMore = () => {
     setVisiblePosts(prev => Math.min(prev + 3, posts.length));
@@ -238,60 +224,109 @@ const Blog = () => {
             variants={staggerContainer}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
           >
-            {posts.slice(0, visiblePosts).map((post, i) => (
-              <motion.div
-                key={post.title}
-                variants={{
-                  initial: { opacity: 0, y: 50 },
-                  animate: { opacity: 1, y: 0 }
-                }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                whileHover={{ y: -10 }}
-                className="h-full"
-              >
-                <article className="bg-white border border-gray-200 rounded-lg overflow-hidden group shadow-sm hover:shadow-lg transition-all duration-300 h-full flex flex-col">
-                  {/* Image Container */}
-                  <motion.div 
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.4 }}
-                    className="aspect-video overflow-hidden bg-gray-100"
-                  >
-                    <img 
-                      src={post.image} 
-                      alt={post.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                  </motion.div>
-                  
-                  {/* Content */}
-                  <div className="p-5 md:p-6 flex-grow flex flex-col">
-                    <div className="flex items-center gap-3 mb-3 flex-wrap">
-                      <motion.span 
-                        whileHover={{ scale: 1.05 }}
-                        className="text-xs text-[#D4AF37] font-semibold uppercase tracking-wider"
-                      >
-                        {post.category}
-                      </motion.span>
-                      <span className="text-xs text-gray-500">
-                        {post.date}
-                      </span>
+            {loading ? (
+              // Loading skeleton
+              Array.from({ length: 6 }).map((_, i) => (
+                <motion.div
+                  key={i}
+                  variants={{
+                    initial: { opacity: 0, y: 50 },
+                    animate: { opacity: 1, y: 0 }
+                  }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className="h-full"
+                >
+                  <article className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm h-full flex flex-col animate-pulse">
+                    <div className="aspect-video bg-gray-200" />
+                    <div className="p-5 md:p-6 flex-grow flex flex-col">
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="h-3 bg-gray-200 rounded w-20" />
+                        <div className="h-3 bg-gray-200 rounded w-16" />
+                      </div>
+                      <div className="h-5 bg-gray-200 rounded mb-3 w-3/4" />
+                      <div className="space-y-2 flex-grow">
+                        <div className="h-3 bg-gray-200 rounded w-full" />
+                        <div className="h-3 bg-gray-200 rounded w-5/6" />
+                      </div>
                     </div>
-                    
-                    <motion.h3 
-                      whileHover={{ x: 5 }}
-                      className="text-lg font-heading font-semibold mb-3 text-black group-hover:text-[#D4AF37] transition-colors line-clamp-2"
+                  </article>
+                </motion.div>
+              ))
+            ) : error ? (
+              // Error state
+              <div className="col-span-full text-center py-12">
+                <div className="text-red-500 font-semibold mb-2">Error loading blog posts</div>
+                <div className="text-gray-600 mb-4">Please try again later</div>
+                <button 
+                  onClick={() => window.location.reload()} 
+                  className="px-4 py-2 bg-[#D4AF37] text-white rounded-lg hover:bg-[#C9A646] transition-colors"
+                >
+                  Retry
+                </button>
+              </div>
+            ) : posts.length === 0 ? (
+              // Empty state
+              <div className="col-span-full text-center py-12">
+                <div className="text-gray-600 font-semibold mb-2">No blog posts available</div>
+                <div className="text-gray-500">Check back later for new articles</div>
+              </div>
+            ) : (
+              // Render posts
+              posts.slice(0, visiblePosts).map((post, i) => (
+                <motion.div
+                  key={post._id}
+                  variants={{
+                    initial: { opacity: 0, y: 50 },
+                    animate: { opacity: 1, y: 0 }
+                  }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  whileHover={{ y: -10 }}
+                  className="h-full"
+                >
+                  <article className="bg-white border border-gray-200 rounded-lg overflow-hidden group shadow-sm hover:shadow-lg transition-all duration-300 h-full flex flex-col">
+                    {/* Image Container */}
+                    <motion.div 
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.4 }}
+                      className="aspect-video overflow-hidden bg-gray-100"
                     >
-                      {post.title}
-                    </motion.h3>
+                      <img 
+                        src={getBlogImageUrl(post)} 
+                        alt={post.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                      />
+                    </motion.div>
                     
-                    <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-3 flex-grow">
-                      {post.excerpt}
-                    </p>
-                  </div>
-                </article>
-              </motion.div>
-            ))}
+                    {/* Content */}
+                    <div className="p-5 md:p-6 flex-grow flex flex-col">
+                      <div className="flex items-center gap-3 mb-3 flex-wrap">
+                        <motion.span 
+                          whileHover={{ scale: 1.05 }}
+                          className="text-xs text-[#D4AF37] font-semibold uppercase tracking-wider"
+                        >
+                          {post.category}
+                        </motion.span>
+                        <span className="text-xs text-gray-500">
+                          {formatDate(post.date)}
+                        </span>
+                      </div>
+                      
+                      <motion.h3 
+                        whileHover={{ x: 5 }}
+                        className="text-lg font-heading font-semibold mb-3 text-black group-hover:text-[#D4AF37] transition-colors line-clamp-2"
+                      >
+                        {post.title}
+                      </motion.h3>
+                      
+                      <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-3 flex-grow">
+                        {post.excerpt}
+                      </p>
+                    </div>
+                  </article>
+                </motion.div>
+              ))
+            )}
           </motion.div>
 
           {/* Load More Button */}

@@ -1065,7 +1065,7 @@ const buttonFromRight = {
           className="text-6xl md:text-7xl font-serif text-[#1F2A44] mb-6"
         >
           <CountUpAnimation 
-            targetNumber={35} 
+            targetNumber={4} 
             duration={2.5}
             delay={0.8}
           />

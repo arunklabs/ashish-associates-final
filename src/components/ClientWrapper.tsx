@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
-import { Toaster } from "@/src/components/ui/toaster";
-import { Toaster as Sonner } from "@/src/components/ui/sonner";
-import { TooltipProvider } from "@/src/components/ui/tooltip";
 import LegalDisclaimerModal from "@/src/components/LegalDisclaimerModal";
+import { Toaster as Sonner } from "@/src/components/ui/sonner";
+import { Toaster } from "@/src/components/ui/toaster";
+import { TooltipProvider } from "@/src/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();

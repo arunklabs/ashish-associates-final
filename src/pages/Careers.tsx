@@ -1,54 +1,11 @@
 "use client";
 
-import Link from "next/link";
-import AnimatedSection from "../components/AnimatedSection";
-import { Briefcase, MapPin, Clock, ArrowRight, Users, Award, Building2, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
-
-const positions = [
-  { 
-    title: "Senior Associate – Corporate Law", 
-    location: "Chennai, CH", 
-    type: "Full-Time", 
-    desc: "Join our corporate team advising Fortune 500 clients on complex M&A transactions and governance matters.",
-    icon: Briefcase
-  },
-  { 
-    title: "Associate – Litigation", 
-    location: "Chennai, CH", 
-    type: "Full-Time", 
-    desc: "Represent clients in high-stakes commercial litigation and dispute resolution across state and federal courts.",
-    icon: Briefcase
-  },
-  { 
-    title: "Paralegal – Real Estate", 
-    location: "Chennai, CH", 
-    type: "Full-Time", 
-    desc: "Support our real estate practice with transaction management, due diligence, and document preparation.",
-    icon: Briefcase
-  },
-  { 
-    title: "Legal Intern – Summer Program", 
-    location: "Chennai, CH", 
-    type: "Internship", 
-    desc: "Gain hands-on experience across multiple practice areas in our competitive summer internship program.",
-    icon: Briefcase
-  },
-  { 
-    title: "Tax Associate", 
-    location: "Chennai, CH", 
-    type: "Full-Time", 
-    desc: "Work with our tax practice group on complex corporate tax planning and compliance matters.",
-    icon: Briefcase
-  },
-  { 
-    title: "IP Attorney", 
-    location: "Chennai, CH", 
-    type: "Full-Time", 
-    desc: "Protect client innovations through patent prosecution, trademark registration, and IP litigation.",
-    icon: Briefcase
-  }
-];
+import { ArrowRight, Award, Briefcase, Building2, Clock, MapPin, Users } from "lucide-react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { getCMSData, safeDataExtraction } from "../lib/cmsCache";
+import { Career, getJobTypeDisplay } from "../lib/sanityQueries";
 
 // Animation variants - Professional and smooth
 const fadeInUp = {
@@ -178,6 +135,67 @@ const buttonHover = {
 };
 
 const Careers = () => {
+  const [positions, setPositions] = useState<Career[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Load career positions from shared CMS cache (single session-based fetch)
+  useEffect(() => {
+    const loadCareers = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        
+        // Get all CMS data from cache (fetches only once per session)
+        const cmsData = await getCMSData();
+        const careerData = cmsData.careers || [];
+        
+        // Apply data safety with proper fallbacks for each career position
+        const safePositions = careerData.map((position: any) => ({
+          _id: safeDataExtraction.getString(position._id, 'unknown'),
+
+          title: safeDataExtraction.getString(
+            position.title,
+            'Position Available'
+          ),
+
+          location: safeDataExtraction.getString(
+            position.location,
+            'Location TBD'
+          ),
+
+          type: safeDataExtraction.getString(
+            position.type,
+            'Full-Time'
+          ) as Career['type'],
+
+          desc: safeDataExtraction.getString(
+            position.desc,
+            'No description available'
+          ),
+
+          icon: safeDataExtraction.getString(
+            position.icon,
+            'Briefcase'
+          ),
+        }));
+        
+        // Use fetched data, or fallback to default data if empty
+        if (safePositions.length > 0) {
+          setPositions(safePositions);
+        }
+      } catch (err) {
+        console.error('Error loading career positions:', err);
+        setError('Failed to load career positions');
+        // Use default data as fallback
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadCareers();
+  }, []);
+
   return (
     <div className="-mt-20">
       {/* Banner Section - Dark Theme */}
@@ -366,94 +384,146 @@ const Careers = () => {
             variants={staggerContainer}
             className="space-y-6"
           >
-            {positions.map((pos, i) => (
-              <motion.div
-                key={pos.title}
-                variants={scaleIn}
-                custom={i}
-                initial="rest"
-                whileHover="hover"
-                animate="rest"
-                className="bg-card border border-border rounded-lg overflow-hidden hover:border-primary transition-colors duration-500 group"
-              >
-                <motion.div 
-                  variants={cardHover}
-                  className="p-8"
+            {loading ? (
+              // Loading skeleton
+              Array.from({ length: 3 }).map((_, i) => (
+                <motion.div
+                  key={i}
+                  variants={scaleIn}
+                  className="bg-card border border-border rounded-lg overflow-hidden"
                 >
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                    <div className="flex-1">
-                      <motion.div 
-                        initial={{ x: -20, opacity: 0 }}
-                        whileInView={{ x: 0, opacity: 1 }}
-                        transition={{ delay: 0.2 + i * 0.1, duration: 0.6 }}
-                        className="flex items-center gap-3 mb-3"
-                      >
-                        <motion.div 
-                          whileHover={{ rotate: 360 }}
-                          transition={{ duration: 0.6 }}
-                          className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors duration-500"
-                        >
-                          <pos.icon className="w-5 h-5 text-primary" />
-                        </motion.div>
-                        <h3 className="text-xl font-heading font-semibold text-foreground group-hover:text-primary transition-colors duration-500">
-                          {pos.title}
-                        </h3>
-                      </motion.div>
-                      
-                      <motion.div 
-                        initial={{ y: 20, opacity: 0 }}
-                        whileInView={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.3 + i * 0.1, duration: 0.6 }}
-                        className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-4"
-                      >
-                        <motion.span 
-                          whileHover={{ x: 3 }}
-                          className="flex items-center gap-1"
-                        >
-                          <MapPin className="w-4 h-4" /> {pos.location}
-                        </motion.span>
-                        <motion.span 
-                          whileHover={{ x: 3 }}
-                          className="flex items-center gap-1"
-                        >
-                          <Clock className="w-4 h-4" /> {pos.type}
-                        </motion.span>
-                      </motion.div>
-                      
-                      <motion.p 
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        transition={{ delay: 0.4 + i * 0.1, duration: 0.8 }}
-                        className="text-muted-foreground leading-relaxed"
-                      >
-                        {pos.desc}
-                      </motion.p>
+                  <div className="p-8 animate-pulse">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-9 h-9 bg-gray-200 rounded-lg" />
+                          <div className="h-6 bg-gray-200 rounded w-64" />
+                        </div>
+                        <div className="flex flex-wrap gap-4 mb-4">
+                          <div className="h-4 bg-gray-200 rounded w-32" />
+                          <div className="h-4 bg-gray-200 rounded w-24" />
+                        </div>
+                        <div className="space-y-2">
+                          <div className="h-4 bg-gray-200 rounded w-full" />
+                          <div className="h-4 bg-gray-200 rounded w-3/4" />
+                        </div>
+                      </div>
+                      <div className="shrink-0">
+                        <div className="h-12 bg-gray-200 rounded-lg w-32" />
+                      </div>
                     </div>
-                    
-                    <motion.div
-                      variants={buttonHover}
-                      initial="rest"
-                      whileHover="hover"
-                      whileTap={{ scale: 0.95 }}
-                      className="shrink-0"
-                    >
-                      <Link 
-                        href="/contact" 
-                        className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-accent transition-all duration-500 group/btn btn-shine"
-                      >
-                        <span>Apply Now</span>
-                        <motion.div
-                          animate={{ x: [0, 5, 0] }}
-                          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" as const }}
-                        >
-                          <ArrowRight className="w-4 h-4" />
-                        </motion.div>
-                      </Link>
-                    </motion.div>
                   </div>
                 </motion.div>
-              </motion.div>
-            ))}
+              ))
+            ) : error ? (
+              // Error state
+              <div className="text-center py-12">
+                <div className="text-red-500 font-semibold mb-2">Error loading career positions</div>
+                <div className="text-gray-600 mb-4">Please try again later</div>
+                <button 
+                  onClick={() => window.location.reload()} 
+                  className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+                >
+                  Retry
+                </button>
+              </div>
+            ) : positions.length === 0 ? (
+              // Empty state
+              <div className="text-center py-12">
+                <div className="text-gray-600 font-semibold mb-2">No career positions available</div>
+                <div className="text-gray-500">Check back later for new opportunities</div>
+              </div>
+            ) : (
+              // Render positions
+              positions.map((pos, i) => (
+                <motion.div
+                  key={pos._id}
+                  variants={scaleIn}
+                  custom={i}
+                  initial="rest"
+                  whileHover="hover"
+                  animate="rest"
+                  className="bg-card border border-border rounded-lg overflow-hidden hover:border-primary transition-colors duration-500 group"
+                >
+                  <motion.div 
+                    variants={cardHover}
+                    className="p-8"
+                  >
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                      <div className="flex-1">
+                        <motion.div 
+                          initial={{ x: -20, opacity: 0 }}
+                          whileInView={{ x: 0, opacity: 1 }}
+                          transition={{ delay: 0.2 + i * 0.1, duration: 0.6 }}
+                          className="flex items-center gap-3 mb-3"
+                        >
+                          <motion.div 
+                            whileHover={{ rotate: 360 }}
+                            transition={{ duration: 0.6 }}
+                            className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors duration-500"
+                          >
+                            <Briefcase className="w-5 h-5 text-primary" />
+                          </motion.div>
+                          <h3 className="text-xl font-heading font-semibold text-foreground group-hover:text-primary transition-colors duration-500">
+                            {pos.title}
+                          </h3>
+                        </motion.div>
+                        
+                        <motion.div 
+                          initial={{ y: 20, opacity: 0 }}
+                          whileInView={{ y: 0, opacity: 1 }}
+                          transition={{ delay: 0.3 + i * 0.1, duration: 0.6 }}
+                          className="flex flex-wrap gap-4 text-sm text-muted-foreground mb-4"
+                        >
+                          <motion.span 
+                            whileHover={{ x: 3 }}
+                            className="flex items-center gap-1"
+                          >
+                            <MapPin className="w-4 h-4" /> {pos.location}
+                          </motion.span>
+                          <motion.span 
+                            whileHover={{ x: 3 }}
+                            className="flex items-center gap-1"
+                          >
+                            <Clock className="w-4 h-4" /> {getJobTypeDisplay(pos.type)}
+                          </motion.span>
+                        </motion.div>
+                        
+                        <motion.p 
+                          initial={{ opacity: 0 }}
+                          whileInView={{ opacity: 1 }}
+                          transition={{ delay: 0.4 + i * 0.1, duration: 0.8 }}
+                          className="text-muted-foreground leading-relaxed"
+                        >
+                          {pos.desc}
+                        </motion.p>
+                      </div>
+                      
+                      <motion.div
+                        variants={buttonHover}
+                        initial="rest"
+                        whileHover="hover"
+                        whileTap={{ scale: 0.95 }}
+                        className="shrink-0"
+                      >
+                        <Link 
+                          href="/contact" 
+                          className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-accent transition-all duration-500 group/btn btn-shine"
+                        >
+                          <span>Apply Now</span>
+                          <motion.div
+                            animate={{ x: [0, 5, 0] }}
+                            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" as const }}
+                          >
+                            <ArrowRight className="w-4 h-4" />
+                          </motion.div>
+                        </Link>
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              ))
+            )}
           </motion.div>
 
           {/* View All Button */}
