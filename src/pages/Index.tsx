@@ -2,8 +2,20 @@
 
 "use client";
 
+type FormDataType = {
+  fullName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  practiceArea: string;
+  message: string;
+};
+
+type FormErrorsType = Partial<FormDataType>;
+
+
 import Link from "next/link";
-import { motion, useMotionValue, useTransform, useScroll, AnimatePresence } from "framer-motion";
+import { motion, Variants, useMotionValue, useTransform, useScroll, AnimatePresence } from "framer-motion";
 import { 
   Scale, Gavel, Heart, Home, ArrowRight, CheckCircle, 
   Quote, ChevronLeft, ChevronRight, Award, Users, 
@@ -56,6 +68,8 @@ import {
   Compass as CompassIcon
 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import { getCMSData } from '../lib/cmsCache';
+import { Employee, Founder, getEmployeeImageUrl, getFounderImageUrl, BlogPost, formatDate, getBlogImageUrl } from '../lib/sanityQueries';
 
 // Import premium images
 const hero1 = "/assets/hero1.webp";
@@ -256,16 +270,6 @@ const infiniteScrollItems = [
   { icon: Award, text: "Chambers Ranked" },
 ];
 
-const founderData = {
-  name: "John Lexington",
-  title: "Founder & Senior Partner",
-  experience: "4+ Years",
-  education: "Harvard Law School",
-  specializations: ["Corporate Law", "Mergers & Acquisitions", "International Business"],
-  image: founderImage,
-  quote: "Justice isn't just about winning cases—it's about making a lasting difference in people's lives.",
-};
-
 const globalAttorneys = [
   { country: "United States", count: 25, flag: "🇺🇸" },
   { country: "United Kingdom", count: 12, flag: "🇬🇧" },
@@ -273,87 +277,6 @@ const globalAttorneys = [
   { country: "UAE", count: 5, flag: "🇦🇪" },
   { country: "Germany", count: 7, flag: "🇩🇪" },
   { country: "France", count: 6, flag: "🇫🇷" },
-];
-
-const attorneys = [
-  { 
-    name: "Sarah Mitchell", 
-    role: "Senior Partner, Corporate Law", 
-    experience: "20+ years", 
-    image: attorney1, 
-    expertise: "M&A", 
-    cases: 450,
-    description: "Harvard Law graduate with extensive experience in complex mergers and acquisitions.",
-    email: "s.mitchell@lexingtonlaw.com",
-    phone: "+1 (212) 555-0123",
-    rating: 4.9,
-    awards: 12
-  },
-  { 
-    name: "David Chen", 
-    role: "Partner, Litigation", 
-    experience: "15+ years", 
-    image: attorney2, 
-    expertise: "Commercial", 
-    cases: 380,
-    description: "Recognized litigator specializing in high-stakes commercial disputes.",
-    email: "d.chen@lexingtonlaw.com",
-    phone: "+1 (212) 555-0124",
-    rating: 4.8,
-    awards: 8
-  },
-  { 
-    name: "Elena Rodriguez", 
-    role: "Partner, Family Law", 
-    experience: "18+ years", 
-    image: attorney3, 
-    expertise: "Divorce", 
-    cases: 520,
-    description: "Compassionate advocate for families with expertise in complex divorce proceedings.",
-    email: "e.rodriguez@lexingtonlaw.com",
-    phone: "+1 (212) 555-0125",
-    rating: 5.0,
-    awards: 15
-  },
-  { 
-    name: "Michael Thompson", 
-    role: "Senior Associate, Real Estate", 
-    experience: "12+ years", 
-    image: attorney4, 
-    expertise: "Property", 
-    cases: 320,
-    description: "Expert in commercial real estate transactions and property development.",
-    email: "m.thompson@lexingtonlaw.com",
-    phone: "+1 (212) 555-0126",
-    rating: 4.7,
-    awards: 5
-  },
-  { 
-    name: "Priya Patel", 
-    role: "Partner, Intellectual Property", 
-    experience: "16+ years", 
-    image: attorney5, 
-    expertise: "IP Law", 
-    cases: 410,
-    description: "Specializes in patent law and intellectual property protection for tech companies.",
-    email: "p.patel@lexingtonlaw.com",
-    phone: "+1 (212) 555-0127",
-    rating: 4.9,
-    awards: 10
-  },
-  { 
-    name: "James Wilson", 
-    role: "Senior Counsel, Tax Law", 
-    experience: "22+ years", 
-    image: attorney6, 
-    expertise: "Tax", 
-    cases: 560,
-    description: "Former IRS counsel with deep expertise in corporate tax planning.",
-    email: "j.wilson@lexingtonlaw.com",
-    phone: "+1 (212) 555-0128",
-    rating: 4.8,
-    awards: 14
-  },
 ];
 
 const coreValues = [
@@ -473,6 +396,151 @@ const Index = () => {
   const attorneysRef = useRef(null);
   const newsRef = useRef(null);
 
+  const [founders, setFounders] = useState<Founder[]>([]);
+    const [teamMembers, setTeamMembers] = useState<any[]>([]);
+    const [posts, setPosts] = useState<BlogPost[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+const [formData, setFormData] = useState<FormDataType>({
+  fullName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  practiceArea: "",
+  message: ""
+});
+
+const [errors, setErrors] = useState<FormErrorsType>({});
+const [touched, setTouched] = useState<Record<keyof FormDataType, boolean>>({
+  fullName: false,
+  lastName: false,
+  email: false,
+  phone: false,
+  practiceArea: false,
+  message: false
+});
+
+const handleChange = (
+  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+) => {
+  const { name, value } = e.target;
+
+  setFormData(prev => ({
+    ...prev,
+    [name]: value
+  }));
+};
+
+const handleBlur = (
+  e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+) => {
+  const { name } = e.target;
+
+  setTouched(prev => ({
+    ...prev,
+    [name as keyof FormDataType]: true
+  }));
+};
+
+const validate = (): FormErrorsType => {
+  let newErrors: FormErrorsType = {};
+
+ const nameRegex = /^[A-Za-z\s]+$/;
+
+if (formData.fullName && !nameRegex.test(formData.fullName)) {
+  newErrors.fullName = "Name should contain only letters";
+}
+
+  if (!formData.email.trim())
+    newErrors.email = "Email is required";
+  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
+    newErrors.email = "Invalid email";
+
+  if (!formData.phone.trim())
+    newErrors.phone = "Phone number is required";
+  else if (!/^[6-9]\d{9}$/.test(formData.phone))
+    newErrors.phone = "Enter valid 10 digit number";
+
+  if (!formData.practiceArea)
+    newErrors.practiceArea = "Select practice area";
+
+  if (!formData.message.trim())
+    newErrors.message = "Message is required";
+
+  return newErrors;
+};
+
+
+const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
+
+  const validationErrors = validate();
+  setErrors(validationErrors);
+
+  setTouched({
+    fullName: true,
+    lastName: true,
+    email: true,
+    phone: true,
+    practiceArea: true,
+    message: true
+  });
+
+  if (Object.keys(validationErrors).length === 0) {
+    console.log("Form Submitted:", formData);
+
+    alert("Form submitted successfully ✅");
+
+    setFormData({
+      fullName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      practiceArea: "",
+      message: ""
+    });
+
+    setTouched({
+      fullName: false,
+      lastName: false,
+      email: false,
+      phone: false,
+      practiceArea: false,
+      message: false
+    });
+  }
+};
+    
+    // Fetch CMS data on component mount
+    useEffect(() => {
+      const fetchTeamData = async () => {
+        try {
+          setIsLoading(true);
+          const cmsData = await getCMSData();
+          console.log("CMS data:", cmsData);
+          // Filter employees by category for founders (founder/senior categories)
+          const foundersData = cmsData.founders;
+          
+          // Get all employees for team members section
+          const teamMembersData = cmsData.employees;
+          const blogData = cmsData.blogs || [];
+          
+          setFounders(foundersData);
+          
+          setTeamMembers(teamMembersData);
+          setPosts(blogData);
+        } catch (error) {
+          console.error('Failed to fetch team data:', error);
+          // Keep fallback data in case of error
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      
+      fetchTeamData();
+    }, []);
+    const primaryFounder = founders?.[0];
+
   // Auto-slide for hero with direction tracking - Slower interval
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -487,14 +555,17 @@ const Index = () => {
 
   // Auto-slide for attorneys - Slower interval
   useEffect(() => {
+
+    if (!teamMembers.length) return; 
+
     let attorneyTimer: NodeJS.Timeout;
     if (!isHovering) {
       attorneyTimer = setInterval(() => {
-        setCurrentAttorneyIndex((prev) => (prev + 1) % attorneys.length);
+        setCurrentAttorneyIndex((prev) => (prev + 1) % teamMembers.length);
       }, 4000); // Increased from 3000 to 4000ms
     }
     return () => clearInterval(attorneyTimer);
-  }, [isHovering]);
+  }, [isHovering, teamMembers.length]);
 
   const nextSlide = () => {
     setSlideDirection(1);
@@ -642,6 +713,54 @@ const buttonFromRight = {
     opacity: 0, 
     x: 100,
     transition: { duration: 0.3 }
+  }
+};
+
+// Premium smooth TS-safe animation variants
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1,
+      ease: [0.25, 0.1, 0.25, 1] as const
+    }
+  }
+};
+
+const fadeSoft: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 1.2,
+      ease: [0.25, 0.1, 0.25, 1] as const
+    }
+  }
+};
+
+const premiumStagger: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.2
+    }
+  }
+};
+
+const cardReveal: Variants = {
+  hidden: { opacity: 0, y: 50, scale: 0.96 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.8,
+      ease: [0.25, 0.1, 0.25, 1] as const
+    }
   }
 };
 
@@ -1383,11 +1502,14 @@ const buttonFromRight = {
               transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const }}
               className="aspect-[3/4] rounded-sm overflow-hidden shadow-2xl"
             >
-              <img 
-                src={founderData.image} 
-                alt={founderData.name}
-                className="w-full h-full object-cover"
-              />
+              <img src={
+    primaryFounder?.profileImage
+      ? getFounderImageUrl(primaryFounder)
+      : `https://ui-avatars.com/api/?name=${encodeURIComponent(primaryFounder?.name || 'Founder')}&background=E5E7EB&color=6B7280&size=128`
+  }
+  alt={primaryFounder?.name || 'Founder'}
+  className="w-full h-full object-cover"
+/>
               <div className="absolute inset-0 bg-gradient-to-t from-primary/30 via-transparent to-transparent" />
             </motion.div>
             
@@ -1426,7 +1548,7 @@ const buttonFromRight = {
                 transition={{ delay: 0.8, duration: 0.6 }}
                 className="text-sm italic max-w-xs"
               >
-                {founderData.quote}
+                Justice isn't just about winning cases—it's about making a lasting difference in people's lives.
               </motion.p>
               
               {/* Decorative elements */}
@@ -1505,7 +1627,7 @@ const buttonFromRight = {
             }}
             className="text-4xl md:text-5xl font-heading font-bold mb-4 text-gray-900"
           >
-            {founderData.name}
+            {primaryFounder?.name}
           </motion.h2>
           
           {/* Title */}
@@ -1520,7 +1642,7 @@ const buttonFromRight = {
             }}
             className="text-xl text-primary mb-6 italic"
           >
-            {founderData.title}
+            {primaryFounder?.role}
           </motion.p>
           
           {/* Stats with Icons */}
@@ -1555,7 +1677,7 @@ const buttonFromRight = {
               >
                 <Award className="w-5 h-5 text-primary" />
               </motion.div>
-              <span className="text-gray-700">{founderData.experience} of legal excellence</span>
+              <span className="text-gray-700">4+ of legal excellence</span>
             </motion.div>
             
             <motion.div 
@@ -1576,7 +1698,7 @@ const buttonFromRight = {
               >
                 <GraduationCapIcon className="w-5 h-5 text-primary" />
               </motion.div>
-              <span className="text-gray-700">{founderData.education}</span>
+              <span className="text-gray-700">{primaryFounder?.details?.education?.[0]}</span>
             </motion.div>
             
             <motion.div 
@@ -1597,7 +1719,7 @@ const buttonFromRight = {
               >
                 <Briefcase className="w-5 h-5 text-primary" />
               </motion.div>
-              <span className="text-gray-700">Specializes in: {founderData.specializations.join(", ")}</span>
+              <span className="text-gray-700">Specializes in: {primaryFounder?.details?.practiceAreas?.join(", ")}</span>
             </motion.div>
           </motion.div>
           
@@ -1670,60 +1792,107 @@ const buttonFromRight = {
 </motion.section>
 
       {/* Global Attorneys Section */}
-      <motion.section
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={staggerContainer}
-        className="bg-background section-padding relative overflow-hidden"
+<motion.section
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true, amount: 0.25 as number }}
+  variants={premiumStagger}
+  className="bg-background section-padding relative overflow-hidden"
+>
+  {/* Background Map */}
+  <motion.div
+    variants={fadeSoft}
+    className="absolute inset-0"
+  >
+    <img
+      src={globalMap}
+      alt="World Map"
+      className="w-full h-full object-cover opacity-[0.04]"
+    />
+  </motion.div>
+
+  <div className="container mx-auto relative z-10">
+
+    {/* Heading */}
+    <motion.div
+      variants={premiumStagger}
+      className="text-center mb-16"
+    >
+      <motion.div
+        variants={fadeUp}
+        className="flex items-center justify-center gap-4 mb-4"
       >
+        <span className="w-12 h-px bg-primary/60"></span>
+        <span className="text-primary uppercase tracking-[0.2em] text-sm font-semibold">
+          Global Presence
+        </span>
+        <span className="w-12 h-px bg-primary/60"></span>
+      </motion.div>
+
+      <motion.h2
+        variants={fadeUp}
+        className="text-4xl md:text-5xl font-heading font-bold text-foreground"
+      >
+        Our Attorneys{" "}
+        <span className="gold-gradient-text italic">
+          Worldwide
+        </span>
+      </motion.h2>
+    </motion.div>
+
+    {/* Cards */}
+    <motion.div
+      variants={premiumStagger}
+      className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-5"
+    >
+      {globalAttorneys.map((item, index) => (
         <motion.div
-          variants={slideFromLeft}
-          className="absolute inset-0"
+          key={item.country}
+          variants={cardReveal}
+          whileHover={{
+            y: -6,
+            scale: 1.03,
+            transition: { duration: 0.3, ease: "easeOut" }
+          }}
+          className="text-center p-6 bg-card/40 backdrop-blur-md border border-border rounded-sm 
+          hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10 
+          transition-all duration-500"
         >
-          <img src={globalMap} alt="World Map" className="w-full h-full object-cover opacity-5" />
-        </motion.div>
-        
-        <div className="container mx-auto relative z-10">
+          {/* Flag */}
           <motion.div
-            variants={staggerContainer}
-            className="text-center mb-16"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: index * 0.15 }}
+            className="text-4xl mb-3"
           >
-            <motion.div variants={slideFromLeft} className="flex items-center justify-center gap-4 mb-4">
-              <span className="w-12 h-px bg-primary"></span>
-              <span className="text-primary uppercase tracking-[0.2em] text-sm font-semibold">
-                Global Presence
-              </span>
-              <span className="w-12 h-px bg-primary"></span>
-            </motion.div>
-            <motion.h2 variants={slideFromRight} className="text-4xl md:text-5xl font-heading font-bold text-foreground">
-              Our Attorneys <span className="gold-gradient-text italic">Worldwide</span>
-            </motion.h2>
+            {item.flag}
           </motion.div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {globalAttorneys.map((item, index) => (
-              <motion.div
-                key={item.country}
-                variants={index % 2 === 0 ? slideFromLeft : slideFromRight}
-                transition={{ delay: index * 0.15 }} // Increased stagger
-                whileHover={{ scale: 1.05, y: -8 }} // Reduced scale from 1.1 to 1.05
-                className="text-center p-6 bg-card/50 backdrop-blur-sm border border-border rounded-sm hover:border-primary/50 transition-all duration-500"
-              >
-                <motion.div 
-                  animate={{ rotate: [0, 3, -3, 0] }} // Reduced rotation
-                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" as const }} // Slower
-                  className="text-4xl mb-3"
-                >
-                  {item.flag}
-                </motion.div>
-                <div className="text-lg font-heading font-bold text-foreground">{item.count}</div>
-                <div className="text-sm text-muted-foreground">{item.country}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </motion.section>
+
+          {/* Count */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: index * 0.2 }}
+            className="text-lg font-heading font-bold text-foreground"
+          >
+            {item.count}
+          </motion.div>
+
+          {/* Country */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: index * 0.25 }}
+            className="text-sm text-muted-foreground"
+          >
+            {item.country}
+          </motion.div>
+        </motion.div>
+      ))}
+    </motion.div>
+
+  </div>
+</motion.section>
 
       {/* Meet Attorneys - Auto Slide Design */}
       <section 
@@ -1778,6 +1947,7 @@ const buttonFromRight = {
             </motion.div>
 
             <div className="lg:col-span-2 overflow-hidden">
+              {teamMembers.length === 0 ? null : (
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentAttorneyIndex}
@@ -1788,8 +1958,13 @@ const buttonFromRight = {
                   className="grid md:grid-cols-2 gap-6"
                 >
                   {[0, 1].map((offset) => {
-                    const index = (currentAttorneyIndex + offset) % attorneys.length;
-                    const attorney = attorneys[index];
+
+  if (!teamMembers.length) return null;
+
+  const index = (currentAttorneyIndex + offset) % teamMembers.length;
+  const attorney = teamMembers[index];
+
+  if (!attorney) return null;
                     return (
                       <motion.div
                         key={index}
@@ -1799,10 +1974,10 @@ const buttonFromRight = {
                       >
                         <div className="relative h-[450px]">
                           <img
-                            src={attorney.image}
-                            alt={attorney.name}
-                            className="w-full h-full object-cover group-hover:scale-105 transition duration-700" // Reduced scale
-                          />
+  src={getEmployeeImageUrl(attorney)}
+  alt={attorney?.name || "Attorney"}
+  className="w-full h-full object-cover group-hover:scale-105 transition duration-700"
+/>
                           <div className="absolute inset-0 bg-gradient-to-t from-[#1F2A44] via-transparent to-transparent opacity-90"></div>
                           
                           <motion.div 
@@ -1815,10 +1990,10 @@ const buttonFromRight = {
                             <p className="text-sm text-white/80 mb-2">{attorney.role}</p>
                             <div className="flex items-center gap-4 mb-2">
                               <span className="text-xs bg-white/20 px-2 py-1 rounded-full">
-                                {attorney.experience}
+                                {attorney.experience}+ experience
                               </span>
                               <span className="text-xs bg-white/20 px-2 py-1 rounded-full">
-                                {attorney.cases}+ Cases
+                                {attorney.specialty}
                               </span>
                             </div>
                             <div className="flex items-center gap-1">
@@ -1831,14 +2006,14 @@ const buttonFromRight = {
                                 >
                                   <Star
                                     className={`w-4 h-4 ${
-                                      i < Math.floor(attorney.rating)
+                                      i < Math.floor(5)
                                         ? "text-yellow-400 fill-yellow-400"
                                         : "text-gray-400"
                                     }`}
                                   />
                                 </motion.div>
                               ))}
-                              <span className="ml-2 text-sm">{attorney.rating}</span>
+                              <span className="ml-2 text-sm">5/5</span>
                             </div>
                           </motion.div>
                         </div>
@@ -1847,6 +2022,7 @@ const buttonFromRight = {
                   })}
                 </motion.div>
               </AnimatePresence>
+                    )}
 
               <motion.div 
                 initial={{ opacity: 0, x: -50 }}
@@ -1854,7 +2030,7 @@ const buttonFromRight = {
                 transition={{ delay: 0.8, duration: 1 }} // Slower
                 className="flex justify-center gap-2 mt-8"
               >
-                {attorneys.map((_, index) => (
+                {teamMembers.length > 0 && teamMembers.map((_, index) => (
                   <motion.button
                     key={index}
                     onClick={() => setCurrentAttorneyIndex(index)}
@@ -1868,6 +2044,7 @@ const buttonFromRight = {
                   />
                 ))}
               </motion.div>
+        
             </div>
           </div>
         </div>
@@ -2587,9 +2764,9 @@ const buttonFromRight = {
                 transition={{ type: "spring", stiffness: 80, damping: 25 }}
                 className="grid md:grid-cols-3 gap-6"
               >
-                {latestNews.slice(newsCurrentIndex * 3, newsCurrentIndex * 3 + 3).map((news, index) => (
+                {posts.slice(newsCurrentIndex * 3, newsCurrentIndex * 3 + 3).map((post, index) => (
                   <motion.article
-                    key={news.title}
+                    key={post.title}
                     whileHover={{ y: -15, scale: 1.02 }}
                     transition={{ type: "spring", stiffness: 200, damping: 20 }}
                     className="group cursor-pointer"
@@ -2597,8 +2774,8 @@ const buttonFromRight = {
                     <div className="bg-white border border-gray-200 rounded-sm overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
                       <div className="relative h-48 overflow-hidden">
                         <motion.img 
-                          src={news.image} 
-                          alt={news.title}
+                          src={getBlogImageUrl(post)} 
+                          alt={post.title}
                           className="w-full h-full object-cover"
                           whileHover={{ scale: 1.05 }}
                           transition={{ duration: 0.8 }}
@@ -2609,24 +2786,22 @@ const buttonFromRight = {
                           transition={{ delay: index * 0.3, duration: 1 }}
                           className="absolute top-4 left-4 bg-primary text-white px-3 py-1 text-xs font-semibold rounded-sm"
                         >
-                          {news.category}
+                          {post.category}
                         </motion.div>
                       </div>
                       
                       <div className="p-6">
                         <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
                           <Calendar className="w-4 h-4" />
-                          <span>{news.date}</span>
-                          <span className="mx-2">•</span>
-                          <span>{news.author}</span>
+                          <span>{formatDate(post.date)}</span>
                         </div>
                         
                         <h3 className="text-lg font-heading font-semibold mb-3 text-gray-900 line-clamp-2 group-hover:text-primary transition-colors duration-500">
-                          {news.title}
+                          {post.title}
                         </h3>
                         
                         <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-3">
-                          {news.excerpt}
+                          {post.excerpt}
                         </p>
                         
                         <motion.span 
@@ -2778,62 +2953,103 @@ Purasawalkam, Chennai 600 007. <br />
             <motion.div
               variants={slideFromRight}
             >
-              <form className="bg-card border border-border rounded-sm p-8 shadow-2xl">
-                <div className="grid md:grid-cols-2 gap-4 mb-4">
-                  <motion.div variants={slideFromLeft}>
+              <form onSubmit={handleSubmit} className="bg-card border border-border rounded-sm p-8 shadow-2xl">
+                {/* <div className="grid md:grid-cols-1 gap-4 mb-4"> */}
+                  <motion.div variants={slideFromLeft} className="mb-4">
                     <label className="block text-sm font-medium text-foreground mb-2">First Name</label>
                     <input
+                      name="fullName"
+                      value={formData.fullName}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
                       type="text"
                       className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:outline-none focus:border-primary transition-colors"
                       placeholder="First Name"
                     />
+                    {touched.fullName && errors.fullName && (
+  <p className="text-red-500 text-sm mt-1">{errors.fullName}</p>
+)}
                   </motion.div>
-                  <motion.div variants={slideFromRight} transition={{ delay: 0.2 }}>
+                  {/* <motion.div variants={slideFromRight} transition={{ delay: 0.2 }}>
                     <label className="block text-sm font-medium text-foreground mb-2">Last Name</label>
                     <input
+                    name="lastName"
+  value={formData.lastName}
+  onChange={handleChange}
+  onBlur={handleBlur}
                       type="text"
                       className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:outline-none focus:border-primary transition-colors"
                       placeholder="Last Name"
                     />
-                  </motion.div>
-                </div>
+                    {touched.lastName && errors.lastName && (
+  <p className="text-red-500 text-sm mt-1">{errors.lastName}</p>
+)}
+                  </motion.div> */}
+                {/* </div> */}
                 
                 <motion.div variants={slideFromLeft} transition={{ delay: 0.4 }} className="mb-4">
                   <label className="block text-sm font-medium text-foreground mb-2">Email</label>
                   <input
+                  name="email"
+  value={formData.email}
+  onChange={handleChange}
+  onBlur={handleBlur}
                     type="email"
                     className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:outline-none focus:border-primary transition-colors"
                     placeholder="[EMAIL_ADDRESS]"
                   />
+                  {touched.email && errors.email && (
+  <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+)}
                 </motion.div>
                 
                 <motion.div variants={slideFromRight} transition={{ delay: 0.6 }} className="mb-4">
                   <label className="block text-sm font-medium text-foreground mb-2">Phone</label>
                   <input
+                  name="phone"
+  value={formData.phone}
+  onChange={handleChange}
+  onBlur={handleBlur}
                     type="tel"
                     className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:outline-none focus:border-primary transition-colors"
                     placeholder="+1 (123) 456-7890"
                   />
+                  {touched.phone && errors.phone && (
+  <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
+)}
                 </motion.div>
                 
                 <motion.div variants={slideFromLeft} transition={{ delay: 0.8 }} className="mb-4">
                   <label className="block text-sm font-medium text-foreground mb-2">Practice Area</label>
-                  <select className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:outline-none focus:border-primary transition-colors">
+                  <select name="practiceArea" value={formData.practiceArea}
+  onChange={handleChange}
+  onBlur={handleBlur} className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:outline-none focus:border-primary transition-colors">
                     <option>Select a practice area</option>
                     <option>Corporate Law</option>
                     <option>Litigation</option>
                     <option>Family Law</option>
                     <option>Real Estate</option>
                   </select>
+
+{touched.practiceArea && errors.practiceArea && (
+  <p className="text-red-500 text-sm mt-1">{errors.practiceArea}</p>
+)}
                 </motion.div>
                 
                 <motion.div variants={slideFromRight} transition={{ delay: 1.0 }} className="mb-6">
                   <label className="block text-sm font-medium text-foreground mb-2">Message</label>
                   <textarea
+                  name="message"
+  value={formData.message}
+  onChange={handleChange}
+  onBlur={handleBlur}
                     rows={4}
                     className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:outline-none focus:border-primary transition-colors"
                     placeholder="Tell us about your case..."
                   />
+                  {touched.message && errors.message && (
+  <p className="text-red-500 text-sm mt-1">{errors.message}</p>
+)}
                 </motion.div>
                 
                 <motion.button

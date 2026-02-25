@@ -1,5 +1,18 @@
 "use client";
 
+type ConsultationFormData = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  caseType: string;
+  message: string;
+  preferredDate: string;
+  preferredTime: string;
+};
+
+type ConsultationFormErrors = Partial<ConsultationFormData>;
+
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { 
@@ -7,6 +20,8 @@ import {
   CheckCircle, Clock, MapPin,
   ArrowRight, Star, Briefcase, Heart, TrendingUp, Trophy, Quote
 } from 'lucide-react';
+import { getCMSData } from '../lib/cmsCache';
+import { Employee, Founder, getEmployeeImageUrl, getFounderImageUrl } from '../lib/sanityQueries';
 
 // Custom hook to detect when an element is in view
 const useInView = (options: IntersectionObserverInit = {}): [React.RefObject<HTMLElement | null>, boolean] => {
@@ -263,23 +278,33 @@ const AttorneysSection = () => {
     threshold: 0.2
   });
 
-  const attorneys = [
-    {
-      name: "Edward Anderson",
-      role: "Attorney & Founder",
-      image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=900&q=80"
-    },
-    {
-      name: "Sienna Hewitt Sr",
-      role: "Attorney & Partner",
-      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=900&q=80"
-    },
-    {
-      name: "Nikolas Gibbons",
-      role: "Office Assistant",
-      image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=900&q=80"
-    }
-  ];
+  
+const [teamMembers, setTeamMembers] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  // Fetch CMS data on component mount
+  useEffect(() => {
+    const fetchTeamData = async () => {
+      try {
+        setIsLoading(true);
+        const cmsData = await getCMSData();
+        console.log("CMS data:", cmsData);
+        // Get all employees for team members section
+        const teamMembersData = cmsData.employees;
+                
+        setTeamMembers(teamMembersData);
+      } catch (error) {
+        console.error('Failed to fetch team data:', error);
+        // Keep fallback data in case of error
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    fetchTeamData();
+  }, []);
+
+  const filteredMembers = teamMembers.slice(0, 3)
 
   return (
     <section ref={ref} className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white">
@@ -323,7 +348,7 @@ const AttorneysSection = () => {
           variants={staggerContainer}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
         >
-          {attorneys.map((attorney, index) => (
+          {filteredMembers.map((member, index) => (
             <motion.div
               key={index}
               variants={fadeInUp}
@@ -338,8 +363,8 @@ const AttorneysSection = () => {
                 <motion.img
                   whileHover={{ scale: 1.1 }}
                   transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] as const }}
-                  src={attorney.image}
-                  alt={attorney.name}
+                  src={getEmployeeImageUrl(member)}
+                  alt={member.name}
                   className="w-full h-[350px] sm:h-[380px] md:h-[400px] lg:h-[420px] object-cover"
                 />
               </div>
@@ -360,10 +385,10 @@ const AttorneysSection = () => {
                 className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 text-white"
               >
                 <h3 className="text-lg sm:text-xl font-semibold">
-                  {attorney.name}
+                  {member.name}
                 </h3>
                 <p className="text-xs sm:text-sm text-gray-200">
-                  {attorney.role}
+                  {member.role}
                 </p>
               </motion.div>
             </motion.div>
@@ -523,419 +548,528 @@ const CoreValuesSection = () => {
 };
 
 // ==================== CONSULTATION FORM SECTION WITH IMAGE AND REVIEW ====================
-const ConsultationFormSection = () => {
-  const [ref, inView] = useInView({
-    threshold: 0.2
-  });
-
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    caseType: '',
-    message: '',
-    preferredDate: '',
-    preferredTime: ''
-  });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        caseType: '',
-        message: '',
-        preferredDate: '',
-        preferredTime: ''
-      });
-    }, 3000);
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
+  const ConsultationFormSection = () => {
+    const [ref, inView] = useInView({
+      threshold: 0.2
     });
-  };
 
-  return (
-    <section ref={ref} className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <motion.div 
-          animate={{ 
-            scale: [1, 1.2, 1],
-            x: [0, 20, 0],
-            y: [0, -20, 0]
-          }}
-          transition={{ 
-            duration: 15,
-            repeat: Infinity,
-            ease: "linear" as const
-          }}
-          className="absolute top-0 right-0 w-96 h-96 bg-amber-500 rounded-full filter blur-3xl"
-        />
-        <motion.div 
-          animate={{ 
-            scale: [1, 1.3, 1],
-            x: [0, -20, 0],
-            y: [0, 20, 0]
-          }}
-          transition={{ 
-            duration: 18,
-            repeat: Infinity,
-            ease: "linear" as const
-          }}
-          className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl"
-        />
-      </div>
+const [formData, setFormData] = useState<ConsultationFormData>({
+  firstName: '',
+  lastName: '',
+  email: '',
+  phone: '',
+  caseType: '',
+  message: '',
+  preferredDate: '',
+  preferredTime: ''
+});
 
-      <div className="container relative">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
-          
-          {/* LEFT COLUMN - Image with Quote and Review */}
-          <motion.div
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-            variants={fadeInLeft}
-            className="relative"
-          >
-            {/* Main Image Card */}
-            <motion.div 
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.5 }}
-              className="relative overflow-hidden shadow-2xl rounded-2xl"
+const [errors, setErrors] = useState<ConsultationFormErrors>({});
+const [touched, setTouched] = useState<Record<keyof ConsultationFormData, boolean>>({
+  firstName: false,
+  lastName: false,
+  email: false,
+  phone: false,
+  caseType: false,
+  message: false,
+  preferredDate: false,
+  preferredTime: false
+});
+
+const handleChange = (
+  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+) => {
+  const { name, value } = e.target;
+
+  setFormData(prev => ({
+    ...prev,
+    [name]: value
+  }));
+};
+
+const handleBlur = (
+  e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+) => {
+  const { name } = e.target;
+
+  setTouched(prev => ({
+    ...prev,
+    [name as keyof ConsultationFormData]: true
+  }));
+};
+
+const validate = (): ConsultationFormErrors => {
+  let newErrors: ConsultationFormErrors = {};
+
+  const nameRegex = /^[A-Za-z\s]+$/; // alphabets + space only
+
+  // First Name
+  if (!formData.firstName.trim())
+    newErrors.firstName = "First name is required";
+  else if (!nameRegex.test(formData.firstName))
+    newErrors.firstName = "Only alphabets allowed";
+
+  // Last Name
+  if (!formData.lastName.trim())
+    newErrors.lastName = "Last name is required";
+  else if (!nameRegex.test(formData.lastName))
+    newErrors.lastName = "Only alphabets allowed";
+
+  // Email
+  if (!formData.email.trim())
+    newErrors.email = "Email is required";
+  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
+    newErrors.email = "Invalid email address";
+
+  // Phone
+  if (!formData.phone.trim())
+    newErrors.phone = "Phone number is required";
+  else if (!/^[6-9]\d{9}$/.test(formData.phone))
+    newErrors.phone = "Enter valid 10 digit mobile number";
+
+  // Case Type
+  if (!formData.caseType)
+    newErrors.caseType = "Please select case type";
+
+  // Message
+  if (!formData.message.trim())
+    newErrors.message = "Case details required";
+
+  return newErrors;
+};
+
+
+
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  const validationErrors = validate();
+  setErrors(validationErrors);
+
+  setTouched({
+    firstName: true,
+    lastName: true,
+    email: true,
+    phone: true,
+    caseType: true,
+    message: true,
+    preferredDate: false,
+    preferredTime: false
+  });
+
+  if (Object.keys(validationErrors).length > 0) return;
+
+  setIsSubmitting(true);
+
+  await new Promise(resolve => setTimeout(resolve, 2000));
+
+  setIsSubmitting(false);
+  setIsSubmitted(true);
+
+  setTimeout(() => {
+    setIsSubmitted(false);
+    setFormData({
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      caseType: '',
+      message: '',
+      preferredDate: '',
+      preferredTime: ''
+    });
+    setTouched({
+      firstName: false,
+      lastName: false,
+      email: false,
+      phone: false,
+      caseType: false,
+      message: false,
+      preferredDate: false,
+      preferredTime: false
+    });
+  }, 3000);
+};
+
+    return (
+      <section ref={ref} className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <motion.div 
+            animate={{ 
+              scale: [1, 1.2, 1],
+              x: [0, 20, 0],
+              y: [0, -20, 0]
+            }}
+            transition={{ 
+              duration: 15,
+              repeat: Infinity,
+              ease: "linear" as const
+            }}
+            className="absolute top-0 right-0 w-96 h-96 bg-amber-500 rounded-full filter blur-3xl"
+          />
+          <motion.div 
+            animate={{ 
+              scale: [1, 1.3, 1],
+              x: [0, -20, 0],
+              y: [0, 20, 0]
+            }}
+            transition={{ 
+              duration: 18,
+              repeat: Infinity,
+              ease: "linear" as const
+            }}
+            className="absolute bottom-0 left-0 w-96 h-96 bg-blue-500 rounded-full filter blur-3xl"
+          />
+        </div>
+
+        <div className="container relative">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
+            
+            {/* LEFT COLUMN - Image with Quote and Review */}
+            <motion.div
+              initial="hidden"
+              animate={inView ? "visible" : "hidden"}
+              variants={fadeInLeft}
+              className="relative"
             >
-              <motion.img 
-                initial={{ scale: 1.1 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 1.5 }}
-                src="https://plus.unsplash.com/premium_photo-1661767419918-441080a18873?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE2fHx8ZW58MHx8fHx8" 
-                alt="Legal consultation"
-                className="w-full h-[450px] sm:h-[400px] md:h-[450px] lg:h-full object-cover"
+              {/* Main Image Card */}
+              <motion.div 
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.5 }}
+                className="relative overflow-hidden shadow-2xl rounded-2xl"
+              >
+                <motion.img 
+                  initial={{ scale: 1.1 }}
+                  animate={{ scale: 1 }}
+                  transition={{ duration: 1.5 }}
+                  src="https://plus.unsplash.com/premium_photo-1661767419918-441080a18873?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE2fHx8ZW58MHx8fHx8" 
+                  alt="Legal consultation"
+                  className="w-full h-[450px] sm:h-[400px] md:h-[450px] lg:h-full object-cover"
+                />
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.8 }}
+                  className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"
+                ></motion.div>
+                
+                {/* Quote Icon */}
+                <motion.div 
+                  initial={{ scale: 0, rotate: -180 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ delay: 0.5, duration: 0.8, type: "spring" }}
+                  className="absolute top-6 left-6 sm:top-8 sm:left-8"
+                >
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 bg-amber-500 rounded-full flex items-center justify-center shadow-lg">
+                    <Quote className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+                  </div>
+                </motion.div>
+                
+                {/* Review Content */}
+                <motion.div 
+                  initial={{ y: 50, opacity: 0 }}
+                  animate={inView ? { y: 0, opacity: 1 } : {}}
+                  transition={{ delay: 0.4, duration: 0.8 }}
+                  className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 md:p-10 text-white"
+                >
+                  <motion.p 
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-lg sm:text-xl md:text-2xl font-light italic mb-4 sm:mb-6 leading-relaxed"
+                  >
+                    "The team at J. Ashish Associates LLP handled my case with exceptional care and professionalism. They fought for my rights and achieved justice when I needed it most."
+                  </motion.p>
+                  
+                  {/* Rating Stars */}
+                  <motion.div 
+                    initial={{ scale: 0 }}
+                    animate={inView ? { scale: 1 } : {}}
+                    transition={{ delay: 0.6, duration: 0.5, type: "spring" }}
+                    className="flex gap-1 mb-3 sm:mb-4"
+                  >
+                    {[...Array(5)].map((_, i) => (
+                      <motion.div
+                        key={i}
+                        whileHover={{ scale: 1.2, rotate: 5 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <Star className="w-4 h-4 sm:w-5 sm:h-5 fill-amber-400 text-amber-400" />
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                  
+                  {/* Client Info */}
+                  <motion.div 
+                    whileHover={{ x: 5 }}
+                    transition={{ duration: 0.3 }}
+                    className="flex items-center gap-3 sm:gap-4"
+                  >
+                    <motion.div 
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.3 }}
+                      className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 border-amber-400"
+                    >
+                      <img 
+                        src="https://plus.unsplash.com/premium_photo-1743020414403-8282a72af162?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTh8fGxhd3llciUyMGNvbnN1bHRhdGlvbnxlbnwwfHwwfHx8MA%3D%3D" 
+                        alt="Client"
+                        className="w-full h-full object-cover"
+                      />
+                    </motion.div>
+                    <div>
+                      <h4 className="font-semibold text-base sm:text-lg">Sarah Johnson</h4>
+                      <p className="text-xs sm:text-sm text-gray-300">Personal Injury Client</p>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              </motion.div>
+              
+              {/* Decorative Elements */}
+              <motion.div 
+                animate={{ 
+                  y: [0, -15, 0],
+                  x: [0, 5, 0]
+                }}
+                transition={{ 
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut" as const
+                }}
+                className="absolute -top-4 -right-4 w-20 h-20 sm:w-24 sm:h-24 bg-amber-400/20 rounded-full blur-2xl"
               />
               <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8 }}
-                className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"
-              ></motion.div>
-              
-              {/* Quote Icon */}
-              <motion.div 
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ delay: 0.5, duration: 0.8, type: "spring" }}
-                className="absolute top-6 left-6 sm:top-8 sm:left-8"
-              >
-                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-amber-500 rounded-full flex items-center justify-center shadow-lg">
-                  <Quote className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
-                </div>
-              </motion.div>
-              
-              {/* Review Content */}
-              <motion.div 
-                initial={{ y: 50, opacity: 0 }}
-                animate={inView ? { y: 0, opacity: 1 } : {}}
-                transition={{ delay: 0.4, duration: 0.8 }}
-                className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 md:p-10 text-white"
-              >
-                <motion.p 
-                  whileHover={{ x: 5 }}
-                  transition={{ duration: 0.3 }}
-                  className="text-lg sm:text-xl md:text-2xl font-light italic mb-4 sm:mb-6 leading-relaxed"
-                >
-                  "The team at J. Ashish Associates LLP handled my case with exceptional care and professionalism. They fought for my rights and achieved justice when I needed it most."
-                </motion.p>
-                
-                {/* Rating Stars */}
-                <motion.div 
-                  initial={{ scale: 0 }}
-                  animate={inView ? { scale: 1 } : {}}
-                  transition={{ delay: 0.6, duration: 0.5, type: "spring" }}
-                  className="flex gap-1 mb-3 sm:mb-4"
-                >
-                  {[...Array(5)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      whileHover={{ scale: 1.2, rotate: 5 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <Star className="w-4 h-4 sm:w-5 sm:h-5 fill-amber-400 text-amber-400" />
-                    </motion.div>
-                  ))}
-                </motion.div>
-                
-                {/* Client Info */}
-                <motion.div 
-                  whileHover={{ x: 5 }}
-                  transition={{ duration: 0.3 }}
-                  className="flex items-center gap-3 sm:gap-4"
-                >
-                  <motion.div 
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.3 }}
-                    className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 border-amber-400"
-                  >
-                    <img 
-                      src="https://plus.unsplash.com/premium_photo-1743020414403-8282a72af162?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTh8fGxhd3llciUyMGNvbnN1bHRhdGlvbnxlbnwwfHwwfHx8MA%3D%3D" 
-                      alt="Client"
-                      className="w-full h-full object-cover"
-                    />
-                  </motion.div>
-                  <div>
-                    <h4 className="font-semibold text-base sm:text-lg">Sarah Johnson</h4>
-                    <p className="text-xs sm:text-sm text-gray-300">Personal Injury Client</p>
-                  </div>
-                </motion.div>
-              </motion.div>
+                animate={{ 
+                  y: [0, 15, 0],
+                  x: [0, -5, 0]
+                }}
+                transition={{ 
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: "easeInOut" as const
+                }}
+                className="absolute -bottom-4 -left-4 w-32 h-32 sm:w-40 sm:h-40 bg-blue-400/20 rounded-full blur-2xl"
+              />
             </motion.div>
-            
-            {/* Decorative Elements */}
-            <motion.div 
-              animate={{ 
-                y: [0, -15, 0],
-                x: [0, 5, 0]
-              }}
-              transition={{ 
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut" as const
-              }}
-              className="absolute -top-4 -right-4 w-20 h-20 sm:w-24 sm:h-24 bg-amber-400/20 rounded-full blur-2xl"
-            />
-            <motion.div 
-              animate={{ 
-                y: [0, 15, 0],
-                x: [0, -5, 0]
-              }}
-              transition={{ 
-                duration: 5,
-                repeat: Infinity,
-                ease: "easeInOut" as const
-              }}
-              className="absolute -bottom-4 -left-4 w-32 h-32 sm:w-40 sm:h-40 bg-blue-400/20 rounded-full blur-2xl"
-            />
-          </motion.div>
 
-          {/* RIGHT COLUMN - Form */}
-          <motion.div
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-            variants={fadeInRight}
-          >
-            <motion.div variants={staggerContainer}>
-              <motion.div variants={fadeInUp} className="mb-6 sm:mb-8 md:mb-10">
-                <motion.div 
-                  variants={fadeInDown}
-                  className="flex items-center justify-start gap-3 mb-3"
-                >
-                  <motion.span 
-                    variants={lineAnimation}
-                    className="h-px bg-[#C9A646]"
-                  ></motion.span>
+            {/* RIGHT COLUMN - Form */}
+            <motion.div
+              initial="hidden"
+              animate={inView ? "visible" : "hidden"}
+              variants={fadeInRight}
+            >
+              <motion.div variants={staggerContainer}>
+                <motion.div variants={fadeInUp} className="mb-6 sm:mb-8 md:mb-10">
+                  <motion.div 
+                    variants={fadeInDown}
+                    className="flex items-center justify-start gap-3 mb-3"
+                  >
+                    <motion.span 
+                      variants={lineAnimation}
+                      className="h-px bg-[#C9A646]"
+                    ></motion.span>
+                    <motion.p 
+                      variants={fadeInUp}
+                      className="text-sm uppercase tracking-[0.2em] text-[#C9A646] font-semibold"
+                    >
+                      Get in Touch
+                    </motion.p>
+                  </motion.div>
+                  <motion.h2 
+                    variants={fadeInUp}
+                    className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mt-2 sm:mt-3 md:mt-4 mb-2 sm:mb-3 md:mb-4"
+                  >
+                    Request a Free Consultation
+                  </motion.h2>
                   <motion.p 
                     variants={fadeInUp}
-                    className="text-sm uppercase tracking-[0.2em] text-[#C9A646] font-semibold"
+                    className="text-sm sm:text-base md:text-lg text-gray-600"
                   >
-                    Get in Touch
+                    Just fill out the form below to schedule your free initial consultation with our global law experts to help you!
                   </motion.p>
                 </motion.div>
-                <motion.h2 
-                  variants={fadeInUp}
-                  className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mt-2 sm:mt-3 md:mt-4 mb-2 sm:mb-3 md:mb-4"
+
+                <motion.form 
+                  variants={staggerContainer}
+                  onSubmit={handleSubmit} 
+                  className="space-y-4 sm:space-y-5 md:space-y-6"
                 >
-                  Request a Free Consultation
-                </motion.h2>
-                <motion.p 
-                  variants={fadeInUp}
-                  className="text-sm sm:text-base md:text-lg text-gray-600"
-                >
-                  Just fill out the form below to schedule your free initial consultation with our global law experts to help you!
-                </motion.p>
-              </motion.div>
-
-              <motion.form 
-                variants={staggerContainer}
-                onSubmit={handleSubmit} 
-                className="space-y-4 sm:space-y-5 md:space-y-6"
-              >
-                <motion.div variants={fadeInUp} className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
-                  <motion.div whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
-                    <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">First Name</label>
-                    <input
-                      type="text"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handleChange}
-                      className="w-full px-4 sm:px-5 py-3 sm:py-4 border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-amber-500 outline-none focus:border-transparent transition-all duration-300 bg-white text-sm sm:text-base"
-                      placeholder="First Name"
-                      required
-                    />
-                  </motion.div>
-                  <motion.div whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
-                    <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">Last Name</label>
-                    <input
-                      type="text"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleChange}
-                      className="w-full px-4 sm:px-5 py-3 sm:py-4 border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-amber-500 outline-none focus:border-transparent transition-all duration-300 bg-white text-sm sm:text-base"
-                      placeholder="Last Name"
-                      required
-                    />
-                  </motion.div>
-                </motion.div>
-
-                <motion.div variants={fadeInUp} whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
-                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">Email Address</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full px-4 sm:px-5 py-3 sm:py-4 border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-amber-500 outline-none focus:border-transparent transition-all duration-300 bg-white text-sm sm:text-base"
-                    placeholder="Email Address"
-                    required
-                  />
-                </motion.div>
-
-                <motion.div variants={fadeInUp} whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
-                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">Phone Number</label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="w-full px-4 sm:px-5 py-3 sm:py-4 border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-amber-500 outline-none focus:border-transparent transition-all duration-300 bg-white text-sm sm:text-base"
-                    placeholder="Phone Number"
-                    required
-                  />
-                </motion.div>
-
-                {/* <motion.div variants={fadeInUp} className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
-                  <motion.div whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
-                    <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">Preferred Date</label>
-                    <input
-                      type="date"
-                      name="preferredDate"
-                      value={formData.preferredDate}
-                      onChange={handleChange}
-                      className="w-full px-4 sm:px-5 py-3 sm:py-4 border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-amber-500 outline-none focus:border-transparent transition-all duration-300 bg-white text-sm sm:text-base"
-                    />
-                  </motion.div>
-                  <motion.div whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
-                    <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">Preferred Time</label>
-                    <input
-                      type="time"
-                      name="preferredTime"
-                      value={formData.preferredTime}
-                      onChange={handleChange}
-                      className="w-full px-4 sm:px-5 py-3 sm:py-4 border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-amber-500 outline-none focus:border-transparent transition-all duration-300 bg-white text-sm sm:text-base"
-                    />
-                  </motion.div>
-                </motion.div> */}
-
-                <motion.div variants={fadeInUp} whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
-                  <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">Type of Case</label>
-                  <div className="relative">
-                    <select
-                      name="caseType"
-                      value={formData.caseType}
-                      onChange={handleChange}
-                      className="w-full px-4 sm:px-5 py-3 sm:py-4 border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-amber-500 outline-none focus:border-transparent transition-all duration-300 appearance-none bg-white text-sm sm:text-base"
-                      required
-                    >
-                      <option value="">Select case type</option>
-                      <option value="personal-injury">Personal Injury</option>
-                      <option value="family-law">Family Law</option>
-                      <option value="business-law">Business Law</option>
-                      <option value="criminal-defense">Criminal Defense</option>
-                      <option value="real-estate">Real Estate</option>
-                      <option value="estate-planning">Estate Planning</option>
-                    </select>
-                    <motion.div
-                      animate={{ y: [0, 3, 0] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    >
-                      <ChevronDown className="absolute right-4 sm:right-5 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 sm:w-5 sm:h-5" />
-                    </motion.div>
-                  </div>
-                </motion.div>
-
-                <motion.div variants={fadeInUp} whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
-                  <label className="block text-xs sm:text-sm font-semibold outline-none text-gray-700 mb-1 sm:mb-2">
-                    Case Details
-                  </label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    rows={4}
-                    className="w-full px-4 sm:px-5 py-3 sm:py-4 border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-amber-500 outline-none focus:border-transparent transition-all duration-300 bg-white text-sm sm:text-base"
-                    placeholder="Please provide details about your case..."
-                  ></textarea>
-                </motion.div>
-
-                <motion.div variants={fadeInUp}>
-                  <motion.button
-                    whileHover={{ scale: 1.05, backgroundColor: "#b38f3a" }}
-                    whileTap={{ scale: 0.98 }}
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-[#C9A646] text-white font-semibold py-3 sm:py-4 md:py-5 px-4 sm:px-5 md:px-6 rounded-lg sm:rounded-xl transition-all duration-300 shadow-xl hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group text-sm sm:text-base"
-                  >
-                    {isSubmitting ? (
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ repeat: Infinity, duration: 1, ease: "linear" as const }}
-                        className="w-5 h-5 sm:w-6 sm:h-6 border-2 border-white border-t-transparent rounded-full mx-auto"
+                  <motion.div variants={fadeInUp} className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
+                    <motion.div whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
+                      <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">First Name</label>
+                      <input
+                        type="text"
+                        name="firstName"
+                        value={formData.firstName}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        className="w-full px-4 sm:px-5 py-3 sm:py-4 text-gray-700 border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-amber-500 outline-none focus:border-transparent transition-all duration-300 bg-white text-sm sm:text-base"
+                        placeholder="First Name"
                       />
-                    ) : isSubmitted ? (
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ type: "spring", stiffness: 200 }}
-                        className="flex items-center justify-center gap-2"
+                      {touched.firstName && errors.firstName && (
+  <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>
+)}
+                    </motion.div>
+                    <motion.div whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
+                      <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">Last Name</label>
+                      <input
+                        type="text"
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        className="w-full px-4 sm:px-5 py-3 sm:py-4 text-gray-700 border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-amber-500 outline-none focus:border-transparent transition-all duration-300 bg-white text-sm sm:text-base"
+                        placeholder="Last Name"
+                      />
+                      {touched.lastName && errors.lastName && (
+  <p className="text-red-500 text-sm mt-1">{errors.lastName}</p>
+)}
+                    </motion.div>
+                  </motion.div>
+
+                  <motion.div variants={fadeInUp} whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
+                    <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">Email Address</label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className="w-full px-4 sm:px-5 py-3 sm:py-4 text-gray-700 border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-amber-500 outline-none focus:border-transparent transition-all duration-300 bg-white text-sm sm:text-base"
+                      placeholder="Email Address"
+                    />
+                    {touched.email && errors.email && (
+  <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+)}
+                  </motion.div>
+
+                  <motion.div variants={fadeInUp} whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
+                    <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">Phone Number</label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className="w-full px-4 sm:px-5 py-3 sm:py-4 text-gray-700 border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-amber-500 outline-none focus:border-transparent transition-all duration-300 bg-white text-sm sm:text-base"
+                      placeholder="Phone Number"
+                    />
+                    {touched.phone && errors.phone && (
+  <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
+)}
+                  </motion.div>
+
+                  {/* <motion.div variants={fadeInUp} className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
+                    <motion.div whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
+                      <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">Preferred Date</label>
+                      <input
+                        type="date"
+                        name="preferredDate"
+                        value={formData.preferredDate}
+                        onChange={handleChange}
+                        className="w-full px-4 sm:px-5 py-3 sm:py-4 border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-amber-500 outline-none focus:border-transparent transition-all duration-300 bg-white text-sm sm:text-base"
+                      />
+                    </motion.div>
+                    <motion.div whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
+                      <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">Preferred Time</label>
+                      <input
+                        type="time"
+                        name="preferredTime"
+                        value={formData.preferredTime}
+                        onChange={handleChange}
+                        className="w-full px-4 sm:px-5 py-3 sm:py-4 border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-amber-500 outline-none focus:border-transparent transition-all duration-300 bg-white text-sm sm:text-base"
+                      />
+                    </motion.div>
+                  </motion.div> */}
+
+                  <motion.div variants={fadeInUp} whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
+                    <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">Type of Case</label>
+                    <div className="relative">
+                      <select
+                        name="caseType"
+                        value={formData.caseType}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        className="w-full px-4 sm:px-5 py-3 text-gray-700 sm:py-4 border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-amber-500 outline-none focus:border-transparent transition-all duration-300 appearance-none bg-white text-sm sm:text-base"
                       >
-                        <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
-                        <span>Submitted Successfully!</span>
-                      </motion.div>
-                    ) : (
-                      <motion.span 
-                        animate={{ x: [0, 5, 0] }}
-                        transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-                        className="flex items-center justify-center gap-2"
-                      >
-                        Schedule Consultation
-                        <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-2 transition-transform duration-300" />
-                      </motion.span>
-                    )}
-                  </motion.button>
-                </motion.div>
-              </motion.form>
+                        <option value="">Select case type</option>
+                        <option value="personal-injury">Personal Injury</option>
+                        <option value="family-law">Family Law</option>
+                        <option value="business-law">Business Law</option>
+                        <option value="criminal-defense">Criminal Defense</option>
+                        <option value="real-estate">Real Estate</option>
+                        <option value="estate-planning">Estate Planning</option>
+                      </select>
+                    </div>
+                    {touched.caseType && errors.caseType && (
+  <p className="text-red-500 text-sm mt-1">{errors.caseType}</p>
+)}
+                  </motion.div>
+
+                  <motion.div variants={fadeInUp} whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
+                    <label className="block text-xs sm:text-sm font-semibold outline-none text-gray-700 mb-1 sm:mb-2">
+                      Case Details
+                    </label>
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      rows={4}
+                      className="w-full px-4 sm:px-5 py-3 text-gray-700 sm:py-4 border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-amber-500 outline-none focus:border-transparent transition-all duration-300 bg-white text-sm sm:text-base"
+                      placeholder="Please provide details about your case..."
+                    />
+                    {touched.message && errors.message && (
+  <p className="text-red-500 text-sm mt-1">{errors.message}</p>
+)}
+                  </motion.div>
+
+                  <motion.div variants={fadeInUp}>
+                    <motion.button
+                      whileHover={{ scale: 1.05, backgroundColor: "#b38f3a" }}
+                      whileTap={{ scale: 0.98 }}
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full bg-[#C9A646] text-white font-semibold py-3 sm:py-4 md:py-5 px-4 sm:px-5 md:px-6 rounded-lg sm:rounded-xl transition-all duration-300 shadow-xl hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group text-sm sm:text-base"
+                    >
+                      {isSubmitting ? (
+                        <motion.div
+                          // animate={{ rotate: 360 }}
+                          transition={{ repeat: Infinity, duration: 1, ease: "linear" as const }}
+                          className="w-5 h-5 sm:w-6 sm:h-6 border-2 border-white border-t-transparent rounded-full mx-auto"
+                        />
+                      ) : isSubmitted ? (
+                        <motion.div
+                          initial={{ scale: 0 }}
+                          animate={{ scale: 1 }}
+                          transition={{ type: "spring", stiffness: 200 }}
+                          className="flex items-center justify-center gap-2"
+                        >
+                          <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
+                          <span>Submitted Successfully!</span>
+                        </motion.div>
+                      ) : (
+                        <motion.span 
+                          animate={{ x: [0, 5, 0] }}
+                          transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                          className="flex items-center justify-center gap-2"
+                        >
+                          Schedule Consultation
+                          <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-2 transition-transform duration-300" />
+                        </motion.span>
+                      )}
+                    </motion.button>
+                  </motion.div>
+                </motion.form>
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
-      </div>
-    </section>
-  );
-};
+      </section>
+    );
+  };
 
 // ==================== MAIN CONSULTATION COMPONENT ====================
 const Consultation = () => {

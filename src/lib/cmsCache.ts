@@ -98,7 +98,7 @@ const fetchAllCMSData = async (): Promise<{ employees: Employee[]; blogs: BlogPo
     // Employees query with all required fields
     sanityFetch<Employee[]>(`*[_type == "employee"] | order(_createdAt desc) {
       _id,
-      profileImage {
+      image {
         asset->{
           url
         }
@@ -141,10 +141,10 @@ const fetchAllCMSData = async (): Promise<{ employees: Employee[]; blogs: BlogPo
     // Careers query with all required fields
     sanityFetch<Career[]>(`*[_type == "career"] | order(_createdAt desc) {
       _id,
-      jobTitle,
+      title,
       location,
-      jobType,
-      description
+      type,
+      desc
     }`),
     
     // Founders query with all required fields

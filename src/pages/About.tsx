@@ -15,7 +15,9 @@ import {
 import AnimatedSection from "../components/AnimatedSection";
 import CounterAnimation from "../components/CounterAnimation";
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { getCMSData } from '../lib/cmsCache';
+import { Employee, Founder, getEmployeeImageUrl, getFounderImageUrl } from '../lib/sanityQueries';
 
 const values = [
   { icon: Award, title: "Integrity", desc: "We uphold the highest ethical standards in every interaction and case we handle." },
@@ -193,6 +195,38 @@ const useParallax = (speed: number = 0.5) => {
 
 const About = () => {
   const parallaxRef = useParallax(0.3);
+
+  const [founders, setFounders] = useState<Founder[]>([]);
+      const [teamMembers, setTeamMembers] = useState<any[]>([]);
+      const [isLoading, setIsLoading] = useState(true);
+      
+      // Fetch CMS data on component mount
+      useEffect(() => {
+        const fetchTeamData = async () => {
+          try {
+            setIsLoading(true);
+            const cmsData = await getCMSData();
+            console.log("CMS data:", cmsData);
+            // Filter employees by category for founders (founder/senior categories)
+            const foundersData = cmsData.founders;
+            
+            // Get all employees for team members section
+            const teamMembersData = cmsData.employees;
+            
+            setFounders(foundersData);
+            
+            setTeamMembers(teamMembersData);
+          } catch (error) {
+            console.error('Failed to fetch team data:', error);
+            // Keep fallback data in case of error
+          } finally {
+            setIsLoading(false);
+          }
+        };
+        
+        fetchTeamData();
+      }, []);
+      const primaryFounder = founders?.[0];
 
   return (
     <div className="overflow-hidden -mt-20">
@@ -470,8 +504,10 @@ const About = () => {
                     {/* Overlays */}
                     <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-transparent mix-blend-overlay z-10" />
                     <motion.img 
-                      src={founder.image} 
-                      alt={founder.name}
+                      src={primaryFounder?.profileImage
+      ? getFounderImageUrl(primaryFounder)
+      : `https://ui-avatars.com/api/?name=${encodeURIComponent(primaryFounder?.name || 'Founder')}&background=E5E7EB&color=6B7280&size=128`} 
+                      alt={primaryFounder?.name || 'Founder'}
                       className="w-full h-full object-cover object-center"
                       whileHover={{ scale: 1.05 }}
                       transition={{ duration: 0.6 }}
@@ -492,14 +528,14 @@ const About = () => {
                     </motion.div>
 
                     {/* Social Icons */}
-                    <motion.div 
+                    {/* <motion.div 
                       initial={{ y: 20, opacity: 0 }}
                       whileInView={{ y: 0, opacity: 1 }}
                       transition={{ delay: 0.7 }}
                       className="absolute bottom-6 left-6 flex gap-3 z-20"
                     >
                       {[
-                        { icon: Linkedin, color: "hover:bg-[#0077b5]" },
+                        { icon: Linkedin, color: "hover:bg-[#0077b5]," },
                         { icon: Mail, color: "hover:bg-primary" },
                         { icon: Twitter, color: "hover:bg-[#1DA1F2]" },
                       ].map((item, index) => {
@@ -515,7 +551,46 @@ const About = () => {
                           </motion.div>
                         );
                       })}
-                    </motion.div>
+                    </motion.div> */}
+
+                    <motion.div 
+  initial={{ y: 20, opacity: 0 }}
+  whileInView={{ y: 0, opacity: 1 }}
+  transition={{ delay: 0.7 }}
+  className="absolute bottom-6 left-6 flex gap-3 z-20"
+>
+  {primaryFounder && [
+    { 
+      icon: Linkedin, 
+      color: "hover:bg-[#0077b5]",
+      link: primaryFounder.social?.linkedin
+    },
+    { 
+      icon: Mail, 
+      color: "hover:bg-primary",
+      link: `mailto:${primaryFounder.email}`
+    },
+    { 
+      icon: Twitter, 
+      color: "hover:bg-[#1DA1F2]",
+      link: primaryFounder.social?.twitter
+    },
+  ].map((item, index) => {
+    const Icon = item.icon;
+
+    return (
+      <motion.div
+        key={index}
+        whileHover={{ scale: 1.2, y: -5 }}
+        whileTap={{ scale: 0.9 }}
+        onClick={() => item.link && window.open(item.link, "_blank")}
+        className={`w-10 h-10 rounded-full bg-background/50 backdrop-blur-md border border-primary/20 flex items-center justify-center cursor-pointer transition-all duration-300 ${item.color} group/social`}
+      >
+        <Icon className="w-4 h-4 text-primary group-hover/social:text-primary-foreground transition-colors" />
+      </motion.div>
+    );
+  })}
+</motion.div>
 
                     {/* Experience Badge */}
                     <div className="absolute bottom-8 right-8 w-28 h-28">
@@ -543,7 +618,7 @@ const About = () => {
                       <span className="text-primary text-xs sm:text-sm font-semibold tracking-[0.3em] uppercase">The Visionary</span>
                       <div className="flex items-center gap-3 mt-2">
                         <h3 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-bold text-foreground">
-                          {founder.name}
+                          {primaryFounder?.name}
                         </h3>
                         <motion.div
                           animate={{ rotate: [0, 10, -10, 0] }}
@@ -556,14 +631,14 @@ const About = () => {
 
                     <motion.div variants={fadeInUp} className="mb-6 sm:mb-8">
                       <p className="text-lg sm:text-xl text-primary font-medium flex items-center gap-2">
-                        {founder.title}
+                        {primaryFounder?.role}
                         <ArrowUpRight className="w-4 h-4 sm:w-5 sm:h-5" />
                       </p>
                       <div className="w-20 h-0.5 bg-gradient-to-r from-primary to-accent mt-2" />
                     </motion.div>
 
                     <motion.p variants={fadeInUp} className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-6 sm:mb-8">
-                      {founder.desc}
+                      {primaryFounder?.details?.education?.[0]}
                     </motion.p>
 
                     <motion.div variants={fadeInUp} className="mb-6 sm:mb-8">
@@ -572,22 +647,22 @@ const About = () => {
                         Specializations
                       </p>
                       <div className="flex flex-wrap gap-2">
-                        {founder.specializations.map((spec, index) => (
+                        {primaryFounder?.details?.practiceAreas?.map((practiceareas, index) => (
                           <motion.span 
                             key={index}
                             whileHover={{ scale: 1.05, y: -2 }}
                             className="px-2 sm:px-3 py-1 sm:py-1.5 bg-primary/10 border border-primary/20 rounded-full text-xs font-medium text-primary"
                           >
-                            {spec}
+                            {practiceareas}
                           </motion.span>
                         ))}
                       </div>
                     </motion.div>
 
                     <motion.div variants={fadeInUp}>
-                      <p className="text-xs sm:text-sm font-semibold text-primary mb-3">Key Achievements</p>
+                      <p className="text-xs sm:text-sm font-semibold text-primary mb-3">Awards & Achievements</p>
                       <div className="grid grid-cols-2 gap-2 sm:gap-3">
-                        {founder.achievements.map((achievement, index) => (
+                        {primaryFounder?.details?.awards?.map((achievements, index) => (
                           <motion.div 
                             key={index}
                             whileHover={{ x: 5 }}
@@ -598,7 +673,7 @@ const About = () => {
                               transition={{ duration: 2, repeat: Infinity, delay: index * 0.3 }}
                               className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0"
                             />
-                            <span className="text-xs text-muted-foreground">{achievement}</span>
+                            <span className="text-xs text-muted-foreground">{achievements}</span>
                           </motion.div>
                         ))}
                       </div>
@@ -710,64 +785,57 @@ const About = () => {
             viewport={{ once: true }}
             className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
           >
-            {attorneys.map((attorney, index) => (
-              <motion.div
-                key={attorney.name}
-                variants={fadeInUp}
-                whileHover={{ y: -10 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                className="group bg-card border border-border rounded-xl overflow-hidden hover:shadow-2xl transition-all duration-500"
-              >
-                <div className="relative h-56 sm:h-64 overflow-hidden">
-                  <img 
-                    src={attorney.image} 
-                    alt={attorney.name}
-                    className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700"
-                    loading="lazy"
-                  />
+            {teamMembers.map((member, index) => (
+  <motion.div
+    key={member._id}
+    variants={fadeInUp}
+    whileHover={{ y: -10 }}
+    transition={{ type: "spring", stiffness: 300 }}
+    className="group bg-card border border-border rounded-xl overflow-hidden hover:shadow-2xl transition-all duration-500"
+  >
+    <div className="relative h-56 sm:h-64 overflow-hidden">
+      <img 
+        src={getEmployeeImageUrl(member)}
+        alt={member.name}
+        className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700"
+      />
 
-                  {/* Practice Area Badge */}
-                  <div className="absolute top-4 right-4 bg-primary/90 backdrop-blur-sm px-3 py-1 rounded-full z-20">
-                    <span className="text-xs font-semibold text-primary-foreground">{attorney.title}</span>
-                  </div>
-                </div>
+      <div className="absolute top-4 right-4 bg-primary/90 backdrop-blur-sm px-3 py-1 rounded-full z-20">
+        <span className="text-xs font-semibold text-primary-foreground">
+          {member.role}
+        </span>
+      </div>
+    </div>
 
-                <div className="p-4 sm:p-6">
-                  <h3 className="text-lg sm:text-xl font-heading font-bold mb-2 group-hover:text-primary transition-colors text-foreground">
-                    {attorney.name}
-                  </h3>
-                  
-                  <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-3 sm:mb-4 text-xs sm:text-sm">
-                    <div className="flex items-center gap-1">
-                      <Briefcase className="w-3 h-3 sm:w-4 sm:h-4 text-primary" />
-                      <span className="text-muted-foreground">{attorney.experience}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <FileText className="w-3 h-3 sm:w-4 sm:h-4 text-primary" />
-                      <span className="text-muted-foreground">{attorney.cases}</span>
-                    </div>
-                  </div>
+    <div className="p-4 sm:p-6">
+      <h3 className="text-lg sm:text-xl font-heading font-bold mb-2 group-hover:text-primary transition-colors text-foreground">
+        {member.name}
+      </h3>
 
-                  <div className="mb-3 sm:mb-4">
-                    <div className="flex items-center gap-2">
-                      <Landmark className="w-3 h-3 sm:w-4 sm:h-4 text-primary flex-shrink-0" />
-                      <span className="text-xs sm:text-sm text-muted-foreground truncate">{attorney.education}</span>
-                    </div>
-                  </div>
+      <div className="flex flex-wrap items-center gap-3 mb-3 text-sm">
+        <div className="flex items-center gap-1">
+          <Briefcase className="w-4 h-4 text-primary" />
+          <span className="text-muted-foreground">
+            {member.experience} yrs
+          </span>
+        </div>
+      </div>
 
-                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                    {attorney.expertise.map((exp, i) => (
-                      <span 
-                        key={i}
-                        className="text-xs px-2 py-1 bg-primary/5 border border-primary/10 rounded-full text-muted-foreground"
-                      >
-                        {exp}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+      <div className="mb-3">
+        <div className="flex items-center gap-2">
+          <Landmark className="w-4 h-4 text-primary flex-shrink-0" />
+          <span className="text-sm text-muted-foreground truncate">
+            {member.specialty}
+          </span>
+        </div>
+      </div>
+
+      <p className="text-xs text-muted-foreground line-clamp-3">
+        {member.bio}
+      </p>
+    </div>
+  </motion.div>
+))}
           </motion.div>
 
           <motion.div

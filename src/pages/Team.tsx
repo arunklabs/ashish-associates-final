@@ -7,46 +7,6 @@ import { useEffect, useState } from "react";
 import { getCMSData } from '../lib/cmsCache';
 import { Employee, Founder, getEmployeeImageUrl, getFounderImageUrl } from '../lib/sanityQueries';
 
-// Transform CMS Employee data to match existing founder interface
-const transformEmployeeToFounder = (employee: Founder): Founder => {
-  return {
-    _id: employee._id,
-    profileImage: employee.profileImage,
-    name: employee.name || '',
-    designation: employee.designation || '',
-    role: employee.role || employee.designation || '',
-    initials: employee.initials || (employee.name ? employee.name.split(' ').map(n => n[0]).join('') : '??'),
-    specialty: employee.specialty,
-    experience: employee.experience,
-    email: employee.email,
-    // Note: CMS Employee doesn't have phone/social/details by default
-    // These would need to be added to the CMS schema if required
-    phone: '',
-    social: { linkedin: '', twitter: '', facebook: '' },
-    details: {
-      practiceAreas: [],
-      education: [],
-      barAssociations: [],
-      organizations: [],
-      awards: []
-    }
-  };
-};
-
-// Transform CMS Employee data for team members display
-const transformEmployeeToTeamMember = (employee: Employee) => {
-  return {
-    name: employee.name || 'Team Member',
-    role: employee.role || employee.designation || 'Team Member',
-    specialty: employee.specialty || 'General Practice',
-    experience: employee.experience ? `${employee.experience} years` : 'New',
-    bio: employee.bio || 'Experienced team member dedicated to providing excellent legal services.',
-    image: getEmployeeImageUrl(employee),
-    initials: employee.initials || (employee.name ? employee.name.split(' ').map(n => n[0]).join('') : '??'),
-    email: employee.email || 'contact@ashishassociates.com',
-    category: employee.category || 'associate'
-  };
-};
 // Animation variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },

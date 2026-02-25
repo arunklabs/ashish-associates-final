@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { getCMSData, safeDataExtraction } from "../lib/cmsCache";
 import { BlogPost, formatDate, getBlogImageUrl } from "../lib/sanityQueries";
 
@@ -25,6 +25,10 @@ const Blog = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [visiblePosts, setVisiblePosts] = useState(6);
+
+  const displayedPosts = useMemo(() => {
+  return posts.slice(0, visiblePosts);
+}, [posts, visiblePosts]);
 
   // Load blog posts from shared CMS cache (single session-based fetch)
   useEffect(() => {
@@ -60,6 +64,7 @@ const Blog = () => {
         // Use fetched data, or fallback to default data if empty
         if (safePosts.length > 0) {
           setPosts(safePosts);
+          setVisiblePosts(6);
         } else {
           console.warn('No blog posts found in CMS, using default data');
         }
@@ -76,8 +81,8 @@ const Blog = () => {
   }, []);
 
   const loadMore = () => {
-    setVisiblePosts(prev => Math.min(prev + 3, posts.length));
-  };
+  setVisiblePosts(prev => prev + 3);
+};
 
   const hasMore = visiblePosts < posts.length;
 
@@ -272,7 +277,7 @@ const Blog = () => {
               </div>
             ) : (
               // Render posts
-              posts.slice(0, visiblePosts).map((post, i) => (
+              displayedPosts.map((post, i) => (
                 <motion.div
                   key={post._id}
                   variants={{

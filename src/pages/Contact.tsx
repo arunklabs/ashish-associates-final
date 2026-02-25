@@ -8,11 +8,97 @@ import { motion } from "framer-motion";
 const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    alert("Thank you for your message. We will contact you shortly.");
-    setForm({ name: "", email: "", phone: "", subject: "", message: "" });
+  const [errors, setErrors] = useState({
+  name: "",
+  email: "",
+  phone: "",
+  subject: "",
+  message: ""
+});
+
+
+const validateForm = () => {
+  let newErrors = {
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: ""
   };
+
+  let isValid = true;
+
+// Name
+const nameRegex = /^[A-Za-z\s]+$/;
+
+if (!form.name.trim()) {
+  newErrors.name = "Full name is required";
+  isValid = false;
+} 
+else if (!nameRegex.test(form.name)) {
+  newErrors.name = "Name should contain only letters";
+  isValid = false;
+}
+
+  // Email
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!form.email.trim()) {
+    newErrors.email = "Email is required";
+    isValid = false;
+  } else if (!emailRegex.test(form.email)) {
+    newErrors.email = "Enter a valid email";
+    isValid = false;
+  }
+
+  // Phone (Indian format)
+  const phoneRegex = /^[6-9]\d{9}$/;
+  if (form.phone && !phoneRegex.test(form.phone)) {
+    newErrors.phone = "Enter valid 10 digit phone number";
+    isValid = false;
+  }
+
+  // Subject
+  if (!form.subject) {
+    newErrors.subject = "Please select subject";
+    isValid = false;
+  }
+
+  // Message
+  if (!form.message.trim()) {
+    newErrors.message = "Message is required";
+    isValid = false;
+  } else if (form.message.length < 10) {
+    newErrors.message = "Message must be at least 10 characters";
+    isValid = false;
+  }
+
+  setErrors(newErrors);
+  return isValid;
+};
+
+  const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
+
+  if (!validateForm()) return;
+
+  alert("Thank you for your message. We will contact you shortly.");
+
+  setForm({
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: ""
+  });
+
+  setErrors({
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: ""
+  });
+};
 
   // Animation variants - Professional and smooth
   const fadeInUp = {
@@ -156,16 +242,36 @@ const Contact = () => {
 
   // Chennai location details
   const chennaiLocations = [
-    {
-      name: "Main Office - Anna Salai",
-      address: "No. 137, Flat No. F-8, 1st Floor, Appu Manor Apartment, Perambur Barracks Road, Purasawalkam, Chennai 600 007",
-      phone: "7373663555",
-      email: "jashishadvocate@gmail.com",
-      hours: "Mon – Fri: 9:00 AM – 7:00 PM",
-      map: "Anna Salai, Chennai"
-    },
-  ];
+  {
+    name: "Main Office - Anna Salai",
+    address: "No. 137, Flat No. F-8, 1st Floor, Appu Manor Apartment, Perambur Barracks Road, Purasawalkam, Chennai 600 007",
+    phone: "7373663555",
+    email: "jashishadvocate@gmail.com",
+    hours: "Mon – Fri: 9:00 AM – 7:00 PM",
+    map: "Anna Salai, Chennai",
+    mapEmbed: "https://www.google.com/maps?q=Purasawalkam,Chennai&output=embed"
+  },
+  {
+    name: "Bangalore Office",
+    address: "No. 24, 2nd Floor, Brigade Road, Ashok Nagar, Bengaluru, Karnataka 560025",
+    phone: "7373663555",
+    email: "jashishadvocate@gmail.com",
+    hours: "Mon – Fri: 9:30 AM – 6:30 PM",
+    map: "Brigade Road, Bangalore",
+    mapEmbed: "https://www.google.com/maps?q=Brigade+Road,Bangalore&output=embed"
+  },
+  {
+    name: "Mumbai Office",
+    address: "Unit 402, 4th Floor, The Capital Building, Bandra Kurla Complex, Bandra East, Mumbai, Maharashtra 400051",
+    phone: "7373663555",
+    email: "jashishadvocate@gmail.com",
+    hours: "Mon – Fri: 10:00 AM – 7:00 PM",
+    map: "Bandra Kurla Complex, Mumbai",
+    mapEmbed: "https://www.google.com/maps?q=Bandra+Kurla+Complex,Mumbai&output=embed"
+  }
+];
 
+const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
   const socialLinks = [
     { icon: Facebook, href: "https://facebook.com", label: "Facebook", color: "#1877F2" },
     { icon: Twitter, href: "https://twitter.com", label: "Twitter", color: "#1DA1F2" },
@@ -332,7 +438,7 @@ const Contact = () => {
               variants={fadeInUp}
               className="text-3xl md:text-4xl font-heading font-bold text-black mb-4"
             >
-              <span className="text-primary">Chennai</span> Locations
+              <span className="text-primary">Our</span> Nationwide Presence
             </motion.h2>
             
             <motion.p 
@@ -344,7 +450,7 @@ const Contact = () => {
           </motion.div>
 
           {/* Location Cards */}
-          <div className="grid lg:grid-cols-1 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {chennaiLocations.map((location, index) => (
               <motion.div
                 key={location.name}
@@ -613,12 +719,12 @@ const Contact = () => {
                       whileFocus={{ scale: 1.02 }}
                       transition={{ duration: 0.2 }}
                       type="text"
-                      required
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
                       className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-primary focus:bg-white transition-all duration-300"
                       placeholder="Your Name"
                     />
+                    {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
                   </motion.div>
                   
                   <motion.div variants={fadeInUp} custom={1}>
@@ -627,12 +733,12 @@ const Contact = () => {
                       whileFocus={{ scale: 1.02 }}
                       transition={{ duration: 0.2 }}
                       type="email"
-                      required
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
                       className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-primary focus:bg-white transition-all duration-300"
                       placeholder="Email Address"
                     />
+                    {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                   </motion.div>
                   
                   <motion.div variants={fadeInUp} custom={2}>
@@ -644,8 +750,9 @@ const Contact = () => {
                       value={form.phone}
                       onChange={(e) => setForm({ ...form, phone: e.target.value })}
                       className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-primary focus:bg-white transition-all duration-300"
-                      placeholder="7373663555"
+                      placeholder="xxxxxxxxxx"
                     />
+                    {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
                   </motion.div>
                   
                   <motion.div variants={fadeInUp} custom={3}>
@@ -653,7 +760,6 @@ const Contact = () => {
                     <motion.select
                       whileFocus={{ scale: 1.02 }}
                       transition={{ duration: 0.2 }}
-                      required
                       value={form.subject}
                       onChange={(e) => setForm({ ...form, subject: e.target.value })}
                       className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-black focus:outline-none focus:border-primary focus:bg-white transition-all duration-300"
@@ -669,6 +775,7 @@ const Contact = () => {
                       <option>Tax Law</option>
                       <option>Other</option>
                     </motion.select>
+                    {errors.subject && <p className="text-red-500 text-xs mt-1">{errors.subject}</p>}
                   </motion.div>
                 </div>
                 
@@ -677,13 +784,13 @@ const Contact = () => {
                   <motion.textarea
                     whileFocus={{ scale: 1.01 }}
                     transition={{ duration: 0.2 }}
-                    required
                     rows={5}
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                     className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-primary focus:bg-white transition-all duration-300 resize-none"
                     placeholder="Describe your legal matter..."
                   />
+                  {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
                 </motion.div>
                 
                 <motion.button
@@ -708,7 +815,7 @@ const Contact = () => {
       </motion.section>
 
       {/* Map Section with Animated Overlay */}
-      <motion.section 
+      {/* <motion.section 
         className="relative h-[450px] bg-gray-100 overflow-hidden"
       >
         <motion.div className="absolute inset-0" initial="hidden"
@@ -731,7 +838,6 @@ const Contact = () => {
           />
         </motion.div>
         
-        {/* Map Overlay with Location Info */}
         <motion.div 
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -787,7 +893,6 @@ Purasawalkam, Chennai 600 007.
             </motion.a>
           </motion.div>
 
-          {/* Animated pulse effect */}
           <motion.div
             animate={{ 
               scale: [1, 1.2, 1],
@@ -797,7 +902,47 @@ Purasawalkam, Chennai 600 007.
             className="absolute -top-1 -right-1 w-3 h-3 bg-primary rounded-full"
           />
         </motion.div>
-      </motion.section>
+      </motion.section> */}
+
+      {/* Multi Location Map Section */}
+<motion.section className="relative bg-gray-100 overflow-hidden py-12">
+
+  <div className="container mx-auto px-4">
+
+    {/* Location Tabs */}
+    <div className="flex flex-wrap justify-center gap-3 mb-6">
+      {chennaiLocations.map((loc, index) => (
+        <button
+          key={index}
+          onClick={() => setActiveLocation(loc)}
+          className={`px-4 py-2 text-sm rounded-full border transition-all duration-300 ${
+            activeLocation.name === loc.name
+              ? "bg-primary text-white border-primary"
+              : "bg-white text-gray-700 border-gray-200 hover:bg-primary hover:text-white"
+          }`}
+        >
+          {loc.name}
+        </button>
+      ))}
+    </div>
+
+    {/* Map */}
+    <div className="relative h-[400px] md:h-[450px] rounded-xl overflow-hidden shadow-lg">
+      <motion.iframe
+        key={activeLocation.name}
+        initial={{ opacity: 0, scale: 1.1 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6 }}
+        src={activeLocation.mapEmbed}
+        width="100%"
+        height="100%"
+        style={{ border: 0 }}
+        loading="lazy"
+        className="w-full h-full"
+      />
+    </div>
+  </div>
+</motion.section>
     </div>
   );
 };

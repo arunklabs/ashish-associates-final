@@ -76,7 +76,7 @@ export interface Employee {
   initials?: string
   email?: string
 
-  profileImage?: {
+  image?: {
     asset?: {
       url: string
     }
@@ -93,7 +93,7 @@ export const getBlogImageUrl = (post: BlogPost): string => {
 
 export const getEmployeeImageUrl = (employee: Employee): string => {
     return (
-        employee.profileImage?.asset?.url ??
+        employee.image?.asset?.url ??
         `https://ui-avatars.com/api/?name=${encodeURIComponent(employee?.name || 'Employee')}&background=E5E7EB&color=6B7280&size=400`
     )
 }

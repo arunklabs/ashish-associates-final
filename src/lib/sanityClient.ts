@@ -1,4 +1,5 @@
 import { createClient } from '@sanity/client';
+import { log } from 'console';
 
 
 // Sanity client configuration for the React project
@@ -15,6 +16,7 @@ export { client };
 export const sanityFetch = async <T>(query: string, params: Record<string, any> = {}): Promise<T> => {
   try {
     const result = await client.fetch<T>(query, params);
+    console.log("Sanity Result", result);
     return result;
   } catch (error) {
     console.error('Sanity fetch error:', error);
