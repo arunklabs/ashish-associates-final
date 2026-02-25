@@ -150,8 +150,8 @@ const Team = () => {
             <motion.div
               key={i}
               initial={{ 
-                x: Math.random() * window.innerWidth,
-                y: Math.random() * window.innerHeight,
+                x: typeof window !== "undefined" ? Math.random() * window.innerWidth : 0,
+                y: typeof window !== "undefined" ? Math.random() * window.innerHeight : 0,
                 scale: 0
               }}
               animate={{ 
