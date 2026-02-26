@@ -20,6 +20,7 @@ import {
   CheckCircle, Clock, MapPin,
   ArrowRight, Star, Briefcase, Heart, TrendingUp, Trophy, Quote
 } from 'lucide-react';
+import { Button } from "@/components/ui/button";
 import { getCMSData } from '../lib/cmsCache';
 import { Employee, Founder, getEmployeeImageUrl, getFounderImageUrl } from '../lib/sanityQueries';
 
@@ -288,13 +289,12 @@ const [teamMembers, setTeamMembers] = useState<any[]>([]);
       try {
         setIsLoading(true);
         const cmsData = await getCMSData();
-        console.log("CMS data:", cmsData);
         // Get all employees for team members section
         const teamMembersData = cmsData.employees;
                 
         setTeamMembers(teamMembersData);
       } catch (error) {
-        console.error('Failed to fetch team data:', error);
+        if (process.env.NODE_ENV === 'development') console.error('Failed to fetch team data:', error);
         // Keep fallback data in case of error
       } finally {
         setIsLoading(false);
@@ -1027,40 +1027,26 @@ const validate = (): ConsultationFormErrors => {
                   </motion.div>
 
                   <motion.div variants={fadeInUp}>
-                    <motion.button
-                      whileHover={{ scale: 1.05, backgroundColor: "#b38f3a" }}
-                      whileTap={{ scale: 0.98 }}
+                    <Button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-[#C9A646] text-white font-semibold py-3 sm:py-4 md:py-5 px-4 sm:px-5 md:px-6 rounded-lg sm:rounded-xl transition-all duration-300 shadow-xl hover:shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group text-sm sm:text-base"
+                      size="xl"
+                      className="w-full bg-[#C9A646] text-white hover:bg-[#b38f3a] disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {isSubmitting ? (
-                        <motion.div
-                          // animate={{ rotate: 360 }}
-                          transition={{ repeat: Infinity, duration: 1, ease: "linear" as const }}
-                          className="w-5 h-5 sm:w-6 sm:h-6 border-2 border-white border-t-transparent rounded-full mx-auto"
-                        />
+                        <div className="w-5 h-5 sm:w-6 sm:h-6 border-2 border-white border-t-transparent rounded-full mx-auto animate-spin" />
                       ) : isSubmitted ? (
-                        <motion.div
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          transition={{ type: "spring", stiffness: 200 }}
-                          className="flex items-center justify-center gap-2"
-                        >
+                        <span className="flex items-center justify-center gap-2">
                           <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
-                          <span>Submitted Successfully!</span>
-                        </motion.div>
+                          Submitted Successfully!
+                        </span>
                       ) : (
-                        <motion.span 
-                          animate={{ x: [0, 5, 0] }}
-                          transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-                          className="flex items-center justify-center gap-2"
-                        >
+                        <span className="flex items-center justify-center gap-2">
                           Schedule Consultation
-                          <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-2 transition-transform duration-300" />
-                        </motion.span>
+                          <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                        </span>
                       )}
-                    </motion.button>
+                    </Button>
                   </motion.div>
                 </motion.form>
               </motion.div>

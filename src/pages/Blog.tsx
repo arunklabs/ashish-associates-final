@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState, useMemo } from "react";
+import { Button } from "@/components/ui/button";
 import { getCMSData, safeDataExtraction } from "../lib/cmsCache";
 import { BlogPost, formatDate, getBlogImageUrl } from "../lib/sanityQueries";
 
@@ -66,10 +67,10 @@ const Blog = () => {
           setPosts(safePosts);
           setVisiblePosts(6);
         } else {
-          console.warn('No blog posts found in CMS, using default data');
+          if (process.env.NODE_ENV === 'development') console.warn('No blog posts found in CMS, using default data');
         }
       } catch (err) {
-        console.error('Error loading blog posts:', err);
+        if (process.env.NODE_ENV === 'development') console.error('Error loading blog posts:', err);
         setError('Failed to load blog posts');
         // Use default data as fallback
       } finally {
@@ -343,21 +344,9 @@ const Blog = () => {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="text-center mt-12 md:mt-16"
             >
-              <motion.button
-                onClick={loadMore}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-3 bg-[#D4AF37] text-white font-semibold rounded-lg transition-all duration-300 inline-flex items-center gap-2 group"
-              >
-                Load More Articles
-                <motion.span 
-                  animate={{ y: [0, 5, 0] }}
-                  transition={{ repeat: Infinity, duration: 1.5 }}
-                  className="group-hover:translate-y-0.5 transition-transform"
-                >
-                  ↓
-                </motion.span>
-              </motion.button>
+              <Button onClick={loadMore} size="lg" className="bg-[#D4AF37] text-white hover:bg-[#c49e2e]">
+                Load More Articles ↓
+              </Button>
             </motion.div>
           )}
 

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Award, Briefcase, Building2, Clock, MapPin, Users } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 import { getCMSData, safeDataExtraction } from "../lib/cmsCache";
 import { Career, getJobTypeDisplay } from "../lib/sanityQueries";
 
@@ -185,7 +186,7 @@ const Careers = () => {
           setPositions(safePositions);
         }
       } catch (err) {
-        console.error('Error loading career positions:', err);
+        if (process.env.NODE_ENV === 'development') console.error('Error loading career positions:', err);
         setError('Failed to load career positions');
         // Use default data as fallback
       } finally {
@@ -532,14 +533,9 @@ const Careers = () => {
               variants={fadeInUp}
               className="text-center mt-12"
             >
-              <motion.button
-                whileHover={{ scale: 1.05, backgroundColor: 'hsl(40 70% 50%)', color: 'white' }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.3 }}
-                className="px-8 py-3 border-2 border-primary text-primary font-semibold rounded-lg hover:bg-primary hover:text-primary-foreground transition-all duration-500"
-              >
+              <Button variant="outline" size="lg" className="border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
                 View All Positions
-              </motion.button>
+              </Button>
             </motion.div>
           )}
         </div>

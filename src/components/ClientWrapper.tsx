@@ -48,7 +48,7 @@ export default function ClientWrapper({
       setAccepted(true);
       setShowDisclaimer(false);
     } catch (error) {
-      console.error("Error saving to localStorage:", error);
+      if (process.env.NODE_ENV === 'development') console.error("Error saving to localStorage:", error);
       setAccepted(true);
       setShowDisclaimer(false);
     }

@@ -1,4 +1,7 @@
 module.exports = {
+  safelist: [
+    { pattern: /^(from|to)-(blue|amber|emerald|purple|rose)-(600|800)$/ },
+  ],
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
     "./src/**/*.{js,ts,jsx,tsx}",

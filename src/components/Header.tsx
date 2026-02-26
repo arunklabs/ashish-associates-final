@@ -3,12 +3,10 @@
 // Header.tsx
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, Phone, Mail, Facebook, Linkedin, Twitter, ChevronRight, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-
-// Import logo (you can replace with actual path)
-import logo from "../../public/assets/logo.jpeg";
 
 const navLinks = [
   { 
@@ -333,8 +331,8 @@ const Header = () => {
             </button>
 
             {/* LOGO */}
-            <Link href="/" className="flex items-center lg:ml-0 flex-1 lg:flex-none justify-center">
-              <img src="/assets/logo.png" alt="J. Ashish Associates LLP" className="h-20 md:h-20 w-auto object-contain" />
+            <Link href="/" className="flex items-center lg:ml-0 flex-1 lg:flex-none justify-center relative h-20 w-[180px]">
+              <Image src="/assets/logo.png" alt="J. Ashish Associates LLP" fill className="object-contain object-center" priority sizes="180px" />
             </Link>
 
             {/* Empty div for spacing */}
@@ -488,7 +486,9 @@ const Header = () => {
                 {/* Menu Header */}
                 <div className="bg-[#0F172A] p-6 border-b-4 border-[#C9A646]">
                   <div className="flex flex-col items-center text-center">
-                    <img src="/assets/logo.jpeg" alt="J. Ashish Associates LLP" className="h-20 w-auto mb-3" />
+                    <div className="relative h-20 w-[180px] mx-auto mb-3">
+                      <Image src="/assets/logo.jpeg" alt="J. Ashish Associates LLP" fill className="object-contain" sizes="180px" />
+                    </div>
                     <p className="text-[#C9A646] text-xs tracking-widest font-semibold">
                       — SINCE 2026 —
                     </p>

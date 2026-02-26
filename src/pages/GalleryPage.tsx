@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight, Maximize2, Grid, Image as ImageIcon, Users, Building2, Scale, Award, ChevronDown, Calendar, Clock, Eye, Loader2 } from 'lucide-react';
@@ -703,25 +704,24 @@ const GalleryPage = () => {
               viewport={{ once: true }}
               className="text-center mt-10 md:mt-12 lg:mt-16"
             >
-              <motion.button
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
+              <Button
                 onClick={handleLoadMore}
                 disabled={loading}
-                className="relative px-8 md:px-10 py-3 md:py-4 bg-amber-500 text-white rounded-lg hover:bg-amber-600 transition-all duration-300 text-sm md:text-base font-medium shadow-lg hover:shadow-xl disabled:opacity-70 disabled:cursor-not-allowed overflow-hidden group"
+                size="xl"
+                className="bg-amber-500 text-white hover:bg-amber-600 disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {loading ? (
-                  <div className="flex items-center gap-2">
+                  <>
                     <Loader2 className="w-5 h-5 animate-spin" />
                     <span>Loading...</span>
-                  </div>
+                  </>
                 ) : (
-                  <div className="flex items-center gap-2">
+                  <>
                     <span>Load More</span>
-                    <ChevronDown className="w-4 h-4 group-hover:translate-y-1 transition-transform duration-300" />
-                  </div>
+                    <ChevronDown className="w-4 h-4" />
+                  </>
                 )}
-              </motion.button>
+              </Button>
             </motion.div>
           )}
 

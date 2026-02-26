@@ -15,7 +15,9 @@ type FormErrorsType = Partial<FormDataType>;
 
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion, Variants, useMotionValue, useTransform, useScroll, AnimatePresence } from "framer-motion";
+import { Button } from "@/components/ui/button";
 import { 
   Scale, Gavel, Heart, Home, ArrowRight, CheckCircle, 
   Quote, ChevronLeft, ChevronRight, Award, Users, 
@@ -70,6 +72,7 @@ import {
 import { useState, useEffect, useRef } from "react";
 import { getCMSData } from '../lib/cmsCache';
 import { Employee, Founder, getEmployeeImageUrl, getFounderImageUrl, BlogPost, formatDate, getBlogImageUrl } from '../lib/sanityQueries';
+import { slideFromLeft, slideFromRight, staggerContainer, fadeInUp, fadeSoft, viewportOnceMore } from '@/lib/animations';
 
 // Import premium images
 const hero1 = "/assets/hero1.webp";
@@ -489,7 +492,6 @@ const handleSubmit = (e: React.FormEvent) => {
   });
 
   if (Object.keys(validationErrors).length === 0) {
-    console.log("Form Submitted:", formData);
 
     alert("Form submitted successfully ✅");
 
@@ -519,7 +521,6 @@ const handleSubmit = (e: React.FormEvent) => {
         try {
           setIsLoading(true);
           const cmsData = await getCMSData();
-          console.log("CMS data:", cmsData);
           // Filter employees by category for founders (founder/senior categories)
           const foundersData = cmsData.founders;
           
@@ -532,7 +533,7 @@ const handleSubmit = (e: React.FormEvent) => {
           setTeamMembers(teamMembersData);
           setPosts(blogData);
         } catch (error) {
-          console.error('Failed to fetch team data:', error);
+          if (process.env.NODE_ENV === 'development') console.error('Failed to fetch team data:', error);
           // Keep fallback data in case of error
         } finally {
           setIsLoading(false);
@@ -607,67 +608,7 @@ const handleSubmit = (e: React.FormEvent) => {
     setNewsCurrentIndex((prev) => (prev - 1 + Math.ceil(latestNews.length / 3)) % Math.ceil(latestNews.length / 3));
   };
 
-  // Animation Variants - Slower, smoother transitions
-  const slideFromLeft = {
-    hidden: { opacity: 0, x: -100 },
-    visible: { 
-      opacity: 1, 
-      x: 0, 
-      transition: { 
-        duration: 1.2, // Increased from 0.8
-        ease: [0.25, 0.1, 0.25, 1] as const // Changed to cubic-bezier for smoother motion
-      } 
-    }
-  };
-
-  const slideFromRight = {
-    hidden: { opacity: 0, x: 100 },
-    visible: { 
-      opacity: 1, 
-      x: 0, 
-      transition: { 
-        duration: 1.2, // Increased from 0.8
-        ease: [0.25, 0.1, 0.25, 1] as const // Smoother easing
-      } 
-    }
-  };
-
-  const slideFromLeftStagger = {
-    hidden: { opacity: 0, x: -100 },
-    visible: { 
-      opacity: 1, 
-      x: 0, 
-      transition: { 
-        duration: 1.2, // Increased from 0.8
-        ease: [0.25, 0.1, 0.25, 1] as const
-      } 
-    }
-  };
-
-  const slideFromRightStagger = {
-    hidden: { opacity: 0, x: 100 },
-    visible: { 
-      opacity: 1, 
-      x: 0, 
-      transition: { 
-        duration: 1.2, // Increased from 0.8
-        ease: [0.25, 0.1, 0.25, 1] as const
-      } 
-    }
-  };
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.25, // Increased from 0.15 for slower staggering
-        delayChildren: 0.4, // Increased from 0.2
-        ease: [0.25, 0.1, 0.25, 1] as const
-      }
-    }
-  };
-
+  // Animation variants from @/lib/animations: slideFromLeft, slideFromRight, staggerContainer
   const slideVariants = {
   enter: (direction: number) => ({
     x: direction > 0 ? 1000 : -1000,
@@ -736,30 +677,7 @@ const buttonFromRight = {
   }
 };
 
-// Premium smooth TS-safe animation variants
-
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 1,
-      ease: [0.25, 0.1, 0.25, 1] as const
-    }
-  }
-};
-
-const fadeSoft: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      duration: 1.2,
-      ease: [0.25, 0.1, 0.25, 1] as const
-    }
-  }
-};
+// fadeInUp, fadeSoft from @/lib/animations
 
 const premiumStagger: Variants = {
   hidden: {},
@@ -834,10 +752,13 @@ const cardReveal: Variants = {
         exit="exit"
         className="absolute inset-0"
       >
-        <img 
-          src={heroSlides[currentSlide].image} 
+        <Image
+          src={heroSlides[currentSlide].image}
           alt={`Law firm hero ${currentSlide + 1}`}
-          className="w-full h-full object-cover"
+          fill
+          className="object-cover"
+          sizes="100vw"
+          priority={currentSlide === 0}
         />
         {/* Dark Overlay */}
         <div className="absolute inset-0 bg-black/50" />
@@ -1007,9 +928,17 @@ const cardReveal: Variants = {
               }}
               className="w-full sm:w-auto"
             >
+              {/* <Button asChild size="lg" className="group w-full sm:w-auto btn-shine">
+                <Link href="/contact" className="inline-flex items-center gap-2">
+                  Schedule Consultation
+                  <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </Button> */}
               <Link
                 href="/contact"
-                className="group w-full sm:w-auto px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-primary text-primary-foreground font-semibold rounded-sm hover:bg-accent transition-all duration-300 btn-shine text-center inline-flex items-center justify-center gap-2 text-sm sm:text-base"
+                className="group w-full sm:w-auto px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-primary 
+                text-primary-foreground font-semibold rounded-sm hover:bg-accent transition-all duration-300 
+                btn-shine text-center inline-flex items-center justify-center gap-2 text-sm sm:text-base"
               >
                 Schedule Consultation
                 <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
@@ -1037,7 +966,7 @@ const cardReveal: Variants = {
             >
               <Link
                 href="/practice-areas"
-                className="group w-full sm:w-auto px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 border-2 border-white text-white font-semibold rounded-sm hover:bg-white hover:text-primary transition-all duration-300 text-center inline-flex items-center justify-center gap-2 text-sm sm:text-base"
+                className="group w-full sm:w-auto px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 border border-white text-white font-semibold rounded-sm hover:bg-white hover:text-primary transition-all duration-300 text-center inline-flex items-center justify-center gap-2 text-sm sm:text-base"
               >
                 Explore Practice Areas
                 <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
@@ -1119,7 +1048,7 @@ const cardReveal: Variants = {
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={viewportOnceMore}
       variants={{
         hidden: { opacity: 0 },
         visible: {
@@ -1194,7 +1123,7 @@ const cardReveal: Variants = {
       <motion.div
         initial={{ opacity: 0, x: -100 }}
         whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={viewportOnceMore}
         transition={{ 
           duration: 1.2,
           delay: 0.4,
@@ -1227,7 +1156,7 @@ const cardReveal: Variants = {
       <motion.div 
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={viewportOnceMore}
         variants={{
           hidden: { opacity: 0 },
           visible: {
@@ -1341,7 +1270,7 @@ const cardReveal: Variants = {
 <motion.section
   initial="hidden"
   whileInView="visible"
-  viewport={{ once: true, amount: 0.2 }}
+  viewport={viewportOnceMore}
   variants={staggerContainer}
   className="bg-background section-padding relative overflow-hidden"
 >
@@ -1490,7 +1419,7 @@ const cardReveal: Variants = {
     <motion.div 
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={viewportOnceMore}
       variants={{
         hidden: { opacity: 0 },
         visible: {
@@ -1815,7 +1744,7 @@ const cardReveal: Variants = {
 <motion.section
   initial="hidden"
   whileInView="visible"
-  viewport={{ once: true, amount: 0.25 as number }}
+  viewport={viewportOnceMore}
   variants={premiumStagger}
   className="bg-background section-padding relative overflow-hidden"
 >
@@ -1839,7 +1768,7 @@ const cardReveal: Variants = {
       className="text-center mb-16"
     >
       <motion.div
-        variants={fadeUp}
+        variants={fadeInUp}
         className="flex items-center justify-center gap-4 mb-4"
       >
         <span className="w-12 h-px bg-primary/60"></span>
@@ -1850,7 +1779,7 @@ const cardReveal: Variants = {
       </motion.div>
 
       <motion.h2
-        variants={fadeUp}
+        variants={fadeInUp}
         className="text-4xl md:text-5xl font-heading font-bold text-foreground"
       >
         Our Attorneys{" "}
@@ -1925,7 +1854,7 @@ const cardReveal: Variants = {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={viewportOnceMore}
             variants={staggerContainer}
             className="mb-16"
           >
@@ -1946,7 +1875,7 @@ const cardReveal: Variants = {
             <motion.div
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
+              viewport={viewportOnceMore}
               variants={slideFromLeft}
               className="lg:col-span-1 space-y-6"
             >
@@ -2074,7 +2003,7 @@ const cardReveal: Variants = {
       <motion.section
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={viewportOnceMore}
         variants={staggerContainer}
         className="bg-background section-padding"
       >
@@ -2088,13 +2017,9 @@ const cardReveal: Variants = {
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.5 }}
-                  className="aspect-[4/3] rounded-sm overflow-hidden image-zoom"
+                  className="aspect-[4/3] rounded-sm overflow-hidden image-zoom relative"
                 >
-                  <img 
-                    src={aboutMain} 
-                    alt="Our law firm" 
-                    className="w-full h-full object-cover"
-                  />
+                  <Image src={aboutMain} alt="Our law firm" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
                   <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-transparent" />
                 </motion.div>
                 
@@ -2178,7 +2103,7 @@ const cardReveal: Variants = {
       >
         <motion.div initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={viewportOnceMore}
         variants={staggerContainer}>
           <div className="container mx-auto">
           <motion.div
@@ -2208,12 +2133,9 @@ const cardReveal: Variants = {
               >
                 <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 h-full">
                   <div className="overflow-hidden min-w-0 w-full">
-                    <motion.div 
-                      initial={{ scaleX: 0 }}
-                      whileInView={{ scaleX: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.3, duration: 1.2 }}
-                      className={`h-2 w-full bg-gradient-to-r ${value.color} origin-left`} 
+                    {/* Top bar visible on load so border color always shows (no scaleX animation) */}
+                    <div
+                      className={`h-2 w-full bg-gradient-to-r ${value.color} origin-left`}
                     />
                   </div>
                   
@@ -2255,7 +2177,7 @@ const cardReveal: Variants = {
       <motion.section
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={viewportOnceMore}
         variants={staggerContainer}
         className="bg-background section-padding relative overflow-hidden"
       >
@@ -2302,8 +2224,8 @@ const cardReveal: Variants = {
               <motion.div
                 key={area.title}
                 variants={i % 2 === 0 ? slideFromLeft : slideFromRight}
-                transition={{ delay: i * 0.15 }}
-                whileHover={{ y: -15, scale: 1.02 }}
+                // transition={{ delay: i * 0.15 }}
+                // whileHover={{ y: -15, scale: 1.02 }}
                 className="group will-change-transform"
               >
                 <Link 
@@ -2375,7 +2297,7 @@ const cardReveal: Variants = {
       >
         <motion.div initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={viewportOnceMore}
         variants={staggerContainer}>
           <div className="container mx-auto">
           <motion.div
@@ -2460,12 +2382,12 @@ const cardReveal: Variants = {
       <motion.section
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={viewportOnceMore}
         variants={staggerContainer}
         className="bg-background section-padding relative overflow-hidden"
       >
         <div className="absolute inset-0">
-          <img src={courtroom} alt="Background" className="w-full h-full object-cover opacity-5" />
+          <Image src={courtroom} alt="" fill className="object-cover opacity-5" sizes="100vw" />
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/95 to-background" />
         </div>
         
@@ -2510,12 +2432,12 @@ const cardReveal: Variants = {
               <motion.div
                 key={item.title}
                 variants={i === 0 ? slideFromLeft : i === 2 ? slideFromRight : slideFromLeft}
-                transition={{ delay: i * 0.2 }}
+                transition={{ delay: i * 0.50 }}
                 viewport={{ once: true }}
               >
                 <motion.div 
-                  whileHover={{ y: -15, scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                  whileHover={{ y: -15, scale: 1.01 }}
+                  // transition={{ type: "spring", stiffness: 200, damping: 20 }}
                   className="text-center p-8 bg-card/50 backdrop-blur-sm border border-border rounded-sm shadow-xl transition-transform duration-300"
                 >
                   <motion.div 
@@ -2541,7 +2463,7 @@ const cardReveal: Variants = {
       >
         <motion.div initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={viewportOnceMore}
         variants={staggerContainer}>
           <div className="absolute inset-0">
           <motion.div
@@ -2607,7 +2529,7 @@ const cardReveal: Variants = {
                       whileInView={{ scale: 1 }}
                       viewport={{ once: true }}
                       transition={{ delay: index * 0.3, duration: 0.8 }}
-                      className="text-xl font-semibold text-primary mb-2"
+                      className="text-base font-semibold text-primary mb-2"
                     >
                       {item.rating}
                     </motion.div>
@@ -2649,7 +2571,7 @@ const cardReveal: Variants = {
       <motion.section
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={viewportOnceMore}
         variants={staggerContainer}
         className="bg-background section-padding relative overflow-hidden"
       >
@@ -2759,7 +2681,7 @@ const cardReveal: Variants = {
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={viewportOnceMore}
             variants={staggerContainer}
             className="text-center mb-16"
           >
@@ -2879,7 +2801,7 @@ const cardReveal: Variants = {
       <motion.section
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={viewportOnceMore}
         variants={staggerContainer}
         className="bg-background section-padding"
       >
@@ -3073,16 +2995,14 @@ Purasawalkam, Chennai 600 007. <br />
 )}
                 </motion.div>
                 
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  transition={{ duration: 0.3 }}
+                <Button
                   type="submit"
-                  className="w-full px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-sm hover:bg-accent transition-all duration-300 btn-shine flex items-center justify-center gap-2"
+                  size="xl"
+                  className="w-full btn-shine"
                 >
                   Send Message
                   <Send className="w-4 h-4" />
-                </motion.button>
+                </Button>
               </form>
             </motion.div>
           </div>
@@ -3093,7 +3013,7 @@ Purasawalkam, Chennai 600 007. <br />
       <motion.section
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={viewportOnceMore}
         variants={staggerContainer}
         className="relative py-32 overflow-hidden"
       >

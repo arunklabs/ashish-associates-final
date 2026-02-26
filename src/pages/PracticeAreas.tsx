@@ -6,6 +6,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, CheckCircle, Mail, Phone, MapPin, Clock, ChevronLeft, ChevronRight, Scale, Users, Award, Briefcase, BookOpen, Star, Send, ArrowRight } from "lucide-react";
 import AnimatedSection from "../components/AnimatedSection";
+import { Button } from "@/components/ui/button";
+import { slideFromLeft, slideFromRight, staggerContainer, viewportOnce, viewportOnceMore } from "@/lib/animations";
 
 // Individual Practice Area Data - Updated based on your list
 const corporateLaw = {
@@ -278,9 +280,9 @@ const allPracticeAreas = [
 
 // Practice areas for sidebar - Updated with correct areas
 const sidebarPracticeAreas = [
+  { name: "Corporate Law", slug: "corporate-law" },
   { name: "Criminal Law", slug: "criminal-law" },
   { name: "Civil Law", slug: "civil-law" },
-  { name: "Corporate Law", slug: "corporate-law" },
   { name: "Family Law", slug: "family-law" },
   { name: "Property Law", slug: "property-law" },
   { name: "Arbitration", slug: "arbitration" },
@@ -378,49 +380,13 @@ const fadeInDown = {
   }
 };
 
-const slideFromLeft = {
-  hidden: { opacity: 0, x: -50 },
-  visible: { 
-    opacity: 1, 
-    x: 0, 
-    transition: { 
-      duration: 1, 
-      ease: [0.25, 0.1, 0.25, 1] as const
-    } 
-  }
-};
-
-const slideFromRight = {
-  hidden: { opacity: 0, x: 50 },
-  visible: { 
-    opacity: 1, 
-    x: 0, 
-    transition: { 
-      duration: 1, 
-      ease: [0.25, 0.1, 0.25, 1] as const
-    } 
-  }
-};
-
 const scaleIn = {
   hidden: { opacity: 0, scale: 0.95 },
-  visible: { 
-    opacity: 1, 
-    scale: 1, 
-    transition: { 
-      duration: 0.8, 
-      ease: [0.25, 0.1, 0.25, 1] as const
-    } 
-  }
-};
-
-const staggerContainer = {
-  hidden: { opacity: 0 },
   visible: {
     opacity: 1,
+    scale: 1,
     transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.2,
+      duration: 0.8,
       ease: [0.25, 0.1, 0.25, 1] as const
     }
   }
@@ -551,7 +517,7 @@ export const PracticeAreas = () => {
           <motion.div 
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={viewportOnceMore}
             variants={staggerContainer}
             className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
           >
@@ -562,7 +528,7 @@ export const PracticeAreas = () => {
               <motion.span 
                 initial={{ width: 0 }}
                 whileInView={{ width: 40 }}
-                viewport={{ once: true }}
+                viewport={viewportOnce}
                 transition={{ delay: 0.4, duration: 1.2 }}
                 className="h-px"
                 style={{ backgroundColor: '#D4AF37' }}
@@ -577,7 +543,7 @@ export const PracticeAreas = () => {
               <motion.span 
                 initial={{ width: 0 }}
                 whileInView={{ width: 40 }}
-                viewport={{ once: true }}
+                viewport={viewportOnce}
                 transition={{ delay: 0.4, duration: 1.2 }}
                 className="h-px"
                 style={{ backgroundColor: '#D4AF37' }}
@@ -598,7 +564,7 @@ export const PracticeAreas = () => {
                 key={area.slug}
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
+                viewport={viewportOnceMore}
                 variants={scaleIn}
                 transition={{ delay: i * 0.1 }}
                 whileHover={{ 
@@ -789,7 +755,7 @@ export const PracticeAreaDetail = ({ slug }: { slug: string }) => {
               <motion.div
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true }}
+                viewport={viewportOnce}
                 variants={scaleIn}
                 className="bg-white border border-gray-200 rounded-lg p-6 shadow-sm"
               >
@@ -832,12 +798,9 @@ export const PracticeAreaDetail = ({ slug }: { slug: string }) => {
                     <p className="text-sm text-gray-600 mb-4">
                       Speak with our experienced attorneys today about your legal matter.
                     </p>
-                    <Link
-                      href="/contact"
-                      className="inline-block w-full px-4 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-accent transition-all duration-500 text-center btn-shine mb-3"
-                    >
-                      Schedule Now
-                    </Link>
+                    <Button asChild size="lg" className="w-full btn-shine mb-3">
+                      <Link href="/contact">Schedule Now</Link>
+                    </Button>
                     <a 
                       href="mailto:jashishadvocate@gmail.com"
                       className="text-sm text-primary hover:text-accent transition-colors flex items-center justify-center gap-1"
@@ -855,7 +818,7 @@ export const PracticeAreaDetail = ({ slug }: { slug: string }) => {
               <motion.div
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true }}
+                viewport={viewportOnce}
                 variants={staggerContainer}
                 className="bg-white border border-gray-200 rounded-lg p-8"
               >
@@ -904,7 +867,7 @@ export const PracticeAreaDetail = ({ slug }: { slug: string }) => {
               <motion.div
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true }}
+                viewport={viewportOnce}
                 variants={scaleIn}
                 className="relative h-96 rounded-lg overflow-hidden group"
               >
@@ -924,7 +887,7 @@ export const PracticeAreaDetail = ({ slug }: { slug: string }) => {
               <motion.div
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true }}
+                viewport={viewportOnce}
                 variants={staggerContainer}
                 className="bg-white border border-gray-200 rounded-lg p-8"
               >
@@ -955,7 +918,7 @@ export const PracticeAreaDetail = ({ slug }: { slug: string }) => {
               <motion.div
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true }}
+                viewport={viewportOnce}
                 variants={staggerContainer}
                 className="bg-white border border-gray-200 rounded-lg p-8"
               >
@@ -981,7 +944,7 @@ export const PracticeAreaDetail = ({ slug }: { slug: string }) => {
               <motion.div
                 initial="hidden"
                 whileInView="visible"
-                viewport={{ once: true }}
+                viewport={viewportOnce}
                 variants={staggerContainer}
                 className="bg-white border border-gray-200 rounded-lg p-8"
               >
@@ -1070,7 +1033,7 @@ export const PracticeAreaDetail = ({ slug }: { slug: string }) => {
           <motion.div 
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={viewportOnceMore}
             variants={staggerContainer}
             className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
           >
@@ -1081,7 +1044,7 @@ export const PracticeAreaDetail = ({ slug }: { slug: string }) => {
               <motion.span 
                 initial={{ width: 0 }}
                 whileInView={{ width: 40 }}
-                viewport={{ once: true }}
+                viewport={viewportOnce}
                 transition={{ delay: 0.4, duration: 1.2 }}
                 className="h-px bg-primary"
               />
@@ -1094,7 +1057,7 @@ export const PracticeAreaDetail = ({ slug }: { slug: string }) => {
               <motion.span 
                 initial={{ width: 0 }}
                 whileInView={{ width: 40 }}
-                viewport={{ once: true }}
+                viewport={viewportOnce}
                 transition={{ delay: 0.4, duration: 1.2 }}
                 className="h-px bg-primary"
               />
@@ -1249,15 +1212,10 @@ Purasawalkam, Chennai 600 007.
                   />
                 </div>
                 
-                <motion.button
-                  type="submit"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full px-6 py-4 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-accent transition-all duration-500 btn-shine flex items-center justify-center gap-2 group"
-                >
+                <Button type="submit" size="xl" className="w-full btn-shine">
                   <span>Submit Request</span>
-                  <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </motion.button>
+                  <Send className="w-4 h-4" />
+                </Button>
               </form>
             </motion.div>
           </div>

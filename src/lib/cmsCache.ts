@@ -69,7 +69,7 @@ const getCacheFromSession = (): CMSCache => {
       }
     }
   } catch (error) {
-    console.warn('Failed to parse CMS cache from sessionStorage:', error);
+    if (process.env.NODE_ENV === 'development') console.warn('Failed to parse CMS cache:', error);
   }
   
   return getDefaultCache();
@@ -82,7 +82,7 @@ const saveCacheToSession = (cache: CMSCache): void => {
   try {
     sessionStorage.setItem(CMS_CACHE_KEY, JSON.stringify(cache));
   } catch (error) {
-    console.error('Failed to save CMS cache to sessionStorage:', error);
+    if (process.env.NODE_ENV === 'development') console.error('Failed to save CMS cache:', error);
   }
 };
 
@@ -91,7 +91,10 @@ const saveCacheToSession = (cache: CMSCache): void => {
  * This is the ONLY function that makes API calls to Sanity
  */
 const fetchAllCMSData = async (): Promise<{ employees: Employee[]; blogs: BlogPost[]; careers: Career[]; founders: Founder[]; }> => {
-  console.log('🔄 Fetching all CMS data from Sanity...');
+  if (process.env.NODE_ENV === 'development') {
+    // eslint-disable-next-line no-console
+    console.log('Fetching all CMS data from Sanity...');
+  }
   
   // Fetch all data types in parallel for optimal performance
   const [employees, blogs, careers, founders] = await Promise.allSettled([
@@ -178,12 +181,10 @@ const fetchAllCMSData = async (): Promise<{ employees: Employee[]; blogs: BlogPo
   const blogData = blogs.status === 'fulfilled' ? blogs.value || [] : [];
   const careerData = careers.status === 'fulfilled' ? careers.value || [] : [];
 
-  console.log('✅ CMS data fetched successfully:', {
-    employees: employeeData.length,
-    blogs: blogData.length,
-    careers: careerData.length,
-    founders: founderData.length
-  });
+  if (process.env.NODE_ENV === 'development') {
+    // eslint-disable-next-line no-console
+    console.log('CMS data fetched:', { employees: employeeData.length, blogs: blogData.length, careers: careerData.length, founders: founderData.length });
+  }
 
   return {
     employees: employeeData,
@@ -202,10 +203,7 @@ export const getCMSData = async (): Promise<CMSCache> => {
   const currentCache = getCacheFromSession();
   
   // Return cached data if already fetched this session
-  if (currentCache.fetched) {
-    console.log('📦 Using cached CMS data from sessionStorage');
-    return currentCache;
-  }
+  if (currentCache.fetched) return currentCache;
   
   try {
     // Fetch all data from Sanity in one operation
@@ -223,7 +221,7 @@ export const getCMSData = async (): Promise<CMSCache> => {
     
     return newCache;
   } catch (error) {
-    console.error('❌ Failed to fetch CMS data:', error);
+    if (process.env.NODE_ENV === 'development') console.error('Failed to fetch CMS data:', error);
     
     // Return cache with empty data but mark as fetched to prevent retry loops
     const errorCache: CMSCache = {
@@ -246,9 +244,8 @@ export const getCMSData = async (): Promise<CMSCache> => {
 export const clearCMSCache = (): void => {
   try {
     sessionStorage.removeItem(CMS_CACHE_KEY);
-    console.log('🧹 CMS cache cleared');
   } catch (error) {
-    console.error('Failed to clear CMS cache:', error);
+    if (process.env.NODE_ENV === 'development') console.error('Failed to clear CMS cache:', error);
   }
 };
 

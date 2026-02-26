@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MapPin, Phone, Mail, Clock, Facebook, Twitter, Linkedin, Instagram, Send, ChevronRight, ArrowRight } from "lucide-react";
 import AnimatedSection from "../components/AnimatedSection";
+import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
 const Contact = () => {
@@ -521,21 +522,10 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
                     </motion.div>
                   </motion.div>
 
-                  <motion.button
-                    variants={buttonHover}
-                    initial="rest"
-                    whileHover="hover"
-                    whileTap={{ scale: 0.95 }}
-                    className="mt-6 w-full px-4 py-3 border border-primary text-primary font-semibold rounded-lg hover:bg-primary hover:text-white transition-all duration-500 flex items-center justify-center gap-2 group/btn"
-                  >
+                  <Button variant="outline" size="lg" className="mt-6 w-full border-primary text-primary hover:bg-primary hover:text-white">
                     <span>Get Directions</span>
-                    <motion.div
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" as const }}
-                    >
-                      <ChevronRight className="w-4 h-4" />
-                    </motion.div>
-                  </motion.button>
+                    <ChevronRight className="w-4 h-4" />
+                  </Button>
 
                   {/* Animated underline */}
                   <motion.div
@@ -793,21 +783,10 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
                   {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
                 </motion.div>
                 
-                <motion.button
-                  type="submit"
-                  variants={scaleIn}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-full md:w-auto px-3 md:px-10 py-4 bg-primary text-xs md:text-base text-primary-foreground font-semibold rounded-lg hover:bg-accent transition-all duration-500 btn-shine flex items-center justify-center gap-2 group"
-                >
+                <Button type="submit" size="xl" className="w-full md:w-auto btn-shine">
                   <span>Submit Request</span>
-                  <motion.div
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" as const }}
-                  >
-                    <Send className="w-4 h-4" />
-                  </motion.div>
-                </motion.button>
+                  <Send className="w-4 h-4" />
+                </Button>
               </form>
             </motion.div>
           </div>

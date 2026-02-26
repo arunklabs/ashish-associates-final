@@ -712,7 +712,7 @@ const Faq = () => {
                   key={index}
                   variants={flipIn}
                   {...hoverLift}
-                  className="relative group"
+                  className="relative group rounded-2xl"
                 >
                   <motion.div 
                     initial={{ opacity: 0, scale: 0.8 }}

@@ -16,6 +16,7 @@ import AnimatedSection from "../components/AnimatedSection";
 import CounterAnimation from "../components/CounterAnimation";
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
 import { getCMSData } from '../lib/cmsCache';
 import { Employee, Founder, getEmployeeImageUrl, getFounderImageUrl } from '../lib/sanityQueries';
 
@@ -206,7 +207,6 @@ const About = () => {
           try {
             setIsLoading(true);
             const cmsData = await getCMSData();
-            console.log("CMS data:", cmsData);
             // Filter employees by category for founders (founder/senior categories)
             const foundersData = cmsData.founders;
             
@@ -217,7 +217,7 @@ const About = () => {
             
             setTeamMembers(teamMembersData);
           } catch (error) {
-            console.error('Failed to fetch team data:', error);
+            if (process.env.NODE_ENV === 'development') console.error('Failed to fetch team data:', error);
             // Keep fallback data in case of error
           } finally {
             setIsLoading(false);
@@ -286,16 +286,31 @@ const About = () => {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="flex flex-wrap gap-4"
             >
+              {/* <Button asChild size="lg" className="group btn-shine">
+                <Link href="/contact" className="inline-flex items-center gap-2">
+                  Schedule Consultation
+                  <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="group border-primary/30">
+                <Link href="/team" className="inline-flex items-center gap-2">
+                  Meet Our Team
+                  <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </Button> */}
               <Link 
                 href="/contact" 
-                className="group px-6 sm:px-8 py-3 sm:py-4 bg-primary text-primary-foreground font-semibold rounded-sm hover:bg-accent transition-all duration-300 btn-shine inline-flex items-center gap-2"
+                className="group w-full sm:w-auto px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-primary 
+                text-primary-foreground font-semibold rounded-sm hover:bg-accent transition-all duration-300 
+                btn-shine text-center inline-flex items-center justify-center gap-2 text-sm sm:text-base"
               >
                 Schedule Consultation
                 <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link 
                 href="/team" 
-                className="group px-6 sm:px-8 py-3 sm:py-4 border border-primary/30 text-foreground font-semibold rounded-sm hover:bg-primary/10 transition-all duration-300 inline-flex items-center gap-2"
+                className="group px-6 sm:px-8 py-3 sm:py-4 border border-white text-foreground font-semibold 
+                rounded-sm hover:bg-white hover:text-primary transition-all duration-300 inline-flex items-center gap-2"
               >
                 Meet Our Team
                 <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -844,15 +859,12 @@ const About = () => {
             whileInView="visible"
             className="text-center mt-12"
           >
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link 
-                href="/team" 
-                className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-4 bg-primary text-primary-foreground font-semibold rounded-sm hover:bg-accent transition-all duration-300 btn-shine"
-              >
+            <Button asChild size="lg" className="btn-shine">
+              <Link href="/team" className="inline-flex items-center gap-2">
                 View All Attorneys
                 <ChevronRight className="w-4 h-4" />
               </Link>
-            </motion.div>
+            </Button>
           </motion.div>
         </div>
       </section>
@@ -1017,7 +1029,7 @@ const About = () => {
             <div className="flex flex-wrap gap-4 justify-center">
               <Link 
                 href="/contact" 
-                className="group px-6 sm:px-10 py-3 sm:py-4 bg-[#C9A646] text-white font-semibold rounded-lg hover:bg-amber-700 transition-all duration-300 btn-shine inline-flex items-center gap-2 text-base sm:text-base shadow-lg"
+                className="group px-6 sm:px-10 py-3 sm:py-4 bg-[#C9A646] hover:bg-accent text-white font-semibold rounded-lg transition-all duration-300 btn-shine inline-flex items-center gap-2 text-base sm:text-base shadow-lg"
               >
                 Schedule Consultation
                 <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />

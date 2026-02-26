@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram, ArrowRight, Clock } from "lucide-react";
@@ -332,13 +333,9 @@ const infiniteText = [
                   placeholder="Your email" 
                   className="flex-1 px-3 py-2 bg-secondary border border-border rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors select-text"
                 />
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-accent transition-all duration-500 text-sm font-semibold whitespace-nowrap"
-                >
+                <Button size="default" className="whitespace-nowrap">
                   Subscribe
-                </motion.button>
+                </Button>
               </div>
             </motion.div>
           </motion.div>

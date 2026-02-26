@@ -87,7 +87,6 @@ const Team = () => {
       try {
         setIsLoading(true);
         const cmsData = await getCMSData();
-        console.log("CMS data:", cmsData);
         // Filter employees by category for founders (founder/senior categories)
         const foundersData = cmsData.founders;
         
@@ -98,7 +97,7 @@ const Team = () => {
         
         setTeamMembers(teamMembersData);
       } catch (error) {
-        console.error('Failed to fetch team data:', error);
+        if (process.env.NODE_ENV === 'development') console.error('Failed to fetch team data:', error);
         // Keep fallback data in case of error
       } finally {
         setIsLoading(false);
