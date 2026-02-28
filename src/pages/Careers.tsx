@@ -211,7 +211,7 @@ const Careers = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.5 }}
-          className="absolute inset-0 bg-background/70"
+          className="absolute inset-0 bg-background/60"
         />
         
         {/* Animated Pattern Overlay */}
@@ -287,13 +287,12 @@ const Careers = () => {
 
       {/* Stats Section - Light Theme */}
       <motion.section 
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={staggerContainer}
         className="py-16 bg-white border-b border-border"
       >
-        <div className="container mx-auto px-4">
+        <motion.div initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={staggerContainer} className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {[
               { number: "15+", label: "Legal Professionals", delay: 0.1 },
@@ -319,7 +318,7 @@ const Careers = () => {
               </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </motion.section>
 
       {/* Careers Section - Dark Theme */}
@@ -543,13 +542,12 @@ const Careers = () => {
 
       {/* Why Join Us Section - Light Theme */}
       <motion.section 
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={staggerContainer}
         className="bg-white section-padding"
       >
-        <div className="container mx-auto px-4">
+        <motion.div initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={staggerContainer} className="container mx-auto px-4">
           <motion.div 
             variants={staggerContainer}
             className="text-center max-w-3xl mx-auto mb-16"
@@ -625,7 +623,7 @@ const Careers = () => {
               </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </motion.section>
 
       {/* Don't See Your Role Section - Dark Theme */}

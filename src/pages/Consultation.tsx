@@ -622,10 +622,12 @@ const validate = (): ConsultationFormErrors => {
     newErrors.email = "Invalid email address";
 
   // Phone
-  if (!formData.phone.trim())
-    newErrors.phone = "Phone number is required";
-  else if (!/^[6-9]\d{9}$/.test(formData.phone))
-    newErrors.phone = "Enter valid 10 digit mobile number";
+if (!formData.phone.trim()) {
+  newErrors.phone = "Phone number is required";
+} 
+else if (!/^\d+$/.test(formData.phone)) {
+  newErrors.phone = "Only numbers are allowed";
+}
 
   // Case Type
   if (!formData.caseType)

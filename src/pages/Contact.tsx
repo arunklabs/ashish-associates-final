@@ -7,9 +7,10 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
 const Contact = () => {
-  const [form, setForm] = useState({ name: "", email: "", phone: "", subject: "", message: "" });
+  const [form, setForm] = useState({ countryCode: "+91", name: "", email: "", phone: "", subject: "", message: "" });
 
   const [errors, setErrors] = useState({
+  countryCode: "+91",
   name: "",
   email: "",
   phone: "",
@@ -20,6 +21,7 @@ const Contact = () => {
 
 const validateForm = () => {
   let newErrors = {
+    countryCode: "+91",
     name: "",
     email: "",
     phone: "",
@@ -52,9 +54,9 @@ else if (!nameRegex.test(form.name)) {
   }
 
   // Phone (Indian format)
-  const phoneRegex = /^[6-9]\d{9}$/;
+  const phoneRegex = /^\d+$/;
   if (form.phone && !phoneRegex.test(form.phone)) {
-    newErrors.phone = "Enter valid 10 digit phone number";
+    newErrors.phone = "Only numbers are allowed";
     isValid = false;
   }
 
@@ -85,6 +87,7 @@ else if (!nameRegex.test(form.name)) {
   alert("Thank you for your message. We will contact you shortly.");
 
   setForm({
+    countryCode: "+91",
     name: "",
     email: "",
     phone: "",
@@ -93,6 +96,7 @@ else if (!nameRegex.test(form.name)) {
   });
 
   setErrors({
+    countryCode: "+91",
     name: "",
     email: "",
     phone: "",
@@ -294,7 +298,7 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.5 }}
-          className="absolute inset-0 bg-gradient-to-br from-background/90 via-background/80 to-background/90"
+          className="absolute inset-0 bg-gradient-to-br from-background/70 via-background/60 to-background/70"
         />
         
         {/* Animated Pattern Overlay */}
@@ -522,7 +526,7 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
                     </motion.div>
                   </motion.div>
 
-                  <Button variant="outline" size="lg" className="mt-6 w-full border-primary text-primary hover:bg-primary hover:text-white">
+                  <Button variant="outline" size="lg" className="mt-6 w-full border-primary text-white bg-primary hover:text-white">
                     <span>Get Directions</span>
                     <ChevronRight className="w-4 h-4" />
                   </Button>
@@ -649,7 +653,7 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
                         scale: 1.1,
                         transition: { duration: 0.3 }
                       }}
-                      className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center hover:bg-primary group relative overflow-hidden"
+                      className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center group relative overflow-hidden"
                       aria-label={social.label}
                     >
                       <motion.div
@@ -731,7 +735,7 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
                     {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                   </motion.div>
                   
-                  <motion.div variants={fadeInUp} custom={2}>
+                  {/* <motion.div variants={fadeInUp} custom={2}>
                     <label className="text-sm font-medium text-black mb-2 block">Phone</label>
                     <motion.input
                       whileFocus={{ scale: 1.02 }}
@@ -742,6 +746,43 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
                       className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-primary focus:bg-white transition-all duration-300"
                       placeholder="xxxxxxxxxx"
                     />
+                    {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
+                  </motion.div> */}
+
+                  <motion.div variants={fadeInUp} custom={2}>
+                    <label className="text-sm font-medium text-black mb-2 block">Phone</label>
+
+                    <div className="flex gap-2">
+
+                      {/* Country Code */}
+                      <select
+                        value={form.countryCode}
+                        onChange={(e) => setForm({ ...form, countryCode: e.target.value })}
+                        className="px-3 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-black focus:outline-none focus:border-primary"
+                      >
+                        <option value="+91">🇮🇳 +91</option>
+                        <option value="+1">🇺🇸 +1</option>
+                        <option value="+44">🇬🇧 +44</option>
+                        <option value="+61">🇦🇺 +61</option>
+                        <option value="+971">🇦🇪 +971</option>
+                        <option value="+65">🇸🇬 +65</option>
+                      </select>
+
+                      {/* Phone Number */}
+                      <motion.input
+                        whileFocus={{ scale: 1.02 }}
+                        transition={{ duration: 0.2 }}
+                        type="tel"
+                        value={form.phone}
+                        onChange={(e) => {
+                          const onlyNums = e.target.value.replace(/[^0-9]/g, "");
+                          setForm({ ...form, phone: onlyNums });
+                        }}
+                        className="flex-1 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-primary focus:bg-white transition-all duration-300"
+                        placeholder="xxxxxxxxxx"
+                      />
+                    </div>
+
                     {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
                   </motion.div>
                   
@@ -784,104 +825,14 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
                 </motion.div>
                 
                 <Button type="submit" size="xl" className="w-full md:w-auto btn-shine">
-                  <span>Submit Request</span>
-                  <Send className="w-4 h-4" />
+                  <span className="font-semibold">Submit Request</span>
+                  <Send className="w-4 h-4 font-semibold" />
                 </Button>
               </form>
             </motion.div>
           </div>
         </motion.div>
       </motion.section>
-
-      {/* Map Section with Animated Overlay */}
-      {/* <motion.section 
-        className="relative h-[450px] bg-gray-100 overflow-hidden"
-      >
-        <motion.div className="absolute inset-0" initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={fadeIn}>
-          <motion.iframe
-            initial={{ scale: 1.2, filter: "blur(10px)" }}
-            whileInView={{ scale: 1, filter: "blur(0px)" }}
-            transition={{ duration: 1.5 }}
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d124437.16160995755!2d80.18784820261426!3d13.04728567071073!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5265ea4f7d3361%3A0x6e61a70b6863d433!2sChennai%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
-            width="100%"
-            height="100%"
-            style={{ border: 0 }}
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            title="Chennai Map"
-            className="grayscale hover:grayscale-0 transition-all duration-700"
-          />
-        </motion.div>
-        
-        <motion.div 
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          whileHover={{ scale: 1.05 }}
-          className="absolute bottom-8 left-8 bg-white p-6 rounded-lg shadow-lg max-w-sm border-l-4 border-primary"
-        >
-          <motion.h3 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="text-lg font-heading font-semibold text-black mb-2"
-          >
-            Our Main Office
-          </motion.h3>
-          
-          <motion.p 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
-            className="text-sm text-muted-foreground mb-3"
-          >
-            No. 137, Flat No. F-8,
-1st Floor, Appu Manor Apartment, 
-Perambur Barracks Road, 
-Purasawalkam, Chennai 600 007.
-
-          </motion.p>
-          
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7 }}
-            className="flex items-center gap-4"
-          >
-            <motion.a
-              whileHover={{ scale: 1.1, color: 'hsl(40 70% 50%)' }}
-              href="tel:+914423456789"
-              className="text-primary hover:text-accent transition-colors text-sm font-semibold flex items-center gap-1"
-            >
-              <Phone className="w-3 h-3" />
-              7373663555
-            </motion.a>
-            <span className="text-gray-300">|</span>
-            <motion.a
-              whileHover={{ scale: 1.1, color: 'hsl(40 70% 50%)' }}
-              href="mailto:jashishadvocate@gmail.com"
-              className="text-primary hover:text-accent transition-colors text-sm font-semibold flex items-center gap-1"
-            >
-              <Mail className="w-3 h-3" />
-              Email Us
-            </motion.a>
-          </motion.div>
-
-          <motion.div
-            animate={{ 
-              scale: [1, 1.2, 1],
-              opacity: [0.5, 0.8, 0.5]
-            }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="absolute -top-1 -right-1 w-3 h-3 bg-primary rounded-full"
-          />
-        </motion.div>
-      </motion.section> */}
 
       {/* Multi Location Map Section */}
 <motion.section className="relative bg-gray-100 overflow-hidden py-12">

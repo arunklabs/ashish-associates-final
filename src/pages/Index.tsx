@@ -3,6 +3,7 @@
 "use client";
 
 type FormDataType = {
+  countryCode: string;
   fullName: string;
   lastName: string;
   email: string;
@@ -407,6 +408,7 @@ const Index = () => {
     const [isLoading, setIsLoading] = useState(true);
 
 const [formData, setFormData] = useState<FormDataType>({
+  countryCode: "+91",
   fullName: "",
   lastName: "",
   email: "",
@@ -417,6 +419,7 @@ const [formData, setFormData] = useState<FormDataType>({
 
 const [errors, setErrors] = useState<FormErrorsType>({});
 const [touched, setTouched] = useState<Record<keyof FormDataType, boolean>>({
+  countryCode: false,
   fullName: false,
   lastName: false,
   email: false,
@@ -463,8 +466,8 @@ if (formData.fullName && !nameRegex.test(formData.fullName)) {
 
   if (!formData.phone.trim())
     newErrors.phone = "Phone number is required";
-  else if (!/^[6-9]\d{9}$/.test(formData.phone))
-    newErrors.phone = "Enter valid 10 digit number";
+  else if (!/^\d+$/.test(formData.phone))
+    newErrors.phone = "Only numbers allowed";
 
   if (!formData.practiceArea)
     newErrors.practiceArea = "Select practice area";
@@ -483,6 +486,7 @@ const handleSubmit = (e: React.FormEvent) => {
   setErrors(validationErrors);
 
   setTouched({
+    countryCode: true,
     fullName: true,
     lastName: true,
     email: true,
@@ -496,6 +500,7 @@ const handleSubmit = (e: React.FormEvent) => {
     alert("Form submitted successfully ✅");
 
     setFormData({
+      countryCode: "+91",
       fullName: "",
       lastName: "",
       email: "",
@@ -505,6 +510,7 @@ const handleSubmit = (e: React.FormEvent) => {
     });
 
     setTouched({
+      countryCode: false,
       fullName: false,
       lastName: false,
       email: false,
@@ -928,12 +934,6 @@ const cardReveal: Variants = {
               }}
               className="w-full sm:w-auto"
             >
-              {/* <Button asChild size="lg" className="group w-full sm:w-auto btn-shine">
-                <Link href="/contact" className="inline-flex items-center gap-2">
-                  Schedule Consultation
-                  <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </Button> */}
               <Link
                 href="/contact"
                 className="group w-full sm:w-auto px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-primary 
@@ -2135,7 +2135,7 @@ const cardReveal: Variants = {
                   <div className="overflow-hidden min-w-0 w-full">
                     {/* Top bar visible on load so border color always shows (no scaleX animation) */}
                     <div
-                      className={`h-2 w-full bg-gradient-to-r ${value.color} origin-left`}
+                      className={`h-1 w-full bg-gradient-to-r ${value.color} scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 ease-out`}
                     />
                   </div>
                   
@@ -2913,22 +2913,6 @@ Purasawalkam, Chennai 600 007. <br />
   <p className="text-red-500 text-sm mt-1">{errors.fullName}</p>
 )}
                   </motion.div>
-                  {/* <motion.div variants={slideFromRight} transition={{ delay: 0.2 }}>
-                    <label className="block text-sm font-medium text-foreground mb-2">Last Name</label>
-                    <input
-                    name="lastName"
-  value={formData.lastName}
-  onChange={handleChange}
-  onBlur={handleBlur}
-                      type="text"
-                      className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:outline-none focus:border-primary transition-colors"
-                      placeholder="Last Name"
-                    />
-                    {touched.lastName && errors.lastName && (
-  <p className="text-red-500 text-sm mt-1">{errors.lastName}</p>
-)}
-                  </motion.div> */}
-                {/* </div> */}
                 
                 <motion.div variants={slideFromLeft} transition={{ delay: 0.4 }} className="mb-4">
                   <label className="block text-sm font-medium text-foreground mb-2">Email</label>
@@ -2947,20 +2931,43 @@ Purasawalkam, Chennai 600 007. <br />
                 </motion.div>
                 
                 <motion.div variants={slideFromRight} transition={{ delay: 0.6 }} className="mb-4">
-                  <label className="block text-sm font-medium text-foreground mb-2">Phone</label>
-                  <input
-                  name="phone"
-  value={formData.phone}
-  onChange={handleChange}
-  onBlur={handleBlur}
-                    type="tel"
-                    className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:outline-none focus:border-primary transition-colors"
-                    placeholder="+1 (123) 456-7890"
-                  />
-                  {touched.phone && errors.phone && (
-  <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
-)}
-                </motion.div>
+  <label className="block text-sm font-medium text-foreground mb-2">Phone</label>
+
+  <div className="flex gap-2">
+
+    {/* Country Code */}
+    <select
+      name="countryCode"
+      value={formData.countryCode}
+      onChange={handleChange}
+      onBlur={handleBlur}
+      className="px-3 py-3 bg-background border border-border rounded-sm focus:outline-none focus:border-primary"
+    >
+      <option value="+91">🇮🇳 +91</option>
+      <option value="+1">🇺🇸 +1</option>
+      <option value="+44">🇬🇧 +44</option>
+      <option value="+61">🇦🇺 +61</option>
+      <option value="+971">🇦🇪 +971</option>
+      <option value="+65">🇸🇬 +65</option>
+    </select>
+
+    {/* Phone Input */}
+    <input
+      name="phone"
+      value={formData.phone}
+      onChange={handleChange}
+      onBlur={handleBlur}
+      type="tel"
+      className="flex-1 px-4 py-3 bg-background border border-border rounded-sm focus:outline-none focus:border-primary transition-colors"
+      placeholder="1234567890"
+    />
+
+  </div>
+
+  {touched.phone && errors.phone && (
+    <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
+  )}
+</motion.div>
                 
                 <motion.div variants={slideFromLeft} transition={{ delay: 0.8 }} className="mb-4">
                   <label className="block text-sm font-medium text-foreground mb-2">Practice Area</label>

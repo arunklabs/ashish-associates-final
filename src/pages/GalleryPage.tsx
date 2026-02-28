@@ -708,7 +708,9 @@ const GalleryPage = () => {
                 onClick={handleLoadMore}
                 disabled={loading}
                 size="xl"
-                className="bg-amber-500 text-white hover:bg-amber-600 disabled:opacity-70 disabled:cursor-not-allowed"
+                className="group w-full sm:w-auto px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-primary 
+                text-primary-foreground font-semibold rounded-sm hover:bg-accent transition-all duration-300 
+                btn-shine text-center inline-flex items-center justify-center gap-2 text-sm sm:text-base disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {loading ? (
                   <>

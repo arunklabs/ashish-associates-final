@@ -478,7 +478,7 @@ const Team = () => {
                     </div>
 
                     {/* Practice Areas */}
-                    {founders[selectedFounder]?.details?.practiceAreas && founders[selectedFounder]?.details?.practiceAreas.length > 0 && (
+                    {(founders[selectedFounder]?.details?.practiceAreas ?? []).length > 0 && (
                       <div className="mb-6 pb-6 border-b border-gray-200">
                         <h4 className="text-lg font-heading font-semibold text-black mb-4 flex items-center gap-2">
                           <Briefcase className="w-5 h-5 text-primary" />
@@ -501,8 +501,8 @@ const Team = () => {
                     )}
 
                     {/* Education & Bar Associations */}
-                    {((founders[selectedFounder]?.details?.education && founders[selectedFounder]?.details?.education.length > 0) || 
-                      (founders[selectedFounder]?.details?.barAssociations && founders[selectedFounder]?.details?.barAssociations.length > 0)) && (
+                    {(((founders[selectedFounder]?.details?.education ?? []).length > 0) ||
+                      ((founders[selectedFounder]?.details?.barAssociations ?? []).length > 0)) && (
                       <div className="mb-6 pb-6 border-b border-gray-200">
                         <h4 className="text-lg font-heading font-semibold text-black mb-4 flex items-center gap-2">
                           <BookOpen className="w-5 h-5 text-primary" />
@@ -538,7 +538,7 @@ const Team = () => {
                     )}
 
                     {/* Organizations */}
-                    {founders[selectedFounder]?.details?.organizations && founders[selectedFounder]?.details?.organizations.length > 0 && (
+                    {(founders[selectedFounder]?.details?.organizations ?? []).length > 0 && (
                       <div className="mb-6 pb-6 border-b border-gray-200">
                         <h4 className="text-lg font-heading font-semibold text-black mb-4 flex items-center gap-2">
                           <Globe className="w-5 h-5 text-primary" />
@@ -562,7 +562,7 @@ const Team = () => {
                     )}
 
                     {/* Awards & Accolades */}
-                    {founders[selectedFounder]?.details?.awards && founders[selectedFounder]?.details?.awards.length > 0 && (
+                    {(founders[selectedFounder]?.details?.awards ?? []).length > 0 && (
                       <div>
                         <h4 className="text-lg font-heading font-semibold text-black mb-4 flex items-center gap-2">
                           <Award className="w-5 h-5 text-primary" />
@@ -714,7 +714,7 @@ const Team = () => {
                           member.category === 'senior' ? 'bg-primary/20 text-primary' :
                           member.category === 'associate' ? 'bg-blue-500/20 text-blue-500' :
                           member.category === 'intern' ? 'bg-green-500/20 text-green-500' :
-                          'bg-purple-500/20 text-purple-500'
+                          'bg-primary text-white'
                         }`}>
                           {member.category === 'senior' ? 'Senior Associate' :
                            member.category === 'associate' ? 'Associate' :

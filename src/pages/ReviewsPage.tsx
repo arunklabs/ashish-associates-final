@@ -373,7 +373,7 @@ const ReviewsPage = () => {
                           viewport={{ once: true }}
                           transition={{ delay: index * 0.15, duration: 0.9, ease: [0.25, 0.1, 0.25, 1] as const }} // Slower card appearance
                           whileHover={{ 
-                            y: -10,
+                            // y: -10,
                             boxShadow: '0 30px 60px -15px rgba(0,0,0,0.2)',
                             transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const } // Slower hover
                           }}
@@ -451,7 +451,7 @@ const ReviewsPage = () => {
                               transition={{ delay: 0.4 + index * 0.15, duration: 0.9, ease: [0.25, 0.1, 0.25, 1] as const }}
                               className="mb-8"
                             >
-                              <p className="text-gray-700 leading-relaxed text-[15px]">
+                              <p className="text-gray-700 leading-relaxed text-[15px] transition-all duration-700 ease-in-out line-clamp-4 group-hover:line-clamp-none">
                                 "{review.content}"
                               </p>
                             </motion.div>

@@ -23,8 +23,8 @@ const navLinks = [
       { label: "Help & FAQs", path: "/faq" },
       { label: "Free Consultation", path: "/consultation" },
       { label: "Our Gallery", path: "/gallery" },
-      { label: "Contact Us", path: "/contact" },
-      { label: "Careers", path: "/careers" }
+      // { label: "Contact Us", path: "/contact" },
+      // { label: "Careers", path: "/careers" }
     ]
   },
   { 

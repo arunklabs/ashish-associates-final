@@ -82,10 +82,10 @@ const Blog = () => {
   }, []);
 
   const loadMore = () => {
-  setVisiblePosts(prev => prev + 3);
+  setVisiblePosts(prev => Math.min(prev + 3, posts.length));
 };
 
-  const hasMore = visiblePosts < posts.length;
+  const hasMore = displayedPosts.length < posts.length;
 
   return (
     <div className="bg-white -mt-20">
@@ -280,13 +280,7 @@ const Blog = () => {
               // Render posts
               displayedPosts.map((post, i) => (
                 <motion.div
-                  key={post._id}
-                  variants={{
-                    initial: { opacity: 0, y: 50 },
-                    animate: { opacity: 1, y: 0 }
-                  }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  whileHover={{ y: -10 }}
+                  key={`${post._id}-${i}`}
                   className="h-full"
                 >
                   <article className="bg-white border border-gray-200 rounded-lg overflow-hidden group shadow-sm hover:shadow-lg transition-all duration-300 h-full flex flex-col">
@@ -359,7 +353,7 @@ const Blog = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="text-center mt-6 text-gray-500 text-sm"
             >
-              Showing {visiblePosts} of {posts.length} articles
+              Showing {displayedPosts.length} of {posts.length} articles
             </motion.div>
           )}
         </div>

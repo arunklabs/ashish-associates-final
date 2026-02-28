@@ -734,7 +734,7 @@ const About = () => {
             <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-l from-white to-transparent z-10" />
             
             <motion.div 
-              className="flex animate-infinite-scroll"
+              className="flex animate-infinite-scroll select-none"
             >
               {[...clients, ...clients].map((client, index) => (
                 <motion.div
@@ -859,8 +859,9 @@ const About = () => {
             whileInView="visible"
             className="text-center mt-12"
           >
-            <Button asChild size="lg" className="btn-shine">
-              <Link href="/team" className="inline-flex items-center gap-2">
+            <Button asChild size="lg" className="">
+              <Link href="/team" className="group w-full sm:w-auto px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-primary text-primary-foreground font-semibold rounded-sm hover:bg-accent transition-all duration-300 
+                btn-shine text-center inline-flex items-center justify-center gap-2 text-sm sm:text-base">
                 View All Attorneys
                 <ChevronRight className="w-4 h-4" />
               </Link>
@@ -1040,7 +1041,7 @@ const About = () => {
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
-              className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-gray-200"
+              className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-gray-200 select-none"
             >
               {[
                 { icon: Shield, text: "100% Confidential" },

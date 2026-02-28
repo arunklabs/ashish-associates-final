@@ -645,6 +645,76 @@ export const PracticeAreaDetail = ({ slug }: { slug: string }) => {
     setCurrentCase((prev) => (prev - 1 + caseStudies.length) % caseStudies.length);
   };
 
+  const [formData, setFormData] = useState({
+    countryCode: "+91",
+    name: "",
+    email: "",
+    phone: "",
+    practiceArea: "",
+    message: ""
+  });
+
+  const [errors, setErrors] = useState<any>({});
+
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+
+    // Phone → allow only numbers
+    if (name === "phone") {
+      const onlyNums = value.replace(/d/g, "");
+      setFormData({ ...formData, [name]: onlyNums });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+
+    // Remove error while typing
+    setErrors({ ...errors, [name]: "" });
+  };
+
+  const validate = () => {
+  let newErrors: any = {};
+
+  if (!formData.name.trim())
+    newErrors.name = "Full name is required";
+
+  if (!formData.email.trim())
+    newErrors.email = "Email is required";
+  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
+    newErrors.email = "Enter valid email";
+
+  if (!formData.phone.trim())
+    newErrors.phone = "Phone number is required";
+  else if (!/^\d+$/.test(formData.phone))
+    newErrors.phone = "Only numbers allowed";
+
+  if (!formData.practiceArea)
+    newErrors.practiceArea = "Select practice area";
+
+  if (!formData.message.trim())
+    newErrors.message = "Message is required";
+
+  setErrors(newErrors);
+  return Object.keys(newErrors).length === 0;
+};
+
+const handleSubmit = (e: any) => {
+  e.preventDefault();
+
+  if (validate()) {
+    console.log("Form Submitted:", formData);
+    alert("Form submitted successfully ✅");
+
+    setFormData({
+      countryCode: "+91",
+      name: "",
+      email: "",
+      phone: "",
+      practiceArea: "",
+      message: ""
+    });
+  }
+};
+
   if (!area) {
     return (
       <div className="section-padding pt-32 text-center min-h-screen">
@@ -1159,40 +1229,77 @@ Purasawalkam, Chennai 600 007.
               className="bg-card border border-border rounded-lg p-6 md:p-8"
             >
               <h3 className="text-xl font-heading font-semibold text-foreground mb-6">Send us a Message</h3>
-              <form className="space-y-4">
+              <form className="space-y-4" onSubmit={handleSubmit}>
                 <div>
                   <label className="text-sm font-medium text-foreground mb-2 block">Full Name *</label>
                   <input
                     type="text"
-                    required
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
                     className="w-full px-4 py-3 bg-secondary border border-border rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                     placeholder="Your Name"
                   />
+                  {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
                 </div>
                 
                 <div>
                   <label className="text-sm font-medium text-foreground mb-2 block">Email *</label>
                   <input
                     type="email"
-                    required
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
                     className="w-full px-4 py-3 bg-secondary border border-border rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
                     placeholder="Your Email"
                   />
+                  {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                 </div>
                 
                 <div>
-                  <label className="text-sm font-medium text-foreground mb-2 block">Phone</label>
-                  <input
-                    type="tel"
-                    className="w-full px-4 py-3 bg-secondary border border-border rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
-                    placeholder="Your Phone Number"
-                  />
-                </div>
+  <label className="text-sm font-medium text-foreground mb-2 block">Phone</label>
+
+  <div className="flex gap-2">
+
+    {/* Country Code */}
+    <select
+      name="countryCode"
+      value={formData.countryCode}
+      onChange={handleChange}
+      className="px-3 py-3 bg-secondary border border-border rounded-lg text-sm text-foreground focus:outline-none focus:border-primary"
+    >
+      <option value="+91">🇮🇳 +91</option>
+      <option value="+1">🇺🇸 +1</option>
+      <option value="+44">🇬🇧 +44</option>
+      <option value="+61">🇦🇺 +61</option>
+      <option value="+971">🇦🇪 +971</option>
+      <option value="+65">🇸🇬 +65</option>
+    </select>
+
+    {/* Phone Number */}
+    <input
+      type="tel"
+      name="phone"
+      value={formData.phone}
+      onChange={handleChange}
+      inputMode="numeric"
+      className="flex-1 px-4 py-3 bg-secondary border border-border rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+      placeholder="Your Phone Number"
+    />
+
+  </div>
+
+  {errors.phone && (
+    <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
+  )}
+</div>
                 
                 <div>
                   <label className="text-sm font-medium text-foreground mb-2 block">Practice Area *</label>
                   <select
-                    required
+                  name="practiceArea"
+                  value={formData.practiceArea}
+                  onChange={handleChange}
                     className="w-full px-4 py-3 bg-secondary border border-border rounded-lg text-sm text-foreground focus:outline-none focus:border-primary transition-colors"
                   >
                     <option value="">Select a practice area</option>
@@ -1200,21 +1307,25 @@ Purasawalkam, Chennai 600 007.
                       <option key={area.slug} value={area.title}>{area.title}</option>
                     ))}
                   </select>
+                  {errors.practiceArea && <p className="text-red-500 text-xs mt-1">{errors.practiceArea}</p>}
                 </div>
                 
                 <div>
                   <label className="text-sm font-medium text-foreground mb-2 block">Message *</label>
                   <textarea
-                    required
                     rows={4}
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
                     className="w-full px-4 py-3 bg-secondary border border-border rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors resize-none"
                     placeholder="Describe your legal matter..."
                   />
+                  {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
                 </div>
                 
                 <Button type="submit" size="xl" className="w-full btn-shine">
-                  <span>Submit Request</span>
-                  <Send className="w-4 h-4" />
+                  <span className="font-semibold">Submit Request</span>
+                  <Send className="w-4 h-4 font-semibold" />
                 </Button>
               </form>
             </motion.div>
