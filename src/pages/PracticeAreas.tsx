@@ -708,7 +708,7 @@ const handleSubmit = (e: any) => {
       countryCode: "+91",
       name: "",
       email: "",
-      phone: "",
+      phone: "", 
       practiceArea: "",
       message: ""
     });
