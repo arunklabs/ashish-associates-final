@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState } from "react";
@@ -941,10 +942,12 @@ const handleSubmit = (e: any) => {
                 variants={scaleIn}
                 className="relative h-96 rounded-lg overflow-hidden group"
               >
-                <img
+                <Image
                   src={area.featuredImage}
                   alt={area.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
                 <div className="absolute bottom-0 left-0 p-8">
@@ -1052,11 +1055,13 @@ const handleSubmit = (e: any) => {
                     className="bg-gray-50 rounded-lg overflow-hidden"
                   >
                     <div className="grid md:grid-cols-2 gap-6">
-                      <div className="h-64 md:h-auto">
-                        <img
+                      <div className="h-64 md:h-auto relative">
+                        <Image
                           src={caseStudies[currentCase].image}
                           alt={caseStudies[currentCase].title}
-                          className="w-full h-full object-cover"
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, 50vw"
                         />
                       </div>
                       <div className="p-6">

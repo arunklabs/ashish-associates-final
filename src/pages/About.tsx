@@ -1,6 +1,7 @@
 "use client";
 
 // About.tsx
+import Image from "next/image";
 import Link from "next/link";
 import { 
   CheckCircle, Award, Users, Target, 
@@ -809,10 +810,12 @@ const About = () => {
     className="group bg-card border border-border rounded-xl overflow-hidden hover:shadow-2xl transition-all duration-500"
   >
     <div className="relative h-56 sm:h-64 overflow-hidden">
-      <img 
+      <Image 
         src={getEmployeeImageUrl(member)}
         alt={member.name}
-        className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700"
+        fill
+        className="object-cover object-center group-hover:scale-110 transition-transform duration-700"
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
       />
 
       <div className="absolute top-4 right-4 bg-primary/90 backdrop-blur-sm px-3 py-1 rounded-full z-20">

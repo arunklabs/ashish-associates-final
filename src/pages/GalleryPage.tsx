@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -178,39 +179,32 @@ const galleryImages = [
   },
 ];
 
-// Progressive Image Component
+// Progressive Image Component (uses next/image for optimization)
 const ProgressiveImage = ({ src, thumbnail, alt, onLoad, className, ...props }: { src: string; thumbnail: string; alt: string; onLoad?: () => void; className?: string; [key: string]: unknown }) => {
-  const [currentSrc, setCurrentSrc] = useState(thumbnail);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
   const imgRef = useRef<HTMLImageElement | null>(null);
 
-  useEffect(() => {
-    // Start loading full image
-    const img = new Image();
-    img.src = src;
-    img.onload = () => {
-      setCurrentSrc(src);
-      setIsLoading(false);
-      if (onLoad) onLoad();
-    };
-    img.onerror = () => {
-      setError(true);
-      setIsLoading(false);
-    };
-  }, [src, onLoad]);
-
   return (
     <div className="relative w-full h-full">
-      {/* Blur-up placeholder */}
-      <img
-        ref={imgRef}
-        src={currentSrc}
+      <Image
+        ref={imgRef as React.Ref<HTMLImageElement>}
+        src={src}
         alt={alt}
+        fill
         className={`${className} transition-opacity duration-500 ${
           isLoading ? 'opacity-90 scale-105 filter blur-sm' : 'opacity-100 scale-100 filter blur-0'
         }`}
-        {...props}
+        sizes="100vw"
+        onLoad={() => {
+          setIsLoading(false);
+          if (onLoad) onLoad();
+        }}
+        onError={() => {
+          setError(true);
+          setIsLoading(false);
+        }}
+        {...(props as Record<string, unknown>)}
       />
       
       {/* Loading spinner for slow connections */}

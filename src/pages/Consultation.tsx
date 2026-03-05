@@ -13,6 +13,7 @@ type ConsultationFormData = {
 
 type ConsultationFormErrors = Partial<ConsultationFormData>;
 
+import Image from "next/image";
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { 
@@ -813,12 +814,14 @@ else if (!/^\d+$/.test(formData.phone)) {
                     <motion.div 
                       whileHover={{ scale: 1.1 }}
                       transition={{ duration: 0.3 }}
-                      className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 border-amber-400"
+                      className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden border-2 border-amber-400 relative"
                     >
-                      <img 
+                      <Image 
                         src="https://plus.unsplash.com/premium_photo-1743020414403-8282a72af162?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTh8fGxhd3llciUyMGNvbnN1bHRhdGlvbnxlbnwwfHwwfHx8MA%3D%3D" 
                         alt="Client"
-                        className="w-full h-full object-cover"
+                        fill
+                        className="object-cover"
+                        sizes="56px"
                       />
                     </motion.div>
                     <div>

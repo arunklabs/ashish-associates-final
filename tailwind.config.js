@@ -71,8 +71,8 @@ module.exports = {
       },
 
       fontFamily: {
-        heading: ["serif"],
-        sans: ["sans-serif"],
+        heading: ["var(--font-heading)", "serif"],
+        sans: ["var(--font-sans)", "sans-serif"],
       },
     },
   },

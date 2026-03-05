@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { Award, BookOpen, Briefcase, ChevronLeft, ChevronRight, Facebook, Globe, Linkedin, Mail, Phone, Scale, Star, Twitter } from "lucide-react";
 import Link from "next/link";
@@ -321,11 +322,13 @@ const Team = () => {
                             }`}
                           >
                             <div className="flex flex-col items-center gap-4">
-                              <div className="w-full h-full lg:h-80 overflow-hidden flex-shrink-0">
-                                <img 
-                                    src={getFounderImageUrl(founder)}
-                                    alt={founder?.name || 'Founder'}
-                                  className="w-full h-full object-cover rounded-lg"
+                              <div className="w-full h-full lg:h-80 overflow-hidden flex-shrink-0 relative">
+                                <Image 
+                                  src={getFounderImageUrl(founder)}
+                                  alt={founder?.name || 'Founder'}
+                                  fill
+                                  className="object-cover rounded-lg"
+                                  sizes="(max-width: 1024px) 100vw, 33vw"
                                 />
                               </div>
                               <div className="flex-1 min-w-0 w-full">
@@ -422,11 +425,13 @@ const Team = () => {
                   >
                     {/* Founder Header */}
                     <div className="flex flex-col md:flex-row items-start md:items-center gap-6 pb-6 border-b border-gray-200 mb-6">
-                      <div className="w-28 h-28 rounded-full overflow-hidden ring-4 ring-primary/20 flex-shrink-0">
-                        <img 
+                      <div className="w-28 h-28 rounded-full overflow-hidden ring-4 ring-primary/20 flex-shrink-0 relative">
+                        <Image 
                           src={founders[selectedFounder]?.profileImage ? getFounderImageUrl(founders[selectedFounder]) : `https://ui-avatars.com/api/?name=${encodeURIComponent(founders[selectedFounder]?.name || 'Team Member')}&background=E5E7EB&color=6B7280&size=128`} 
                           alt={founders[selectedFounder]?.name || 'Team Member'}
-                          className="w-full h-full object-cover"
+                          fill
+                          className="object-cover"
+                          sizes="112px"
                         />
                       </div>
                       <div className="flex-1">

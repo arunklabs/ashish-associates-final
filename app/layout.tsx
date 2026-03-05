@@ -4,6 +4,10 @@ import Footer from "@/src/components/Footer";
 import Header from "@/src/components/Header";
 import ScrollToTop from "@/src/components/ScrollToTop";
 import type { Metadata } from "next";
+import { Inter, Playfair_Display } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-heading" });
 
 export const metadata: Metadata = {
   title: "J. Ashish Associates LLP",
@@ -22,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className={`${inter.variable} ${playfair.variable}`}>
 
         <ClientWrapper>
           <ScrollToTop />

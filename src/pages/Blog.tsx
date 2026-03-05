@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useEffect, useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
@@ -288,13 +289,14 @@ const Blog = () => {
                     <motion.div 
                       whileHover={{ scale: 1.05 }}
                       transition={{ duration: 0.4 }}
-                      className="aspect-video overflow-hidden bg-gray-100"
+                      className="aspect-video overflow-hidden bg-gray-100 relative"
                     >
-                      <img 
+                      <Image 
                         src={getBlogImageUrl(post)} 
-                        alt={post.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        loading="lazy"
+                        alt={post.title ?? 'Blog Post Image'}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                     </motion.div>
                     

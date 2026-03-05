@@ -15,6 +15,7 @@ type FormDataType = {
 type FormErrorsType = Partial<FormDataType>;
 
 
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, Variants, useMotionValue, useTransform, useScroll, AnimatePresence } from "framer-motion";
@@ -173,36 +174,17 @@ const practiceAreas = [
   }
 ];
 
-const testimonials = [
-  { 
-    name: "James Morrison", 
-    role: "CEO, Morrison Holdings", 
-    text: "J. Ashish Associates LLP provided exceptional counsel during our $50M acquisition. Their attention to detail was unmatched.",
-    rating: 5,
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop"
-  },
-  { 
-    name: "Sarah Chen", 
-    role: "Founder, TechVentures", 
-    text: "Their corporate team guided us through complex regulatory challenges with remarkable expertise and professionalism.",
-    rating: 5,
-    image: "https://images.unsplash.com/photo-1761839259484-4741afbbdcbf?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwyMnx8fGVufDB8fHx8fA%3D%3D"
-  },
-  { 
-    name: "Robert Williams", 
-    role: "Real Estate Developer", 
-    text: "I've worked with many law firms over 20 years. Lexington stands apart in their commitment to client success.",
-    rating: 5,
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop"
-  },
-  { 
-    name: "Elizabeth Parker", 
-    role: "CFO, Parker Industries", 
-    text: "The level of dedication and legal acumen displayed by their team is truly exceptional.",
-    rating: 5,
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&h=150&fit=crop"
-  },
-];
+const IndexTestimonialsSection = dynamic(
+  () => import("@/src/components/IndexTestimonialsSection"),
+  {
+    ssr: true,
+    loading: () => (
+      <div className="min-h-[480px] bg-background section-padding flex items-center justify-center" aria-hidden="true">
+        <div className="h-10 w-10 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+      </div>
+    ),
+  }
+);
 
 const processSteps = [
   { 
@@ -1452,16 +1434,19 @@ const cardReveal: Variants = {
             <motion.div
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const }}
-              className="aspect-[3/4] rounded-sm overflow-hidden shadow-2xl transform-gpu will-change-transform"
+              className="aspect-[3/4] rounded-sm overflow-hidden shadow-2xl transform-gpu will-change-transform relative"
             >
-              <img src={
-    primaryFounder?.profileImage
-      ? getFounderImageUrl(primaryFounder)
-      : `https://ui-avatars.com/api/?name=${encodeURIComponent(primaryFounder?.name || 'Founder')}&background=E5E7EB&color=6B7280&size=128`
-  }
-  alt={primaryFounder?.name || 'Founder'}
-  className="w-full h-full object-cover"
-/>
+              <Image
+                src={
+                  primaryFounder?.profileImage
+                    ? getFounderImageUrl(primaryFounder)
+                    : `https://ui-avatars.com/api/?name=${encodeURIComponent(primaryFounder?.name || 'Founder')}&background=E5E7EB&color=6B7280&size=128`
+                }
+                alt={primaryFounder?.name || 'Founder'}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 80vw, 400px"
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/30 via-transparent to-transparent" />
             </motion.div>
             
@@ -1753,10 +1738,12 @@ const cardReveal: Variants = {
     variants={fadeSoft}
     className="absolute inset-0"
   >
-    <img
+    <Image
       src={globalMap}
       alt="World Map"
-      className="w-full h-full object-cover opacity-[0.04]"
+      fill
+      className="object-cover opacity-[0.04]"
+      sizes="100vw"
     />
   </motion.div>
 
@@ -1922,11 +1909,13 @@ const cardReveal: Variants = {
                         className="relative rounded-xl overflow-hidden group"
                       >
                         <div className="relative h-[450px]">
-                          <img
-  src={getEmployeeImageUrl(attorney)}
-  alt={attorney?.name || "Attorney"}
-  className="w-full h-full object-cover group-hover:scale-105 transition duration-700"
-/>
+                          <Image
+                            src={getEmployeeImageUrl(attorney)}
+                            alt={attorney?.name || "Attorney"}
+                            fill
+                            className="object-cover group-hover:scale-105 transition duration-700"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          />
                           <div className="absolute inset-0 bg-gradient-to-t from-[#1F2A44] via-transparent to-transparent opacity-90"></div>
                           
                           <motion.div 
@@ -2567,113 +2556,8 @@ const cardReveal: Variants = {
         </motion.div>
       </motion.section>
 
-      {/* Testimonials */}
-      <motion.section
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewportOnceMore}
-        variants={staggerContainer}
-        className="bg-background section-padding relative overflow-hidden"
-      >
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 1.5 }}
-          className="absolute inset-0"
-        >
-          <motion.div
-            animate={{ 
-              scale: [1, 1.2, 1],
-              x: [0, 80, 0],
-              y: [0, -80, 0]
-            }}
-            transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" as const }}
-            className="absolute top-0 left-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl"
-          />
-          <motion.div
-            animate={{ 
-              scale: [1, 1.25, 1],
-              x: [0, -80, 0],
-              y: [0, 80, 0]
-            }}
-            transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" as const }}
-            className="absolute bottom-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
-          />
-        </motion.div>
-        
-        <div className="container mx-auto relative z-10">
-          <motion.div
-            variants={staggerContainer}
-            className="text-center mb-16"
-          >
-            <motion.div variants={slideFromLeft} className="flex items-center justify-center gap-4 mb-4">
-              <span className="w-12 h-px bg-primary"></span>
-              <span className="text-primary uppercase tracking-[0.2em] text-sm font-semibold">
-                Testimonials
-              </span>
-              <span className="w-12 h-px bg-primary"></span>
-            </motion.div>
-            <motion.h2 variants={slideFromRight} className="text-4xl md:text-5xl font-heading font-bold text-foreground">
-              What Our <span className="gold-gradient-text italic">Clients Say</span>
-            </motion.h2>
-          </motion.div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {testimonials.map((t, i) => (
-              <motion.div
-                key={t.name}
-                variants={i % 2 === 0 ? slideFromLeft : slideFromRight}
-                transition={{ delay: i * 0.15 }}
-                whileHover={{ scale: 1.03, y: -8 }}
-                className="relative"
-              >
-                <div className="p-6 bg-card border border-border rounded-sm card-hover h-full flex flex-col">
-                  <motion.div
-                    animate={{ rotate: [0, 3, -3, 0] }}
-                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" as const }}
-                    className="absolute top-4 right-4 w-8 h-8 text-primary/20"
-                  >
-                    <Quote className="w-8 h-8" />
-                  </motion.div>
-                  
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="relative">
-                      <img 
-                        src={t.image} 
-                        alt={t.name}
-                        className="w-16 h-16 rounded-full object-cover border-2 border-primary"
-                      />
-                    </div>
-                    <div>
-                      <p className="font-semibold text-foreground">{t.name}</p>
-                      <p className="text-xs text-muted-foreground">{t.role}</p>
-                    </div>
-                  </div>
-                  
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-4 italic flex-grow">
-                    "{t.text}"
-                  </p>
-                  
-                  <div className="flex gap-1">
-                    {[...Array(t.rating)].map((_, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ scale: 0 }}
-                        whileInView={{ scale: 1 }}
-                        transition={{ delay: i * 0.1, duration: 0.5 }}
-                      >
-                        <Star className="w-4 h-4 fill-primary text-primary" />
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-                
-                <div className="absolute -z-10 inset-0 bg-primary/5 rounded-sm transform rotate-2" />
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </motion.section>
+      {/* Testimonials (below-the-fold, dynamic to reduce initial bundle) */}
+      <IndexTestimonialsSection />
 
       {/* Latest News */}
       <section ref={newsRef} className="bg-white section-padding overflow-hidden">

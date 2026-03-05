@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Star, Quote, ChevronLeft, ChevronRight, Shield, Clock, Award, Users, Sparkles, Phone, ArrowRight } from 'lucide-react';
 import Link from "next/link";
 import { useState, useEffect } from 'react';
@@ -470,10 +471,12 @@ const ReviewsPage = () => {
                               >
                                 <div className="absolute inset-0 bg-primary/20 rounded-full blur-md group-hover:blur-lg transition-all duration-700" />
                                 <div className="relative w-14 h-14 rounded-full overflow-hidden ring-2 ring-white shadow-lg">
-                                  <img
+                                  <Image
                                     src={review.avatar}
                                     alt={review.name}
-                                    className="w-full h-full object-cover"
+                                    fill
+                                    className="object-cover"
+                                    sizes="56px"
                                   />
                                 </div>
                               </motion.div>
