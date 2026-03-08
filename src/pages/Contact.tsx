@@ -108,8 +108,9 @@ const [loading, setLoading] = useState(false);
   }
 );
 
-    alert("Thank you for your message. We will contact you shortly.");
+    alert("Thank you for your message. We will contact you shortly."); 
 
+    
     setForm({
       countryCode: "+91",
       name: "",
