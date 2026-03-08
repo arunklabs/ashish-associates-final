@@ -6,6 +6,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, Phone, Mail, Facebook, Linkedin, Twitter, ChevronRight, ChevronDown } from "lucide-react";
+import { FaWhatsapp, FaInstagram } from "react-icons/fa";
+import { MdOutlineMail } from "react-icons/md";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
@@ -277,12 +279,12 @@ const Header = () => {
             className="flex items-center gap-2 flex-wrap justify-center md:justify-start"
           >
             <p>Lord is my Shepherd!</p>
-            <Link 
-              href="/contact" 
-              className="flex items-center gap-2 hover:text-[#C9A646] transition-colors duration-300 group"
-            >
-              <span className="text-[#C9A646] font-medium">Contact →</span>
-            </Link>
+              {/* <Link 
+                href="/contact" 
+                className="flex items-center gap-2 hover:text-[#C9A646] transition-colors duration-300 group"
+              >
+                <span className="text-[#C9A646] font-medium">Contact →</span>
+              </Link> */}
           </motion.div>
 
           {/* Right - Contact details with animation */}
@@ -290,18 +292,18 @@ const Header = () => {
             variants={topBarRightVariants}
             className="flex items-center gap-4 flex-wrap justify-center md:justify-end"
           >
-            <a href="mailto:jashishadvocate@gmail.com" className="flex items-center gap-2 hover:text-[#C9A646] transition-colors duration-300">
+            {/* <a href="mailto:jashishadvocate@gmail.com" className="flex items-center gap-2 hover:text-[#C9A646] transition-colors duration-300">
               <Mail className="w-4 h-4" />
               jashishadvocate@gmail.com
             </a>
             <a href="tel:+1234567890" className="md:hidden lg:flex items-center gap-2 hover:text-[#C9A646] transition-colors duration-300">
               <Phone className="w-4 h-4" />
               7373663555
-            </a>
-            <div className="md:hidden lg:flex items-center gap-4 ml-2">
-              <Facebook className="w-4 h-4 cursor-pointer hover:text-[#C9A646] transition-colors duration-300" />
-              <Twitter className="w-4 h-4 cursor-pointer hover:text-[#C9A646] transition-colors duration-300" />
-              <Linkedin className="w-4 h-4 cursor-pointer hover:text-[#C9A646] transition-colors duration-300" />
+            </a> */}
+            <div className="flex items-center gap-4 ml-2">
+              <FaWhatsapp className="w-4 h-4 cursor-pointer hover:text-[#C9A646] transition-colors duration-300" />
+              <MdOutlineMail className="w-4 h-4 cursor-pointer hover:text-[#C9A646] transition-colors duration-300" />
+              <FaInstagram className="w-4 h-4 cursor-pointer hover:text-[#C9A646] transition-colors duration-300" />
             </div>
           </motion.div>
         </div>
@@ -331,7 +333,7 @@ const Header = () => {
             </button>
 
             {/* LOGO */}
-            <Link href="/" className="flex items-center lg:ml-0 flex-1 lg:flex-none justify-center relative h-20 w-[180px]">
+            <Link href="/" className="flex items-center lg:ml-0 flex-1 lg:flex-none justify-center relative h-[5rem] w-[180px]">
               <Image src="/assets/logo.png" alt="J. Ashish Associates LLP" fill className="object-contain object-center" priority sizes="180px" />
             </Link>
 

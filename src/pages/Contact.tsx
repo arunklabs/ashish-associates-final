@@ -6,6 +6,8 @@ import AnimatedSection from "../components/AnimatedSection";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 
+const contactImage = "/assets/contact-image-1.png";
+
 const Contact = () => {
   const [form, setForm] = useState({ countryCode: "+91", name: "", email: "", phone: "", subject: "", message: "" });
 
@@ -79,30 +81,63 @@ else if (!nameRegex.test(form.name)) {
   return isValid;
 };
 
-  const handleSubmit = (e: React.FormEvent) => {
+const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
 
   if (!validateForm()) return;
 
-  alert("Thank you for your message. We will contact you shortly.");
+  setLoading(true);
 
-  setForm({
-    countryCode: "+91",
-    name: "",
-    email: "",
-    phone: "",
-    subject: "",
-    message: ""
-  });
+  const data = {
+    name: form.name,
+    email: form.email,
+    phone: form.countryCode.replace("+","") + "-" + form.phone,
+    subject: form.subject,
+    message: form.message
+  };
 
-  setErrors({
-    countryCode: "+91",
-    name: "",
-    email: "",
-    phone: "",
-    subject: "",
-    message: ""
-  });
+  try {
+    const res = await fetch(
+  "https://script.google.com/macros/s/AKfycby8EzZj72zhNvhZHtjP3Y1uWkwKdeNcw-fQA1yA6NGHLt0-ZZTMvsdFjbLWjk3RrhEocQ/exec",
+  {
+    method: "POST",
+    body: JSON.stringify(data),
+    mode: "no-cors"
+  }
+);
+
+    alert("Thank you for your message. We will contact you shortly.");
+
+    setForm({
+      countryCode: "+91",
+      name: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: ""
+    });
+
+    setErrors({
+      countryCode: "+91",
+      name: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: ""
+    });
+
+  } catch (error) {
+
+    console.error(error);
+    alert("Something went wrong. Please try again.");
+
+  } finally {
+
+    setLoading(false);
+
+  }
 };
 
   // Animation variants - Professional and smooth
@@ -290,7 +325,7 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
       <section 
         className="relative w-full bg-cover bg-center bg-no-repeat overflow-hidden"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+          backgroundImage: "url('" + contactImage + "')",
         }}
       >
         {/* Dark Overlay with animated gradient */}
@@ -734,20 +769,6 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
                     />
                     {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                   </motion.div>
-                  
-                  {/* <motion.div variants={fadeInUp} custom={2}>
-                    <label className="text-sm font-medium text-black mb-2 block">Phone</label>
-                    <motion.input
-                      whileFocus={{ scale: 1.02 }}
-                      transition={{ duration: 0.2 }}
-                      type="tel"
-                      value={form.phone}
-                      onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-primary focus:bg-white transition-all duration-300"
-                      placeholder="xxxxxxxxxx"
-                    />
-                    {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
-                  </motion.div> */}
 
                   <motion.div variants={fadeInUp} custom={2}>
                     <label className="text-sm font-medium text-black mb-2 block">Phone</label>
@@ -824,9 +845,24 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
                   {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
                 </motion.div>
                 
-                <Button type="submit" size="xl" className="w-full md:w-auto btn-shine">
+                {/* <Button type="submit" size="xl" className="w-full md:w-auto btn-shine">
                   <span className="font-semibold">Submit Request</span>
                   <Send className="w-4 h-4 font-semibold" />
+                </Button> */}
+                <Button
+                  type="submit"
+                  size="xl"
+                  disabled={loading}
+                  className="w-full md:w-auto btn-shine"
+                >
+                  {loading ? (
+                    <span className="font-semibold">Sending...</span>
+                  ) : (
+                    <>
+                      <span className="font-semibold">Submit Request</span>
+                      <Send className="w-4 h-4 font-semibold" />
+                    </>
+                  )}
                 </Button>
               </form>
             </motion.div>

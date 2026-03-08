@@ -77,13 +77,16 @@ import { Employee, Founder, getEmployeeImageUrl, getFounderImageUrl, BlogPost, f
 import { slideFromLeft, slideFromRight, staggerContainer, fadeInUp, fadeSoft, viewportOnceMore } from '@/lib/animations';
 
 // Import premium images
-const hero1 = "/assets/hero1.webp";
-const hero2 = "/assets/hero2.webp";
-const aboutMain = "/assets/hero2.webp";
-const practiceCorporate = "/assets/hero2.webp";
-const practiceLitigation = "/assets/hero2.webp";
-const practiceFamily = "/assets/hero2.webp";
-const practiceRealEstate = "/assets/hero2.webp";
+const hero1 = "/assets/hero-1.png";
+const hero2 = "/assets/hero-2.png";
+const hero3 = "/assets/hero-3.png";
+const aboutMain = "/assets/about-firm-1.png";
+const practiceCorporate = "/assets/corporate-law.png";
+const practiceCriminal = "/assets/criminal-law.png";
+const practiceFamily = "/assets/family-law.png";
+const practiceLitigation = "/assets/civil-law.png";
+const practiceIntellectual = "/assets/intellectual-property.png";
+const practiceRealEstate = "/assets/property-law.png";
 const teamImage = "/assets/hero2.webp";
 const courtroom = "/assets/hero2.webp";
 const consultation = "/assets/hero2.webp";
@@ -121,7 +124,7 @@ const practiceAreas = [
     icon: Gavel, 
     title: "Criminal Law", 
     desc: "Aggressive advocacy in complex commercial and civil litigation matters.",
-    image: practiceLitigation,
+    image: practiceCriminal,
     lightIcon: ScaleIcon,
     color: "from-amber-600 to-amber-800",
     gradient: "bg-gradient-to-br from-amber-500 to-amber-700",
@@ -154,7 +157,7 @@ const practiceAreas = [
     icon: ShieldCheck, 
     title: "Intellectual Property", 
     desc: "Protect your innovations with comprehensive IP strategy and enforcement.",
-    image: practiceCorporate,
+    image: practiceIntellectual,
     lightIcon: Shield,
     color: "from-purple-600 to-purple-800",
     gradient: "bg-gradient-to-br from-amber-500 to-amber-700",
@@ -237,7 +240,7 @@ const heroSlides = [
     badge: "50+ Cases Won"
   },
   {
-    image: courtroom,
+    image: hero3,
     title: "Legal Expertise",
     subtitle: "You Can Count On",
     description: "Combining traditional values with modern strategies to achieve the best results for your case.",
@@ -1166,13 +1169,13 @@ const cardReveal: Variants = {
           }}
           whileHover={{ x: 10 }}
           transition={{ type: "spring", stiffness: 200, damping: 20 }}
-          className="flex gap-6 border-b border-gray-200 pb-8"
+          className="grid md:grid-cols-5 gap-6 border-b border-gray-200 pb-8"
         >
-          <div className="text-4xl font-serif text-[#1F2A44]">
-            <CountUpAnimation targetNumber={3} duration={2} delay={0.9} />
+          <div className="col-span-1 text-4xl font-serif text-[#1F2A44]">
+            <CountUpAnimation targetNumber={3} duration={2} delay={0.5} />
             <span className="text-[#C9A646]">+</span>
           </div>
-          <div>
+          <div className="col-span-4">
             <h5 className="text-lg font-semibold text-[#1F2A44] mb-2">
               Offices worldwide!
             </h5>
@@ -1197,13 +1200,13 @@ const cardReveal: Variants = {
             }
           }}
           whileHover={{ x: 10 }}
-          className="flex gap-6 border-b border-gray-200 pb-8"
+          className="grid md:grid-cols-5 gap-6 border-b border-gray-200 pb-8"
         >
-          <div className="text-4xl font-serif text-[#1F2A44]">
-            <CountUpAnimation targetNumber={165} duration={2.5} delay={1.1} />
+          <div className="col-span-1 text-4xl font-serif text-[#1F2A44]">
+            <CountUpAnimation targetNumber={165} duration={2.5} delay={0.5} />
             <span className="text-[#C9A646]">+</span>
           </div>
-          <div>
+          <div className="col-span-4">
             <h5 className="text-lg font-semibold text-[#1F2A44] mb-2">
               Experienced attorneys
             </h5>
@@ -1228,12 +1231,12 @@ const cardReveal: Variants = {
             }
           }}
           whileHover={{ x: 10 }}
-          className="flex gap-6"
+          className="grid md:grid-cols-5 gap-6"
         >
-          <div className="text-4xl font-serif text-[#1F2A44]">
-            <CountUpAnimation targetNumber={98} duration={2} delay={1.3} suffix="%" />
+          <div className="col-span-1 text-4xl font-serif text-[#1F2A44]">
+            <CountUpAnimation targetNumber={98} duration={2} delay={0.5} suffix="%" />
           </div>
-          <div>
+          <div className="col-span-4">
             <h5 className="text-lg font-semibold text-[#1F2A44] mb-2">
               Success Rate
             </h5>

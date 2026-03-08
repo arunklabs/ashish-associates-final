@@ -104,7 +104,7 @@ const staggerContainer = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.15,
+      staggerChildren: 0.10,
       delayChildren: 0.2,
       ease: [0.25, 0.1, 0.25, 1] as const
     }
@@ -314,7 +314,7 @@ const Careers = () => {
                 >
                   {stat.number}
                 </motion.div>
-                <p className="text-muted-foreground group-hover:text-foreground transition-colors duration-500">{stat.label}</p>
+                <p className="text-muted-foreground transition-colors duration-500">{stat.label}</p>
               </motion.div>
             ))}
           </div>

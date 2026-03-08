@@ -1,8 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 
-const TICK_MS = 50;
-const MIN_STEP = 1;
-
 const CountUpAnimation = ({
   targetNumber,
   duration = 2,
@@ -36,27 +33,41 @@ const CountUpAnimation = ({
   useEffect(() => {
     if (!inView) return;
 
-    const durationMs = duration * 1000;
+    const effectiveDuration =
+      targetNumber <= 10 ? Math.min(duration, 0.4) : duration;
+    const durationMs = effectiveDuration * 1000;
     const delayMs = delay * 1000;
     const startTime = performance.now();
-    let tickId: ReturnType<typeof setInterval>;
+    let animationFrameId: number;
 
     const tick = () => {
       const elapsed = performance.now() - startTime;
-      if (elapsed < delayMs) return;
+      if (elapsed < delayMs) {
+        animationFrameId = requestAnimationFrame(tick);
+        return;
+      }
       const progress = Math.min((elapsed - delayMs) / durationMs, 1);
       const easeOutQuart = 1 - (1 - progress) ** 4;
-      const value = Math.floor(easeOutQuart * targetNumber);
-      if (value !== lastDisplayRef.current && (value - lastDisplayRef.current >= MIN_STEP || value === targetNumber)) {
-        lastDisplayRef.current = value;
-        setCount(value);
+      const displayValue = Math.min(
+        Math.floor(easeOutQuart * targetNumber),
+        targetNumber
+      );
+
+      if (displayValue !== lastDisplayRef.current) {
+        lastDisplayRef.current = displayValue;
+        setCount(displayValue);
       }
-      if (progress < 1) tickId = setInterval(tick, TICK_MS);
-      else setCount(targetNumber);
+
+      if (progress < 1) {
+        animationFrameId = requestAnimationFrame(tick);
+      } else {
+        setCount(targetNumber);
+        lastDisplayRef.current = targetNumber;
+      }
     };
 
-    tickId = setInterval(tick, TICK_MS);
-    return () => clearInterval(tickId);
+    animationFrameId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(animationFrameId);
   }, [inView, targetNumber, duration, delay]);
 
   return (

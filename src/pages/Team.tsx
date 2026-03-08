@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import { getCMSData } from '../lib/cmsCache';
 import { Employee, Founder, getEmployeeImageUrl, getFounderImageUrl } from '../lib/sanityQueries';
 
+const teamImage = "/assets/team-image-banner.png";
+
 // Animation variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -125,7 +127,7 @@ const Team = () => {
       <section 
         className="relative w-full bg-cover bg-center bg-no-repeat overflow-hidden"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+          backgroundImage: "url('" + teamImage + "')",
         }}
       >
         {/* Dark Overlay */}
@@ -171,7 +173,7 @@ const Team = () => {
         </div>
         
         {/* Content */}
-        <div className="relative z-10 container mx-auto px-4 py-32 md:py-40 lg:py-52">
+        <div className="relative z-10 container mx-auto px-4 py-32 md:py-40 lg:py-56">
           <motion.div 
             initial="hidden"
             animate="visible"
