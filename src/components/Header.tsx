@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { Menu, X, Phone, Mail, Facebook, Linkedin, Twitter, ChevronRight, ChevronDown } from "lucide-react";
 import { FaWhatsapp, FaInstagram } from "react-icons/fa";
 import { MdOutlineMail } from "react-icons/md";
+import { BsTwitterX } from "react-icons/bs";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
@@ -20,7 +21,7 @@ const navLinks = [
     path: "/about",
     hasSubmenu: true,
     submenu: [
-      { label: "About", path: "/about" },
+      { label: "EST. 2026", path: "/about" },
       { label: "Client Reviews", path: "/reviews" },
       { label: "Help & FAQs", path: "/faq" },
       { label: "Free Consultation", path: "/consultation" },
@@ -43,6 +44,9 @@ const navLinks = [
       { label: "Intellectual Property", path: "/practice-areas/intellectual-property" },
       { label: "Tax Law", path: "/practice-areas/tax-law" },
       { label: "Contract & Agreement Reviewing", path: "/practice-areas/contract-and-agreement-reviewing" },
+      { label: "Insurance Law", path: "/practice-areas/insurance-law" },
+      { label: "Insolvency & Bankruptcy Law", path: "/practice-areas/insolvency-bankruptcy-law" },
+      { label: "Labour & Employment Law", path: "/practice-areas/labour-employment-law" },
     ]
   },
   { label: "Attorneys", path: "/team" },
@@ -278,7 +282,7 @@ const Header = () => {
             variants={topBarLeftVariants}
             className="flex items-center gap-2 flex-wrap justify-center md:justify-start"
           >
-            <p>Lord is my Shepherd!</p>
+            <p>The Lord is my Shepherd!</p>
               {/* <Link 
                 href="/contact" 
                 className="flex items-center gap-2 hover:text-[#C9A646] transition-colors duration-300 group"
@@ -304,6 +308,7 @@ const Header = () => {
               <FaWhatsapp className="w-4 h-4 cursor-pointer hover:text-[#C9A646] transition-colors duration-300" />
               <MdOutlineMail className="w-4 h-4 cursor-pointer hover:text-[#C9A646] transition-colors duration-300" />
               <FaInstagram className="w-4 h-4 cursor-pointer hover:text-[#C9A646] transition-colors duration-300" />
+              <BsTwitterX className="w-4 h-4 cursor-pointer hover:text-[#C9A646] transition-colors duration-300" />
             </div>
           </motion.div>
         </div>

@@ -106,6 +106,7 @@ const coreValue1 = "/assets/hero2.webp";
 const coreValue2 = "/assets/hero2.webp";
 const coreValue3 = "/assets/hero2.webp";
 const coreValue4 = "/assets/hero2.webp";
+const logo = "/assets/logo.png"
 import CountUpAnimation from "../components/CountUpAnimation";
 
 const practiceAreas = [
@@ -174,6 +175,39 @@ const practiceAreas = [
     gradient: "bg-gradient-to-br from-amber-500 to-amber-700",
     stats: "40+ Cases",
     experience: "5+ Years"
+  },
+  { 
+    icon: Home, 
+    title: "Insurance", 
+    desc: "Comprehensive legal services for commercial and residential transactions.",
+    image: practiceRealEstate,
+    lightIcon: Building2,
+    color: "from-emerald-600 to-emerald-800",
+    gradient: "bg-gradient-to-br from-amber-500 to-amber-700",
+    stats: "21+ Cases",
+    experience: "4+ Years"
+  },
+  { 
+    icon: ShieldCheck, 
+    title: "Labour & Employment", 
+    desc: "Protect your innovations with comprehensive IP strategy and enforcement.",
+    image: practiceIntellectual,
+    lightIcon: Shield,
+    color: "from-purple-600 to-purple-800",
+    gradient: "bg-gradient-to-br from-amber-500 to-amber-700",
+    stats: "30+ Cases",
+    experience: "4+ Years"
+  },
+  { 
+    icon: Users, 
+    title: "Insolvency & Bankruptcy", 
+    desc: "Expert guidance on workplace issues, discrimination, and labor disputes.",
+    image: practiceLitigation,
+    lightIcon: Users2,
+    color: "from-indigo-600 to-indigo-800",
+    gradient: "bg-gradient-to-br from-amber-500 to-amber-700",
+    stats: "40+ Cases",
+    experience: "5+ Years"
   }
 ];
 
@@ -193,31 +227,31 @@ const processSteps = [
   { 
     step: "01", 
     title: "Initial Consultation", 
-    desc: "We begin with a thorough assessment of your legal situation and objectives.",
+    desc: "We start with a detailed assessment of your legal requirements and objectives to understand the best approach.",
     image: consultation,
     icon: CalendarCheckIcon,
     color: "from-blue-500 to-blue-600"
   },
   { 
     step: "02", 
-    title: "Strategy Development", 
-    desc: "Our team develops a tailored legal strategy aligned with your goals.",
+    title: "Strategy Formulation", 
+    desc: "Our team crafts a tailored legal strategy designed to address your needs efficiently and effectively.",
     image: teamImage,
     icon: TargetIcon,
     color: "from-amber-500 to-amber-600"
   },
   { 
     step: "03", 
-    title: "Execution", 
-    desc: "We execute with precision, keeping you informed at every stage.",
+    title: "Professional Execution", 
+    desc: "We manage every stage with care, keeping you informed and supported throughout the process.",
     image: courtroom,
     icon: ZapIcon,
     color: "from-purple-500 to-purple-600"
   },
   { 
     step: "04", 
-    title: "Resolution", 
-    desc: "We work relentlessly toward the best possible outcome for your case.",
+    title: "Resolution & Guidance", 
+    desc: "We provide structured, professional guidance toward achieving a considered and ethically sound conclusion.",
     image: hero2,
     icon: FileCheckIcon,
     color: "from-emerald-500 to-emerald-600"
@@ -234,44 +268,36 @@ const heroSlides = [
   },
   {
     image: hero2,
-    title: "Your Trusted",
-    subtitle: "Advocates",
-    description: "Decades of experience in delivering favorable outcomes for our clients across all practice areas.",
-    badge: "50+ Cases Won"
+    title: "Your Committed",
+    subtitle: "To Justice",
+    description: "Focused on delivering practical legal solutions across all practice areas.",
+    badge: ""
   },
   {
     image: hero3,
     title: "Legal Expertise",
     subtitle: "You Can Count On",
-    description: "Combining traditional values with modern strategies to achieve the best results for your case.",
+    description: "Combining traditional values with modern legal strategies to serve our clients’ legal requirements.",
     badge: "98% Success Rate"
   }
 ];
 
 const infiniteScrollItems = [
-  { icon: Trophy, text: "Top Tier Law Firm 2026" },
-  { icon: Award, text: "Excellence in Corporate Law" },
-  { icon: Star, text: "5-Star Client Rating" },
-  { icon: Shield, text: "100% Confidential" },
-  { icon: Globe2, text: "Global Reach" },
-  { icon: Medal, text: "Award Winning Team" },
-  { icon: Trophy, text: "Best Legal Services" },
-  { icon: Award, text: "Chambers Ranked" },
+  { icon: Trophy, text: "J.Ashish Associates LLP since 2026" },
 ];
 
 const globalAttorneys = [
-  { country: "United States", count: 25, flag: "🇺🇸" },
-  { country: "United Kingdom", count: 12, flag: "🇬🇧" },
-  { country: "Singapore", count: 8, flag: "🇸🇬" },
-  { country: "UAE", count: 5, flag: "🇦🇪" },
-  { country: "Germany", count: 7, flag: "🇩🇪" },
-  { country: "France", count: 6, flag: "🇫🇷" },
+  { country: "Tamil Nadu", count: 3, flag: "🇺🇸" },
+  { country: "Karnataka", count: 1, flag: "🇬🇧" },
+  { country: "Delhi", count: 1, flag: "🇸🇬" },
+  { country: "Maharashtra", count: 1, flag: "🇦🇪" },
+  { country: "Kolkata", count: 1, flag: "🇩🇪" },
 ];
 
 const coreValues = [
   { 
     title: "Integrity First", 
-    desc: "Unwavering commitment to ethical practice and transparency in all dealings.",
+    desc: "We uphold the highest ethical standards, ensuring transparency and honesty guide every legal service we provide.",
     icon: LockIcon,
     image: coreValue1,
     color: "from-blue-600 to-blue-800",
@@ -280,8 +306,8 @@ const coreValues = [
     borderColor: "border-blue-200"
   },
   { 
-    title: "Client-Centric", 
-    desc: "Your goals drive our strategy. We prioritize your success above all.",
+    title: "Client-Focused", 
+    desc: "Your objectives shape our strategy. Every action is designed to protect your interests and support your goals.",
     icon: HeartIcon2,
     image: coreValue2,
     color: "from-amber-600 to-amber-800",
@@ -291,7 +317,7 @@ const coreValues = [
   },
   { 
     title: "Excellence Always", 
-    desc: "Pursuing the highest standards in every case, every time.",
+    desc: "We pursue precision, rigor, and meticulous attention in every matter, consistently aiming for professional distinction.",
     icon: RocketIcon2,
     image: coreValue3,
     color: "from-emerald-600 to-emerald-800",
@@ -300,8 +326,8 @@ const coreValues = [
     borderColor: "border-emerald-200"
   },
   { 
-    title: "Innovation Driven", 
-    desc: "Embracing modern solutions to solve complex legal challenges.",
+    title: "Innovation At Work", 
+    desc: "We integrate modern approaches and creative solutions to navigate complex legal challenges efficiently.",
     icon: CompassIcon,
     image: coreValue4,
     color: "from-purple-600 to-purple-800",
@@ -760,7 +786,7 @@ const cardReveal: Variants = {
   {/* Navigation Arrows - Responsive */}
   <button
     onClick={prevSlide}
-    className="absolute left-2 sm:left-4 md:left-8 z-30 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all duration-300 group"
+    className="absolute left-2 sm:left-4 md:left-8 z-30 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-transparent md:bg-white/10 md:backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all duration-300 group"
     aria-label="Previous slide"
   >
     <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform" />
@@ -768,7 +794,7 @@ const cardReveal: Variants = {
 
   <button
     onClick={nextSlide}
-    className="absolute right-2 sm:right-4 md:right-8 z-30 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all duration-300 group"
+    className="absolute right-2 sm:right-4 md:right-8 z-30 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-transparent md:bg-white/10 md:backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all duration-300 group"
     aria-label="Next slide"
   >
     <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform" />
@@ -804,6 +830,7 @@ const cardReveal: Variants = {
           }}
         >
           {/* Badge with animation */}
+          {currentSlide !== 1 && currentSlide !== 2 && (
           <motion.div
             variants={{
               hidden: { opacity: 0, y: 30 },
@@ -847,7 +874,8 @@ const cardReveal: Variants = {
               className="h-px bg-primary hidden sm:block"
             />
           </motion.div>
-          
+          )}
+
           {/* Title and Description */}
           <motion.div
             variants={{
@@ -871,7 +899,7 @@ const cardReveal: Variants = {
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-heading font-bold leading-tight mb-3 sm:mb-4 md:mb-6 text-white px-2">
               {heroSlides[currentSlide].title}
               <br />
-              <span className="gold-gradient-text italic block sm:inline">{heroSlides[currentSlide].subtitle}</span>
+              {currentSlide !== 2 && ( <span className="gold-gradient-text italic block sm:inline">{heroSlides[currentSlide].subtitle}</span> )}
             </h1>
             <p className="text-sm sm:text-base md:text-lg text-white/90 mb-6 sm:mb-8 md:mb-10 leading-relaxed max-w-2xl px-4">
               {heroSlides[currentSlide].description}
@@ -1009,16 +1037,18 @@ const cardReveal: Variants = {
         style={{ pointerEvents: infiniteStripPointerEvents }}
       >
         <motion.div
-          initial={{ x: "100%" }}
-          animate={{ x: "-100%" }}
-          transition={{ duration: 45, repeat: Infinity, ease: "linear" as const }}
+          animate={{ x: ["100%", "-50%"] }}
+    transition={{
+      duration: 20,
+      repeat: Infinity,
+      ease: "linear"
+    }}
           className="flex whitespace-nowrap"
         >
-          {[...infiniteScrollItems, ...infiniteScrollItems].map((item, index) => (
+          {[...infiniteScrollItems].map((item, index) => (
             <div key={index} className="inline-flex items-center mx-8">
               <item.icon className="w-5 h-5 text-primary mr-3" />
               <span className="text-foreground font-medium">{item.text}</span>
-              <span className="mx-4 text-primary/30">✦</span>
             </div>
           ))}
         </motion.div>
@@ -1068,7 +1098,7 @@ const cardReveal: Variants = {
           className="h-px bg-[#C9A646]"
         />
         <p className="text-sm uppercase tracking-[0.2em] text-[#C9A646] font-semibold">
-          Unforgettable legacy of pursuing justice!
+          Commitment to Justice and Client Success
         </p>
         <motion.span 
           initial={{ width: 0 }}
@@ -1094,11 +1124,11 @@ const cardReveal: Variants = {
         }}
         className="text-3xl md:text-5xl font-serif text-[#1F2A44] leading-snug"
       >
-        Our experience is confirmed by
+        Our practice is guided by 
         <br />
-        notable excellence, <span className="italic">innovation,</span>
-        <br />
-        <span className="italic">client service, and teamwork.</span>
+        professional integrity, <br /> <span className="italic">dedication to legal service,</span>
+        <br /> and 
+        <span className="italic"> collaborative teamwork.</span>
       </motion.h2>
     </motion.div>
 
@@ -1117,7 +1147,7 @@ const cardReveal: Variants = {
         className="lg:border-r border-gray-200 lg:pr-12 pb-10 lg:pb-0 mb-10 lg:mb-0"
       >
         {/* Animated Number Counter */}
-        <motion.h3 
+        {/* <motion.h3 
           className="text-6xl md:text-7xl font-serif text-[#1F2A44] mb-6"
         >
           <CountUpAnimation 
@@ -1126,14 +1156,13 @@ const cardReveal: Variants = {
             delay={0.8}
           />
           <span className="text-[#C9A646]">+</span>
-        </motion.h3>
+        </motion.h3> */}
         
         <h4 className="text-xl font-semibold text-[#1F2A44] mb-3">
-          Years of heritage!
+          Our Presence
         </h4>
         <p className="text-gray-600 leading-relaxed max-w-md">
-          Years of experience in legal services and complex areas of law,
-          our attorneys strive to achieve optimal outcomes for our clients.
+          Operating with a commitment to serving clients’ legal requirements across different jurisdictions and practice areas.
         </p>
       </motion.div>
 
@@ -1172,16 +1201,15 @@ const cardReveal: Variants = {
           className="grid md:grid-cols-5 gap-6 border-b border-gray-200 pb-8"
         >
           <div className="col-span-1 text-4xl font-serif text-[#1F2A44]">
-            <CountUpAnimation targetNumber={3} duration={2} delay={0.5} />
+            <CountUpAnimation targetNumber={7} duration={2} delay={0.5} />
             <span className="text-[#C9A646]">+</span>
           </div>
           <div className="col-span-4">
             <h5 className="text-lg font-semibold text-[#1F2A44] mb-2">
-              Offices worldwide!
+              Regional Presence
             </h5>
             <p className="text-gray-600">
-              We established our offices with a true commitment to support
-              and help all our clients with the same love and experience.
+              Providing legal services across 7 districts in 5 states, assisting clients with their legal requirements in multiple jurisdictions.
             </p>
           </div>
         </motion.div>
@@ -1203,16 +1231,15 @@ const cardReveal: Variants = {
           className="grid md:grid-cols-5 gap-6 border-b border-gray-200 pb-8"
         >
           <div className="col-span-1 text-4xl font-serif text-[#1F2A44]">
-            <CountUpAnimation targetNumber={165} duration={2.5} delay={0.5} />
+            <CountUpAnimation targetNumber={11} duration={2.5} delay={0.5} />
             <span className="text-[#C9A646]">+</span>
           </div>
           <div className="col-span-4">
             <h5 className="text-lg font-semibold text-[#1F2A44] mb-2">
-              Experienced attorneys
+              Area of Practice
             </h5>
             <p className="text-gray-600">
-              Our lawyers have advised huge international corporations
-              and always won complex disputes in all law fields courts.
+              A continuing practice of law across diverse areas, guided by professional integrity, careful legal analysis, and a commitment to responsible advocacy.
             </p>
           </div>
         </motion.div>
@@ -1234,15 +1261,15 @@ const cardReveal: Variants = {
           className="grid md:grid-cols-5 gap-6"
         >
           <div className="col-span-1 text-4xl font-serif text-[#1F2A44]">
-            <CountUpAnimation targetNumber={98} duration={2} delay={0.5} suffix="%" />
+            <CountUpAnimation targetNumber={45} duration={2} delay={0.5} />
+            <span className="text-[#C9A646]">+</span>
           </div>
           <div className="col-span-4">
             <h5 className="text-lg font-semibold text-[#1F2A44] mb-2">
-              Success Rate
+              Legal Practitioners & Associates
             </h5>
             <p className="text-gray-600">
-              Our proven track record speaks for itself with consistently
-              favorable outcomes for our clients across all practice areas.
+              Experienced legal professionals providing advisory, litigation support, and documentation across diverse practice areas.
             </p>
           </div>
         </motion.div>
@@ -1331,8 +1358,7 @@ const cardReveal: Variants = {
         }}
         className="text-lg text-muted-foreground leading-relaxed mb-12"
       >
-        With decades of combined experience and a track record of success, we provide the legal expertise 
-        and personal attention you deserve. Your success is our mission.
+        The firm focuses on understanding clients’ legal requirements and drawing on the expertise of all practice groups to provide comprehensive assistance. Our approach also allows us to advise on policy frameworks, regulatory matters, and business-related legal concerns in a structured and professional manner.
       </motion.p>
 
       {/* Stats Cards */}
@@ -1347,13 +1373,12 @@ const cardReveal: Variants = {
             }
           }
         }}
-        className="grid grid-cols-1 md:grid-cols-4 gap-6"
+        className="grid grid-cols-1 md:grid-cols-3 gap-6"
       >
         {[
-          { number: "100+", label: "Happy Clients", icon: Users },
-          { number: "20+", label: "Expert Lawyers", icon: UserCheck },
-          { number: "4+", label: "Years Experience", icon: Clock },
-          { number: "98%", label: "Success Rate", icon: Target },
+          { number: "7+", label: "Regional Presence", icon: Users },
+          { number: "11+", label: "Areas of Practice", icon: UserCheck },
+          { number: "45+", label: "Legal Practitioner & Associates", icon: Clock },
         ].map((stat, index) => (
           <motion.div
             key={index}
@@ -1485,7 +1510,7 @@ const cardReveal: Variants = {
                 transition={{ delay: 0.8, duration: 0.6 }}
                 className="text-sm italic max-w-xs"
               >
-                Justice isn't just about winning cases—it's about making a lasting difference in people's lives.
+                Every case is an opportunity to uphold rights, inspire trust, and leave a lasting impact - Solutions, Not Just Service.
               </motion.p>
               
               {/* Decorative elements */}
@@ -1672,9 +1697,7 @@ const cardReveal: Variants = {
             }}
             className="text-gray-600 leading-relaxed mb-8"
           >
-            With over three decades of experience, John Lexington has built a legacy of excellence, 
-            integrity, and client success. His vision continues to guide our firm's commitment to 
-            providing world-class legal services.
+            J. Ashish, a first-generation lawyer, is appearing before the Supreme Court of India and multiple High Courts across the country, handling complex matters spanning litigation, advisory, and documentation. He leads a dynamic team of legal practitioners, delivering structured guidance while upholding the highest standards of professionalism, ethics, and integrity.
           </motion.p>
           
           {/* Button - Animate from Right */}
@@ -1763,7 +1786,7 @@ const cardReveal: Variants = {
       >
         <span className="w-12 h-px bg-primary/60"></span>
         <span className="text-primary uppercase tracking-[0.2em] text-sm font-semibold">
-          Global Presence
+          Regional Presence
         </span>
         <span className="w-12 h-px bg-primary/60"></span>
       </motion.div>
@@ -1774,7 +1797,7 @@ const cardReveal: Variants = {
       >
         Our Attorneys{" "}
         <span className="gold-gradient-text italic">
-          Worldwide
+          Presence
         </span>
       </motion.h2>
     </motion.div>
@@ -1782,7 +1805,7 @@ const cardReveal: Variants = {
     {/* Cards */}
     <motion.div
       variants={premiumStagger}
-      className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-5"
+      className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5"
     >
       {globalAttorneys.map((item, index) => (
         <motion.div
@@ -1798,21 +1821,21 @@ const cardReveal: Variants = {
           transition-all duration-500"
         >
           {/* Flag */}
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: index * 0.15 }}
             className="text-4xl mb-3"
           >
             {item.flag}
-          </motion.div>
+          </motion.div> */}
 
           {/* Count */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: index * 0.2 }}
-            className="text-lg font-heading font-bold text-foreground"
+            className="text-2xl font-heading font-bold text-foreground mb-2"
           >
             {item.count}
           </motion.div>
@@ -1822,7 +1845,7 @@ const cardReveal: Variants = {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: index * 0.25 }}
-            className="text-sm text-muted-foreground"
+            className="text-base text-muted-foreground"
           >
             {item.country}
           </motion.div>
@@ -1855,9 +1878,10 @@ const cardReveal: Variants = {
               </p>
             </motion.div>
             <motion.h2 variants={slideFromRight} className="text-3xl md:text-5xl font-serif text-[#1F2A44] leading-snug max-w-4xl">
-              A leading personal injury team <br />
+              {/* A leading personal injury team <br />
               with a passion <span className="italic">for helping all our</span> <br />
-              <span className="italic">clients to get their lives back.</span>
+              <span className="italic">clients to get their lives back.</span> */}
+              Expertise. Strategy. <br /> Commitment.
             </motion.h2>
           </motion.div>
 
@@ -1870,10 +1894,11 @@ const cardReveal: Variants = {
               className="lg:col-span-1 space-y-6"
             >
               <p className="text-gray-600 leading-relaxed">
-                Our team of skilled attorneys is dedicated to defending your rights.
+                {/* Our team of skilled attorneys is dedicated to defending your rights.
                 With our associates, partners, paralegals, and other staff members
                 offering outstanding representation and compassionate guidance from
-                start to finish.
+                start to finish. */}
+                Our attorneys provide informed legal guidance across diverse areas of law. Backed by a skilled network of partners, associates, paralegals, and professional staff, we offer structured advice, thoughtful analysis, and dedicated support throughout every stage of your legal matters. we provide solutions that are practical, well-reasoned, and tailored to protect your interests while upholding the highest standards of professionalism.
               </p>
               <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} transition={{ duration: 0.3 }}>
                 <Link
@@ -1937,7 +1962,7 @@ const cardReveal: Variants = {
                                 {attorney.specialty}
                               </span>
                             </div>
-                            <div className="flex items-center gap-1">
+                            {/* <div className="flex items-center gap-1">
                               {[...Array(5)].map((_, i) => (
                                 <motion.div
                                   key={i}
@@ -1955,7 +1980,7 @@ const cardReveal: Variants = {
                                 </motion.div>
                               ))}
                               <span className="ml-2 text-sm">5/5</span>
-                            </div>
+                            </div> */}
                           </motion.div>
                         </div>
                       </motion.div>
@@ -2048,14 +2073,16 @@ const cardReveal: Variants = {
                 A Legacy of <span className="gold-gradient-text italic">Legal Excellence</span>
               </h2>
               
-              <p className="text-muted-foreground leading-relaxed mb-8 text-lg">
-                For over three decades, J. Ashish Associates LLP has been at the forefront of legal innovation. 
-                Our team of seasoned attorneys combines deep expertise with a client-first approach to deliver 
-                results that matter. We've built our reputation on integrity, excellence, and unwavering 
-                commitment to our clients' success.
+              <p className="text-muted-foreground leading-relaxed mb-4 text-lg">
+                Since its establishment in 2026, J. Ashish Associates LLP has been committed to delivering professional and ethical legal services across India. Our team of experienced attorneys provides thoughtful guidance, meticulous analysis, and client-focused support across litigation, advisory, and documentation. Built on integrity, diligence, and strategic insight, the firm combines legal expertise with a collaborative approach to ensure every matter is handled with care, professionalism, and attention to detail.
               </p>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+              <p className="text-muted-foreground leading-relaxed mb-8 text-lg">
+                Our Mission: To provide structured, informed, and practical legal guidance while empowering clients to navigate complex legal challenges with confidence.
+
+              </p>
+              
+              {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                 {[
                   { label: "Award Winning", icon: Award },
                   { label: "Expert Team", icon: Users },
@@ -2073,7 +2100,7 @@ const cardReveal: Variants = {
                     <span className="text-sm font-medium text-foreground">{item.label}</span>
                   </motion.div>
                 ))}
-              </div>
+              </div> */}
 
               <motion.div whileHover={{ x: 15 }} transition={{ type: "spring", stiffness: 200, damping: 20 }} className="inline-block">
                 <Link 
@@ -2247,7 +2274,7 @@ const cardReveal: Variants = {
                       {area.title}
                     </h3>
                     
-                    <motion.div 
+                    {/* <motion.div 
                       initial={{ x: -20, opacity: 0 }}
                       whileInView={{ x: 0, opacity: 1 }}
                       transition={{ delay: i * 0.4, duration: 0.8 }} // Slower
@@ -2256,7 +2283,7 @@ const cardReveal: Variants = {
                       <span className="text-sm text-primary font-semibold">{area.stats}</span>
                       <span className="text-sm text-gray-300">•</span>
                       <span className="text-sm text-gray-300">{area.experience}</span>
-                    </motion.div>
+                    </motion.div> */}
                     
                     <p className="text-gray-200 leading-relaxed mb-4 text-sm">
                       {area.desc}
@@ -2371,7 +2398,7 @@ const cardReveal: Variants = {
       </motion.section>
 
       {/* Why Choose Us */}
-      <motion.section
+      {/* <motion.section
         initial="hidden"
         whileInView="visible"
         viewport={viewportOnceMore}
@@ -2447,10 +2474,10 @@ const cardReveal: Variants = {
             ))}
           </div>
         </div>
-      </motion.section>
+      </motion.section> */}
 
       {/* Global Ratings / Awards - Premium Design with White Background */}
-      <motion.section
+      {/* <motion.section
         className="bg-white section-padding relative overflow-hidden"
       >
         <motion.div initial="hidden"
@@ -2504,10 +2531,8 @@ const cardReveal: Variants = {
                 viewport={{ once: true }}
                 className="group relative h-full"
               >
-                {/* Hover via CSS only so all rows behave identically (no Framer hover delay on 2nd row) */}
                 <div className="h-full will-change-transform transform-gpu transition-transform duration-200 ease-out hover:scale-[1.05] hover:-translate-y-2.5">
                   <div className="relative bg-gradient-to-br from-white to-gray-50 rounded-2xl p-6 border border-gray-200 shadow-lg transform-gpu transition-transform duration-300">
-                  {/* Icon - group-hover only; same duration as card for consistent hover */}
                   <div className="relative z-10 mb-4">
                     <div className="w-14 h-14 mx-auto bg-gradient-to-br from-primary to-primary/80 rounded-2xl flex items-center justify-center group-hover:rotate-180 transition-transform duration-300">
                       <item.icon className="w-7 h-7 text-white" />
@@ -2557,13 +2582,13 @@ const cardReveal: Variants = {
           </div>
         </div>
         </motion.div>
-      </motion.section>
+      </motion.section> */}
 
       {/* Testimonials (below-the-fold, dynamic to reduce initial bundle) */}
       <IndexTestimonialsSection />
 
       {/* Latest News */}
-      <section ref={newsRef} className="bg-white section-padding overflow-hidden">
+      {/* <section ref={newsRef} className="bg-white section-padding overflow-hidden">
         <div className="container mx-auto">
           <motion.div
             initial="hidden"
@@ -2682,7 +2707,7 @@ const cardReveal: Variants = {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Contact Form */}
       <motion.section
@@ -2725,7 +2750,7 @@ const cardReveal: Variants = {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Call Us Anytime</p>
-                    <p className="text-lg font-semibold text-foreground">7373663555</p>
+                    <p className="text-lg font-semibold text-foreground">+91 887 887 3555</p>
                   </div>
                 </motion.div>
                 
@@ -2754,7 +2779,7 @@ const cardReveal: Variants = {
                     <MapPin className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <p className="text-sm text-muted-foreground">Visit Our Office</p>
+                    <p className="text-sm text-muted-foreground">Visit Our Head Office</p>
                     <p className="text-lg font-semibold text-foreground">No. 137, Flat No. F-8, <br />
 1st Floor, Appu Manor Apartment, <br />
 Perambur Barracks Road, <br />
@@ -2904,7 +2929,7 @@ Purasawalkam, Chennai 600 007. <br />
       </motion.section>
 
       {/* Final CTA */}
-      <motion.section
+      {/* <motion.section
         initial="hidden"
         whileInView="visible"
         viewport={viewportOnceMore}
@@ -3044,7 +3069,14 @@ Purasawalkam, Chennai 600 007. <br />
           transition={{ duration: 30, repeat: Infinity, ease: "linear" as const }}
           className="absolute bottom-0 right-0 w-32 h-32 border-b-4 border-r-4 border-white/20"
         />
-      </motion.section>
+      </motion.section> */}
+
+       <section className="bg-white flex justify-center items-center h-screen">
+        <div className="">
+          <img src={logo} alt="J. Ashish Associates LLP" />
+        </div>
+       </section>
+
     </div>
   );
 };

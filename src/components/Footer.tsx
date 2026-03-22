@@ -89,15 +89,18 @@ const Footer = () => {
 
   // Practice areas links from the provided data
   const practiceAreaLinks = [
-    { label: "Corporate Law", path: "/practice-areas/corporate-law" },
-    { label: "Criminal Law", path: "/practice-areas/criminal-law" },
-      { label: "Civil Law", path: "/practice-areas/civil-law" },
-      { label: "Family Law", path: "/practice-areas/family-law" },
-      { label: "Property Law", path: "/practice-areas/property-law" },
-      { label: "Arbitration", path: "/practice-areas/arbitration" },
-      { label: "Intellectual Property", path: "/practice-areas/intellectual-property" },
-      { label: "Tax Law", path: "/practice-areas/tax-law" },
-      { label: "Contract & Agreement Reviewing", path: "/practice-areas/contract-and-agreement-reviewing" },
+    { id: 1, label: "Corporate Law", path: "/practice-areas/corporate-law" },
+    { id: 2, label: "Criminal Law", path: "/practice-areas/criminal-law" },
+      { id: 3, label: "Civil Law", path: "/practice-areas/civil-law" },
+      { id: 4, label: "Family Law", path: "/practice-areas/family-law" },
+      { id: 5, label: "Property Law", path: "/practice-areas/property-law" },
+      { id: 6, label: "Arbitration", path: "/practice-areas/arbitration" },
+      { id: 7, label: "Intellectual Property", path: "/practice-areas/intellectual-property" },
+      { id: 8, label: "Tax Law", path: "/practice-areas/tax-law" },
+      { id: 9, label: "Contract & Agreement Reviewing", path: "/practice-areas/contract-and-agreement-reviewing" },
+      { id: 10, label: "Insurance", path: "/practice-areas/insurance-law" },
+      { id: 11, label: "Labour & Employment", path: "/practice-areas/labour-employment-law" },
+      { id: 12, label: "Insolvancy & Bankruptcy", path: "/practice-areas/insolvency-bankruptcy-law" },
   ];
 
   // Social media links
@@ -111,10 +114,10 @@ const Footer = () => {
   // Chennai contact details
   const contactDetails = {
     address: "No. 137, Flat No. F-8, 1st Floor, Appu Manor Apartment, Perambur Barracks Road, Purasawalkam, Chennai 600 007.",
-    phone: "7373663555",
+    phone: "887 887 3555",
     email: "jashishadvocate@gmail.com",
     hours: "Mon – Fri: 9:00 AM – 7:00 PM",
-    emergency: "7373663555"
+    emergency: "887 887 3555"
   };
 
   // Better infinite scroll text - legal phrases in English and Tamil mix
@@ -152,7 +155,7 @@ const infiniteText = [
               />
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-              Delivering exceptional legal counsel with integrity, precision, and unwavering commitment to our clients' success across Chennai and beyond.
+              Where Expertise Meets Insight to Guide Every Legal Journey
             </p>
             <div className="flex gap-3 flex-wrap">
               {socialLinks.map((social, index) => (
@@ -243,7 +246,7 @@ const infiniteText = [
             <ul className="space-y-3">
               {practiceAreaLinks.map((area, index) => (
                 <motion.li 
-                  key={area.path}
+                  key={area.id}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
@@ -268,7 +271,7 @@ const infiniteText = [
             viewport={{ once: true, amount: 0.2 }}
             variants={slideFromRight}
           >
-            <h4 className="text-sm font-semibold uppercase tracking-widest text-primary mb-6">Chennai Office</h4>
+            <h4 className="text-sm font-semibold uppercase tracking-widest text-primary mb-6">Head Office</h4>
             <ul className="space-y-4">
               <motion.li 
                 whileHover={{ x: 5 }}
@@ -319,7 +322,7 @@ const infiniteText = [
             </ul>
 
             {/* Newsletter Signup */}
-            <motion.div 
+            {/* <motion.div 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -337,7 +340,7 @@ const infiniteText = [
                   Subscribe
                 </Button>
               </div>
-            </motion.div>
+            </motion.div> */}
           </motion.div>
         </div>
 

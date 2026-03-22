@@ -284,7 +284,7 @@ const [loading, setLoading] = useState(false);
   // Chennai location details
   const chennaiLocations = [
   {
-    name: "Main Office - Anna Salai",
+    name: "Head Office - Anna Salai",
     address: "No. 137, Flat No. F-8, 1st Floor, Appu Manor Apartment, Perambur Barracks Road, Purasawalkam, Chennai 600 007",
     phone: "7373663555",
     email: "jashishadvocate@gmail.com",
@@ -422,7 +422,7 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
               variants={fadeInUp}
               className="text-muted-foreground text-lg leading-relaxed max-w-2xl mx-auto"
             >
-              Take the first step toward resolving your legal matter. Our Chennai-based team is ready to help with expert guidance and personalized attention.
+              Take the first step toward addressing your legal matter. Our team provides expert guidance and personalized, client-focused support.
             </motion.p>            
           </motion.div>
         </div>
@@ -486,7 +486,7 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
               variants={fadeInUp}
               className="text-muted-foreground text-lg"
             >
-              Visit us at our conveniently located offices across Chennai
+              Visit us at our conveniently located offices across India.
             </motion.p>
           </motion.div>
 
@@ -721,7 +721,7 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
                 className="bg-primary/5 p-6 rounded-lg border border-primary/20"
               >
                 <h4 className="font-heading font-semibold text-black mb-2">Emergency Contact</h4>
-                <p className="text-sm text-muted-foreground mb-3">Available 24/7 for urgent matters</p>
+                <p className="text-sm text-muted-foreground mb-3">Available 24/7 for urgent legal matters, providing prompt and professional guidance whenever needed.</p>
                 <a href="tel:+919876543210" className="text-primary font-semibold hover:text-accent transition-colors flex items-center gap-2">
                   <Phone className="w-4 h-4" />
                   7373663555

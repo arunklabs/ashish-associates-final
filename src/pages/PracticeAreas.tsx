@@ -37,7 +37,38 @@ const corporateLaw = {
   ],
   featuredImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
   featuredTitle: "Excellence in Corporate Law",
-  featuredSubtitle: "Trusted by businesses worldwide"
+  featuredSubtitle: "Trusted by businesses worldwide",
+  faqs: [
+    {
+      question: "What makes your Corporate Law practice unique?",
+      answer: "We combine strategic insight and meticulous attention to complex business transactions, ensuring guidance tailored to client objectives."
+    },
+    {
+      question: "Do you handle cross-border transactions?",
+      answer: "Yes, our team coordinates with international counsel to ensure compliance with global standards."
+    },
+    {
+      question: "Can you represent clients in RBI proceedings?",
+      answer:"Yes, our team provides expert guidance and representation in matters before the Reserve Bank of India (RBI), ensuring compliance with regulatory requirements while protecting client interests."
+    }
+  ],
+  whychooseus: [
+    {
+      icon: Scale,
+      title: "Expert Corporate Guidance",
+      desc: "Senior partners personally oversee every transaction."
+    },
+    {
+      icon: Users,
+      title: "Tailored Solutions",
+      desc: "Strategies aligned with client objectives and risk profiles."
+    },
+    {
+      icon: Award,
+      title: "Global Perspective",
+      desc: "Compliance and advisory reflecting international best practices."
+    }
+  ]
 };
 
 const criminalLaw = {
@@ -59,7 +90,212 @@ const criminalLaw = {
   industries: ["All Criminal Defense Matters"],
   featuredImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
   featuredTitle: "Aggressive Criminal Defense",
-  featuredSubtitle: "Protecting your rights and freedom"
+  featuredSubtitle: "Protecting your rights and freedom",
+  faqs: [
+    {
+      question: "What makes your Criminal Law practice unique?",
+      answer: "Our team blends defense expertise, litigation strategy, and ethical advocacy for individual and corporate clients."
+    },
+    {
+      question: "Do you handle cybercrime cases?",
+      answer: "Yes, including regulatory compliance, investigations, and representation in cybercrime matters."
+    },
+    {
+      question: "How quickly can urgent cases be addressed?",
+      answer:"Immediate response protocols ensure rapid guidance for time-sensitive situations."
+    }
+  ],
+  whychooseus: [
+    {
+      icon: Scale,
+      title: "Strategic Defense",
+      desc: "Focused on legal protection and constitutional rights."
+    },
+    {
+      icon: Users,
+      title: "Professional Representation",
+      desc: "Experienced advocacy in courts and tribunals."
+    },
+    {
+      icon: Award,
+      title: "Client-Centric Approach",
+      desc: "Personalized attention in every stage of the case."
+    }
+  ]
+};
+
+const insuranceLaw = {
+  slug: "insurance-law",
+  title: "Insurance Law",
+  shortDesc: "Vigorous defense of your rights in criminal proceedings at all levels.",
+  bannerImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  overview: "Our Insurance Law practice provides comprehensive guidance on regulatory compliance, policy drafting, and dispute resolution for insurers, policyholders, and intermediaries. We assist with claims disputes, risk management, and regulatory approvals, ensuring solutions that are practical, ethical, and aligned with international standards.",
+  keyServices: [
+    "Policy Drafting & Review",
+    "Claims Dispute Resolution",
+    "Regulatory Compliance",
+    "Insurance Litigation",
+    "Risk Management Advisory",
+    "Reinsurance Agreements",
+    "Corporate Insurance Structuring",
+    "Industries We Serve",
+    "Health & Life Insurance",
+    "Banking & Financial Services",
+    "Manufacturing & Infrastructure",
+    "Technology & FinTech",
+    "Real Estate"
+  ],
+  industries: ["Health & Life Insurance", "Banking & Financial Services", "Manufacturing & Infrastructure", "Technology & FinTech", "Real Estate & Construction"],
+  featuredImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  featuredTitle: "Aggressive Criminal Defense",
+  featuredSubtitle: "Protecting your rights and freedom",
+  faqs: [
+    {
+      question: "What makes your Insurance Law practice unique?",
+      answer: "Combining regulatory expertise and dispute resolution experience for insurers and policyholders."
+    },
+    {
+      question: "Do you handle claims disputes?",
+      answer: "Yes, guiding clients through negotiation, arbitration, and litigation processes."
+    },
+    {
+      question: "Can you advise on compliance?",
+      answer:"Yes, ensuring adherence to regulatory frameworks and risk management standards."
+    }
+  ],
+  whychooseus: [
+    {
+      icon: Scale,
+      title: "Expert Guidance",
+      desc: "Senior partners provide hands-on oversight."
+    },
+    {
+      icon: Users,
+      title: "Personalized Solutions",
+      desc: "Strategies for insurers, corporates, and individuals."
+    },
+    {
+      icon: Award,
+      title: "Ethical & Professional",
+      desc: "Compliance-focused and client-centric advice."
+    }
+  ]
+};
+
+const labourEmploymentLaw = {
+  slug: "labour-employment-law",
+  title: "Labour & Employment Law",
+  shortDesc: "Vigorous defense of your rights in criminal proceedings at all levels.",
+  bannerImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  overview: "Our Labour & Employment Law practice helps organizations and individuals navigate workplace regulations, employment contracts, and industrial disputes. We provide compliance guidance, dispute resolution, and advisory services to ensure fair, ethical, and legally sound workplace practices.",
+  keyServices: [
+    "Employment Contract Drafting & Review",
+    "Industrial Dispute Resolution",
+    "Compliance Audits",
+    "Workplace Policies & Guidelines",
+    "Labour Litigation",
+    "Employee Benefits Advisory",
+    "Disciplinary & Termination Advisory",
+    "Industries We Serve",
+    "IT & Technology",
+    "Manufacturing & Industrial",
+    "Healthcare & Hospitals",
+    "Retail & Hospitality",
+    "Financial Services"
+  ],
+  industries: ["IT & Technology", "Manufacturing & Industrial", "Healthcare & Hospitals", "Retail & Hospitality", "Financial Services"],
+  featuredImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  featuredTitle: "Aggressive Criminal Defense",
+  featuredSubtitle: "Protecting your rights and freedom",
+  faqs: [
+    {
+      question: "Do you handle workplace disputes?",
+      answer: "Yes, representing both employers and employees in disputes and negotiations."
+    },
+    {
+      question: "Can you draft employment contracts?",
+      answer: "Yes, including compliance and clarity on roles and obligations."
+    },
+    {
+      question: "Do you advise on workplace policies?",
+      answer:"Yes, guiding clients in alignment with legal and ethical standards."
+    }
+  ],
+  whychooseus: [
+    {
+      icon: Scale,
+      title: "Strategic Labour Advice",
+      desc: "Protecting client interests with expertise."
+    },
+    {
+      icon: Users,
+      title: "Personalized Attention",
+      desc: "Tailored solutions for organizations and individuals."
+    },
+    {
+      icon: Award,
+      title: "Professional & Compliant",
+      desc: "Ethical guidance aligned with Indian labour laws."
+    }
+  ]
+};
+
+const insolvencyBankruptcyLaw = {
+  slug: "insolvency-bankruptcy-law",
+  title: "Insolvency & Bankruptcy Law",
+  shortDesc: "Vigorous defense of your rights in criminal proceedings at all levels.",
+  bannerImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  overview: "Our Insolvency & Bankruptcy Law practice assists corporates, creditors, and individuals in navigating insolvency proceedings, restructuring, and recovery matters. We provide strategic advice on compliance with the Insolvency & Bankruptcy Code, debt resolution, and liquidation processes, ensuring practical and legally sound outcomes.",
+  keyServices: [
+    "Corporate Insolvency Resolution Process (CIRP) Advisory",
+    "Individual Bankruptcy Guidance",
+    "Debt Recovery & Negotiation",
+    "Liquidation & Restructuring",
+    "Compliance with Insolvency & Bankruptcy Code",
+    "Creditor & Debtor Representation",
+    "Risk Assessment & Advisory",
+    "Industries We Serve",
+    "Banking & Financial Services",
+    "Manufacturing & Industrial",
+    "Real Estate & Construction",
+    "Healthcare & Pharmaceuticals",
+    "Technology & Startups"
+  ],
+  industries: ["Banking & Financial Services", "Manufacturing & Industrial", "Real Estate & Construction", "Healthcare & Pharmaceuticals", "Technology & Startups"],
+  featuredImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  featuredTitle: "Aggressive Criminal Defense",
+  featuredSubtitle: "Protecting your rights and freedom",
+  faqs: [
+    {
+      question: "Do you handle corporate insolvency?",
+      answer: "Yes, including resolution, restructuring, and liquidation guidance under IBC."
+    },
+    {
+      question: "Can you advise individuals on personal bankruptcy?",
+      answer: "Yes, providing strategic counsel and legal representation."
+    },
+    {
+      question: "How do you manage creditor negotiations?",
+      answer:"We offer structured advisory to balance compliance and strategic interests."
+    }
+  ],
+  whychooseus: [
+    {
+      icon: Scale,
+      title: "Expert Insolvency Guidance",
+      desc: "Practical, ethical, and compliant solutions."
+    },
+    {
+      icon: Users,
+      title: "Tailored Solutions",
+      desc: "Guidance for corporates, creditors, and individuals."
+    },
+    {
+      icon: Award,
+      title: "Professional Standards",
+      desc: "Senior partners provide oversight and strategic direction."
+    }
+  ]
 };
 
 const civilLaw = {
@@ -75,7 +311,7 @@ const civilLaw = {
     "Personal Injury",
     "Consumer Protection",
     "Debt Recovery",
-    "Civil Rights",
+    "Enforcement of Civil Judgments",
     "Alternative Dispute Resolution"
   ],
   industries: [
@@ -83,11 +319,43 @@ const civilLaw = {
     "Small Businesses",
     "Corporations",
     "Non-Profits",
-    "Government Entities"
+    "Government Entities",
+    "Real Estate"
   ],
   featuredImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
   featuredTitle: "Civil Litigation Experts",
-  featuredSubtitle: "Resolving disputes effectively"
+  featuredSubtitle: "Resolving disputes effectively",
+  faqs: [
+    {
+      question: "What sets your Civil Law services apart?",
+      answer: "We focus on thorough legal analysis and ethical dispute resolution across personal and corporate civil matters."
+    },
+    {
+      question: "Can you handle property and contract disputes?",
+      answer: "Yes, we provide guidance and representation in both areas."
+    },
+    {
+      question: "Do you assist in mediation?",
+      answer:"Yes, we facilitate amicable resolutions where appropriate, minimizing time and cost."
+    }
+  ],
+  whychooseus: [
+    {
+      icon: Scale,
+      title: "Meticulous Legal Analysis",
+      desc: "Ensuring informed decision-making."
+    },
+    {
+      icon: Users,
+      title: "Client-Focused Solutions",
+      desc: "Tailored strategies for personal and corporate matters."
+    },
+    {
+      icon: Award,
+      title: "Ethical Standards",
+      desc: "Transparent and professional handling of all disputes."
+    }
+  ]
 };
 
 const familyLaw = {
@@ -109,7 +377,38 @@ const familyLaw = {
   industries: ["Individuals & Families"],
   featuredImage: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
   featuredTitle: "Family Law Specialists",
-  featuredSubtitle: "Compassionate guidance for life's changes"
+  featuredSubtitle: "Compassionate guidance for life's changes",
+  faqs: [
+    {
+      question: "How do you handle sensitive family matters?",
+      answer: "With discretion, empathy, and thorough legal expertise, protecting client interests and confidentiality."
+    },
+    {
+      question: "Do you represent clients in child custody cases?",
+      answer: "Yes, focusing on the best interests of children and legal compliance."
+    },
+    {
+      question: "Can you advise on inheritance disputes?",
+      answer:"Yes, we provide guidance on matrimonial and property-related inheritance matters."
+    }
+  ],
+  whychooseus: [
+    {
+      icon: Scale,
+      title: "Sensitive & Professional Guidance",
+      desc: "Expertise with empathy."
+    },
+    {
+      icon: Users,
+      title: "Personalized Attention",
+      desc: "Tailored strategies for each family matter."
+    },
+    {
+      icon: Award,
+      title: "Trusted Counsel",
+      desc: "Maintaining discretion and integrity at every step."
+    }
+  ]
 };
 
 const propertyLaw = {
@@ -137,7 +436,38 @@ const propertyLaw = {
   ],
   featuredImage: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
   featuredTitle: "Property Law Experts",
-  featuredSubtitle: "Protecting your property interests"
+  featuredSubtitle: "Protecting your property interests",
+  faqs: [
+    {
+      question: "Do you handle property disputes?",
+      answer: "Yes, including litigation, documentation, and compliance advisory."
+    },
+    {
+      question: "Can you assist with commercial real estate transactions?",
+      answer: "Yes, providing strategic guidance from drafting to registration."
+    },
+    {
+      question: "Do you verify property titles?",
+      answer:"Yes, ensuring accuracy and legal compliance for all transactions."
+    }
+  ],
+  whychooseus: [
+    {
+      icon: Scale,
+      title: "Strategic Property Advice",
+      desc: "Comprehensive guidance on all matters."
+    },
+    {
+      icon: Users,
+      title: "Personalized Service",
+      desc: "Senior partners involved in high-value matters."
+    },
+    {
+      icon: Award,
+      title: "Ethical & Transparent",
+      desc: "Trusted counsel for complex property issues."
+    }
+  ]
 };
 
 const arbitration = {
@@ -165,7 +495,38 @@ const arbitration = {
   ],
   featuredImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
   featuredTitle: "Alternative Dispute Resolution",
-  featuredSubtitle: "Efficient, cost-effective solutions"
+  featuredSubtitle: "Efficient, cost-effective solutions",
+  faqs: [
+    {
+      question: "What types of arbitration do you handle?",
+      answer: "Domestic, international, commercial, and investment disputes."
+    },
+    {
+      question: "Do you draft arbitration clauses?",
+      answer: "Yes, ensuring enforceability and compliance with global standards."
+    },
+    {
+      question: "Can you manage cross-border disputes?",
+      answer:"Yes, leveraging international networks for efficient resolution."
+    }
+  ],
+  whychooseus: [
+    {
+      icon: Scale,
+      title: "Efficient Dispute Resolution",
+      desc: "Minimizing time and costs."
+    },
+    {
+      icon: Users,
+      title: "Global Standards",
+      desc: "Arbitration advice aligned with best practices."
+    },
+    {
+      icon: Award,
+      title: "Client-Focused Strategy",
+      desc: "Guidance tailored to business objectives."
+    }
+  ]
 };
 
 const intellectualProperty = {
@@ -194,7 +555,38 @@ const intellectualProperty = {
   ],
   featuredImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
   featuredTitle: "IP Protection Specialists",
-  featuredSubtitle: "Safeguarding your innovations"
+  featuredSubtitle: "Safeguarding your innovations",
+  faqs: [
+    {
+      question: "Do you register trademarks and patents?",
+      answer: "Yes, including filing, licensing, and enforcement strategies."
+    },
+    {
+      question: "Can you handle IP disputes?",
+      answer: "Yes, representation for infringement, licensing, and commercialization matters."
+    },
+    {
+      question: "Do you advise startups?",
+      answer:"Yes, we create strategies to protect and monetize IP assets."
+    }
+  ],
+  whychooseus: [
+    {
+      icon: Scale,
+      title: "Global IP Expertise",
+      desc: "Aligning protection with international standards."
+    },
+    {
+      icon: Users,
+      title: "Tailored Strategies",
+      desc: "Personalized guidance for businesses and individuals."
+    },
+    {
+      icon: Award,
+      title: "Professional & Reliable",
+      desc: "Comprehensive and ethical IP counsel."
+    }
+  ]
 };
 
 const taxLaw = {
@@ -222,7 +614,38 @@ const taxLaw = {
   ],
   featuredImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
   featuredTitle: "Tax Law Experts",
-  featuredSubtitle: "Strategic tax solutions"
+  featuredSubtitle: "Strategic tax solutions",
+  faqs: [
+    {
+      question: "Do you provide tax advisory services?",
+      answer: "Yes, covering GST, corporate tax, income tax, customs, and compliance advisory."
+    },
+    {
+      question: "Can you assist in disputes with authorities?",
+      answer: "Yes, representation in audits, appeals, and litigation matters in Courts."
+    },
+    {
+      question: "Do you advise on corporate tax planning?",
+      answer:"Yes, ensuring efficiency and compliance across jurisdictions."
+    }
+  ],
+  whychooseus: [
+    {
+      icon: Scale,
+      title: "Strategic Tax Guidance",
+      desc: "Insightful planning and compliance solutions."
+    },
+    {
+      icon: Users,
+      title: "Client-Focused Advisory",
+      desc: "Personalized advice for individuals and businesses."
+    },
+    {
+      icon: Award,
+      title: "Professional Standards",
+      desc: "Ethical handling of all tax matters."
+    }
+  ]
 };
 
 const contractLaw = {
@@ -246,11 +669,46 @@ const contractLaw = {
     "Small Businesses",
     "Corporations",
     "Startups",
-    "Individuals"
+    "Individuals",
+    "Technology and IT",
+    "Manufacturing & Industrial",
+    "Corporate & Professional Services",
+    "Real Estate & Infrastructure"
   ],
   featuredImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
   featuredTitle: "Contract Law Specialists",
-  featuredSubtitle: "Protecting your contractual interests"
+  featuredSubtitle: "Protecting your contractual interests",
+  faqs: [
+    {
+      question: "Do you draft customized agreements?",
+      answer: "Yes, tailored to client needs and regulatory compliance."
+    },
+    {
+      question: "Can you review international contracts?",
+      answer: "Yes, ensuring enforceability and mitigating risk."
+    },
+    {
+      question: "Do you advise on dispute resolution?",
+      answer:"Yes, providing strategic guidance to protect client interests."
+    }
+  ],
+  whychooseus: [
+    {
+      icon: Scale,
+      title: "Meticulous Contract Review",
+      desc: "Ensuring clarity and risk management."
+    },
+    {
+      icon: Users,
+      title: "Personalized Solutions",
+      desc: "Guidance aligned with client objectives."
+    },
+    {
+      icon: Award,
+      title: "Professional & Ethical",
+      desc: "Transparent and strategic advice."
+    }
+  ]
 };
 
 // Map all practice areas - Updated with correct mapping
@@ -263,7 +721,10 @@ const practiceAreasMap = {
   "arbitration": arbitration,
   "intellectual-property": intellectualProperty,
   "tax-law": taxLaw,
-  "contract-and-agreement-reviewing": contractLaw
+  "contract-and-agreement-reviewing": contractLaw,
+  "insurance-law": insuranceLaw,
+  "insolvency-bankruptcy-law": insolvencyBankruptcyLaw,
+  "labour-employment-law": labourEmploymentLaw,
 };
 
 // All practice areas array for listing - Updated with correct areas
@@ -276,7 +737,10 @@ const allPracticeAreas = [
   arbitration,
   intellectualProperty,
   taxLaw,
-  contractLaw
+  contractLaw,
+  insuranceLaw,
+  insolvencyBankruptcyLaw,
+  labourEmploymentLaw,
 ];
 
 // Practice areas for sidebar - Updated with correct areas
@@ -289,7 +753,10 @@ const sidebarPracticeAreas = [
   { name: "Arbitration", slug: "arbitration" },
   { name: "Intellectual Property", slug: "intellectual-property" },
   { name: "Tax Law", slug: "tax-law" },
-  { name: "Contract & Agreement Reviewing", slug: "contract-and-agreement-reviewing" }
+  { name: "Contract & Agreement Reviewing", slug: "contract-and-agreement-reviewing" },
+  { name: "Insurance Law", slug: "insurance-law" },
+  { name: "Insolvency & Bankruptcy Law", slug: "insolvency-bankruptcy-law" },
+  { name: "Labour & Employment Law", slug: "labour-employment-law" }
 ];
 
 // Why Choose Us data
@@ -867,7 +1334,7 @@ const handleSubmit = (e: any) => {
                   <div className="relative z-10">
                     <h4 className="text-lg font-heading font-semibold text-black mb-3">Free Consultation</h4>
                     <p className="text-sm text-gray-600 mb-4">
-                      Speak with our experienced attorneys today about your legal matter.
+                      Discuss your legal matter today with our experienced and trusted attorneys.
                     </p>
                     <Button asChild size="lg" className="w-full btn-shine mb-3">
                       <Link href="/contact">Schedule Now</Link>
@@ -968,7 +1435,7 @@ const handleSubmit = (e: any) => {
                   Why Choose Us
                 </motion.h2>
                 <div className="grid sm:grid-cols-2 gap-6">
-                  {whyChooseUs.map((item, idx) => (
+                  {area.whychooseus.map((item, idx) => (
                     <motion.div
                       key={idx}
                       variants={scaleIn}
@@ -999,7 +1466,7 @@ const handleSubmit = (e: any) => {
                   We're here to answer all your questions!
                 </motion.h2>
                 <div className="space-y-4">
-                  {faqs.map((faq, idx) => (
+                  {area.faqs.map((faq, idx) => (
                     <motion.div
                       key={idx}
                       variants={fadeInUp}

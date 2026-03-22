@@ -220,7 +220,7 @@ const Team = () => {
               variants={fadeInUp}
               className="text-muted-foreground text-lg leading-relaxed max-w-2xl mx-auto"
             >
-              Our experienced team brings together diverse backgrounds and specialized expertise to deliver exceptional results for our clients.
+              Combining specialized knowledge, global best practices, and a client-first approach, our team provides professional legal solutions crafted with precision and integrity.
             </motion.p>
           </motion.div>
         </div>
@@ -765,7 +765,7 @@ const Team = () => {
             Want to Join Our Team?
           </motion.h2>
           <motion.p variants={fadeInUp} className="text-gray-600 text-lg mb-8">
-            We're always looking for exceptional legal talent to join our growing firm.
+            We welcome exceptional legal talent to join our growing firm and contribute to delivering client-focused, professional, and globally-aligned legal solutions.
           </motion.p>
           <motion.div variants={scaleIn}>
             <Link 

@@ -295,9 +295,9 @@ const Careers = () => {
         variants={staggerContainer} className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {[
-              { number: "15+", label: "Legal Professionals", delay: 0.1 },
-              { number: "9+", label: "Practice Areas", delay: 0.2 },
-              { number: "98%", label: "Associate Satisfaction", delay: 0.3 }
+              { number: "45+", label: "Expert Attorneys", delay: 0.1 },
+              { number: "11+", label: "Practice Areas", delay: 0.2 },
+              { number: "5+", label: "States", delay: 0.3 }
             ].map((stat, index) => (
               <motion.div 
                 key={index}
@@ -469,7 +469,7 @@ const Careers = () => {
                           </h3>
                         </motion.div>
                         
-                        <motion.div 
+                        {/* <motion.div 
                           initial={{ y: 20, opacity: 0 }}
                           whileInView={{ y: 0, opacity: 1 }}
                           transition={{ delay: 0.3 + i * 0.1, duration: 0.6 }}
@@ -487,7 +487,7 @@ const Careers = () => {
                           >
                             <Clock className="w-4 h-4" /> {getJobTypeDisplay(pos.type)}
                           </motion.span>
-                        </motion.div>
+                        </motion.div> */}
                         
                         <motion.p 
                           initial={{ opacity: 0 }}
@@ -582,15 +582,15 @@ const Careers = () => {
               variants={fadeInUp}
               className="text-3xl md:text-4xl font-heading font-bold text-black mb-4"
             >
-              Build a Rewarding <span className="text-primary italic">Legal Career</span>
+              Advance Your <span className="text-primary italic">Legal Career</span>
             </motion.h2>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {[
-              { icon: Users, title: "Collaborative Culture", desc: "Work alongside some of the brightest legal minds in a supportive, team-oriented environment." },
-              { icon: Award, title: "Professional Growth", desc: "Continuous learning opportunities, mentorship programs, and clear career advancement paths." },
-              { icon: Building2, title: "Global Reach", desc: "Handle complex, cross-border matters for prestigious clients across industries." }
+              { icon: Users, title: "Collaborative Culture", desc: "Work with a dynamic, skilled legal team that values innovation and learning." },
+              { icon: Award, title: "Career Advancement", desc: "Receive mentorship, challenging assignments, and clear paths for professional growth." },
+              { icon: Building2, title: "Global Perspective", desc: "Handle complex matters spanning domestic and international jurisdictions." }
             ].map((item, index) => (
               <motion.div
                 key={index}

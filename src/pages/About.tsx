@@ -22,10 +22,10 @@ import { getCMSData } from '../lib/cmsCache';
 import { Employee, Founder, getEmployeeImageUrl, getFounderImageUrl } from '../lib/sanityQueries';
 
 const values = [
-  { icon: Award, title: "Integrity", desc: "We uphold the highest ethical standards in every interaction and case we handle." },
-  { icon: Users, title: "Client Focus", desc: "Your success is our priority. We listen, understand, and deliver results." },
-  { icon: Target, title: "Excellence", desc: "We pursue excellence in every aspect of our legal practice and client service." },
-  { icon: CheckCircle, title: "Innovation", desc: "We leverage modern tools and strategies to provide cutting-edge legal solutions." },
+  { icon: Award, title: "Integrity First", desc: "We uphold the highest ethical standards, ensuring transparency and honesty guide every legal service we provide." },
+  { icon: Users, title: "Client-Focused", desc: "Your objectives shape our strategy. Every action is designed to protect your interests and support your goals." },
+  { icon: Target, title: "Excellence Always", desc: "We pursue precision, rigor, and meticulous attention in every matter, consistently aiming for professional distinction." },
+  { icon: CheckCircle, title: "Innovation At Work", desc: "We integrate modern approaches and creative solutions to navigate complex legal challenges efficiently." },
 ];
 
 const founder = {
@@ -267,7 +267,7 @@ const About = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight"
             >
-              A Tradition of{' '}
+              A Commitment of{' '}
               <span className="gold-gradient-text italic">Legal Excellence</span>
             </motion.h1>
 
@@ -277,8 +277,7 @@ const About = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-lg sm:text-xl text-muted-foreground max-w-2xl mb-10 leading-relaxed"
             >
-              Since 2026, J. Ashish Associates LLP has been setting the standard for legal representation, 
-              combining decades of experience with a forward-thinking approach.
+              Founded in 2026, J. Ashish Associates LLP is dedicated to providing professional, ethical, and client-focused legal services. Our team blends legal knowledge with a modern, forward-thinking approach to support clients in navigating complex legal challenges.
             </motion.p>
 
             <motion.div 
@@ -356,20 +355,21 @@ const About = () => {
               </p>
             </div>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold mb-6 text-gray-900">
-                  Building Trust Since{' '}
-                  <span className="text-[#C9A646] italic">2026</span>
+                  {/* Building Trust Since{' '}
+                  <span className="text-[#C9A646] italic">2026</span> */}
+                  Delivering Legal <span className="text-[#C9A646] italic">Excellence</span>
                 </h2>
               </div>
               
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p className="text-base sm:text-lg">
-                  Founded by Richard Lexington and Margaret Hayes, our firm began with a mission to provide exceptional legal counsel to businesses and individuals alike.
+                  Since its inception in 2026, <span className="italic font-semibold">J. Ashish Associates LLP</span> has built a <span>foundation of trust, integrity, and client-centered service</span>. Our legacy is defined by the <span className="italic font-semibold">dedication of our team and the confidence our clients place in us</span>, reflecting a firm commitment to <span className="italic font-semibold">delivering legal solutions with professionalism and ethical rigor</span>.
                 </p>
                 <p>
-                  Today, we've grown into a full-service firm with 30+ attorneys across multiple practice areas, maintaining our founding principles of integrity, excellence, and client-centered service.
+                  We have grown from a vision of a first-generation lawyer into a <span className="italic font-semibold">dynamic, full-service firm</span>, assisting businesses, organizations, and individuals across multiple sectors. Our approach—rooted in <span className="italic font-semibold">meticulous strategy, thoughtful guidance, and collaborative problem-solving</span>—has allowed us to <span className="italic font-semibold">navigate complex legal challenges</span> while upholding the highest standards of practice.
                 </p>
                 <p>
-                  Our commitment to innovation and client success has made us one of the most trusted law firms in the nation, with a reputation for handling complex, high-stakes matters with discretion and skill.
+                  At <span className="italic font-semibold">J. Ashish Associates LLP</span>, our legacy continues to expand as we <span className="italic font-semibold">deliver excellence, embrace innovation, and empower clients</span>, ensuring that every matter is handled with care, precision, and unwavering professionalism. This legacy is not just our history—it is a promise to our clients, a standard for our team, and the foundation for our future.
                 </p>
               </div>
 
@@ -393,8 +393,9 @@ const About = () => {
   ))}
 </div>
                 <div className="text-sm">
-                  <span className="font-bold text-[#C9A646]">50+</span>{' '}
-                  <span className="text-gray-500">Companies Trust Us</span>
+                  
+                  <span className="text-gray-500">Industrial awards as </span>
+                  <span className="font-bold text-[#C9A646]">15+</span>{' '}
                 </div>
               </motion.div>
             </motion.div>
@@ -407,13 +408,13 @@ const About = () => {
               className="relative"
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 p-6 sm:p-8 bg-gradient-to-br from-blue-50 to-white backdrop-blur-sm rounded-2xl border border-blue-100 shadow-xl">
-                <CounterAnimation end={4} suffix="+" label="Years of Excellence" theme="light" />
-                <CounterAnimation end={30} suffix="+" label="Expert Attorneys" theme="light" />
-                <CounterAnimation end={50} suffix="+" label="Cases Won" theme="light" />
+                <CounterAnimation end={11} suffix="+" label="Area of practice" theme="light" />
+                <CounterAnimation end={45} suffix="+" label="Expert Attorneys" theme="light" />
+                <CounterAnimation end={7} suffix="+" label=" Regional Presence" theme="light" />
                 <CounterAnimation end={15} suffix="+" label="Industry Awards" theme="light" />
               </div>
 
-              <motion.div 
+              {/* <motion.div 
                 variants={scaleIn}
                 whileHover={{ scale: 1.05, rotate: 2 }}
                 className="absolute -bottom-6 -left-6 bg-[#C9A646] text-white px-6 py-3 rounded-xl shadow-xl hidden sm:block"
@@ -422,7 +423,7 @@ const About = () => {
                   <Star className="w-5 h-5 fill-white" />
                   <span className="font-semibold">Top-Rated 2026</span>
                 </div>
-              </motion.div>
+              </motion.div> */}
             </motion.div>
           </div>
         </div>
@@ -721,12 +722,15 @@ const About = () => {
             <div className="flex items-center justify-center gap-3 mb-4">
               <span className="w-10 h-px bg-[#C9A646]"></span>
               <p className="text-sm uppercase tracking-[0.2em] text-[#C9A646] font-semibold">
-                Global Network
+                Our Vision
               </p>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-heading font-bold mb-4 text-gray-900">Trusted Worldwide</h2>
+            <h2 className="text-3xl sm:text-4xl font-heading font-bold mb-4 text-gray-900">Expanding Horizons, Delivering Excellence</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              With offices in major financial centers across the globe, we provide seamless legal support for international matters.
+              At J. Ashish Associates LLP, our vision is to provide strategic, client-focused legal solutions that meet the highest standards of professionalism and integrity. We aim to combine our Indian legal expertise with a global perspective, enabling clients to navigate cross-border challenges with confidence and clarity.
+            </p>
+            <p className="text-gray-600 max-w-2xl mx-auto pt-5">
+              Guided by innovation, collaboration, and excellence, we strive to grow our reach, build meaningful partnerships, and set benchmarks for modern legal practice, while empowering clients to achieve their goals with trust and certainty
             </p>
           </motion.div>
 
@@ -790,7 +794,7 @@ const About = () => {
               Meet Our <span className="gold-gradient-text italic">Attorneys</span>
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Our team combines deep legal expertise with a commitment to achieving exceptional results for our clients.
+              Our team blends extensive legal expertise with dedication, ensuring every client receives strategic, professional, and client-focused solutions.
             </p>
           </motion.div>
 
@@ -1022,12 +1026,13 @@ const About = () => {
             </motion.div>
 
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold mb-4 sm:mb-6 text-gray-900">
-              Ready to Join Our{' '}
-              <span className="text-[#C9A646] italic">Legacy of Success!</span>
+              Your{' '}
+              <span className="text-[#C9A646] italic">Goals</span>, Our{' '}
+              <span className="text-[#C9A646] italic">Commitment</span>
             </h2>
             
             <p className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-10 leading-relaxed">
-              Partner with a team that puts your success first. Schedule a confidential consultation today.
+              Work with a legal team dedicated to guiding you with clarity, care, and professionalism. Schedule your confidential consultation today.
             </p>
 
             <div className="flex flex-wrap gap-4 justify-center">
@@ -1040,7 +1045,7 @@ const About = () => {
               </Link>
             </div>
 
-            <motion.div 
+            {/* <motion.div 
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
@@ -1064,7 +1069,7 @@ const About = () => {
                   </motion.div>
                 );
               })}
-            </motion.div>
+            </motion.div> */}
           </motion.div>
         </div>
       </section>
