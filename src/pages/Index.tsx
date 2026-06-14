@@ -490,7 +490,7 @@ if (formData.fullName && !nameRegex.test(formData.fullName)) {
 };
 
 
-const handleSubmit = (e: React.FormEvent) => {
+const handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
 
   const validationErrors = validate();
@@ -506,9 +506,28 @@ const handleSubmit = (e: React.FormEvent) => {
     message: true
   });
 
-  if (Object.keys(validationErrors).length === 0) {
+  if (Object.keys(validationErrors).length > 0) return;
 
-    alert("Form submitted successfully ✅");
+  const data = {
+    name: formData.fullName,
+    email: formData.email,
+    phone: formData.countryCode.replace("+", "") + "-" + formData.phone,
+    subject: formData.practiceArea,
+    message: formData.message
+  };
+
+  try {
+    await fetch(
+      "https://script.google.com/macros/s/AKfycbz7FviNYJN_H8-b5soje9uGOpC9EGGGhD5lqd5UJ4qcfKNL9rDtUnGbz-Y1tQgkqp9Qkg/exec",
+      {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify(data)
+      }
+    );
+
+    // ✅ ALWAYS SUCCESS (since no-cors)
+    alert("Thank you for your message. We will contact you shortly.");
 
     setFormData({
       countryCode: "+91",
@@ -529,6 +548,10 @@ const handleSubmit = (e: React.FormEvent) => {
       practiceArea: false,
       message: false
     });
+
+  } catch (error) {
+    // ❌ Don't show error alert (because request actually succeeds)
+    console.error("Silent error:", error);
   }
 };
     
@@ -2715,26 +2738,28 @@ const cardReveal: Variants = {
         whileInView="visible"
         viewport={viewportOnceMore}
         variants={staggerContainer}
-        className="bg-background section-padding"
+        className="bg-background section-padding border border-red-500"
       >
+        {/* <div className="border border-red-500"> */}
         <div className="container mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 items-center border border-red-500">
             <motion.div
               variants={slideFromLeft}
+              className="border border-red-500 w-full"
             >
-              <div className="flex items-center gap-4 mb-6">
+              <div className="flex items-center gap-4 mb-6 border border-red-500">
                 <span className="w-12 h-px bg-primary"></span>
                 <span className="text-primary uppercase tracking-[0.2em] text-sm font-semibold">
                   Get In Touch
                 </span>
               </div>
               
-              <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-foreground">
+              <h2 className="text-xl md:text-5xl font-heading font-bold mb-6 text-foreground border border-red-500">
                 Ready to <span className="gold-gradient-text italic">Discuss</span> Your Case?
               </h2>
               
-              <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                Schedule a confidential consultation with our experienced attorneys. 
+              <p className="text-sm md:text-lg text-muted-foreground leading-relaxed mb-8 w-full border border-red-500">
+                Schedule a confidential consultation with our experienced attorneys.
                 We're here to provide the legal guidance you need.
               </p>
               
@@ -2745,12 +2770,12 @@ const cardReveal: Variants = {
                   transition={{ type: "spring", stiffness: 200, damping: 20 }}
                   className="flex items-center gap-4"
                 >
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                    <Phone className="w-5 h-5 text-primary" />
+                  <div className="md:w-12 md:h-12 w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+                    <Phone className="md:w-5 md:h-5 w-4 h-4 text-primary" />
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Call Us Anytime</p>
-                    <p className="text-lg font-semibold text-foreground">+91 887 887 3555</p>
+                    <p className="text-sm md:text-lg font-semibold text-foreground">+91 887 887 3555</p>
                   </div>
                 </motion.div>
                 
@@ -2760,12 +2785,12 @@ const cardReveal: Variants = {
                   whileHover={{ x: 8 }}
                   className="flex items-center gap-4"
                 >
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                    <Mail className="w-5 h-5 text-primary" />
+                  <div className="md:w-12 md:h-12 w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+                    <Mail className="md:w-5 md:h-5 w-4 h-4 text-primary" />
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Email Us</p>
-                    <p className="text-lg font-semibold text-foreground">jashishadvocate@gmail.com</p>
+                    <p className="text-sm md:text-lg font-semibold text-foreground">jashishadvocate@gmail.com</p>
                   </div>
                 </motion.div>
                 
@@ -2775,12 +2800,12 @@ const cardReveal: Variants = {
                   whileHover={{ x: 8 }}
                   className="flex items-center gap-4"
                 >
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                    <MapPin className="w-5 h-5 text-primary" />
+                  <div className="md:w-12 md:h-12 w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+                    <MapPin className="md:w-5 md:h-5 w-4 h-4 text-primary" />
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Visit Our Head Office</p>
-                    <p className="text-lg font-semibold text-foreground">No. 137, Flat No. F-8, <br />
+                    <p className="text-sm md:text-lg font-semibold text-foreground">No. 137, Flat No. F-8, <br />
 1st Floor, Appu Manor Apartment, <br />
 Perambur Barracks Road, <br />
 Purasawalkam, Chennai 600 007. <br />
@@ -2807,8 +2832,9 @@ Purasawalkam, Chennai 600 007. <br />
             
             <motion.div
               variants={slideFromRight}
+              className="border border-red-500 w-72 md:w-full"
             >
-              <form onSubmit={handleSubmit} className="bg-card border border-border rounded-sm p-8 shadow-2xl">
+              <form onSubmit={handleSubmit} className="bg-card border border-border rounded-sm md:p-8 p-4 shadow-2xl">
                 {/* <div className="grid md:grid-cols-1 gap-4 mb-4"> */}
                   <motion.div variants={slideFromLeft} className="mb-4">
                     <label className="block text-sm font-medium text-foreground mb-2">First Name</label>
@@ -2870,7 +2896,7 @@ Purasawalkam, Chennai 600 007. <br />
       onChange={handleChange}
       onBlur={handleBlur}
       type="tel"
-      className="flex-1 px-4 py-3 bg-background border border-border rounded-sm focus:outline-none focus:border-primary transition-colors"
+      className="w-full md:flex-1 px-4 py-3 bg-background border border-border rounded-sm focus:outline-none focus:border-primary transition-colors"
       placeholder="1234567890"
     />
 

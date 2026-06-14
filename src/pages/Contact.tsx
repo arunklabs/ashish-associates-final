@@ -5,8 +5,8 @@ import { MapPin, Phone, Mail, Clock, Facebook, Twitter, Linkedin, Instagram, Sen
 import AnimatedSection from "../components/AnimatedSection";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-
 const contactImage = "/assets/contact-image-1.png";
+const indiamap = "/india-map.svg";
 
 const Contact = () => {
   const [form, setForm] = useState({ countryCode: "+91", name: "", email: "", phone: "", subject: "", message: "" });
@@ -100,7 +100,7 @@ const [loading, setLoading] = useState(false);
 
   try {
     const res = await fetch(
-  "https://script.google.com/macros/s/AKfycby8EzZj72zhNvhZHtjP3Y1uWkwKdeNcw-fQA1yA6NGHLt0-ZZTMvsdFjbLWjk3RrhEocQ/exec",
+  "https://script.google.com/macros/s/AKfycbz7FviNYJN_H8-b5soje9uGOpC9EGGGhD5lqd5UJ4qcfKNL9rDtUnGbz-Y1tQgkqp9Qkg/exec",
   {
     method: "POST",
     body: JSON.stringify(data),
@@ -583,7 +583,7 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
 
       {/* Contact Form Section - Light Theme */}
       <motion.section 
-        className="section-padding bg-gray-50"
+        className="section-padding bg-gray-50 border border-red-500"
       >
         <motion.div className="container mx-auto" initial="hidden"
         whileInView="visible"
@@ -628,7 +628,7 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
             </motion.h2>
           </motion.div>
 
-          <div className="grid lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
+          <div className="grid  lg:grid-cols-3 gap-12 max-w-6xl mx-auto">
             {/* Contact Info */}
             <motion.div
               variants={staggerContainer}
@@ -742,7 +742,7 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
                   Send us a Message
                 </motion.h3>
                 
-                <div className="grid md:grid-cols-2 gap-6 mb-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                   <motion.div variants={fadeInUp} custom={0}>
                     <label className="text-sm font-medium text-black mb-2 block">Full Name *</label>
                     <motion.input
@@ -774,7 +774,7 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
                   <motion.div variants={fadeInUp} custom={2}>
                     <label className="text-sm font-medium text-black mb-2 block">Phone</label>
 
-                    <div className="flex gap-2">
+                    <div className="flex flex-col md:flex-row gap-2">
 
                       {/* Country Code */}
                       <select
@@ -800,7 +800,7 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
                           const onlyNums = e.target.value.replace(/[^0-9]/g, "");
                           setForm({ ...form, phone: onlyNums });
                         }}
-                        className="flex-1 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-primary focus:bg-white transition-all duration-300"
+                        className=" md:flex-1 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-primary focus:bg-white transition-all duration-300"
                         placeholder="xxxxxxxxxx"
                       />
                     </div>
@@ -872,11 +872,10 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
       </motion.section>
 
       {/* Multi Location Map Section */}
-<motion.section className="relative bg-gray-100 overflow-hidden py-12">
+{/* <motion.section className="relative bg-gray-100 overflow-hidden py-12">
 
   <div className="container mx-auto px-4">
 
-    {/* Location Tabs */}
     <div className="flex flex-wrap justify-center gap-3 mb-6">
       {chennaiLocations.map((loc, index) => (
         <button
@@ -893,7 +892,6 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
       ))}
     </div>
 
-    {/* Map */}
     <div className="relative h-[400px] md:h-[450px] rounded-xl overflow-hidden shadow-lg">
       <motion.iframe
         key={activeLocation.name}
@@ -907,6 +905,60 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
         loading="lazy"
         className="w-full h-full"
       />
+    </div>
+  </div>
+</motion.section> */}
+
+{/* India Map Location Section */}
+<motion.section className="bg-gray-100 py-16">
+  <div className="container mx-auto px-4">
+
+    {/* Title */}
+    <div className="text-center mb-10">
+      <h2 className="text-3xl md:text-4xl font-bold text-black">
+        Our <span className="text-primary">Presence Across India</span>
+      </h2>
+      <p className="text-gray-600 mt-2">
+        Hover on locations to explore our offices
+      </p>
+    </div>
+
+    {/* Map Wrapper */}
+    <div className="relative max-w-4xl mx-auto">
+
+      {/* REAL INDIA MAP IMAGE */}
+      <img
+        src="/india-map.svg"
+        alt="India Map"
+        className="w-full h-auto"
+      />
+
+      {/* PINS */}
+      {[
+        { name: "Delhi", top: "22%", left: "48%" },
+        { name: "Mumbai", top: "55%", left: "38%" },
+        { name: "Bangalore", top: "70%", left: "48%" },
+        { name: "Chennai", top: "82%", left: "38%" },
+      ].map((loc, i) => (
+        <div
+          key={i}
+          className="absolute group cursor-pointer"
+          style={{ top: loc.top, left: loc.left }}
+        >
+          {/* Ping Effect */}
+          <span className="absolute inline-flex h-4 w-4 rounded-full bg-primary opacity-75 animate-ping"></span>
+
+          {/* Dot */}
+          <span className="relative inline-flex h-3 w-3 rounded-full bg-primary"></span>
+
+          {/* Tooltip */}
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 
+            bg-black text-white text-xs px-3 py-1 rounded 
+            opacity-0 group-hover:opacity-100 transition duration-300 whitespace-nowrap shadow-lg">
+            {loc.name}
+          </div>
+        </div>
+      ))}
     </div>
   </div>
 </motion.section>

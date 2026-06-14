@@ -1,14 +1,12 @@
 "use client";
 
 type ConsultationFormData = {
-  firstName: string;
-  lastName: string;
+  fullName: string;
   email: string;
+  countryCode: string; // ✅ added
   phone: string;
   caseType: string;
   message: string;
-  preferredDate: string;
-  preferredTime: string;
 };
 
 type ConsultationFormErrors = Partial<ConsultationFormData>;
@@ -555,26 +553,22 @@ const CoreValuesSection = () => {
     });
 
 const [formData, setFormData] = useState<ConsultationFormData>({
-  firstName: '',
-  lastName: '',
+  fullName: '',
   email: '',
+  countryCode: '+91', // ✅ default India
   phone: '',
   caseType: '',
-  message: '',
-  preferredDate: '',
-  preferredTime: ''
+  message: ''
 });
 
 const [errors, setErrors] = useState<ConsultationFormErrors>({});
 const [touched, setTouched] = useState<Record<keyof ConsultationFormData, boolean>>({
-  firstName: false,
-  lastName: false,
+  fullName: false,
   email: false,
+  countryCode: false,
   phone: false,
   caseType: false,
-  message: false,
-  preferredDate: false,
-  preferredTime: false
+  message: false
 });
 
 const handleChange = (
@@ -602,41 +596,28 @@ const handleBlur = (
 const validate = (): ConsultationFormErrors => {
   let newErrors: ConsultationFormErrors = {};
 
-  const nameRegex = /^[A-Za-z\s]+$/; // alphabets + space only
+  const nameRegex = /^[A-Za-z\s]+$/;
 
-  // First Name
-  if (!formData.firstName.trim())
-    newErrors.firstName = "First name is required";
-  else if (!nameRegex.test(formData.firstName))
-    newErrors.firstName = "Only alphabets allowed";
+  if (!formData.fullName.trim())
+    newErrors.fullName = "Full Name is required";
+  else if (!nameRegex.test(formData.fullName))
+    newErrors.fullName = "Only alphabets allowed";
 
-  // Last Name
-  if (!formData.lastName.trim())
-    newErrors.lastName = "Last name is required";
-  else if (!nameRegex.test(formData.lastName))
-    newErrors.lastName = "Only alphabets allowed";
-
-  // Email
   if (!formData.email.trim())
     newErrors.email = "Email is required";
   else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
-    newErrors.email = "Invalid email address";
+    newErrors.email = "Invalid email";
 
-  // Phone
-if (!formData.phone.trim()) {
-  newErrors.phone = "Phone number is required";
-} 
-else if (!/^\d+$/.test(formData.phone)) {
-  newErrors.phone = "Only numbers are allowed";
-}
+  if (!formData.phone.trim())
+    newErrors.phone = "Phone number is required";
+  else if (!/^\d+$/.test(formData.phone))
+    newErrors.phone = "Only numbers allowed";
 
-  // Case Type
   if (!formData.caseType)
     newErrors.caseType = "Please select case type";
 
-  // Message
   if (!formData.message.trim())
-    newErrors.message = "Case details required";
+    newErrors.message = "Message is required";
 
   return newErrors;
 };
@@ -646,55 +627,64 @@ else if (!/^\d+$/.test(formData.phone)) {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
 
   const validationErrors = validate();
   setErrors(validationErrors);
 
   setTouched({
-    firstName: true,
-    lastName: true,
+    fullName: true,
     email: true,
+    countryCode: true,
     phone: true,
     caseType: true,
-    message: true,
-    preferredDate: false,
-    preferredTime: false
+    message: true
   });
 
   if (Object.keys(validationErrors).length > 0) return;
 
-  setIsSubmitting(true);
+  const data = {
+  name: formData.fullName,
+  email: formData.email,
+  phone: formData.countryCode.replace("+","") + "-" + formData.phone, // ✅ dynamic country code
+  subject: formData.caseType,
+  message: formData.message
+};
 
-  await new Promise(resolve => setTimeout(resolve, 2000));
+  try {
+    await fetch(
+      "https://script.google.com/macros/s/AKfycbz7FviNYJN_H8-b5soje9uGOpC9EGGGhD5lqd5UJ4qcfKNL9rDtUnGbz-Y1tQgkqp9Qkg/exec",
+      {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify(data)
+      }
+    );
 
-  setIsSubmitting(false);
-  setIsSubmitted(true);
+    alert("Thank you! Your details have been submitted.");
 
-  setTimeout(() => {
-    setIsSubmitted(false);
     setFormData({
-      firstName: '',
-      lastName: '',
-      email: '',
-      phone: '',
-      caseType: '',
-      message: '',
-      preferredDate: '',
-      preferredTime: ''
-    });
+  fullName: '',
+  email: '',
+  countryCode: '+91',
+  phone: '',
+  caseType: '',
+  message: ''
+});
+
     setTouched({
-      firstName: false,
-      lastName: false,
+      fullName: false,
       email: false,
+      countryCode: false,
       phone: false,
       caseType: false,
-      message: false,
-      preferredDate: false,
-      preferredTime: false
+      message: false
     });
-  }, 3000);
+
+  } catch (error) {
+    console.error("Silent error:", error);
+  }
 };
 
     return (
@@ -901,37 +891,23 @@ else if (!/^\d+$/.test(formData.phone)) {
                   onSubmit={handleSubmit} 
                   className="space-y-4 sm:space-y-5 md:space-y-6"
                 >
-                  <motion.div variants={fadeInUp} className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
+                  <motion.div variants={fadeInUp} className="gap-4 sm:gap-5 md:gap-6">
                     <motion.div whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
-                      <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">First Name</label>
+                      <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">Full Name</label>
                       <input
                         type="text"
-                        name="firstName"
-                        value={formData.firstName}
+                        name="fullName"
+                        value={formData.fullName}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         className="w-full px-4 sm:px-5 py-3 sm:py-4 text-gray-700 border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-amber-500 outline-none focus:border-transparent transition-all duration-300 bg-white text-sm sm:text-base"
-                        placeholder="First Name"
+                        placeholder="Full Name"
                       />
-                      {touched.firstName && errors.firstName && (
-  <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>
+                      {touched.fullName && errors.fullName && (
+  <p className="text-red-500 text-sm mt-1">{errors.fullName}</p>
 )}
                     </motion.div>
-                    <motion.div whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
-                      <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">Last Name</label>
-                      <input
-                        type="text"
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        className="w-full px-4 sm:px-5 py-3 sm:py-4 text-gray-700 border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-amber-500 outline-none focus:border-transparent transition-all duration-300 bg-white text-sm sm:text-base"
-                        placeholder="Last Name"
-                      />
-                      {touched.lastName && errors.lastName && (
-  <p className="text-red-500 text-sm mt-1">{errors.lastName}</p>
-)}
-                    </motion.div>
+                    
                   </motion.div>
 
                   <motion.div variants={fadeInUp} whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
@@ -952,16 +928,31 @@ else if (!/^\d+$/.test(formData.phone)) {
 
                   <motion.div variants={fadeInUp} whileHover={{ scale: 1.02 }} transition={{ duration: 0.2 }}>
                     <label className="block text-xs sm:text-sm font-semibold text-gray-700 mb-1 sm:mb-2">Phone Number</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      className="w-full px-4 sm:px-5 py-3 sm:py-4 text-gray-700 border border-gray-200 rounded-lg sm:rounded-xl focus:ring-2 focus:ring-amber-500 outline-none focus:border-transparent transition-all duration-300 bg-white text-sm sm:text-base"
-                      placeholder="Phone Number"
-                    />
-                    {touched.phone && errors.phone && (
+                    <div className="flex gap-2 text-black">
+  <select
+    name="countryCode"
+    value={formData.countryCode}
+    onChange={handleChange}
+    className="px-3 py-3 border border-gray-200 rounded-lg bg-white"
+  >
+    <option value="+91">+91 (India)</option>
+    <option value="+1">+1 (US)</option>
+    <option value="+44">+44 (UK)</option>
+    <option value="+971">+971 (UAE)</option>
+  </select>
+
+  <input
+    type="tel"
+    name="phone"
+    value={formData.phone}
+    onChange={handleChange}
+    onBlur={handleBlur}
+    className="w-full px-4 py-3 border border-gray-200 rounded-lg"
+    placeholder="Phone Number"
+  />
+</div>
+
+{touched.phone && errors.phone && (
   <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
 )}
                   </motion.div>
