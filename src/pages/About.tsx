@@ -813,7 +813,7 @@ const About = () => {
                 transition={{ type: "spring", stiffness: 300 }}
                 className="group bg-card border border-border rounded-xl overflow-hidden hover:shadow-2xl transition-all duration-500"
               >
-                <div className="relative h-56 sm:h-64 overflow-hidden">
+                <div className="relative h-56 sm:h-96 overflow-hidden">
                   <Image
                     src={getEmployeeImageUrl(member)}
                     alt={member.name}
