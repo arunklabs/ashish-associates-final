@@ -180,7 +180,7 @@ const galleryImages = [
 ];
 
 // Progressive Image Component (uses next/image for optimization)
-const ProgressiveImage = ({ src, thumbnail, alt, onLoad, className, ...props }: { src: string; thumbnail: string; alt: string; onLoad?: () => void; className?: string; [key: string]: unknown }) => {
+const ProgressiveImage = ({ src, thumbnail, alt, onLoad, className, ...props }: { src: string; thumbnail: string; alt: string; onLoad?: () => void; className?: string;[key: string]: unknown }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
   const imgRef = useRef<HTMLImageElement | null>(null);
@@ -192,9 +192,8 @@ const ProgressiveImage = ({ src, thumbnail, alt, onLoad, className, ...props }: 
         src={src}
         alt={alt}
         fill
-        className={`${className} transition-opacity duration-500 ${
-          isLoading ? 'opacity-90 scale-105 filter blur-sm' : 'opacity-100 scale-100 filter blur-0'
-        }`}
+        className={`${className} transition-opacity duration-500 ${isLoading ? 'opacity-90 scale-105 filter blur-sm' : 'opacity-100 scale-100 filter blur-0'
+          }`}
         sizes="100vw"
         onLoad={() => {
           setIsLoading(false);
@@ -206,14 +205,14 @@ const ProgressiveImage = ({ src, thumbnail, alt, onLoad, className, ...props }: 
         }}
         {...(props as Record<string, unknown>)}
       />
-      
+
       {/* Loading spinner for slow connections */}
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/10">
           <div className="w-8 h-8 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" />
         </div>
       )}
-      
+
       {/* Error fallback */}
       {error && (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-200">
@@ -244,6 +243,8 @@ const useIntersectionObserver = (options: IntersectionObserverInit = {}) => {
 
 type GalleryImage = { id: number; title: string; category: string; imageUrl: string; thumbnailUrl: string; description: string; date: string; views: number };
 
+const galleryimg = "/assets/OurGallery.png"
+
 const GalleryPage = () => {
   const [activeCategory, setActiveCategory] = useState('all');
   const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
@@ -262,8 +263,8 @@ const GalleryPage = () => {
   }, []);
 
   // Filter images based on active category
-  const filteredImages = activeCategory === 'all' 
-    ? galleryImages 
+  const filteredImages = activeCategory === 'all'
+    ? galleryImages
     : galleryImages.filter(img => img.category === activeCategory);
 
   // Get visible images based on pagination
@@ -309,7 +310,7 @@ const GalleryPage = () => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!selectedImage) return;
-      
+
       if (e.key === 'ArrowLeft') {
         e.preventDefault();
         handlePrevious();
@@ -375,11 +376,11 @@ const GalleryPage = () => {
   // Lightbox variants
   const lightboxVariants = {
     hidden: { opacity: 0 },
-    visible: { 
+    visible: {
       opacity: 1,
       transition: { duration: 0.3 }
     },
-    exit: { 
+    exit: {
       opacity: 0,
       transition: { duration: 0.3 }
     }
@@ -387,16 +388,16 @@ const GalleryPage = () => {
 
   const imageVariants = {
     hidden: { opacity: 0, scale: 0.8 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       scale: 1,
-      transition: { 
+      transition: {
         duration: 0.4,
         ease: [0.25, 0.1, 0.25, 1] as const
       }
     },
-    exit: { 
-      opacity: 0, 
+    exit: {
+      opacity: 0,
       scale: 0.8,
       transition: { duration: 0.3 }
     }
@@ -404,10 +405,10 @@ const GalleryPage = () => {
 
   const infoVariants = {
     hidden: { opacity: 0, y: 50 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { 
+      transition: {
         delay: 0.2,
         duration: 0.5,
         ease: [0.25, 0.1, 0.25, 1] as const
@@ -432,15 +433,15 @@ const GalleryPage = () => {
       {/* Gallery Banner Section with Image Overlay */}
       <section className="relative h-[60vh] min-h-[500px] md:h-[85vh] overflow-hidden">
         {/* Background Image with Parallax Effect */}
-        <motion.div 
+        <motion.div
           initial={{ scale: 1.1 }}
           animate={{ scale: 1 }}
           transition={{ duration: 1.5, ease: [0.25, 0.1, 0.25, 1] as const }}
           className="absolute inset-0"
         >
           <ProgressiveImage
-            src="https://plus.unsplash.com/premium_photo-1674826272758-e5c26d177cf2?w=1200&auto=format&fit=crop&q=80"
-            thumbnail="https://plus.unsplash.com/premium_photo-1674826272758-e5c26d177cf2?w=100&auto=format&fit=crop&q=20"
+            src={galleryimg}
+            thumbnail={galleryimg}
             alt="Law Firm Gallery"
             className="w-full h-full object-cover"
           />
@@ -456,31 +457,31 @@ const GalleryPage = () => {
             animate="visible"
             className="w-full max-w-3xl text-center"
           >
-            <motion.div 
+            <motion.div
               variants={bannerItemVariants}
               className="flex items-center justify-center gap-3 mb-6"
             >
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 animate={{ width: 40 }}
                 transition={{ delay: 0.5, duration: 0.8 }}
                 className="h-px bg-[#C9A646]"
               />
-              <motion.p 
+              <motion.p
                 className="text-sm uppercase tracking-[0.2em] text-[#C9A646] font-semibold"
               >
                 Our Gallery
               </motion.p>
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 animate={{ width: 40 }}
                 transition={{ delay: 0.5, duration: 0.8 }}
                 className="h-px bg-[#C9A646]"
               />
             </motion.div>
-            
+
             {/* Title with Gold Span */}
-            <motion.h1 
+            <motion.h1
               variants={bannerItemVariants}
               className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-16"
             >
@@ -488,7 +489,7 @@ const GalleryPage = () => {
             </motion.h1>
 
             {/* Quick Stats with Gold Numbers */}
-            <motion.div 
+            <motion.div
               variants={bannerVariants}
               className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6 mt-8 md:mt-10 max-w-2xl mx-auto"
             >
@@ -503,11 +504,11 @@ const GalleryPage = () => {
                   variants={bannerItemVariants}
                   className="text-center"
                 >
-                  <motion.div 
+                  <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
-                    transition={{ 
-                      duration: 0.5, 
+                    transition={{
+                      duration: 0.5,
                       delay: 0.6 + index * 0.1,
                       type: "spring",
                       stiffness: 200,
@@ -538,21 +539,21 @@ const GalleryPage = () => {
             viewport={{ once: true, amount: 0.3 }}
             className="text-center mb-10 md:mb-12"
           >
-            <motion.div 
+            <motion.div
               className="flex items-center justify-center gap-3 mb-6"
             >
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 whileInView={{ width: 40 }}
                 transition={{ delay: 0.5, duration: 0.8 }}
                 className="h-px bg-amber-500"
               />
-              <motion.p 
+              <motion.p
                 className="text-sm uppercase tracking-[0.2em] text-amber-500 font-semibold"
               >
                 Our Collections
               </motion.p>
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 whileInView={{ width: 40 }}
                 transition={{ delay: 0.5, duration: 0.8 }}
@@ -576,18 +577,17 @@ const GalleryPage = () => {
               {categories.map((category) => {
                 const Icon = category.icon;
                 const isActive = activeCategory === category.id;
-                
+
                 return (
                   <motion.button
                     key={category.id}
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setActiveCategory(category.id)}
-                    className={`flex items-center space-x-1 md:space-x-2 px-3 md:px-6 py-2 md:py-3 rounded-full text-xs md:text-sm font-medium transition-all duration-300 ${
-                      isActive
-                        ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/30'
-                        : 'bg-white text-gray-600 hover:bg-gray-100 hover:text-amber-500 border border-gray-200'
-                    }`}
+                    className={`flex items-center space-x-1 md:space-x-2 px-3 md:px-6 py-2 md:py-3 rounded-full text-xs md:text-sm font-medium transition-all duration-300 ${isActive
+                      ? 'bg-amber-500 text-white shadow-lg shadow-amber-500/30'
+                      : 'bg-white text-gray-600 hover:bg-gray-100 hover:text-amber-500 border border-gray-200'
+                      }`}
                   >
                     <Icon className="w-3 h-3 md:w-4 md:h-4" />
                     <span>{category.label}</span>
@@ -609,16 +609,16 @@ const GalleryPage = () => {
               {visibleImages.map((image, index) => (
                 <motion.div
                   key={image.id}
-                //   variants={itemVariants}
-                //   layout
-                //   initial={{ opacity: 0, scale: 0.9 }}
-                //   animate={{ opacity: 1, scale: 1 }}
-                //   exit={{ opacity: 0, scale: 0.9 }}
-                //   transition={{ 
-                //     duration: 0.5,
-                //     delay: index * 0.05,
-                //     ease: [0.25, 0.1, 0.25, 1] as const
-                //   }}
+                  //   variants={itemVariants}
+                  //   layout
+                  //   initial={{ opacity: 0, scale: 0.9 }}
+                  //   animate={{ opacity: 1, scale: 1 }}
+                  //   exit={{ opacity: 0, scale: 0.9 }}
+                  //   transition={{ 
+                  //     duration: 0.5,
+                  //     delay: index * 0.05,
+                  //     ease: [0.25, 0.1, 0.25, 1] as const
+                  //   }}
                   className="group relative cursor-pointer"
                   onClick={() => {
                     setSelectedImage(image);
@@ -635,12 +635,12 @@ const GalleryPage = () => {
                         onLoad={() => handleImageLoad(image.id)}
                         className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                       />
-                      
+
                       {/* Overlay Gradient - Black with Gold accent */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      
+
                       {/* Content Overlay */}
-                      <motion.div 
+                      <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2, duration: 0.3 }}
@@ -663,9 +663,9 @@ const GalleryPage = () => {
                         </div>
                       </motion.div>
                     </div>
-                    
+
                     {/* Category Badge */}
-                    <motion.div 
+                    <motion.div
                       initial={{ x: -20, opacity: 0 }}
                       animate={{ x: 0, opacity: 1 }}
                       transition={{ delay: 0.2 + index * 0.05 }}
@@ -677,7 +677,7 @@ const GalleryPage = () => {
                     </motion.div>
 
                     {/* Gold Accent on Hover */}
-                    <motion.div 
+                    <motion.div
                       initial={{ scaleX: 0 }}
                       whileHover={{ scaleX: 1 }}
                       transition={{ duration: 0.3 }}
@@ -730,7 +730,7 @@ const GalleryPage = () => {
               className="text-center py-16 md:py-20"
             >
               <motion.div
-                animate={{ 
+                animate={{
                   scale: [1, 1.1, 1],
                   rotate: [0, 5, -5, 0]
                 }}
@@ -752,156 +752,155 @@ const GalleryPage = () => {
 
       {/* Lightbox Modal - Enhanced Design with Progressive Loading */}
       <AnimatePresence>
-  {selectedImage && (
-    <motion.div
-      variants={lightboxVariants}
-      initial="hidden"
-      animate="visible"
-      exit="exit"
-      className="fixed inset-0 z-50 bg-black/98 flex items-center justify-center p-2 md:p-4"
-      onClick={() => setSelectedImage(null)}
-    >
-      {/* Close Button - Always visible */}
-      <motion.button
-        initial={{ scale: 0, rotate: -90 }}
-        animate={{ scale: 1, rotate: 0 }}
-        exit={{ scale: 0, rotate: 90 }}
-        whileHover={{ scale: 1.1, rotate: 90 }}
-        onClick={(e) => {
-          e.stopPropagation();
-          setSelectedImage(null);
-        }}
-        className="absolute top-40 right-4 md:top-28 md:right-20 lg:top-16 xl:top-10 lg:right-28 text-white hover:text-amber-500 transition-colors z-[60] bg-black/50 backdrop-blur-md rounded-full p-3 border border-white/20 shadow-xl"
-        aria-label="Close"
-      >
-        <X className="w-5 h-5" />
-      </motion.button>
+        {selectedImage && (
+          <motion.div
+            variants={lightboxVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="fixed inset-0 z-50 bg-black/98 flex items-center justify-center p-2 md:p-4"
+            onClick={() => setSelectedImage(null)}
+          >
+            {/* Close Button - Always visible */}
+            <motion.button
+              initial={{ scale: 0, rotate: -90 }}
+              animate={{ scale: 1, rotate: 0 }}
+              exit={{ scale: 0, rotate: 90 }}
+              whileHover={{ scale: 1.1, rotate: 90 }}
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedImage(null);
+              }}
+              className="absolute top-40 right-4 md:top-28 md:right-20 lg:top-16 xl:top-10 lg:right-28 text-white hover:text-amber-500 transition-colors z-[60] bg-black/50 backdrop-blur-md rounded-full p-3 border border-white/20 shadow-xl"
+              aria-label="Close"
+            >
+              <X className="w-5 h-5" />
+            </motion.button>
 
-      {/* Navigation Buttons - Always visible on all screens */}
-      {/* Previous Button */}
-      <motion.button
-        initial={{ x: -50, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        exit={{ x: -50, opacity: 0 }}
-        whileHover={{ scale: 1.1, backgroundColor: 'rgba(245, 158, 11, 0.3)' }}
-        onClick={(e) => {
-          e.stopPropagation();
-          handlePrevious();
-        }}
-        className="absolute left-4 md:left-[13%] top-1/2 -translate-y-1/2 text-white hover:text-amber-500 transition-colors z-[60] bg-black/50 backdrop-blur-md rounded-full p-3 md:p-4 border border-white/20 shadow-xl"
-        aria-label="Previous image"
-      >
-        <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
-      </motion.button>
+            {/* Navigation Buttons - Always visible on all screens */}
+            {/* Previous Button */}
+            <motion.button
+              initial={{ x: -50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: -50, opacity: 0 }}
+              whileHover={{ scale: 1.1, backgroundColor: 'rgba(245, 158, 11, 0.3)' }}
+              onClick={(e) => {
+                e.stopPropagation();
+                handlePrevious();
+              }}
+              className="absolute left-4 md:left-[13%] top-1/2 -translate-y-1/2 text-white hover:text-amber-500 transition-colors z-[60] bg-black/50 backdrop-blur-md rounded-full p-3 md:p-4 border border-white/20 shadow-xl"
+              aria-label="Previous image"
+            >
+              <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
+            </motion.button>
 
-      {/* Next Button */}
-      <motion.button
-        initial={{ x: 50, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        exit={{ x: 50, opacity: 0 }}
-        whileHover={{ scale: 1.1, backgroundColor: 'rgba(245, 158, 11, 0.3)' }}
-        onClick={(e) => {
-          e.stopPropagation();
-          handleNext();
-        }}
-        className="absolute right-4 md:right-[13%] top-1/2 -translate-y-1/2 text-white hover:text-amber-500 transition-colors z-[60] bg-black/50 backdrop-blur-md rounded-full p-3 md:p-4 border border-white/20 shadow-xl"
-        aria-label="Next image"
-      >
-        <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
-      </motion.button>
+            {/* Next Button */}
+            <motion.button
+              initial={{ x: 50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: 50, opacity: 0 }}
+              whileHover={{ scale: 1.1, backgroundColor: 'rgba(245, 158, 11, 0.3)' }}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleNext();
+              }}
+              className="absolute right-4 md:right-[13%] top-1/2 -translate-y-1/2 text-white hover:text-amber-500 transition-colors z-[60] bg-black/50 backdrop-blur-md rounded-full p-3 md:p-4 border border-white/20 shadow-xl"
+              aria-label="Next image"
+            >
+              <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
+            </motion.button>
 
-      {/* Image Counter - Top Left */}
-      <motion.div 
-        initial={{ y: -50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        exit={{ y: -50, opacity: 0 }}
-        className="hidden lg:block absolute top-4 left-4 md:top-[10%] md:left-1/2 text-white text-sm md:text-base bg-black/50 backdrop-blur-md px-4 md:px-5 py-2 rounded-full border border-white/20 z-[60] shadow-xl"
-      >
-        <span className="text-amber-500 font-bold mr-1">{currentIndex + 1}</span> 
-        <span className="text-white/70">/ {visibleImages.length}</span>
-      </motion.div>
+            {/* Image Counter - Top Left */}
+            <motion.div
+              initial={{ y: -50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -50, opacity: 0 }}
+              className="hidden lg:block absolute top-4 left-4 md:top-[10%] md:left-1/2 text-white text-sm md:text-base bg-black/50 backdrop-blur-md px-4 md:px-5 py-2 rounded-full border border-white/20 z-[60] shadow-xl"
+            >
+              <span className="text-amber-500 font-bold mr-1">{currentIndex + 1}</span>
+              <span className="text-white/70">/ {visibleImages.length}</span>
+            </motion.div>
 
-      {/* Main Image Container */}
-      <motion.div
-        key={currentIndex}
-        variants={imageVariants}
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-        className="relative w-full max-w-6xl mx-auto"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="relative rounded-lg overflow-hidden bg-black/50 shadow-2xl">
-          <ProgressiveImage
-            src={visibleImages[currentIndex]?.imageUrl}
-            thumbnail={visibleImages[currentIndex]?.thumbnailUrl}
-            alt={visibleImages[currentIndex]?.title}
-            className="w-full h-auto max-h-[60vh] md:max-h-[75vh] lg:max-h-[85vh] object-contain"
-          />
-        </div>
-        
-        {/* Image Info - Bottom Panel */}
-        <motion.div 
-          variants={infoVariants}
-          initial="hidden"
-          animate="visible"
-          className="absolute bottom-0 left-0 right-0 p-4 md:p-6 lg:p-8 bg-gradient-to-t from-black/95 via-black/80 to-transparent rounded-b-lg"
-        >
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <div className="flex-1">
-              <h3 className="text-white text-lg md:text-xl lg:text-2xl font-serif font-bold mb-2">
-                {visibleImages[currentIndex]?.title}
-              </h3>
-              <div className="flex flex-wrap items-center gap-3 md:gap-4">
-                <div className="flex items-center gap-2">
-                  <Calendar className="w-3 h-3 md:w-4 md:h-4 text-amber-500" />
-                  <span className="text-white text-xs md:text-sm">{visibleImages[currentIndex]?.date}</span>
-                </div>
-                {/* <div className="flex items-center gap-2">
+            {/* Main Image Container */}
+            <motion.div
+              key={currentIndex}
+              variants={imageVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="relative w-full max-w-6xl mx-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="relative rounded-lg overflow-hidden bg-black/50 shadow-2xl">
+                <ProgressiveImage
+                  src={visibleImages[currentIndex]?.imageUrl}
+                  thumbnail={visibleImages[currentIndex]?.thumbnailUrl}
+                  alt={visibleImages[currentIndex]?.title}
+                  className="w-full h-auto max-h-[60vh] md:max-h-[75vh] lg:max-h-[85vh] object-contain"
+                />
+              </div>
+
+              {/* Image Info - Bottom Panel */}
+              <motion.div
+                variants={infoVariants}
+                initial="hidden"
+                animate="visible"
+                className="absolute bottom-0 left-0 right-0 p-4 md:p-6 lg:p-8 bg-gradient-to-t from-black/95 via-black/80 to-transparent rounded-b-lg"
+              >
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                  <div className="flex-1">
+                    <h3 className="text-white text-lg md:text-xl lg:text-2xl font-serif font-bold mb-2">
+                      {visibleImages[currentIndex]?.title}
+                    </h3>
+                    <div className="flex flex-wrap items-center gap-3 md:gap-4">
+                      <div className="flex items-center gap-2">
+                        <Calendar className="w-3 h-3 md:w-4 md:h-4 text-amber-500" />
+                        <span className="text-white text-xs md:text-sm">{visibleImages[currentIndex]?.date}</span>
+                      </div>
+                      {/* <div className="flex items-center gap-2">
                   <Eye className="w-3 h-3 md:w-4 md:h-4 text-amber-500" />
                   <span className="text-white text-xs md:text-sm">{visibleImages[currentIndex]?.views} views</span>
                 </div> */}
-                <div className="flex items-center gap-2">
-                  <span className="px-2 py-1 bg-amber-500/20 text-amber-500 text-xs font-medium rounded-full">
-                    {categories.find(c => c.id === visibleImages[currentIndex]?.category)?.label}
-                  </span>
-                </div>
-              </div>
-            </div>
-            
-            {/* Mobile/Tablet Navigation Dots */}
-            <div className="flex md:hidden items-center justify-center gap-2">
-              {visibleImages.map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setCurrentIndex(idx);
-                    setSelectedImage(visibleImages[idx]);
-                  }}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    idx === currentIndex 
-                      ? 'w-6 bg-amber-500' 
-                      : 'bg-white/50 hover:bg-white/80'
-                  }`}
-                  aria-label={`Go to image ${idx + 1}`}
-                />
-              ))}
-            </div>
-          </div>
-        </motion.div>
-      </motion.div>
+                      <div className="flex items-center gap-2">
+                        <span className="px-2 py-1 bg-amber-500/20 text-amber-500 text-xs font-medium rounded-full">
+                          {categories.find(c => c.id === visibleImages[currentIndex]?.category)?.label}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
 
-      {/* Decorative Corner Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-24 h-24 md:w-32 md:h-32 border-t-2 border-l-2 border-amber-500/30 rounded-tl-lg" />
-        <div className="absolute top-0 right-0 w-24 h-24 md:w-32 md:h-32 border-t-2 border-r-2 border-amber-500/30 rounded-tr-lg" />
-        <div className="absolute bottom-0 left-0 w-24 h-24 md:w-32 md:h-32 border-b-2 border-l-2 border-amber-500/30 rounded-bl-lg" />
-        <div className="absolute bottom-0 right-0 w-24 h-24 md:w-32 md:h-32 border-b-2 border-r-2 border-amber-500/30 rounded-br-lg" />
-      </div>
-    </motion.div>
-  )}
-</AnimatePresence>
+                  {/* Mobile/Tablet Navigation Dots */}
+                  <div className="flex md:hidden items-center justify-center gap-2">
+                    {visibleImages.map((_, idx) => (
+                      <button
+                        key={idx}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setCurrentIndex(idx);
+                          setSelectedImage(visibleImages[idx]);
+                        }}
+                        className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === currentIndex
+                          ? 'w-6 bg-amber-500'
+                          : 'bg-white/50 hover:bg-white/80'
+                          }`}
+                        aria-label={`Go to image ${idx + 1}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+
+            {/* Decorative Corner Elements */}
+            <div className="absolute inset-0 pointer-events-none">
+              <div className="absolute top-0 left-0 w-24 h-24 md:w-32 md:h-32 border-t-2 border-l-2 border-amber-500/30 rounded-tl-lg" />
+              <div className="absolute top-0 right-0 w-24 h-24 md:w-32 md:h-32 border-t-2 border-r-2 border-amber-500/30 rounded-tr-lg" />
+              <div className="absolute bottom-0 left-0 w-24 h-24 md:w-32 md:h-32 border-b-2 border-l-2 border-amber-500/30 rounded-bl-lg" />
+              <div className="absolute bottom-0 right-0 w-24 h-24 md:w-32 md:h-32 border-b-2 border-r-2 border-amber-500/30 rounded-br-lg" />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

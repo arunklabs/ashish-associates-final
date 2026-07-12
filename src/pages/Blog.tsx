@@ -29,8 +29,8 @@ const Blog = () => {
   const [visiblePosts, setVisiblePosts] = useState(6);
 
   const displayedPosts = useMemo(() => {
-  return posts.slice(0, visiblePosts);
-}, [posts, visiblePosts]);
+    return posts.slice(0, visiblePosts);
+  }, [posts, visiblePosts]);
 
   // Load blog posts from shared CMS cache (single session-based fetch)
   useEffect(() => {
@@ -38,11 +38,11 @@ const Blog = () => {
       try {
         setLoading(true);
         setError(null);
-        
+
         // Get all CMS data from cache (fetches only once per session)
         const cmsData = await getCMSData();
         const blogData = cmsData.blogs || [];
-        
+
         // Apply data safety with proper fallbacks for each blog post
         const safePosts = blogData.map((post: any) => ({
           _id: safeDataExtraction.getString(post._id, 'unknown'),
@@ -62,7 +62,7 @@ const Blog = () => {
 
           image: post.image,
         }));
-        
+
         // Use fetched data, or fallback to default data if empty
         if (safePosts.length > 0) {
           setPosts(safePosts);
@@ -83,26 +83,29 @@ const Blog = () => {
   }, []);
 
   const loadMore = () => {
-  setVisiblePosts(prev => Math.min(prev + 3, posts.length));
-};
+    setVisiblePosts(prev => Math.min(prev + 3, posts.length));
+  };
 
   const hasMore = displayedPosts.length < posts.length;
+
+
+  const blogimg = "/assets/Blog.jpg"
 
   return (
     <div className="bg-white -mt-20">
       {/* Banner Section with Background Image */}
-      <motion.section 
+      <motion.section
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="relative w-full bg-cover bg-center bg-no-repeat" 
+        className="relative w-full bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+          backgroundImage: `url(${blogimg})`,
         }}
       >
         {/* Dark Overlay */}
         <div className="absolute inset-0 bg-black/70" />
-        
+
         {/* Content */}
         <div className="relative z-10 container py-32 md:py-40 lg:py-52">
           <div className="text-center max-w-3xl mx-auto">
@@ -111,20 +114,20 @@ const Blog = () => {
               animate="animate"
               variants={staggerContainer}
             >
-              <motion.div 
+              <motion.div
                 variants={{
                   initial: { opacity: 0, y: 20 },
                   animate: { opacity: 1, y: 0 }
                 }}
                 className="flex items-center justify-center gap-3 mb-6"
               >
-                <motion.span 
+                <motion.span
                   initial={{ width: 0 }}
                   animate={{ width: 40 }}
                   transition={{ delay: 0.5, duration: 0.8 }}
                   className="h-px bg-[#C9A646]"
                 />
-                <motion.p 
+                <motion.p
                   variants={{
                     initial: { opacity: 0, x: -20 },
                     animate: { opacity: 1, x: 0 }
@@ -133,7 +136,7 @@ const Blog = () => {
                 >
                   Our Blogs
                 </motion.p>
-                <motion.span 
+                <motion.span
                   initial={{ width: 0 }}
                   animate={{ width: 40 }}
                   transition={{ delay: 0.5, duration: 0.8 }}
@@ -141,7 +144,7 @@ const Blog = () => {
                 />
               </motion.div>
 
-              <motion.h1 
+              <motion.h1
                 variants={{
                   initial: { opacity: 0, y: 30 },
                   animate: { opacity: 1, y: 0 }
@@ -152,7 +155,7 @@ const Blog = () => {
                 Legal Blog
               </motion.h1>
 
-              <motion.p 
+              <motion.p
                 variants={{
                   initial: { opacity: 0, y: 30 },
                   animate: { opacity: 1, y: 0 }
@@ -168,7 +171,7 @@ const Blog = () => {
       </motion.section>
 
       {/* Blog Posts Section - White Theme */}
-      <motion.section 
+      <motion.section
         initial="initial"
         whileInView="animate"
         viewport={{ once: true, margin: "-100px" }}
@@ -181,21 +184,21 @@ const Blog = () => {
             <motion.div
               variants={staggerContainer}
             >
-              <motion.div 
+              <motion.div
                 variants={{
                   initial: { opacity: 0, y: 20 },
                   animate: { opacity: 1, y: 0 }
                 }}
                 className="flex items-center justify-center gap-3 mb-6"
               >
-                <motion.span 
+                <motion.span
                   initial={{ width: 0 }}
                   whileInView={{ width: 40 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.5, duration: 0.8 }}
                   className="h-px bg-[#C9A646]"
                 />
-                <motion.p 
+                <motion.p
                   variants={{
                     initial: { opacity: 0, x: -20 },
                     animate: { opacity: 1, x: 0 }
@@ -204,7 +207,7 @@ const Blog = () => {
                 >
                   Our Blog
                 </motion.p>
-                <motion.span 
+                <motion.span
                   initial={{ width: 0 }}
                   whileInView={{ width: 40 }}
                   viewport={{ once: true }}
@@ -213,7 +216,7 @@ const Blog = () => {
                 />
               </motion.div>
 
-              <motion.h2 
+              <motion.h2
                 variants={{
                   initial: { opacity: 0, y: 30 },
                   animate: { opacity: 1, y: 0 }
@@ -221,13 +224,13 @@ const Blog = () => {
                 transition={{ delay: 0.2, duration: 0.6 }}
                 className="text-3xl md:text-4xl font-heading font-bold text-black mb-4"
               >
-                Latest Articles & <span className="text-[#C9A646]">Insights</span> 
+                Latest Articles & <span className="text-[#C9A646]">Insights</span>
               </motion.h2>
             </motion.div>
           </div>
 
           {/* Posts Grid */}
-          <motion.div 
+          <motion.div
             variants={staggerContainer}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
           >
@@ -264,8 +267,8 @@ const Blog = () => {
               <div className="col-span-full text-center py-12">
                 <div className="text-red-500 font-semibold mb-2">Error loading blog posts</div>
                 <div className="text-gray-600 mb-4">Please try again later</div>
-                <button 
-                  onClick={() => window.location.reload()} 
+                <button
+                  onClick={() => window.location.reload()}
                   className="px-4 py-2 bg-[#D4AF37] text-white rounded-lg hover:bg-[#C9A646] transition-colors"
                 >
                   Retry
@@ -286,24 +289,24 @@ const Blog = () => {
                 >
                   <article className="bg-white border border-gray-200 rounded-lg overflow-hidden group shadow-sm hover:shadow-lg transition-all duration-300 h-full flex flex-col">
                     {/* Image Container */}
-                    <motion.div 
+                    <motion.div
                       whileHover={{ scale: 1.05 }}
                       transition={{ duration: 0.4 }}
                       className="aspect-video overflow-hidden bg-gray-100 relative"
                     >
-                      <Image 
-                        src={getBlogImageUrl(post)} 
+                      <Image
+                        src={getBlogImageUrl(post)}
                         alt={post.title ?? 'Blog Post Image'}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                     </motion.div>
-                    
+
                     {/* Content */}
                     <div className="p-5 md:p-6 flex-grow flex flex-col">
                       <div className="flex items-center gap-3 mb-3 flex-wrap">
-                        <motion.span 
+                        <motion.span
                           whileHover={{ scale: 1.05 }}
                           className="text-xs text-[#D4AF37] font-semibold uppercase tracking-wider"
                         >
@@ -313,14 +316,14 @@ const Blog = () => {
                           {formatDate(post.date)}
                         </span>
                       </div>
-                      
-                      <motion.h3 
+
+                      <motion.h3
                         whileHover={{ x: 5 }}
                         className="text-lg font-heading font-semibold mb-3 text-black group-hover:text-[#D4AF37] transition-colors line-clamp-2"
                       >
                         {post.title}
                       </motion.h3>
-                      
+
                       <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-3 flex-grow">
                         {post.excerpt}
                       </p>
@@ -333,7 +336,7 @@ const Blog = () => {
 
           {/* Load More Button */}
           {hasMore && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -348,7 +351,7 @@ const Blog = () => {
 
           {/* Posts Counter */}
           {posts.length > 0 && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}

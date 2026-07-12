@@ -5,11 +5,11 @@ import { Star, Quote, ChevronLeft, ChevronRight, Shield, Clock, Award, Users, Sp
 import Link from "next/link";
 import { useState, useEffect } from 'react';
 const hero1 = "/assets/hero1.webp";
-import {motion} from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const ReviewsPage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  
+
   const reviews = [
     {
       id: 1,
@@ -97,61 +97,61 @@ const ReviewsPage = () => {
   // Smooth animation variants with slower durations
   const fadeInUp = {
     hidden: { opacity: 0, y: 60 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { 
-        duration: 1.2, 
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 1.2,
         ease: [0.25, 0.1, 0.25, 1] as const // Cubic bezier for smoother easing
-      } 
+      }
     }
   };
 
   const fadeInDown = {
     hidden: { opacity: 0, y: -60 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { 
-        duration: 1.2, 
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 1.2,
         ease: [0.25, 0.1, 0.25, 1] as const
-      } 
+      }
     }
   };
 
   const slideFromLeft = {
     hidden: { opacity: 0, x: -100 },
-    visible: { 
-      opacity: 1, 
-      x: 0, 
-      transition: { 
-        duration: 1.3, 
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 1.3,
         ease: [0.25, 0.1, 0.25, 1] as const
-      } 
+      }
     }
   };
 
   const slideFromRight = {
     hidden: { opacity: 0, x: 100 },
-    visible: { 
-      opacity: 1, 
-      x: 0, 
-      transition: { 
-        duration: 1.3, 
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 1.3,
         ease: [0.25, 0.1, 0.25, 1] as const
-      } 
+      }
     }
   };
 
   const scaleIn = {
     hidden: { opacity: 0, scale: 0.8 },
-    visible: { 
-      opacity: 1, 
-      scale: 1, 
-      transition: { 
-        duration: 1.2, 
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 1.2,
         ease: [0.25, 0.1, 0.25, 1] as const
-      } 
+      }
     }
   };
 
@@ -184,19 +184,19 @@ const ReviewsPage = () => {
   };
 
   // Background image URL
-  const backgroundImage = "https://plus.unsplash.com/premium_photo-1661638475106-3313485f4bf6?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDN8fHxlbnwwfHx8fHw%3D";
+  const backgroundImage = "/assets/ourclientreview.jpeg";
 
   return (
     <div className="min-h-screen bg-background overflow-hidden -mt-20">
       {/* Hero Section with Background Image */}
       <section className="relative min-h-[95vh] lg:min-h-screen flex items-center">
         {/* Background Image with Overlay */}
-        <motion.div 
+        <motion.div
           initial={{ scale: 1.2, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 2.2, ease: [0.25, 0.1, 0.25, 1] as const }} // Slower, smoother
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ 
+          style={{
             backgroundImage: `url(${backgroundImage})`,
           }}
         >
@@ -206,50 +206,50 @@ const ReviewsPage = () => {
         </motion.div>
 
         {/* Content */}
-        <motion.div 
+        <motion.div
           initial="hidden"
           animate="visible"
           variants={staggerContainer}
           className="container relative z-10"
         >
           <div className="max-w-3xl mx-auto text-center">
-            <motion.div 
+            <motion.div
               variants={fadeInDown}
               className="flex items-center justify-center gap-3 mb-6"
             >
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 animate={{ width: 40 }}
                 transition={{ delay: 0.6, duration: 1.2, ease: [0.25, 0.1, 0.25, 1] as const }} // Slower line animation
                 className="h-px bg-[#C9A646]"
               ></motion.span>
-              <motion.p 
+              <motion.p
                 variants={slideFromLeft}
                 className="text-sm uppercase tracking-[0.2em] text-[#C9A646] font-semibold"
               >
                 Our Client Reviews
               </motion.p>
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 animate={{ width: 40 }}
                 transition={{ delay: 0.6, duration: 1.2, ease: [0.25, 0.1, 0.25, 1] as const }}
                 className="h-px bg-[#C9A646]"
               />
             </motion.div>
-            
+
             {/* Title */}
-            <motion.h1 
+            <motion.h1
               variants={fadeInUp}
               className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6"
             >
-              <motion.span 
+              <motion.span
                 variants={slideFromLeft}
                 className="text-foreground inline-block"
               >
                 Achieving real results
               </motion.span>
               <br />
-              <motion.span 
+              <motion.span
                 variants={slideFromRight}
                 className="gold-gradient-text italic inline-block"
               >
@@ -260,7 +260,7 @@ const ReviewsPage = () => {
         </motion.div>
 
         {/* Decorative bottom gradient */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 1.5 }} // Slower fade
@@ -269,10 +269,10 @@ const ReviewsPage = () => {
       </section>
 
       {/* Reviews Grid Section - White Theme */}
-      <motion.section 
+      <motion.section
         className="py-20 md:py-28 bg-white relative overflow-hidden"
       >
-        <motion.div 
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
@@ -280,28 +280,28 @@ const ReviewsPage = () => {
         >
           <div className="container relative z-10">
             {/* Section Header */}
-            <motion.div 
+            <motion.div
               variants={staggerContainer}
               className="text-center max-w-3xl mx-auto mb-16"
             >
-              <motion.div 
+              <motion.div
                 variants={fadeInDown}
                 className="flex items-center justify-center gap-3 mb-4"
               >
-                <motion.span 
+                <motion.span
                   initial={{ width: 0 }}
                   whileInView={{ width: 40 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.4, duration: 1.2, ease: [0.25, 0.1, 0.25, 1] as const }}
                   className="h-px bg-[#C9A646]"
                 ></motion.span>
-                <motion.p 
+                <motion.p
                   variants={slideFromLeft}
                   className="text-sm uppercase tracking-[0.2em] text-[#C9A646] font-semibold"
                 >
                   Unforgettable legacy of pursuing justice!
                 </motion.p>
-                <motion.span 
+                <motion.span
                   initial={{ width: 0 }}
                   whileInView={{ width: 40 }}
                   viewport={{ once: true }}
@@ -309,8 +309,8 @@ const ReviewsPage = () => {
                   className="h-px bg-[#C9A646]"
                 />
               </motion.div>
-              
-              <motion.h2 
+
+              <motion.h2
                 variants={fadeInUp}
                 className="text-3xl md:text-5xl font-serif text-[#1F2A44] leading-snug"
               >
@@ -329,11 +329,11 @@ const ReviewsPage = () => {
             </motion.div>
 
             {/* Slider Controls */}
-            <motion.div 
+            <motion.div
               variants={slideFromRight}
               className="flex justify-end items-center gap-3 mb-8"
             >
-              <motion.button 
+              <motion.button
                 whileHover={{ scale: 1.1, backgroundColor: '#C9A646', borderColor: '#C9A646' }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] as const }} // Slower hover
@@ -342,7 +342,7 @@ const ReviewsPage = () => {
               >
                 <ChevronLeft className="w-5 h-5 text-gray-600 group-hover:text-white transition-colors" />
               </motion.button>
-              <motion.button 
+              <motion.button
                 whileHover={{ scale: 1.1, backgroundColor: '#C9A646', borderColor: '#C9A646' }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] as const }}
@@ -354,11 +354,11 @@ const ReviewsPage = () => {
             </motion.div>
 
             {/* Reviews Cards Slider - Premium Modern Design */}
-            <motion.div 
+            <motion.div
               variants={scaleIn}
               className="relative overflow-hidden"
             >
-              <div 
+              <div
                 className="flex transition-transform duration-1000 ease-[cubic-bezier(0.25,0.1,0.25,1)]" // Slower slide transition
                 style={{ transform: `translateX(-${currentSlide * 100}%)` }}
               >
@@ -373,13 +373,13 @@ const ReviewsPage = () => {
                           whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true }}
                           transition={{ delay: index * 0.15, duration: 0.9, ease: [0.25, 0.1, 0.25, 1] as const }} // Slower card appearance
-                          whileHover={{ 
+                          whileHover={{
                             // y: -10,
                             boxShadow: '0 30px 60px -15px rgba(0,0,0,0.2)',
                             transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const } // Slower hover
                           }}
                           className="group relative bg-white border border-[#C9A646] rounded-2xl overflow-hidden transition-all duration-700" // Slower transition
-                          style={{ 
+                          style={{
                             boxShadow: '0 20px 40px -15px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.02)',
                           }}
                         >
@@ -390,7 +390,7 @@ const ReviewsPage = () => {
                           </div>
 
                           {/* Quote Icon - Premium Style */}
-                          <motion.div 
+                          <motion.div
                             initial={{ rotate: -10, scale: 0 }}
                             whileInView={{ rotate: 0, scale: 1 }}
                             transition={{ delay: 0.4 + index * 0.15, duration: 0.9, ease: [0.25, 0.1, 0.25, 1] as const }}
@@ -401,7 +401,7 @@ const ReviewsPage = () => {
 
                           <div className="p-8 relative">
                             {/* Rating with Premium Design */}
-                            <motion.div 
+                            <motion.div
                               initial="hidden"
                               whileInView="visible"
                               variants={{
@@ -423,18 +423,17 @@ const ReviewsPage = () => {
                                   transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const }}
                                 >
                                   <Star
-                                    className={`w-4 h-4 ${
-                                      i < review.rating
-                                        ? 'text-primary fill-primary'
-                                        : 'text-gray-200 fill-gray-200'
-                                    } transition-all duration-500`}
+                                    className={`w-4 h-4 ${i < review.rating
+                                      ? 'text-primary fill-primary'
+                                      : 'text-gray-200 fill-gray-200'
+                                      } transition-all duration-500`}
                                   />
                                 </motion.div>
                               ))}
                             </motion.div>
 
                             {/* Case Type Badge */}
-                            <motion.div 
+                            <motion.div
                               initial={{ opacity: 0, x: -20 }}
                               whileInView={{ opacity: 1, x: 0 }}
                               transition={{ delay: 0.25 + index * 0.15, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] as const }}
@@ -446,7 +445,7 @@ const ReviewsPage = () => {
                             </motion.div>
 
                             {/* Review Content - Premium Typography */}
-                            <motion.div 
+                            <motion.div
                               initial={{ opacity: 0 }}
                               whileInView={{ opacity: 1 }}
                               transition={{ delay: 0.4 + index * 0.15, duration: 0.9, ease: [0.25, 0.1, 0.25, 1] as const }}
@@ -458,13 +457,13 @@ const ReviewsPage = () => {
                             </motion.div>
 
                             {/* Client Info with Premium Styling */}
-                            <motion.div 
+                            <motion.div
                               initial={{ opacity: 0, y: 20 }}
                               whileInView={{ opacity: 1, y: 0 }}
                               transition={{ delay: 0.55 + index * 0.15, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] as const }}
                               className="flex items-center gap-4 pt-6 border-t border-gray-100"
                             >
-                              <motion.div 
+                              <motion.div
                                 whileHover={{ scale: 1.1 }}
                                 transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const }}
                                 className="relative"
@@ -492,7 +491,7 @@ const ReviewsPage = () => {
                           </div>
 
                           {/* Bottom Gradient on Hover */}
-                          <motion.div 
+                          <motion.div
                             initial={{ opacity: 0 }}
                             whileHover={{ opacity: 1 }}
                             transition={{ duration: 0.5 }}
@@ -507,7 +506,7 @@ const ReviewsPage = () => {
             </motion.div>
 
             {/* Slider Dots */}
-            <motion.div 
+            <motion.div
               variants={fadeInUp}
               className="flex justify-center items-center gap-3 mt-12"
             >
@@ -520,8 +519,8 @@ const ReviewsPage = () => {
                   transition={{ duration: 0.4 }}
                   className="group relative"
                 >
-                  <motion.div 
-                    animate={{ 
+                  <motion.div
+                    animate={{
                       width: currentSlide === index ? 32 : 8,
                       backgroundColor: currentSlide === index ? '#C9A646' : '#D1D5DB'
                     }}
@@ -544,9 +543,9 @@ const ReviewsPage = () => {
         className="relative py-32 overflow-hidden"
       >
         <div className="absolute inset-0">
-          <motion.img 
-            src={hero1} 
-            alt="Background" 
+          <motion.img
+            src={hero1}
+            alt="Background"
             className="w-full h-full object-cover"
             initial={{ scale: 1.2 }}
             whileInView={{ scale: 1, transition: { duration: 2.2, ease: [0.25, 0.1, 0.25, 1] as const } }}
@@ -560,17 +559,17 @@ const ReviewsPage = () => {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/70 mix-blend-multiply" />
         </div>
-        
+
         <div className="absolute inset-0 overflow-hidden">
           {[...Array(30)].map((_, i) => (
             <motion.div
               key={i}
-              initial={{ 
+              initial={{
                 x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
                 y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000),
                 scale: 0
               }}
-              animate={{ 
+              animate={{
                 y: [null, -300],
                 scale: [0, 1, 0],
                 opacity: [0, 1, 0]
@@ -585,7 +584,7 @@ const ReviewsPage = () => {
             />
           ))}
         </div>
-        
+
         <div className="container relative z-10">
           <motion.div
             variants={staggerContainer}
@@ -600,17 +599,17 @@ const ReviewsPage = () => {
               <Sparkles className="w-5 h-5 text-white" />
               <span className="text-white font-semibold">Limited Time Offer</span>
             </motion.div>
-            
-            <motion.h2 
+
+            <motion.h2
               variants={fadeInUp}
               className="text-3xl md:text-5xl font-heading font-bold mb-10 text-white leading-tight"
             >
               <motion.span variants={slideFromLeft} className="inline-block">
                 Take the First Step Toward
               </motion.span>
-              <motion.span 
+              <motion.span
                 variants={slideFromRight}
-                animate={{ 
+                animate={{
                   backgroundPosition: ['0%', '50%', '100%', '50%', '0%']
                 }}
                 transition={{ duration: 15, repeat: Infinity, ease: "linear" as const }} // Slower gradient animation
@@ -619,8 +618,8 @@ const ReviewsPage = () => {
                 Justice Today
               </motion.span>
             </motion.h2>
-            
-            <motion.div 
+
+            <motion.div
               variants={staggerContainer}
               className="flex flex-col sm:flex-row gap-6 justify-center items-center"
             >
@@ -640,10 +639,10 @@ const ReviewsPage = () => {
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-400" />
                 </Link>
               </motion.div>
-              
-              <motion.div 
+
+              <motion.div
                 variants={slideFromRight}
-                whileHover={{ scale: 1.08 }} 
+                whileHover={{ scale: 1.08 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const }}
               >
@@ -656,7 +655,7 @@ const ReviewsPage = () => {
                 </Link>
               </motion.div>
             </motion.div>
-            
+
             <motion.div
               variants={fadeInUp}
               className="flex flex-wrap justify-center gap-8 mt-16"
@@ -667,12 +666,12 @@ const ReviewsPage = () => {
                 { icon: Award, text: "Award Winning" },
                 { icon: Users, text: "50+ Experts" }
               ].map((item, index) => (
-                <motion.div 
+                <motion.div
                   key={index}
                   variants={{
                     hidden: { opacity: 0, y: 20 },
-                    visible: { 
-                      opacity: 1, 
+                    visible: {
+                      opacity: 1,
                       y: 0,
                       transition: { delay: 0.7 + index * 0.15, duration: 0.9 }
                     }
@@ -688,19 +687,19 @@ const ReviewsPage = () => {
             </motion.div>
           </motion.div>
         </div>
-        
-        <motion.div 
+
+        <motion.div
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
           transition={{ duration: 1.5, delay: 0.7, ease: [0.25, 0.1, 0.25, 1] as const }}
           className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white to-transparent"
         />
-        <motion.div 
+        <motion.div
           animate={{ rotate: [0, 90, 180, 270, 360] }}
           transition={{ duration: 30, repeat: Infinity, ease: "linear" as const }} // Slower rotation
           className="absolute top-0 left-0 w-32 h-32 border-t-4 border-l-4 border-white/20"
         />
-        <motion.div 
+        <motion.div
           animate={{ rotate: [360, 270, 180, 90, 0] }}
           transition={{ duration: 30, repeat: Infinity, ease: "linear" as const }} // Slower rotation
           className="absolute bottom-0 right-0 w-32 h-32 border-b-4 border-r-4 border-white/20"

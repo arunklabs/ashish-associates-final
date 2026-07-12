@@ -10,16 +10,31 @@ import AnimatedSection from "../components/AnimatedSection";
 import { Button } from "@/components/ui/button";
 import { slideFromLeft, slideFromRight, staggerContainer, viewportOnce, viewportOnceMore } from "@/lib/animations";
 
+
+const arbitrationlaw = "/assets/practiceareas/Arbitration.png";
+const civillaw = "/assets/practiceareas/CivilLaw.jpg";
+const contractlaw = "/assets/practiceareas/ContractLaw.jpg";
+const corporatelaw = "/assets/practiceareas/CorporateLaw.jpg";
+const crimiallaw = "/assets/practiceareas/CriminalLaw.jpg";
+const familylaw = "/assets/practiceareas/familylaw.png";
+const bankruptlaw = "/assets/practiceareas/BankruptLaw.png";
+const insurancelaw = "/assets/practiceareas/InsuranceLaw.jpg";
+const intellectualproperty = "/assets/practiceareas/IntellectualProperty.jpg";
+const labourlaw = "/assets/practiceareas/LabourLaw.jpg";
+const propertylaw = "/assets/practiceareas/PropertyLaw.jpg";
+const taxlaw = "/assets/practiceareas/TaxLaw.png";
+
+
 // Individual Practice Area Data - Updated based on your list
 const corporateLaw = {
   slug: "corporate-law",
   title: "Corporate Law",
   shortDesc: "Strategic counsel for businesses of all sizes, from startups to established corporations.",
-  bannerImage: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  bannerImage: corporatelaw,
   overview: "Our corporate law practice covers business formation, corporate governance, mergers and acquisitions, joint ventures, securities regulation, and commercial contracts. We guide businesses through complex transactions with precision and foresight.",
   keyServices: [
     "Mergers & Acquisitions",
-    "Corporate Governance", 
+    "Corporate Governance",
     "Securities & Compliance",
     "Joint Ventures",
     "Commercial Contracts",
@@ -35,7 +50,7 @@ const corporateLaw = {
     "Energy & Utilities",
     "Real Estate"
   ],
-  featuredImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  featuredImage: corporatelaw,
   featuredTitle: "Excellence in Corporate Law",
   featuredSubtitle: "Trusted by businesses worldwide",
   faqs: [
@@ -49,7 +64,7 @@ const corporateLaw = {
     },
     {
       question: "Can you represent clients in RBI proceedings?",
-      answer:"Yes, our team provides expert guidance and representation in matters before the Reserve Bank of India (RBI), ensuring compliance with regulatory requirements while protecting client interests."
+      answer: "Yes, our team provides expert guidance and representation in matters before the Reserve Bank of India (RBI), ensuring compliance with regulatory requirements while protecting client interests."
     }
   ],
   whychooseus: [
@@ -75,7 +90,7 @@ const criminalLaw = {
   slug: "criminal-law",
   title: "Criminal Law",
   shortDesc: "Vigorous defense of your rights in criminal proceedings at all levels.",
-  bannerImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  bannerImage: crimiallaw,
   overview: "Our criminal defense team provides aggressive representation, protecting our clients' constitutional rights while pursuing the best possible outcome. We handle cases from initial investigation through trial and appeal.",
   keyServices: [
     "White Collar Crime",
@@ -88,7 +103,7 @@ const criminalLaw = {
     "Violent Crimes"
   ],
   industries: ["All Criminal Defense Matters"],
-  featuredImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  featuredImage: crimiallaw,
   featuredTitle: "Aggressive Criminal Defense",
   featuredSubtitle: "Protecting your rights and freedom",
   faqs: [
@@ -102,7 +117,7 @@ const criminalLaw = {
     },
     {
       question: "How quickly can urgent cases be addressed?",
-      answer:"Immediate response protocols ensure rapid guidance for time-sensitive situations."
+      answer: "Immediate response protocols ensure rapid guidance for time-sensitive situations."
     }
   ],
   whychooseus: [
@@ -128,7 +143,7 @@ const insuranceLaw = {
   slug: "insurance-law",
   title: "Insurance Law",
   shortDesc: "Vigorous defense of your rights in criminal proceedings at all levels.",
-  bannerImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  bannerImage: insurancelaw,
   overview: "Our Insurance Law practice provides comprehensive guidance on regulatory compliance, policy drafting, and dispute resolution for insurers, policyholders, and intermediaries. We assist with claims disputes, risk management, and regulatory approvals, ensuring solutions that are practical, ethical, and aligned with international standards.",
   keyServices: [
     "Policy Drafting & Review",
@@ -146,7 +161,7 @@ const insuranceLaw = {
     "Real Estate"
   ],
   industries: ["Health & Life Insurance", "Banking & Financial Services", "Manufacturing & Infrastructure", "Technology & FinTech", "Real Estate & Construction"],
-  featuredImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  featuredImage: insurancelaw,
   featuredTitle: "Aggressive Criminal Defense",
   featuredSubtitle: "Protecting your rights and freedom",
   faqs: [
@@ -160,7 +175,7 @@ const insuranceLaw = {
     },
     {
       question: "Can you advise on compliance?",
-      answer:"Yes, ensuring adherence to regulatory frameworks and risk management standards."
+      answer: "Yes, ensuring adherence to regulatory frameworks and risk management standards."
     }
   ],
   whychooseus: [
@@ -186,7 +201,7 @@ const labourEmploymentLaw = {
   slug: "labour-employment-law",
   title: "Labour & Employment Law",
   shortDesc: "Vigorous defense of your rights in criminal proceedings at all levels.",
-  bannerImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  bannerImage: labourlaw,
   overview: "Our Labour & Employment Law practice helps organizations and individuals navigate workplace regulations, employment contracts, and industrial disputes. We provide compliance guidance, dispute resolution, and advisory services to ensure fair, ethical, and legally sound workplace practices.",
   keyServices: [
     "Employment Contract Drafting & Review",
@@ -204,7 +219,7 @@ const labourEmploymentLaw = {
     "Financial Services"
   ],
   industries: ["IT & Technology", "Manufacturing & Industrial", "Healthcare & Hospitals", "Retail & Hospitality", "Financial Services"],
-  featuredImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  featuredImage: labourlaw,
   featuredTitle: "Aggressive Criminal Defense",
   featuredSubtitle: "Protecting your rights and freedom",
   faqs: [
@@ -218,7 +233,7 @@ const labourEmploymentLaw = {
     },
     {
       question: "Do you advise on workplace policies?",
-      answer:"Yes, guiding clients in alignment with legal and ethical standards."
+      answer: "Yes, guiding clients in alignment with legal and ethical standards."
     }
   ],
   whychooseus: [
@@ -244,7 +259,7 @@ const insolvencyBankruptcyLaw = {
   slug: "insolvency-bankruptcy-law",
   title: "Insolvency & Bankruptcy Law",
   shortDesc: "Vigorous defense of your rights in criminal proceedings at all levels.",
-  bannerImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  bannerImage: bankruptlaw,
   overview: "Our Insolvency & Bankruptcy Law practice assists corporates, creditors, and individuals in navigating insolvency proceedings, restructuring, and recovery matters. We provide strategic advice on compliance with the Insolvency & Bankruptcy Code, debt resolution, and liquidation processes, ensuring practical and legally sound outcomes.",
   keyServices: [
     "Corporate Insolvency Resolution Process (CIRP) Advisory",
@@ -262,7 +277,7 @@ const insolvencyBankruptcyLaw = {
     "Technology & Startups"
   ],
   industries: ["Banking & Financial Services", "Manufacturing & Industrial", "Real Estate & Construction", "Healthcare & Pharmaceuticals", "Technology & Startups"],
-  featuredImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  featuredImage: bankruptlaw,
   featuredTitle: "Aggressive Criminal Defense",
   featuredSubtitle: "Protecting your rights and freedom",
   faqs: [
@@ -276,7 +291,7 @@ const insolvencyBankruptcyLaw = {
     },
     {
       question: "How do you manage creditor negotiations?",
-      answer:"We offer structured advisory to balance compliance and strategic interests."
+      answer: "We offer structured advisory to balance compliance and strategic interests."
     }
   ],
   whychooseus: [
@@ -302,7 +317,7 @@ const civilLaw = {
   slug: "civil-law",
   title: "Civil Law",
   shortDesc: "Expert representation in civil disputes and litigation matters.",
-  bannerImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  bannerImage: civillaw,
   overview: "Our civil law practice handles a wide range of disputes between individuals, organizations, and entities. We provide strategic counsel and aggressive representation in all phases of civil litigation.",
   keyServices: [
     "Contract Disputes",
@@ -322,7 +337,7 @@ const civilLaw = {
     "Government Entities",
     "Real Estate"
   ],
-  featuredImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  featuredImage: civillaw,
   featuredTitle: "Civil Litigation Experts",
   featuredSubtitle: "Resolving disputes effectively",
   faqs: [
@@ -336,7 +351,7 @@ const civilLaw = {
     },
     {
       question: "Do you assist in mediation?",
-      answer:"Yes, we facilitate amicable resolutions where appropriate, minimizing time and cost."
+      answer: "Yes, we facilitate amicable resolutions where appropriate, minimizing time and cost."
     }
   ],
   whychooseus: [
@@ -362,7 +377,7 @@ const familyLaw = {
   slug: "family-law",
   title: "Family Law",
   shortDesc: "Compassionate legal guidance for family matters and relationships.",
-  bannerImage: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  bannerImage: familylaw,
   overview: "Our family law practice provides sensitive and strategic counsel for all family-related legal matters. We understand the emotional nature of these cases and work to achieve the best possible outcomes for our clients and their families.",
   keyServices: [
     "Divorce & Separation",
@@ -375,7 +390,7 @@ const familyLaw = {
     "Domestic Violence Protection"
   ],
   industries: ["Individuals & Families"],
-  featuredImage: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  featuredImage: familylaw,
   featuredTitle: "Family Law Specialists",
   featuredSubtitle: "Compassionate guidance for life's changes",
   faqs: [
@@ -389,7 +404,7 @@ const familyLaw = {
     },
     {
       question: "Can you advise on inheritance disputes?",
-      answer:"Yes, we provide guidance on matrimonial and property-related inheritance matters."
+      answer: "Yes, we provide guidance on matrimonial and property-related inheritance matters."
     }
   ],
   whychooseus: [
@@ -415,7 +430,7 @@ const propertyLaw = {
   slug: "property-law",
   title: "Property Law",
   shortDesc: "Comprehensive legal services for all property-related matters.",
-  bannerImage: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  bannerImage: propertylaw,
   overview: "Our property law practice handles all aspects of real estate and property matters, from transactions and development to disputes and title issues. We provide expert guidance for both commercial and residential property matters.",
   keyServices: [
     "Property Transactions",
@@ -434,7 +449,7 @@ const propertyLaw = {
     "Investors",
     "Financial Institutions"
   ],
-  featuredImage: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  featuredImage: propertylaw,
   featuredTitle: "Property Law Experts",
   featuredSubtitle: "Protecting your property interests",
   faqs: [
@@ -448,7 +463,7 @@ const propertyLaw = {
     },
     {
       question: "Do you verify property titles?",
-      answer:"Yes, ensuring accuracy and legal compliance for all transactions."
+      answer: "Yes, ensuring accuracy and legal compliance for all transactions."
     }
   ],
   whychooseus: [
@@ -474,7 +489,7 @@ const arbitration = {
   slug: "arbitration",
   title: "Arbitration",
   shortDesc: "Expert arbitration services for efficient dispute resolution.",
-  bannerImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  bannerImage: arbitrationlaw,
   overview: "Our arbitration practice provides expert alternative dispute resolution services, helping clients resolve conflicts efficiently and cost-effectively outside of traditional court litigation.",
   keyServices: [
     "Commercial Arbitration",
@@ -493,7 +508,7 @@ const arbitration = {
     "Financial Services",
     "Energy Sector"
   ],
-  featuredImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  featuredImage: arbitrationlaw,
   featuredTitle: "Alternative Dispute Resolution",
   featuredSubtitle: "Efficient, cost-effective solutions",
   faqs: [
@@ -507,7 +522,7 @@ const arbitration = {
     },
     {
       question: "Can you manage cross-border disputes?",
-      answer:"Yes, leveraging international networks for efficient resolution."
+      answer: "Yes, leveraging international networks for efficient resolution."
     }
   ],
   whychooseus: [
@@ -533,7 +548,7 @@ const intellectualProperty = {
   slug: "intellectual-property",
   title: "Intellectual Property",
   shortDesc: "Protecting your innovations, creations, and brand identity.",
-  bannerImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  bannerImage: intellectualproperty,
   overview: "Our intellectual property practice helps clients protect and enforce their valuable IP rights, including patents, trademarks, copyrights, and trade secrets. We provide comprehensive IP counsel from registration to litigation.",
   keyServices: [
     "Patent Registration",
@@ -553,7 +568,7 @@ const intellectualProperty = {
     "Software Development",
     "Media & Entertainment"
   ],
-  featuredImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  featuredImage: intellectualproperty,
   featuredTitle: "IP Protection Specialists",
   featuredSubtitle: "Safeguarding your innovations",
   faqs: [
@@ -567,7 +582,7 @@ const intellectualProperty = {
     },
     {
       question: "Do you advise startups?",
-      answer:"Yes, we create strategies to protect and monetize IP assets."
+      answer: "Yes, we create strategies to protect and monetize IP assets."
     }
   ],
   whychooseus: [
@@ -593,7 +608,7 @@ const taxLaw = {
   slug: "tax-law",
   title: "Tax Law",
   shortDesc: "Strategic tax planning and representation for individuals and businesses.",
-  bannerImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  bannerImage: taxlaw,
   overview: "Our tax law practice provides comprehensive tax planning, compliance, and dispute resolution services. We help clients navigate complex tax regulations while minimizing liabilities and ensuring compliance.",
   keyServices: [
     "Tax Planning",
@@ -612,7 +627,7 @@ const taxLaw = {
     "Non-Profits",
     "International Entities"
   ],
-  featuredImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  featuredImage: taxlaw,
   featuredTitle: "Tax Law Experts",
   featuredSubtitle: "Strategic tax solutions",
   faqs: [
@@ -626,7 +641,7 @@ const taxLaw = {
     },
     {
       question: "Do you advise on corporate tax planning?",
-      answer:"Yes, ensuring efficiency and compliance across jurisdictions."
+      answer: "Yes, ensuring efficiency and compliance across jurisdictions."
     }
   ],
   whychooseus: [
@@ -652,7 +667,7 @@ const contractLaw = {
   slug: "contract-and-agreement-reviewing",
   title: "Contract & Agreement Reviewing",
   shortDesc: "Expert review and drafting of contracts and agreements.",
-  bannerImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  bannerImage: contractlaw,
   overview: "Our contract law practice specializes in drafting, reviewing, and negotiating all types of contracts and agreements. We ensure your interests are protected and your agreements are legally sound and enforceable.",
   keyServices: [
     "Contract Drafting",
@@ -675,7 +690,7 @@ const contractLaw = {
     "Corporate & Professional Services",
     "Real Estate & Infrastructure"
   ],
-  featuredImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80",
+  featuredImage: contractlaw,
   featuredTitle: "Contract Law Specialists",
   featuredSubtitle: "Protecting your contractual interests",
   faqs: [
@@ -689,7 +704,7 @@ const contractLaw = {
     },
     {
       question: "Do you advise on dispute resolution?",
-      answer:"Yes, providing strategic guidance to protect client interests."
+      answer: "Yes, providing strategic guidance to protect client interests."
     }
   ],
   whychooseus: [
@@ -826,25 +841,25 @@ const faqs = [
 // Animation variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { 
-      duration: 0.9, 
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.9,
       ease: [0.25, 0.1, 0.25, 1] as const
-    } 
+    }
   }
 };
 
 const fadeInDown = {
   hidden: { opacity: 0, y: -40 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { 
-      duration: 0.9, 
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.9,
       ease: [0.25, 0.1, 0.25, 1] as const
-    } 
+    }
   }
 };
 
@@ -864,39 +879,39 @@ export const PracticeAreas = () => {
   return (
     <div className="-mt-20">
       {/* Banner Section - Dark Theme with Background Image */}
-      <section 
+      <section
         className="relative w-full bg-cover bg-center bg-no-repeat overflow-hidden"
         style={{
           backgroundImage: "url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
         }}
       >
         {/* Dark Overlay */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.5 }}
           className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/60 to-black/70"
         />
-        
+
         {/* Animated Pattern Overlay */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.1 }}
           transition={{ duration: 2, delay: 0.5 }}
           className="absolute inset-0 pattern-gold"
         />
-        
+
         {/* Floating particles animation */}
         <div className="absolute inset-0 overflow-hidden">
           {[...Array(20)].map((_, i) => (
             <motion.div
               key={i}
-              initial={{ 
+              initial={{
                 x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
                 y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000),
                 scale: 0
               }}
-              animate={{ 
+              animate={{
                 y: [null, -100],
                 scale: [0, 1, 0],
                 opacity: [0, 0.5, 0]
@@ -912,34 +927,34 @@ export const PracticeAreas = () => {
             />
           ))}
         </div>
-        
+
         {/* Content */}
         <div className="relative z-10 container mx-auto px-4 py-32 md:py-40 lg:py-48">
-          <motion.div 
+          <motion.div
             initial="hidden"
             animate="visible"
             variants={staggerContainer}
             className="text-center max-w-3xl mx-auto"
           >
-            <motion.div 
+            <motion.div
               variants={fadeInDown}
               className="flex items-center justify-center gap-3 mb-6"
             >
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 animate={{ width: 40 }}
                 transition={{ delay: 0.6, duration: 1.2, ease: [0.25, 0.1, 0.25, 1] as const }}
                 className="h-px bg-gold-500"
                 style={{ backgroundColor: '#D4AF37' }}
               />
-              <motion.p 
+              <motion.p
                 variants={slideFromLeft}
                 className="text-sm uppercase tracking-[0.2em] font-semibold"
                 style={{ color: '#D4AF37' }}
               >
                 Practice Areas
               </motion.p>
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 animate={{ width: 40 }}
                 transition={{ delay: 0.6, duration: 1.2, ease: [0.25, 0.1, 0.25, 1] as const }}
@@ -947,12 +962,12 @@ export const PracticeAreas = () => {
                 style={{ backgroundColor: '#D4AF37' }}
               />
             </motion.div>
-            
-            <motion.h1 
+
+            <motion.h1
               variants={fadeInUp}
               className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 text-white"
             >
-              Comprehensive <motion.span 
+              Comprehensive <motion.span
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1.2, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] as const }}
@@ -960,8 +975,8 @@ export const PracticeAreas = () => {
                 style={{ color: '#D4AF37' }}
               >Legal Services</motion.span>
             </motion.h1>
-            
-            <motion.p 
+
+            <motion.p
               variants={fadeInUp}
               className="text-gray-300 text-lg leading-relaxed max-w-2xl mx-auto"
             >
@@ -971,7 +986,7 @@ export const PracticeAreas = () => {
         </div>
 
         {/* Decorative bottom gradient */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 1.5 }}
@@ -982,18 +997,18 @@ export const PracticeAreas = () => {
       {/* Practice Areas Grid Section - White Theme */}
       <section className="section-padding bg-white">
         <div className="container mx-auto">
-          <motion.div 
+          <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnceMore}
             variants={staggerContainer}
             className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
           >
-            <motion.div 
+            <motion.div
               variants={fadeInDown}
               className="flex items-center justify-center gap-3 mb-4"
             >
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 whileInView={{ width: 40 }}
                 viewport={viewportOnce}
@@ -1001,14 +1016,14 @@ export const PracticeAreas = () => {
                 className="h-px"
                 style={{ backgroundColor: '#D4AF37' }}
               />
-              <motion.p 
+              <motion.p
                 variants={slideFromLeft}
                 className="text-sm uppercase tracking-[0.2em] font-semibold"
                 style={{ color: '#D4AF37' }}
               >
                 Our Expertise
               </motion.p>
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 whileInView={{ width: 40 }}
                 viewport={viewportOnce}
@@ -1017,8 +1032,8 @@ export const PracticeAreas = () => {
                 style={{ backgroundColor: '#D4AF37' }}
               />
             </motion.div>
-            
-            <motion.h2 
+
+            <motion.h2
               variants={fadeInUp}
               className="text-3xl md:text-4xl font-heading font-bold text-black mb-4"
             >
@@ -1035,18 +1050,18 @@ export const PracticeAreas = () => {
                 viewport={viewportOnceMore}
                 variants={scaleIn}
                 transition={{ delay: i * 0.1 }}
-                whileHover={{ 
+                whileHover={{
                   y: -10,
                   boxShadow: '0 20px 40px -15px rgba(212, 175, 55, 0.3)',
                   transition: { duration: 0.4 }
                 }}
                 className="h-full"
               >
-                <Link 
-                  href={`/practice-areas/${area.slug}`} 
+                <Link
+                  href={`/practice-areas/${area.slug}`}
                   className="block p-8 bg-white border border-gray-200 rounded-lg shadow-sm hover:border-gold-500 transition-all duration-500 group h-full"
                 >
-                  <motion.h3 
+                  <motion.h3
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.1 + 0.2 }}
@@ -1054,8 +1069,8 @@ export const PracticeAreas = () => {
                   >
                     {area.title}
                   </motion.h3>
-                  
-                  <motion.p 
+
+                  <motion.p
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     transition={{ delay: i * 0.1 + 0.3 }}
@@ -1063,15 +1078,15 @@ export const PracticeAreas = () => {
                   >
                     {area.shortDesc}
                   </motion.p>
-                  
-                  <motion.span 
+
+                  <motion.span
                     initial={{ opacity: 0, x: -10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.1 + 0.4 }}
                     className="inline-flex items-center gap-1 group-hover:gap-2 transition-all"
                     style={{ color: '#D4AF37' }}
                   >
-                    Learn More 
+                    Learn More
                     <motion.div
                       animate={{ x: [0, 5, 0] }}
                       transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" as const, delay: i * 0.1 }}
@@ -1102,7 +1117,7 @@ export const PracticeAreas = () => {
 export const PracticeAreaDetail = ({ slug }: { slug: string }) => {
   const [currentCase, setCurrentCase] = useState(0);
   const [selectedArea, setSelectedArea] = useState(slug || "corporate-law");
-  
+
   const area = practiceAreasMap[slug as keyof typeof practiceAreasMap];
 
   const nextCase = () => {
@@ -1140,48 +1155,48 @@ export const PracticeAreaDetail = ({ slug }: { slug: string }) => {
   };
 
   const validate = () => {
-  let newErrors: any = {};
+    let newErrors: any = {};
 
-  if (!formData.name.trim())
-    newErrors.name = "Full name is required";
+    if (!formData.name.trim())
+      newErrors.name = "Full name is required";
 
-  if (!formData.email.trim())
-    newErrors.email = "Email is required";
-  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
-    newErrors.email = "Enter valid email";
+    if (!formData.email.trim())
+      newErrors.email = "Email is required";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
+      newErrors.email = "Enter valid email";
 
-  if (!formData.phone.trim())
-    newErrors.phone = "Phone number is required";
-  else if (!/^\d+$/.test(formData.phone))
-    newErrors.phone = "Only numbers allowed";
+    if (!formData.phone.trim())
+      newErrors.phone = "Phone number is required";
+    else if (!/^\d+$/.test(formData.phone))
+      newErrors.phone = "Only numbers allowed";
 
-  if (!formData.practiceArea)
-    newErrors.practiceArea = "Select practice area";
+    if (!formData.practiceArea)
+      newErrors.practiceArea = "Select practice area";
 
-  if (!formData.message.trim())
-    newErrors.message = "Message is required";
+    if (!formData.message.trim())
+      newErrors.message = "Message is required";
 
-  setErrors(newErrors);
-  return Object.keys(newErrors).length === 0;
-};
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
-const handleSubmit = (e: any) => {
-  e.preventDefault();
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
 
-  if (validate()) {
-    console.log("Form Submitted:", formData);
-    alert("Form submitted successfully ✅");
+    if (validate()) {
+      console.log("Form Submitted:", formData);
+      alert("Form submitted successfully ✅");
 
-    setFormData({
-      countryCode: "+91",
-      name: "",
-      email: "",
-      phone: "", 
-      practiceArea: "",
-      message: ""
-    });
-  }
-};
+      setFormData({
+        countryCode: "+91",
+        name: "",
+        email: "",
+        phone: "",
+        practiceArea: "",
+        message: ""
+      });
+    }
+  };
 
   if (!area) {
     return (
@@ -1197,39 +1212,39 @@ const handleSubmit = (e: any) => {
   return (
     <div className="-mt-20">
       {/* Banner Section - Dark Theme with Background Image */}
-      <section 
+      <section
         className="relative w-full bg-cover bg-center bg-no-repeat overflow-hidden"
         style={{
           backgroundImage: `url('${area.bannerImage}')`,
         }}
       >
         {/* Dark Overlay */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.5 }}
           className="absolute inset-0 bg-gradient-to-br from-background/60 via-background/50 to-background/60"
         />
-        
+
         {/* Animated Pattern Overlay */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.1 }}
           transition={{ duration: 2, delay: 0.5 }}
           className="absolute inset-0 pattern-gold"
         />
-        
+
         {/* Floating particles */}
         <div className="absolute inset-0 overflow-hidden">
           {[...Array(20)].map((_, i) => (
             <motion.div
               key={i}
-              initial={{ 
+              initial={{
                 x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
                 y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000),
                 scale: 0
               }}
-              animate={{ 
+              animate={{
                 y: [null, -100],
                 scale: [0, 1, 0],
                 opacity: [0, 0.5, 0]
@@ -1244,10 +1259,10 @@ const handleSubmit = (e: any) => {
             />
           ))}
         </div>
-        
+
         {/* Content */}
         <div className="relative z-10 container mx-auto px-4 py-32 md:py-40 lg:py-48">
-          <motion.div 
+          <motion.div
             initial="hidden"
             animate="visible"
             variants={staggerContainer}
@@ -1258,15 +1273,15 @@ const handleSubmit = (e: any) => {
                 <ArrowLeft className="w-4 h-4" /> All Practice Areas
               </Link>
             </motion.div>
-            
-            <motion.h1 
+
+            <motion.h1
               variants={fadeInUp}
               className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 text-foreground"
             >
               {area.title}
             </motion.h1>
-            
-            <motion.p 
+
+            <motion.p
               variants={fadeInUp}
               className="text-muted-foreground text-lg leading-relaxed"
             >
@@ -1276,7 +1291,7 @@ const handleSubmit = (e: any) => {
         </div>
 
         {/* Decorative bottom gradient */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 1.5 }}
@@ -1309,15 +1324,13 @@ const handleSubmit = (e: any) => {
                       <Link
                         href={`/practice-areas/${item.slug}`}
                         onClick={() => setSelectedArea(item.slug)}
-                        className={`block p-4 rounded-lg transition-all duration-300 ${
-                          selectedArea === item.slug
-                            ? 'bg-primary/10 border-l-4 border-primary'
-                            : 'bg-gray-50 hover:bg-primary/5 border-l-4 border-transparent'
-                        }`}
+                        className={`block p-4 rounded-lg transition-all duration-300 ${selectedArea === item.slug
+                          ? 'bg-primary/10 border-l-4 border-primary'
+                          : 'bg-gray-50 hover:bg-primary/5 border-l-4 border-transparent'
+                          }`}
                       >
-                        <span className={`font-medium ${
-                          selectedArea === item.slug ? 'text-primary' : 'text-gray-700'
-                        }`}>
+                        <span className={`font-medium ${selectedArea === item.slug ? 'text-primary' : 'text-gray-700'
+                          }`}>
                           {item.name}
                         </span>
                       </Link>
@@ -1339,11 +1352,11 @@ const handleSubmit = (e: any) => {
                     <Button asChild size="lg" className="w-full btn-shine mb-3">
                       <Link href="/contact">Schedule Now</Link>
                     </Button>
-                    <a 
-                      href="mailto:jashishadvocate@gmail.com"
+                    <a
+                      href="mailto:jashishwebsite@gmail.com"
                       className="text-sm text-primary hover:text-accent transition-colors flex items-center justify-center gap-1"
                     >
-                      <Mail className="w-4 h-4" /> jashishadvocate@gmail.com
+                      <Mail className="w-4 h-4" /> jashishwebsite@gmail.com
                     </a>
                   </div>
                 </motion.div>
@@ -1555,9 +1568,8 @@ const handleSubmit = (e: any) => {
                     <button
                       key={idx}
                       onClick={() => setCurrentCase(idx)}
-                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                        currentCase === idx ? 'w-6 bg-primary' : 'bg-gray-300'
-                      }`}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${currentCase === idx ? 'w-6 bg-primary' : 'bg-gray-300'
+                        }`}
                     />
                   ))}
                 </div>
@@ -1570,33 +1582,33 @@ const handleSubmit = (e: any) => {
       {/* Request a Free Consultation Section - Dark Theme */}
       <section className="section-padding bg-background relative overflow-hidden">
         <div className="absolute inset-0 pattern-gold opacity-5" />
-        
+
         <div className="container mx-auto relative z-10">
-          <motion.div 
+          <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnceMore}
             variants={staggerContainer}
             className="text-center max-w-3xl mx-auto mb-12 md:mb-16"
           >
-            <motion.div 
+            <motion.div
               variants={fadeInDown}
               className="flex items-center justify-center gap-3 mb-4"
             >
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 whileInView={{ width: 40 }}
                 viewport={viewportOnce}
                 transition={{ delay: 0.4, duration: 1.2 }}
                 className="h-px bg-primary"
               />
-              <motion.p 
+              <motion.p
                 variants={slideFromLeft}
                 className="text-sm uppercase tracking-[0.2em] text-primary font-semibold"
               >
                 Get In Touch
               </motion.p>
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 whileInView={{ width: 40 }}
                 viewport={viewportOnce}
@@ -1604,8 +1616,8 @@ const handleSubmit = (e: any) => {
                 className="h-px bg-primary"
               />
             </motion.div>
-            
-            <motion.h2 
+
+            <motion.h2
               variants={fadeInUp}
               className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4"
             >
@@ -1629,13 +1641,13 @@ const handleSubmit = (e: any) => {
                     <div>
                       <p className="text-sm font-semibold text-foreground mb-1">Visit Us</p>
                       <p className="text-sm text-muted-foreground">No. 137, Flat No. F-8, <br />
-1st Floor, Appu Manor Apartment, <br />
-Perambur Barracks Road, <br />
-Purasawalkam, Chennai 600 007.
-</p>
+                        1st Floor, Appu Manor Apartment, <br />
+                        Perambur Barracks Road, <br />
+                        Purasawalkam, Chennai 600 007.
+                      </p>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
                       <Phone className="w-5 h-5 text-primary" />
@@ -1647,19 +1659,19 @@ Purasawalkam, Chennai 600 007.
                       </a>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
                       <Mail className="w-5 h-5 text-primary" />
                     </div>
                     <div>
                       <p className="text-sm font-semibold text-foreground mb-1">Email Us</p>
-                      <a href="mailto:jashishadvocate@gmail.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                        jashishadvocate@gmail.com
+                      <a href="mailto:jashishwebsite@gmail.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                        jashishwebsite@gmail.com
                       </a>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
                       <Clock className="w-5 h-5 text-primary" />
@@ -1714,7 +1726,7 @@ Purasawalkam, Chennai 600 007.
                   />
                   {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
                 </div>
-                
+
                 <div>
                   <label className="text-sm font-medium text-foreground mb-2 block">Email *</label>
                   <input
@@ -1727,51 +1739,51 @@ Purasawalkam, Chennai 600 007.
                   />
                   {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                 </div>
-                
+
                 <div>
-  <label className="text-sm font-medium text-foreground mb-2 block">Phone</label>
+                  <label className="text-sm font-medium text-foreground mb-2 block">Phone</label>
 
-  <div className="flex gap-2">
+                  <div className="flex gap-2">
 
-    {/* Country Code */}
-    <select
-      name="countryCode"
-      value={formData.countryCode}
-      onChange={handleChange}
-      className="px-3 py-3 bg-secondary border border-border rounded-lg text-sm text-foreground focus:outline-none focus:border-primary"
-    >
-      <option value="+91">🇮🇳 +91</option>
-      <option value="+1">🇺🇸 +1</option>
-      <option value="+44">🇬🇧 +44</option>
-      <option value="+61">🇦🇺 +61</option>
-      <option value="+971">🇦🇪 +971</option>
-      <option value="+65">🇸🇬 +65</option>
-    </select>
+                    {/* Country Code */}
+                    <select
+                      name="countryCode"
+                      value={formData.countryCode}
+                      onChange={handleChange}
+                      className="px-3 py-3 bg-secondary border border-border rounded-lg text-sm text-foreground focus:outline-none focus:border-primary"
+                    >
+                      <option value="+91">🇮🇳 +91</option>
+                      <option value="+1">🇺🇸 +1</option>
+                      <option value="+44">🇬🇧 +44</option>
+                      <option value="+61">🇦🇺 +61</option>
+                      <option value="+971">🇦🇪 +971</option>
+                      <option value="+65">🇸🇬 +65</option>
+                    </select>
 
-    {/* Phone Number */}
-    <input
-      type="tel"
-      name="phone"
-      value={formData.phone}
-      onChange={handleChange}
-      inputMode="numeric"
-      className="flex-1 px-4 py-3 bg-secondary border border-border rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
-      placeholder="Your Phone Number"
-    />
+                    {/* Phone Number */}
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      inputMode="numeric"
+                      className="flex-1 px-4 py-3 bg-secondary border border-border rounded-lg text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
+                      placeholder="Your Phone Number"
+                    />
 
-  </div>
+                  </div>
 
-  {errors.phone && (
-    <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
-  )}
-</div>
-                
+                  {errors.phone && (
+                    <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
+                  )}
+                </div>
+
                 <div>
                   <label className="text-sm font-medium text-foreground mb-2 block">Practice Area *</label>
                   <select
-                  name="practiceArea"
-                  value={formData.practiceArea}
-                  onChange={handleChange}
+                    name="practiceArea"
+                    value={formData.practiceArea}
+                    onChange={handleChange}
                     className="w-full px-4 py-3 bg-secondary border border-border rounded-lg text-sm text-foreground focus:outline-none focus:border-primary transition-colors"
                   >
                     <option value="">Select a practice area</option>
@@ -1781,7 +1793,7 @@ Purasawalkam, Chennai 600 007.
                   </select>
                   {errors.practiceArea && <p className="text-red-500 text-xs mt-1">{errors.practiceArea}</p>}
                 </div>
-                
+
                 <div>
                   <label className="text-sm font-medium text-foreground mb-2 block">Message *</label>
                   <textarea
@@ -1794,7 +1806,7 @@ Purasawalkam, Chennai 600 007.
                   />
                   {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
                 </div>
-                
+
                 <Button type="submit" size="xl" className="w-full btn-shine">
                   <span className="font-semibold">Submit Request</span>
                   <Send className="w-4 h-4 font-semibold" />

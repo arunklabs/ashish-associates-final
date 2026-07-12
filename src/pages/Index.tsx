@@ -20,10 +20,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, Variants, useMotionValue, useTransform, useScroll, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { 
-  Scale, Gavel, Heart, Home, ArrowRight, CheckCircle, 
-  Quote, ChevronLeft, ChevronRight, Award, Users, 
-  Briefcase, Clock, Shield, Star, Phone, Mail, 
+import {
+  Scale, Gavel, Heart, Home, ArrowRight, CheckCircle,
+  Quote, ChevronLeft, ChevronRight, Award, Users,
+  Briefcase, Clock, Shield, Star, Phone, Mail,
   Building2, Landmark, Scale as ScaleIcon, UserCheck,
   CalendarCheck, FileCheck, Target, Zap, Globe2,
   Trophy, Medal, TrendingUp, BookOpen, Newspaper,
@@ -80,13 +80,17 @@ import { slideFromLeft, slideFromRight, staggerContainer, fadeInUp, fadeSoft, vi
 const hero1 = "/assets/hero-1.png";
 const hero2 = "/assets/hero-2.png";
 const hero3 = "/assets/hero-3.png";
-const aboutMain = "/assets/about-firm-1.png";
-const practiceCorporate = "/assets/corporate-law.png";
-const practiceCriminal = "/assets/criminal-law.png";
-const practiceFamily = "/assets/family-law.png";
-const practiceLitigation = "/assets/civil-law.png";
-const practiceIntellectual = "/assets/intellectual-property.png";
+const aboutMain = "/assets/About Our Firm- Homepage.png";
+const practiceCorporate = "/assets/Corporatelaw.jpg";
+const practiceCriminal = "/assets/criminallaw.jpg";
+const practiceFamily = "/assets/familylaw.png";
+const practiceLitigation = "/assets/civillaw.jpg";
+const practiceIntellectual = "/assets/Intellectuallaw.jpg";
 const practiceRealEstate = "/assets/property-law.png";
+const practiceBankrupt = "/assets/bankruptlaw.png";
+const practiceProperty = "/assets/propertylaw.jpg";
+const practiceInsurance = "/assets/Insurancelaw.jpg";
+const practiceLabour = "/assets/labourlaw.jpg";
 const teamImage = "/assets/hero2.webp";
 const courtroom = "/assets/hero2.webp";
 const consultation = "/assets/hero2.webp";
@@ -110,9 +114,9 @@ const logo = "/assets/logo.png"
 import CountUpAnimation from "../components/CountUpAnimation";
 
 const practiceAreas = [
-  { 
-    icon: Briefcase, 
-    title: "Corporate Law", 
+  {
+    icon: Briefcase,
+    title: "Corporate Law",
     desc: "Strategic counsel for businesses of all sizes, from startups to Fortune 500 companies.",
     image: practiceCorporate,
     lightIcon: Building2,
@@ -121,9 +125,9 @@ const practiceAreas = [
     stats: "25 Cases",
     experience: "4+ Years"
   },
-  { 
-    icon: Gavel, 
-    title: "Criminal Law", 
+  {
+    icon: Gavel,
+    title: "Criminal Law",
     desc: "Aggressive advocacy in complex commercial and civil litigation matters.",
     image: practiceCriminal,
     lightIcon: ScaleIcon,
@@ -132,9 +136,9 @@ const practiceAreas = [
     stats: "10+ Cases",
     experience: "4+ Years"
   },
-  { 
-    icon: Heart, 
-    title: "Family Law", 
+  {
+    icon: Heart,
+    title: "Family Law",
     desc: "Compassionate representation in divorce, custody, and family disputes.",
     image: practiceFamily,
     lightIcon: Users,
@@ -143,20 +147,20 @@ const practiceAreas = [
     stats: "20+ Cases",
     experience: "4+ Years"
   },
-  { 
-    icon: Home, 
-    title: "Property Law", 
+  {
+    icon: Home,
+    title: "Property Law",
     desc: "Comprehensive legal services for commercial and residential transactions.",
-    image: practiceRealEstate,
+    image: practiceProperty,
     lightIcon: Building2,
     color: "from-emerald-600 to-emerald-800",
     gradient: "bg-gradient-to-br from-amber-500 to-amber-700",
     stats: "21+ Cases",
     experience: "4+ Years"
   },
-  { 
-    icon: ShieldCheck, 
-    title: "Intellectual Property", 
+  {
+    icon: ShieldCheck,
+    title: "Intellectual Property",
     desc: "Protect your innovations with comprehensive IP strategy and enforcement.",
     image: practiceIntellectual,
     lightIcon: Shield,
@@ -165,9 +169,9 @@ const practiceAreas = [
     stats: "30+ Cases",
     experience: "4+ Years"
   },
-  { 
-    icon: Users, 
-    title: "Civil Law", 
+  {
+    icon: Users,
+    title: "Civil Law",
     desc: "Expert guidance on workplace issues, discrimination, and labor disputes.",
     image: practiceLitigation,
     lightIcon: Users2,
@@ -176,33 +180,33 @@ const practiceAreas = [
     stats: "40+ Cases",
     experience: "5+ Years"
   },
-  { 
-    icon: Home, 
-    title: "Insurance", 
+  {
+    icon: Home,
+    title: "Insurance",
     desc: "Comprehensive legal services for commercial and residential transactions.",
-    image: practiceRealEstate,
+    image: practiceInsurance,
     lightIcon: Building2,
     color: "from-emerald-600 to-emerald-800",
     gradient: "bg-gradient-to-br from-amber-500 to-amber-700",
     stats: "21+ Cases",
     experience: "4+ Years"
   },
-  { 
-    icon: ShieldCheck, 
-    title: "Labour & Employment", 
+  {
+    icon: ShieldCheck,
+    title: "Labour & Employment",
     desc: "Protect your innovations with comprehensive IP strategy and enforcement.",
-    image: practiceIntellectual,
+    image: practiceLabour,
     lightIcon: Shield,
     color: "from-purple-600 to-purple-800",
     gradient: "bg-gradient-to-br from-amber-500 to-amber-700",
     stats: "30+ Cases",
     experience: "4+ Years"
   },
-  { 
-    icon: Users, 
-    title: "Insolvency & Bankruptcy", 
+  {
+    icon: Users,
+    title: "Insolvency & Bankruptcy",
     desc: "Expert guidance on workplace issues, discrimination, and labor disputes.",
-    image: practiceLitigation,
+    image: practiceBankrupt,
     lightIcon: Users2,
     color: "from-indigo-600 to-indigo-800",
     gradient: "bg-gradient-to-br from-amber-500 to-amber-700",
@@ -224,33 +228,33 @@ const IndexTestimonialsSection = dynamic(
 );
 
 const processSteps = [
-  { 
-    step: "01", 
-    title: "Initial Consultation", 
+  {
+    step: "01",
+    title: "Initial Consultation",
     desc: "We start with a detailed assessment of your legal requirements and objectives to understand the best approach.",
     image: consultation,
     icon: CalendarCheckIcon,
     color: "from-blue-500 to-blue-600"
   },
-  { 
-    step: "02", 
-    title: "Strategy Formulation", 
+  {
+    step: "02",
+    title: "Strategy Formulation",
     desc: "Our team crafts a tailored legal strategy designed to address your needs efficiently and effectively.",
     image: teamImage,
     icon: TargetIcon,
     color: "from-amber-500 to-amber-600"
   },
-  { 
-    step: "03", 
-    title: "Professional Execution", 
+  {
+    step: "03",
+    title: "Professional Execution",
     desc: "We manage every stage with care, keeping you informed and supported throughout the process.",
     image: courtroom,
     icon: ZapIcon,
     color: "from-purple-500 to-purple-600"
   },
-  { 
-    step: "04", 
-    title: "Resolution & Guidance", 
+  {
+    step: "04",
+    title: "Resolution & Guidance",
     desc: "We provide structured, professional guidance toward achieving a considered and ethically sound conclusion.",
     image: hero2,
     icon: FileCheckIcon,
@@ -287,16 +291,18 @@ const infiniteScrollItems = [
 ];
 
 const globalAttorneys = [
-  { country: "Tamil Nadu", count: 3, flag: "🇺🇸" },
-  { country: "Karnataka", count: 1, flag: "🇬🇧" },
-  { country: "Delhi", count: 1, flag: "🇸🇬" },
-  { country: "Maharashtra", count: 1, flag: "🇦🇪" },
+  { country: "Chennai", count: 3, flag: "🇺🇸" },
+  { country: "Kanchipuram", count: 1, flag: "🇬🇧" },
+  { country: "Madurai", count: 1, flag: "🇸🇬" },
+  { country: "Bengaluru", count: 1, flag: "🇦🇪" },
+  { country: "Mumbai", count: 1, flag: "🇩🇪" },
   { country: "Kolkata", count: 1, flag: "🇩🇪" },
+  { country: "Delhi", count: 1, flag: "🇩🇪" },
 ];
 
 const coreValues = [
-  { 
-    title: "Integrity First", 
+  {
+    title: "Integrity First",
     desc: "We uphold the highest ethical standards, ensuring transparency and honesty guide every legal service we provide.",
     icon: LockIcon,
     image: coreValue1,
@@ -305,8 +311,8 @@ const coreValues = [
     iconColor: "text-blue-600",
     borderColor: "border-blue-200"
   },
-  { 
-    title: "Client-Focused", 
+  {
+    title: "Client-Focused",
     desc: "Your objectives shape our strategy. Every action is designed to protect your interests and support your goals.",
     icon: HeartIcon2,
     image: coreValue2,
@@ -315,8 +321,8 @@ const coreValues = [
     iconColor: "text-amber-600",
     borderColor: "border-amber-200"
   },
-  { 
-    title: "Excellence Always", 
+  {
+    title: "Excellence Always",
     desc: "We pursue precision, rigor, and meticulous attention in every matter, consistently aiming for professional distinction.",
     icon: RocketIcon2,
     image: coreValue3,
@@ -325,8 +331,8 @@ const coreValues = [
     iconColor: "text-emerald-600",
     borderColor: "border-emerald-200"
   },
-  { 
-    title: "Innovation At Work", 
+  {
+    title: "Innovation At Work",
     desc: "We integrate modern approaches and creative solutions to navigate complex legal challenges efficiently.",
     icon: CompassIcon,
     image: coreValue4,
@@ -348,48 +354,48 @@ const globalRatings = [
 ];
 
 const latestNews = [
-  { 
-    title: "J. Ashish Associates LLP Named 'Corporate Law Firm of the Year'", 
+  {
+    title: "J. Ashish Associates LLP Named 'Corporate Law Firm of the Year'",
     excerpt: "Recognized for excellence in M&A and cross-border transactions at the 2026 International Legal Awards.",
     date: "March 15, 2026",
     category: "Awards",
     image: news1,
     author: "Legal Times"
   },
-  { 
-    title: "Expanding Global Reach: New Office Opens in Singapore", 
+  {
+    title: "Expanding Global Reach: New Office Opens in Singapore",
     excerpt: "Strategic expansion strengthens our presence in Asian markets, adding 8 new partners to our international team.",
     date: "February 28, 2026",
     category: "Expansion",
     image: news2,
     author: "Global Legal Chronicle"
   },
-  { 
-    title: "Leading the Way in ESG Compliance", 
+  {
+    title: "Leading the Way in ESG Compliance",
     excerpt: "Our environmental, social, and governance practice helps corporations navigate complex regulatory landscapes.",
     date: "February 10, 2026",
     category: "Insights",
     image: news3,
     author: "Bloomberg Law"
   },
-  { 
-    title: "Pro Bono Initiative Reaches Milestone", 
+  {
+    title: "Pro Bono Initiative Reaches Milestone",
     excerpt: "Our attorneys contributed 10,000+ hours to provide legal aid for underserved communities in 2023.",
     date: "January 25, 2026",
     category: "Community",
     image: news4,
     author: "ABA Journal"
   },
-  { 
-    title: "Partner Sarah Mitchell Joins Board of Legal Aid Society", 
+  {
+    title: "Partner Sarah Mitchell Joins Board of Legal Aid Society",
     excerpt: "Commitment to access to justice extends beyond the firm with leadership in non-profit organizations.",
     date: "January 12, 2026",
     category: "Leadership",
     image: news2,
     author: "Law360"
   },
-  { 
-    title: "Innovation in Legal Tech: AI-Powered Case Analysis", 
+  {
+    title: "Innovation in Legal Tech: AI-Powered Case Analysis",
     excerpt: "Implementing cutting-edge technology to enhance case strategy and client outcomes.",
     date: "December 5, 2023",
     category: "Technology",
@@ -414,175 +420,175 @@ const Index = () => {
   const infiniteScrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const [founders, setFounders] = useState<Founder[]>([]);
-    const [teamMembers, setTeamMembers] = useState<any[]>([]);
-    const [posts, setPosts] = useState<BlogPost[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
+  const [teamMembers, setTeamMembers] = useState<any[]>([]);
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-const [formData, setFormData] = useState<FormDataType>({
-  countryCode: "+91",
-  fullName: "",
-  lastName: "",
-  email: "",
-  phone: "",
-  practiceArea: "",
-  message: ""
-});
-
-const [errors, setErrors] = useState<FormErrorsType>({});
-const [touched, setTouched] = useState<Record<keyof FormDataType, boolean>>({
-  countryCode: false,
-  fullName: false,
-  lastName: false,
-  email: false,
-  phone: false,
-  practiceArea: false,
-  message: false
-});
-
-const handleChange = (
-  e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-) => {
-  const { name, value } = e.target;
-
-  setFormData(prev => ({
-    ...prev,
-    [name]: value
-  }));
-};
-
-const handleBlur = (
-  e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-) => {
-  const { name } = e.target;
-
-  setTouched(prev => ({
-    ...prev,
-    [name as keyof FormDataType]: true
-  }));
-};
-
-const validate = (): FormErrorsType => {
-  let newErrors: FormErrorsType = {};
-
- const nameRegex = /^[A-Za-z\s]+$/;
-
-if (formData.fullName && !nameRegex.test(formData.fullName)) {
-  newErrors.fullName = "Name should contain only letters";
-}
-
-  if (!formData.email.trim())
-    newErrors.email = "Email is required";
-  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
-    newErrors.email = "Invalid email";
-
-  if (!formData.phone.trim())
-    newErrors.phone = "Phone number is required";
-  else if (!/^\d+$/.test(formData.phone))
-    newErrors.phone = "Only numbers allowed";
-
-  if (!formData.practiceArea)
-    newErrors.practiceArea = "Select practice area";
-
-  if (!formData.message.trim())
-    newErrors.message = "Message is required";
-
-  return newErrors;
-};
-
-
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-
-  const validationErrors = validate();
-  setErrors(validationErrors);
-
-  setTouched({
-    countryCode: true,
-    fullName: true,
-    lastName: true,
-    email: true,
-    phone: true,
-    practiceArea: true,
-    message: true
+  const [formData, setFormData] = useState<FormDataType>({
+    countryCode: "+91",
+    fullName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    practiceArea: "",
+    message: ""
   });
 
-  if (Object.keys(validationErrors).length > 0) return;
+  const [errors, setErrors] = useState<FormErrorsType>({});
+  const [touched, setTouched] = useState<Record<keyof FormDataType, boolean>>({
+    countryCode: false,
+    fullName: false,
+    lastName: false,
+    email: false,
+    phone: false,
+    practiceArea: false,
+    message: false
+  });
 
-  const data = {
-    name: formData.fullName,
-    email: formData.email,
-    phone: formData.countryCode.replace("+", "") + "-" + formData.phone,
-    subject: formData.practiceArea,
-    message: formData.message
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
-  try {
-    await fetch(
-      "https://script.google.com/macros/s/AKfycbz7FviNYJN_H8-b5soje9uGOpC9EGGGhD5lqd5UJ4qcfKNL9rDtUnGbz-Y1tQgkqp9Qkg/exec",
-      {
-        method: "POST",
-        mode: "no-cors",
-        body: JSON.stringify(data)
-      }
-    );
+  const handleBlur = (
+    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name } = e.target;
 
-    // ✅ ALWAYS SUCCESS (since no-cors)
-    alert("Thank you for your message. We will contact you shortly.");
+    setTouched(prev => ({
+      ...prev,
+      [name as keyof FormDataType]: true
+    }));
+  };
 
-    setFormData({
-      countryCode: "+91",
-      fullName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      practiceArea: "",
-      message: ""
-    });
+  const validate = (): FormErrorsType => {
+    let newErrors: FormErrorsType = {};
+
+    const nameRegex = /^[A-Za-z\s]+$/;
+
+    if (formData.fullName && !nameRegex.test(formData.fullName)) {
+      newErrors.fullName = "Name should contain only letters";
+    }
+
+    if (!formData.email.trim())
+      newErrors.email = "Email is required";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
+      newErrors.email = "Invalid email";
+
+    if (!formData.phone.trim())
+      newErrors.phone = "Phone number is required";
+    else if (!/^\d+$/.test(formData.phone))
+      newErrors.phone = "Only numbers allowed";
+
+    if (!formData.practiceArea)
+      newErrors.practiceArea = "Select practice area";
+
+    if (!formData.message.trim())
+      newErrors.message = "Message is required";
+
+    return newErrors;
+  };
+
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const validationErrors = validate();
+    setErrors(validationErrors);
 
     setTouched({
-      countryCode: false,
-      fullName: false,
-      lastName: false,
-      email: false,
-      phone: false,
-      practiceArea: false,
-      message: false
+      countryCode: true,
+      fullName: true,
+      lastName: true,
+      email: true,
+      phone: true,
+      practiceArea: true,
+      message: true
     });
 
-  } catch (error) {
-    // ❌ Don't show error alert (because request actually succeeds)
-    console.error("Silent error:", error);
-  }
-};
-    
-    // Fetch CMS data on component mount
-    useEffect(() => {
-      const fetchTeamData = async () => {
-        try {
-          setIsLoading(true);
-          const cmsData = await getCMSData();
-          // Filter employees by category for founders (founder/senior categories)
-          const foundersData = cmsData.founders;
-          
-          // Get all employees for team members section
-          const teamMembersData = cmsData.employees;
-          const blogData = cmsData.blogs || [];
-          
-          setFounders(foundersData);
-          
-          setTeamMembers(teamMembersData);
-          setPosts(blogData);
-        } catch (error) {
-          if (process.env.NODE_ENV === 'development') console.error('Failed to fetch team data:', error);
-          // Keep fallback data in case of error
-        } finally {
-          setIsLoading(false);
+    if (Object.keys(validationErrors).length > 0) return;
+
+    const data = {
+      name: formData.fullName,
+      email: formData.email,
+      phone: formData.countryCode.replace("+", "") + "-" + formData.phone,
+      subject: formData.practiceArea,
+      message: formData.message
+    };
+
+    try {
+      await fetch(
+        "https://script.google.com/macros/s/AKfycbz7FviNYJN_H8-b5soje9uGOpC9EGGGhD5lqd5UJ4qcfKNL9rDtUnGbz-Y1tQgkqp9Qkg/exec",
+        {
+          method: "POST",
+          mode: "no-cors",
+          body: JSON.stringify(data)
         }
-      };
-      
-      fetchTeamData();
-    }, []);
-    const primaryFounder = founders?.[0];
+      );
+
+      // ✅ ALWAYS SUCCESS (since no-cors)
+      alert("Thank you for your message. We will contact you shortly.");
+
+      setFormData({
+        countryCode: "+91",
+        fullName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        practiceArea: "",
+        message: ""
+      });
+
+      setTouched({
+        countryCode: false,
+        fullName: false,
+        lastName: false,
+        email: false,
+        phone: false,
+        practiceArea: false,
+        message: false
+      });
+
+    } catch (error) {
+      // ❌ Don't show error alert (because request actually succeeds)
+      console.error("Silent error:", error);
+    }
+  };
+
+  // Fetch CMS data on component mount
+  useEffect(() => {
+    const fetchTeamData = async () => {
+      try {
+        setIsLoading(true);
+        const cmsData = await getCMSData();
+        // Filter employees by category for founders (founder/senior categories)
+        const foundersData = cmsData.founders;
+
+        // Get all employees for team members section
+        const teamMembersData = cmsData.employees;
+        const blogData = cmsData.blogs || [];
+
+        setFounders(foundersData);
+
+        setTeamMembers(teamMembersData);
+        setPosts(blogData);
+      } catch (error) {
+        if (process.env.NODE_ENV === 'development') console.error('Failed to fetch team data:', error);
+        // Keep fallback data in case of error
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchTeamData();
+  }, []);
+  const primaryFounder = founders?.[0];
 
   // Auto-slide for hero with direction tracking - Slower interval
   useEffect(() => {
@@ -599,7 +605,7 @@ const handleSubmit = async (e: React.FormEvent) => {
   // Auto-slide for attorneys - Slower interval
   useEffect(() => {
 
-    if (!teamMembers.length) return; 
+    if (!teamMembers.length) return;
 
     let attorneyTimer: NodeJS.Timeout;
     if (!isHovering) {
@@ -650,409 +656,408 @@ const handleSubmit = async (e: React.FormEvent) => {
 
   // Animation variants from @/lib/animations: slideFromLeft, slideFromRight, staggerContainer
   const slideVariants = {
-  enter: (direction: number) => ({
-    x: direction > 0 ? 1000 : -1000,
-    opacity: 0,
-    scale: 1.1
-  }),
-  center: {
-    zIndex: 1,
-    x: 0,
-    opacity: 1,
-    scale: 1,
-    transition: {
-      x: { type: "spring", stiffness: 300, damping: 30 },
-      opacity: { duration: 0.8 },
-      scale: { duration: 0.8 }
-    }
-  },
-  exit: (direction: number) => ({
-    zIndex: 0,
-    x: direction < 0 ? 1000 : -1000,
-    opacity: 0,
-    scale: 1.1,
-    transition: {
-      x: { type: "spring", stiffness: 300, damping: 30 },
-      opacity: { duration: 0.6 }
-    }
-  })
-};
+    enter: (direction: number) => ({
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0,
+      scale: 1.1
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1,
+      scale: 1,
+      transition: {
+        x: { type: "spring", stiffness: 300, damping: 30 },
+        opacity: { duration: 0.8 },
+        scale: { duration: 0.8 }
+      }
+    },
+    exit: (direction: number) => ({
+      zIndex: 0,
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0,
+      scale: 1.1,
+      transition: {
+        x: { type: "spring", stiffness: 300, damping: 30 },
+        opacity: { duration: 0.6 }
+      }
+    })
+  };
 
   // Animation variants for buttons
-const buttonFromLeft = {
-  hidden: { opacity: 0, x: -100 },
-  visible: { 
-    opacity: 1, 
-    x: 0, 
-    transition: { 
-      type: "spring",
-      stiffness: 100,
-      damping: 20,
-      duration: 0.8
-    } 
-  },
-  exit: { 
-    opacity: 0, 
-    x: -100,
-    transition: { duration: 0.3 }
-  }
-};
-
-const buttonFromRight = {
-  hidden: { opacity: 0, x: 100 },
-  visible: { 
-    opacity: 1, 
-    x: 0, 
-    transition: { 
-      type: "spring",
-      stiffness: 100,
-      damping: 20,
-      duration: 0.8
-    } 
-  },
-  exit: { 
-    opacity: 0, 
-    x: 100,
-    transition: { duration: 0.3 }
-  }
-};
-
-// fadeInUp, fadeSoft from @/lib/animations
-
-const premiumStagger: Variants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.12,
-      delayChildren: 0.2
+  const buttonFromLeft = {
+    hidden: { opacity: 0, x: -100 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 20,
+        duration: 0.8
+      }
+    },
+    exit: {
+      opacity: 0,
+      x: -100,
+      transition: { duration: 0.3 }
     }
-  }
-};
+  };
 
-const cardReveal: Variants = {
-  hidden: { opacity: 0, y: 50, scale: 0.96 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.8,
-      ease: [0.25, 0.1, 0.25, 1] as const
+  const buttonFromRight = {
+    hidden: { opacity: 0, x: 100 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 20,
+        duration: 0.8
+      }
+    },
+    exit: {
+      opacity: 0,
+      x: 100,
+      transition: { duration: 0.3 }
     }
-  }
-};
+  };
+
+  // fadeInUp, fadeSoft from @/lib/animations
+
+  const premiumStagger: Variants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.12,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const cardReveal: Variants = {
+    hidden: { opacity: 0, y: 50, scale: 0.96 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.8,
+        ease: [0.25, 0.1, 0.25, 1] as const
+      }
+    }
+  };
 
 
   return (
     <div className="bg-background text-foreground overflow-x-hidden -mt-20">
       {/* Hero Section */}
-<section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden bg-background">
-  {/* Background Image with Faster Carousel Sliding */}
-  <div className="absolute inset-0">
-    <AnimatePresence mode="wait" custom={slideDirection}>
-      <motion.div
-        key={currentSlide}
-        custom={slideDirection}
-        variants={{
-          enter: (direction: number) => ({
-            x: direction > 0 ? '100%' : '-100%',
-            opacity: 0,
-          }),
-          center: {
-            x: 0,
-            opacity: 1,
-            transition: {
-              x: { 
-                duration: 0.6, // Faster image slide (0.6 seconds)
-                ease: [0.25, 0.1, 0.25, 1] as const // Smooth easing
-              },
-              opacity: { 
-                duration: 0.4,
-                ease: "easeInOut" as const
-              }
-            }
-          },
-          exit: (direction: number) => ({
-            x: direction < 0 ? '100%' : '-100%',
-            opacity: 0,
-            transition: {
-              x: { 
-                duration: 0.5, // Faster exit
-                ease: [0.25, 0.1, 0.25, 1] as const
-              },
-              opacity: { 
-                duration: 0.3,
-                ease: "easeInOut" as const
-              }
-            }
-          })
-        }}
-        initial="enter"
-        animate="center"
-        exit="exit"
-        className="absolute inset-0"
-      >
-        <Image
-          src={heroSlides[currentSlide].image}
-          alt={`Law firm hero ${currentSlide + 1}`}
-          fill
-          className="object-cover"
-          sizes="100vw"
-          priority={currentSlide === 0}
-        />
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-black/50" />
-      </motion.div>
-    </AnimatePresence>
-  </div>
-
-  {/* Navigation Arrows - Responsive */}
-  <button
-    onClick={prevSlide}
-    className="absolute left-2 sm:left-4 md:left-8 z-30 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-transparent md:bg-white/10 md:backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all duration-300 group"
-    aria-label="Previous slide"
-  >
-    <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform" />
-  </button>
-
-  <button
-    onClick={nextSlide}
-    className="absolute right-2 sm:right-4 md:right-8 z-30 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-transparent md:bg-white/10 md:backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all duration-300 group"
-    aria-label="Next slide"
-  >
-    <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform" />
-  </button>
-
-  {/* Content - Appears after image slide completes */}
-  <div className="container mx-auto px-4 sm:px-6 md:px-8 relative z-20">
-    <div className="max-w-6xl pt-20 mx-auto text-start">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentSlide}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: {
-                staggerChildren: 0.15,
-                delayChildren: 0.7, // Wait for image slide (0.6s) + small buffer
-                duration: 0.5
-              }
-            },
-            exit: {
-              opacity: 0,
-              transition: {
-                staggerChildren: 0.05,
-                staggerDirection: -1,
-                duration: 0.3
-              }
-            }
-          }}
-        >
-          {/* Badge with animation */}
-          {currentSlide !== 1 && currentSlide !== 2 && (
-          <motion.div
-            variants={{
-              hidden: { opacity: 0, y: 30 },
-              visible: { 
-                opacity: 1, 
-                y: 0,
-                transition: { 
-                  duration: 0.6,
-                  ease: [0.25, 0.1, 0.25, 1] as const
-                }
-              },
-              exit: { 
-                opacity: 0, 
-                y: -30,
-                transition: { duration: 0.3 }
-              }
-            }}
-            className="flex items-center justify-start gap-2 sm:gap-4 mb-4 sm:mb-6 md:mb-8"
-          >
-            <motion.span 
-              initial={{ width: 0 }}
-              animate={{ width: 32 }}
-              transition={{ 
-                duration: 0.6, 
-                delay: 0.8, // Wait for badge to appear first
-                ease: [0.25, 0.1, 0.25, 1] as const
-              }}
-              className="h-px bg-primary hidden sm:block"
-            />
-            <span className="text-primary uppercase tracking-[0.2em] text-xs sm:text-sm font-semibold">
-              {heroSlides[currentSlide].badge}
-            </span>
-            <motion.span 
-              initial={{ width: 0 }}
-              animate={{ width: 32 }}
-              transition={{ 
-                duration: 0.6, 
-                delay: 0.8,
-                ease: [0.25, 0.1, 0.25, 1] as const
-              }}
-              className="h-px bg-primary hidden sm:block"
-            />
-          </motion.div>
-          )}
-
-          {/* Title and Description */}
-          <motion.div
-            variants={{
-              hidden: { opacity: 0, y: 30 },
-              visible: { 
-                opacity: 1, 
-                y: 0,
-                transition: { 
-                  duration: 0.7,
-                  delay: 0.2, // After badge
-                  ease: [0.25, 0.1, 0.25, 1] as const
-                }
-              },
-              exit: { 
-                opacity: 0, 
-                y: -30,
-                transition: { duration: 0.3 }
-              }
-            }}
-          >
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-heading font-bold leading-tight mb-3 sm:mb-4 md:mb-6 text-white px-2">
-              {heroSlides[currentSlide].title}
-              <br />
-              {currentSlide !== 2 && ( <span className="gold-gradient-text italic block sm:inline">{heroSlides[currentSlide].subtitle}</span> )}
-            </h1>
-            <p className="text-sm sm:text-base md:text-lg text-white/90 mb-6 sm:mb-8 md:mb-10 leading-relaxed max-w-2xl px-4">
-              {heroSlides[currentSlide].description}
-            </p>
-          </motion.div>
-
-          {/* Buttons - Animated from left and right */}
-          <motion.div
-            variants={{
-              hidden: { opacity: 0 },
-              visible: {
-                opacity: 1,
-                transition: {
-                  staggerChildren: 0.2,
-                  delayChildren: 0.4 // After title
-                }
-              },
-              exit: {
-                opacity: 0,
-                transition: {
-                  staggerChildren: 0.1,
-                  staggerDirection: -1,
-                  duration: 0.3
-                }
-              }
-            }}
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-start items-center mb-8 sm:mb-10 md:mb-16 px-4"
-          >
+      <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden bg-background">
+        {/* Background Image with Faster Carousel Sliding */}
+        <div className="absolute inset-0">
+          <AnimatePresence mode="wait" custom={slideDirection}>
             <motion.div
+              key={currentSlide}
+              custom={slideDirection}
               variants={{
-                hidden: { opacity: 0, x: -100 },
-                visible: { 
-                  opacity: 1, 
+                enter: (direction: number) => ({
+                  x: direction > 0 ? '100%' : '-100%',
+                  opacity: 0,
+                }),
+                center: {
                   x: 0,
+                  opacity: 1,
                   transition: {
-                    duration: 0.7,
-                    ease: [0.25, 0.1, 0.25, 1] as const
+                    x: {
+                      duration: 0.6, // Faster image slide (0.6 seconds)
+                      ease: [0.25, 0.1, 0.25, 1] as const // Smooth easing
+                    },
+                    opacity: {
+                      duration: 0.4,
+                      ease: "easeInOut" as const
+                    }
                   }
                 },
-                exit: { 
-                  opacity: 0, 
-                  x: -100,
-                  transition: { duration: 0.3 }
-                }
+                exit: (direction: number) => ({
+                  x: direction < 0 ? '100%' : '-100%',
+                  opacity: 0,
+                  transition: {
+                    x: {
+                      duration: 0.5, // Faster exit
+                      ease: [0.25, 0.1, 0.25, 1] as const
+                    },
+                    opacity: {
+                      duration: 0.3,
+                      ease: "easeInOut" as const
+                    }
+                  }
+                })
               }}
-              className="w-full sm:w-auto"
+              initial="enter"
+              animate="center"
+              exit="exit"
+              className="absolute inset-0"
             >
-              <Link
-                href="/contact"
-                className="group w-full sm:w-auto px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-primary 
+              <Image
+                src={heroSlides[currentSlide].image}
+                alt={`Law firm hero ${currentSlide + 1}`}
+                fill
+                className="object-cover"
+                sizes="100vw"
+                priority={currentSlide === 0}
+              />
+              {/* Dark Overlay */}
+              <div className="absolute inset-0 bg-black/50" />
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Navigation Arrows - Responsive */}
+        <button
+          onClick={prevSlide}
+          className="absolute left-2 sm:left-4 md:left-8 z-30 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-transparent md:bg-white/10 md:backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all duration-300 group"
+          aria-label="Previous slide"
+        >
+          <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform" />
+        </button>
+
+        <button
+          onClick={nextSlide}
+          className="absolute right-2 sm:right-4 md:right-8 z-30 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-transparent md:bg-white/10 md:backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-primary hover:border-primary transition-all duration-300 group"
+          aria-label="Next slide"
+        >
+          <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform" />
+        </button>
+
+        {/* Content - Appears after image slide completes */}
+        <div className="container mx-auto px-4 sm:px-6 md:px-8 relative z-20">
+          <div className="max-w-6xl pt-20 mx-auto text-start">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentSlide}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: {
+                    opacity: 1,
+                    transition: {
+                      staggerChildren: 0.15,
+                      delayChildren: 0.7, // Wait for image slide (0.6s) + small buffer
+                      duration: 0.5
+                    }
+                  },
+                  exit: {
+                    opacity: 0,
+                    transition: {
+                      staggerChildren: 0.05,
+                      staggerDirection: -1,
+                      duration: 0.3
+                    }
+                  }
+                }}
+              >
+                {/* Badge with animation */}
+                {currentSlide !== 1 && currentSlide !== 2 && (
+                  <motion.div
+                    variants={{
+                      hidden: { opacity: 0, y: 30 },
+                      visible: {
+                        opacity: 1,
+                        y: 0,
+                        transition: {
+                          duration: 0.6,
+                          ease: [0.25, 0.1, 0.25, 1] as const
+                        }
+                      },
+                      exit: {
+                        opacity: 0,
+                        y: -30,
+                        transition: { duration: 0.3 }
+                      }
+                    }}
+                    className="flex items-center justify-start gap-2 sm:gap-4 mb-4 sm:mb-6 md:mb-8"
+                  >
+                    <motion.span
+                      initial={{ width: 0 }}
+                      animate={{ width: 32 }}
+                      transition={{
+                        duration: 0.6,
+                        delay: 0.8, // Wait for badge to appear first
+                        ease: [0.25, 0.1, 0.25, 1] as const
+                      }}
+                      className="h-px bg-primary hidden sm:block"
+                    />
+                    <span className="text-primary uppercase tracking-[0.2em] text-xs sm:text-sm font-semibold">
+                      {heroSlides[currentSlide].badge}
+                    </span>
+                    <motion.span
+                      initial={{ width: 0 }}
+                      animate={{ width: 32 }}
+                      transition={{
+                        duration: 0.6,
+                        delay: 0.8,
+                        ease: [0.25, 0.1, 0.25, 1] as const
+                      }}
+                      className="h-px bg-primary hidden sm:block"
+                    />
+                  </motion.div>
+                )}
+
+                {/* Title and Description */}
+                <motion.div
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: {
+                        duration: 0.7,
+                        delay: 0.2, // After badge
+                        ease: [0.25, 0.1, 0.25, 1] as const
+                      }
+                    },
+                    exit: {
+                      opacity: 0,
+                      y: -30,
+                      transition: { duration: 0.3 }
+                    }
+                  }}
+                >
+                  <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-7xl font-heading font-bold leading-tight mb-3 sm:mb-4 md:mb-6 text-white px-2">
+                    {heroSlides[currentSlide].title}
+                    <br />
+                    {currentSlide !== 2 && (<span className="gold-gradient-text italic block sm:inline">{heroSlides[currentSlide].subtitle}</span>)}
+                  </h1>
+                  <p className="text-sm sm:text-base md:text-lg text-white/90 mb-6 sm:mb-8 md:mb-10 leading-relaxed max-w-2xl px-4">
+                    {heroSlides[currentSlide].description}
+                  </p>
+                </motion.div>
+
+                {/* Buttons - Animated from left and right */}
+                <motion.div
+                  variants={{
+                    hidden: { opacity: 0 },
+                    visible: {
+                      opacity: 1,
+                      transition: {
+                        staggerChildren: 0.2,
+                        delayChildren: 0.4 // After title
+                      }
+                    },
+                    exit: {
+                      opacity: 0,
+                      transition: {
+                        staggerChildren: 0.1,
+                        staggerDirection: -1,
+                        duration: 0.3
+                      }
+                    }
+                  }}
+                  className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-start items-center mb-8 sm:mb-10 md:mb-16 px-4"
+                >
+                  <motion.div
+                    variants={{
+                      hidden: { opacity: 0, x: -100 },
+                      visible: {
+                        opacity: 1,
+                        x: 0,
+                        transition: {
+                          duration: 0.7,
+                          ease: [0.25, 0.1, 0.25, 1] as const
+                        }
+                      },
+                      exit: {
+                        opacity: 0,
+                        x: -100,
+                        transition: { duration: 0.3 }
+                      }
+                    }}
+                    className="w-full sm:w-auto"
+                  >
+                    <Link
+                      href="/contact"
+                      className="group w-full sm:w-auto px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-primary 
                 text-primary-foreground font-semibold rounded-sm hover:bg-accent transition-all duration-300 
                 btn-shine text-center inline-flex items-center justify-center gap-2 text-sm sm:text-base"
-              >
-                Schedule Consultation
-                <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </motion.div>
-            
-            <motion.div
-              variants={{
-                hidden: { opacity: 0, x: 100 },
-                visible: { 
-                  opacity: 1, 
-                  x: 0,
-                  transition: {
-                    duration: 0.7,
-                    ease: [0.25, 0.1, 0.25, 1] as const
-                  }
-                },
-                exit: { 
-                  opacity: 0, 
-                  x: 100,
-                  transition: { duration: 0.3 }
-                }
-              }}
-              className="w-full sm:w-auto"
-            >
-              <Link
-                href="/practice-areas"
-                className="group w-full sm:w-auto px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 border border-white text-white font-semibold rounded-sm hover:bg-white hover:text-primary transition-all duration-300 text-center inline-flex items-center justify-center gap-2 text-sm sm:text-base"
-              >
-                Explore Practice Areas
-                <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </motion.div>
-          </motion.div>
+                    >
+                      Schedule Consultation
+                      <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </motion.div>
 
-          {/* Dots Navigation */}
-          <motion.div 
-            variants={{
-              hidden: { opacity: 0, y: 30 },
-              visible: { 
-                opacity: 1, 
-                y: 0,
-                transition: { 
-                  duration: 0.6,
-                  delay: 0.6, // After buttons
-                  ease: [0.25, 0.1, 0.25, 1] as const
-                }
-              },
-              exit: { 
-                opacity: 0, 
-                y: -30,
-                transition: { duration: 0.3 }
-              }
-            }}
-            className="flex justify-center gap-2 sm:gap-3"
-          >
-            {heroSlides.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  setSlideDirection(index > currentSlide ? 1 : -1);
-                  setCurrentSlide(index);
-                  setIsAutoPlaying(false);
-                }}
-                className={`h-1.5 sm:h-2 rounded-full transition-all duration-500 ${
-                  index === currentSlide 
-                    ? "w-6 sm:w-8 bg-primary" 
-                    : "w-1.5 sm:w-2 bg-white/50 hover:bg-white"
-                }`}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
-          </motion.div>
-        </motion.div>
-      </AnimatePresence>
-    </div>
-  </div>
-</section>
+                  <motion.div
+                    variants={{
+                      hidden: { opacity: 0, x: 100 },
+                      visible: {
+                        opacity: 1,
+                        x: 0,
+                        transition: {
+                          duration: 0.7,
+                          ease: [0.25, 0.1, 0.25, 1] as const
+                        }
+                      },
+                      exit: {
+                        opacity: 0,
+                        x: 100,
+                        transition: { duration: 0.3 }
+                      }
+                    }}
+                    className="w-full sm:w-auto"
+                  >
+                    <Link
+                      href="/practice-areas"
+                      className="group w-full sm:w-auto px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 border border-white text-white font-semibold rounded-sm hover:bg-white hover:text-primary transition-all duration-300 text-center inline-flex items-center justify-center gap-2 text-sm sm:text-base"
+                    >
+                      Explore Practice Areas
+                      <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </motion.div>
+                </motion.div>
+
+                {/* Dots Navigation */}
+                <motion.div
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: {
+                        duration: 0.6,
+                        delay: 0.6, // After buttons
+                        ease: [0.25, 0.1, 0.25, 1] as const
+                      }
+                    },
+                    exit: {
+                      opacity: 0,
+                      y: -30,
+                      transition: { duration: 0.3 }
+                    }
+                  }}
+                  className="flex justify-center gap-2 sm:gap-3"
+                >
+                  {heroSlides.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => {
+                        setSlideDirection(index > currentSlide ? 1 : -1);
+                        setCurrentSlide(index);
+                        setIsAutoPlaying(false);
+                      }}
+                      className={`h-1.5 sm:h-2 rounded-full transition-all duration-500 ${index === currentSlide
+                        ? "w-6 sm:w-8 bg-primary"
+                        : "w-1.5 sm:w-2 bg-white/50 hover:bg-white"
+                        }`}
+                      aria-label={`Go to slide ${index + 1}`}
+                    />
+                  ))}
+                </motion.div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+      </section>
 
       {/* Highlighted Infinite Scroll - no text selection while scrolling */}
       <section
@@ -1061,11 +1066,11 @@ const cardReveal: Variants = {
       >
         <motion.div
           animate={{ x: ["100%", "-50%"] }}
-    transition={{
-      duration: 20,
-      repeat: Infinity,
-      ease: "linear"
-    }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
+          }}
           className="flex whitespace-nowrap"
         >
           {[...infiniteScrollItems].map((item, index) => (
@@ -1077,100 +1082,100 @@ const cardReveal: Variants = {
         </motion.div>
       </section>
 
-{/* Experience Heritage Section */}
-<motion.section
-  className="bg-[#F6F6F4] py-20 md:py-28 px-4 md:px-8 overflow-hidden"
->
-  <div className="container mx-auto">
-    {/* Title and Subtitle - Animate from bottom to top */}
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={viewportOnceMore}
-      variants={{
-        hidden: { opacity: 0 },
-        visible: {
-          opacity: 1,
-          transition: {
-            staggerChildren: 0.25,
-            delayChildren: 0.2
-          }
-        }
-      }}
-      className="text-center max-w-4xl mx-auto mb-20"
-    >
-      {/* Subtitle with badge */}
-      <motion.div
-        variants={{
-          hidden: { opacity: 0, y: 100 },
-          visible: { 
-            opacity: 1, 
-            y: 0,
-            transition: { 
-              duration: 1.2,
-              ease: [0.25, 0.1, 0.25, 1] as const // Smooth cubic-bezier
-            }
-          }
-        }}
-        className="flex items-center justify-center gap-3 mb-4"
+      {/* Experience Heritage Section */}
+      <motion.section
+        className="bg-[#F6F6F4] py-20 md:py-28 px-4 md:px-8 overflow-hidden"
       >
-        <motion.span 
-          initial={{ width: 0 }}
-          whileInView={{ width: 40 }}
-          transition={{ duration: 1.2, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] as const }}
-          className="h-px bg-[#C9A646]"
-        />
-        <p className="text-sm uppercase tracking-[0.2em] text-[#C9A646] font-semibold">
-          Commitment to Justice and Client Success
-        </p>
-        <motion.span 
-          initial={{ width: 0 }}
-          whileInView={{ width: 40 }}
-          transition={{ duration: 1.2, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] as const }}
-          className="h-px bg-[#C9A646]"
-        />
-      </motion.div>
+        <div className="container mx-auto">
+          {/* Title and Subtitle - Animate from bottom to top */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnceMore}
+            variants={{
+              hidden: { opacity: 0 },
+              visible: {
+                opacity: 1,
+                transition: {
+                  staggerChildren: 0.25,
+                  delayChildren: 0.2
+                }
+              }
+            }}
+            className="text-center max-w-4xl mx-auto mb-20"
+          >
+            {/* Subtitle with badge */}
+            <motion.div
+              variants={{
+                hidden: { opacity: 0, y: 100 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    duration: 1.2,
+                    ease: [0.25, 0.1, 0.25, 1] as const // Smooth cubic-bezier
+                  }
+                }
+              }}
+              className="flex items-center justify-center gap-3 mb-4"
+            >
+              <motion.span
+                initial={{ width: 0 }}
+                whileInView={{ width: 40 }}
+                transition={{ duration: 1.2, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] as const }}
+                className="h-px bg-[#C9A646]"
+              />
+              <p className="text-sm uppercase tracking-[0.2em] text-[#C9A646] font-semibold">
+                Commitment to Justice and Client Success
+              </p>
+              <motion.span
+                initial={{ width: 0 }}
+                whileInView={{ width: 40 }}
+                transition={{ duration: 1.2, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] as const }}
+                className="h-px bg-[#C9A646]"
+              />
+            </motion.div>
 
-      {/* Main Title */}
-      <motion.h2
-        variants={{
-          hidden: { opacity: 0, y: 100 },
-          visible: { 
-            opacity: 1, 
-            y: 0,
-            transition: { 
-              duration: 1.2,
-              delay: 0.3,
-              ease: [0.25, 0.1, 0.25, 1] as const
-            }
-          }
-        }}
-        className="text-3xl md:text-5xl font-serif text-[#1F2A44] leading-snug"
-      >
-        Our practice is guided by 
-        <br />
-        professional integrity, <br /> <span className="italic">dedication to legal service,</span>
-        <br /> and 
-        <span className="italic"> collaborative teamwork.</span>
-      </motion.h2>
-    </motion.div>
+            {/* Main Title */}
+            <motion.h2
+              variants={{
+                hidden: { opacity: 0, y: 100 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    duration: 1.2,
+                    delay: 0.3,
+                    ease: [0.25, 0.1, 0.25, 1] as const
+                  }
+                }
+              }}
+              className="text-3xl md:text-5xl font-serif text-[#1F2A44] leading-snug"
+            >
+              Our practice is guided by
+              <br />
+              professional integrity, <br /> <span className="italic">dedication to legal service,</span>
+              <br /> and
+              <span className="italic"> collaborative teamwork.</span>
+            </motion.h2>
+          </motion.div>
 
-    {/* Two Columns Layout */}
-    <div className="grid lg:grid-cols-2 gap-12 items-start">
-      {/* Left Column - Animate from Left */}
-      <motion.div
-        initial={{ opacity: 0, x: -100 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={viewportOnceMore}
-        transition={{ 
-          duration: 1.2,
-          delay: 0.4,
-          ease: [0.25, 0.1, 0.25, 1] as const
-        }}
-        className="lg:border-r border-gray-200 lg:pr-12 pb-10 lg:pb-0 mb-10 lg:mb-0"
-      >
-        {/* Animated Number Counter */}
-        {/* <motion.h3 
+          {/* Two Columns Layout */}
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            {/* Left Column - Animate from Left */}
+            <motion.div
+              initial={{ opacity: 0, x: -100 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={viewportOnceMore}
+              transition={{
+                duration: 1.2,
+                delay: 0.4,
+                ease: [0.25, 0.1, 0.25, 1] as const
+              }}
+              className="lg:border-r border-gray-200 lg:pr-12 pb-10 lg:pb-0 mb-10 lg:mb-0"
+            >
+              {/* Animated Number Counter */}
+              {/* <motion.h3 
           className="text-6xl md:text-7xl font-serif text-[#1F2A44] mb-6"
         >
           <CountUpAnimation 
@@ -1180,671 +1185,671 @@ const cardReveal: Variants = {
           />
           <span className="text-[#C9A646]">+</span>
         </motion.h3> */}
-        
-        <h4 className="text-xl font-semibold text-[#1F2A44] mb-3">
-          Our Presence
-        </h4>
-        <p className="text-gray-600 leading-relaxed max-w-md">
-          Operating with a commitment to serving clients’ legal requirements across different jurisdictions and practice areas.
-        </p>
-      </motion.div>
 
-      {/* Right Column - Cards animate from Right one by one */}
-      <motion.div 
+              <h4 className="text-xl font-semibold text-[#1F2A44] mb-3">
+                Our Presence
+              </h4>
+              <p className="text-gray-600 leading-relaxed max-w-md">
+                Operating with a commitment to serving clients’ legal requirements across different jurisdictions and practice areas.
+              </p>
+            </motion.div>
+
+            {/* Right Column - Cards animate from Right one by one */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnceMore}
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: 0.3,
+                    delayChildren: 0.5
+                  }
+                }
+              }}
+              className="space-y-10"
+            >
+              {/* Card 1 */}
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, x: 100 },
+                  visible: {
+                    opacity: 1,
+                    x: 0,
+                    transition: {
+                      duration: 1.2,
+                      ease: [0.25, 0.1, 0.25, 1] as const
+                    }
+                  }
+                }}
+                whileHover={{ x: 10 }}
+                transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                className="grid md:grid-cols-5 gap-6 border-b border-gray-200 pb-8"
+              >
+                <div className="col-span-1 text-4xl font-serif text-[#1F2A44]">
+                  <CountUpAnimation targetNumber={7} duration={2} delay={0.5} />
+                  <span className="text-[#C9A646]">+</span>
+                </div>
+                <div className="col-span-4">
+                  <h5 className="text-lg font-semibold text-[#1F2A44] mb-2">
+                    Regional Presence
+                  </h5>
+                  <p className="text-gray-600">
+                    Providing legal services across 7 districts in 5 states, assisting clients with their legal requirements in multiple jurisdictions.
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Card 2 */}
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, x: 100 },
+                  visible: {
+                    opacity: 1,
+                    x: 0,
+                    transition: {
+                      duration: 1.2,
+                      ease: [0.25, 0.1, 0.25, 1] as const
+                    }
+                  }
+                }}
+                whileHover={{ x: 10 }}
+                className="grid md:grid-cols-5 gap-6 border-b border-gray-200 pb-8"
+              >
+                <div className="col-span-1 text-4xl font-serif text-[#1F2A44]">
+                  <CountUpAnimation targetNumber={11} duration={2.5} delay={0.5} />
+                  <span className="text-[#C9A646]">+</span>
+                </div>
+                <div className="col-span-4">
+                  <h5 className="text-lg font-semibold text-[#1F2A44] mb-2">
+                    Area of Practice
+                  </h5>
+                  <p className="text-gray-600">
+                    A continuing practice of law across diverse areas, guided by professional integrity, careful legal analysis, and a commitment to responsible advocacy.
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Card 3 */}
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, x: 100 },
+                  visible: {
+                    opacity: 1,
+                    x: 0,
+                    transition: {
+                      duration: 1.2,
+                      ease: [0.25, 0.1, 0.25, 1] as const
+                    }
+                  }
+                }}
+                whileHover={{ x: 10 }}
+                className="grid md:grid-cols-5 gap-6"
+              >
+                <div className="col-span-1 text-4xl font-serif text-[#1F2A44]">
+                  <CountUpAnimation targetNumber={45} duration={2} delay={0.5} />
+                  <span className="text-[#C9A646]">+</span>
+                </div>
+                <div className="col-span-4">
+                  <h5 className="text-lg font-semibold text-[#1F2A44] mb-2">
+                    Legal Practitioners & Associates
+                  </h5>
+                  <p className="text-gray-600">
+                    Experienced legal professionals providing advisory, litigation support, and documentation across diverse practice areas.
+                  </p>
+                </div>
+              </motion.div>
+            </motion.div>
+          </div>
+        </div>
+      </motion.section>
+
+      {/* You're In The Right Place */}
+      <motion.section
         initial="hidden"
         whileInView="visible"
         viewport={viewportOnceMore}
-        variants={{
-          hidden: { opacity: 0 },
-          visible: {
-            opacity: 1,
-            transition: {
-              staggerChildren: 0.3,
-              delayChildren: 0.5
-            }
-          }
-        }}
-        className="space-y-10"
+        variants={staggerContainer}
+        className="bg-background section-padding relative overflow-hidden"
       >
-        {/* Card 1 */}
-        <motion.div
-          variants={{
-            hidden: { opacity: 0, x: 100 },
-            visible: { 
-              opacity: 1, 
-              x: 0,
-              transition: { 
-                duration: 1.2,
-                ease: [0.25, 0.1, 0.25, 1] as const
-              }
-            }
-          }}
-          whileHover={{ x: 10 }}
-          transition={{ type: "spring", stiffness: 200, damping: 20 }}
-          className="grid md:grid-cols-5 gap-6 border-b border-gray-200 pb-8"
-        >
-          <div className="col-span-1 text-4xl font-serif text-[#1F2A44]">
-            <CountUpAnimation targetNumber={7} duration={2} delay={0.5} />
-            <span className="text-[#C9A646]">+</span>
-          </div>
-          <div className="col-span-4">
-            <h5 className="text-lg font-semibold text-[#1F2A44] mb-2">
-              Regional Presence
-            </h5>
-            <p className="text-gray-600">
-              Providing legal services across 7 districts in 5 states, assisting clients with their legal requirements in multiple jurisdictions.
-            </p>
-          </div>
-        </motion.div>
-
-        {/* Card 2 */}
-        <motion.div
-          variants={{
-            hidden: { opacity: 0, x: 100 },
-            visible: { 
-              opacity: 1, 
-              x: 0,
-              transition: { 
-                duration: 1.2,
-                ease: [0.25, 0.1, 0.25, 1] as const
-              }
-            }
-          }}
-          whileHover={{ x: 10 }}
-          className="grid md:grid-cols-5 gap-6 border-b border-gray-200 pb-8"
-        >
-          <div className="col-span-1 text-4xl font-serif text-[#1F2A44]">
-            <CountUpAnimation targetNumber={11} duration={2.5} delay={0.5} />
-            <span className="text-[#C9A646]">+</span>
-          </div>
-          <div className="col-span-4">
-            <h5 className="text-lg font-semibold text-[#1F2A44] mb-2">
-              Area of Practice
-            </h5>
-            <p className="text-gray-600">
-              A continuing practice of law across diverse areas, guided by professional integrity, careful legal analysis, and a commitment to responsible advocacy.
-            </p>
-          </div>
-        </motion.div>
-
-        {/* Card 3 */}
-        <motion.div
-          variants={{
-            hidden: { opacity: 0, x: 100 },
-            visible: { 
-              opacity: 1, 
-              x: 0,
-              transition: { 
-                duration: 1.2,
-                ease: [0.25, 0.1, 0.25, 1] as const
-              }
-            }
-          }}
-          whileHover={{ x: 10 }}
-          className="grid md:grid-cols-5 gap-6"
-        >
-          <div className="col-span-1 text-4xl font-serif text-[#1F2A44]">
-            <CountUpAnimation targetNumber={45} duration={2} delay={0.5} />
-            <span className="text-[#C9A646]">+</span>
-          </div>
-          <div className="col-span-4">
-            <h5 className="text-lg font-semibold text-[#1F2A44] mb-2">
-              Legal Practitioners & Associates
-            </h5>
-            <p className="text-gray-600">
-              Experienced legal professionals providing advisory, litigation support, and documentation across diverse practice areas.
-            </p>
-          </div>
-        </motion.div>
-      </motion.div>
-    </div>
-  </div>
-</motion.section>
-
-{/* You're In The Right Place */}
-<motion.section
-  initial="hidden"
-  whileInView="visible"
-  viewport={viewportOnceMore}
-  variants={staggerContainer}
-  className="bg-background section-padding relative overflow-hidden"
->
-  <div className="container mx-auto relative z-10">
-    <motion.div
-      variants={staggerContainer}
-      className="text-center max-w-3xl mx-auto"
-    >
-      {/* Subtitle with animated lines */}
-      <motion.div 
-        variants={{
-          hidden: { opacity: 0, y: 20 },
-          visible: { 
-            opacity: 1, 
-            y: 0,
-            transition: { 
-              duration: 0.6,
-              ease: "easeOut" as const
-            }
-          }
-        }}
-        className="flex items-center justify-center gap-4 mb-6"
-      >
-        <motion.span 
-          initial={{ width: 0 }}
-          whileInView={{ width: 48 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" as const }}
-          className="h-px bg-primary"
-        />
-        <span className="text-primary uppercase tracking-[0.2em] text-sm font-semibold">
-          Why Choose Us
-        </span>
-        <motion.span 
-          initial={{ width: 0 }}
-          whileInView={{ width: 48 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" as const }}
-          className="h-px bg-primary"
-        />
-      </motion.div>
-
-      {/* Main Title */}
-      <motion.h2 
-        variants={{
-          hidden: { opacity: 0, y: 30 },
-          visible: { 
-            opacity: 1, 
-            y: 0,
-            transition: { 
-              duration: 0.7,
-              delay: 0.3,
-              ease: "easeOut" as const
-            }
-          }
-        }}
-        className="text-4xl md:text-5xl font-heading font-bold mb-8 text-foreground"
-      >
-        You're in the <span className="gold-gradient-text italic">Right Place</span>
-      </motion.h2>
-
-      {/* Description */}
-      <motion.p 
-        variants={{
-          hidden: { opacity: 0, y: 20 },
-          visible: { 
-            opacity: 1, 
-            y: 0,
-            transition: { 
-              duration: 0.7,
-              delay: 0.4,
-              ease: "easeOut" as const
-            }
-          }
-        }}
-        className="text-lg text-muted-foreground leading-relaxed mb-12"
-      >
-        The firm focuses on understanding clients’ legal requirements and drawing on the expertise of all practice groups to provide comprehensive assistance. Our approach also allows us to advise on policy frameworks, regulatory matters, and business-related legal concerns in a structured and professional manner.
-      </motion.p>
-
-      {/* Stats Cards */}
-      <motion.div 
-        variants={{
-          hidden: { opacity: 0 },
-          visible: {
-            opacity: 1,
-            transition: {
-              staggerChildren: 0.15,
-              delayChildren: 0.2
-            }
-          }
-        }}
-        className="grid grid-cols-1 md:grid-cols-3 gap-6"
-      >
-        {[
-          { number: "7+", label: "Regional Presence", icon: Users },
-          { number: "11+", label: "Areas of Practice", icon: UserCheck },
-          { number: "45+", label: "Legal Practitioner & Associates", icon: Clock },
-        ].map((stat, index) => (
+        <div className="container mx-auto relative z-10">
           <motion.div
-            key={index}
-            variants={{
-              hidden: { opacity: 0, y: 30, scale: 0.9 },
-              visible: { 
-                opacity: 1, 
-                y: 0, 
-                scale: 1,
-                transition: { 
-                  duration: 0.4,
-                  ease: [0.25, 0.1, 0.25, 1] as const
-                }
-              }
-            }}
-            whileHover={{ y: -8, scale: 1.03 }}
-            transition={{ type: "spring", stiffness: 300, damping: 15 }}
-            className="p-6 bg-card/50 backdrop-blur-sm rounded-sm border border-border hover:border-primary/30 hover:shadow-lg transition-all duration-300"
+            variants={staggerContainer}
+            className="text-center max-w-3xl mx-auto"
           >
+            {/* Subtitle with animated lines */}
             <motion.div
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              transition={{ delay: 0.5 + index * 0.1, duration: 0.3, type: "spring", stiffness: 200 }}
-            >
-              <stat.icon className="w-8 h-8 text-primary mx-auto mb-3" />
-            </motion.div>
-            <div className="text-2xl font-heading font-bold text-foreground">
-              <CountUpAnimation 
-                targetNumber={parseInt(stat.number)} 
-                duration={1.8}
-                delay={0.8 + index * 0.1}
-                suffix={stat.number.includes('+') ? '+' : stat.number.includes('%') ? '%' : ''}
-              />
-            </div>
-            <div className="text-sm text-muted-foreground">{stat.label}</div>
-          </motion.div>
-        ))}
-      </motion.div>
-    </motion.div>
-  </div>
-</motion.section>
-
-{/* Meet Founder */}
-<motion.section
-  className="bg-white section-padding overflow-hidden"
->
-  <div className="container mx-auto">
-    <motion.div 
-      initial="hidden"
-      whileInView="visible"
-      viewport={viewportOnceMore}
-      variants={{
-        hidden: { opacity: 0 },
-        visible: {
-          opacity: 1,
-          transition: {
-            staggerChildren: 0.2,
-            delayChildren: 0.1
-          }
-        }
-      }}
-    >
-      <div className="grid lg:grid-cols-2 gap-16 items-center">
-        {/* Left Column - Image with Yellow Box */}
-        <motion.div
-          variants={{
-            hidden: { opacity: 0, x: -100 },
-            visible: { 
-              opacity: 1, 
-              x: 0,
-              transition: { 
-                duration: 1,
-                ease: [0.25, 0.1, 0.25, 1] as const
-              }
-            }
-          }}
-          className="relative"
-        >
-          <div className="relative z-10">
-            {/* Main Image */}
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const }}
-              className="aspect-[3/4] rounded-sm overflow-hidden shadow-2xl transform-gpu will-change-transform relative"
-            >
-              <Image
-                src={
-                  primaryFounder?.profileImage
-                    ? getFounderImageUrl(primaryFounder)
-                    : `https://ui-avatars.com/api/?name=${encodeURIComponent(primaryFounder?.name || 'Founder')}&background=E5E7EB&color=6B7280&size=128`
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    duration: 0.6,
+                    ease: "easeOut" as const
+                  }
                 }
-                alt={primaryFounder?.name || 'Founder'}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 80vw, 400px"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/30 via-transparent to-transparent" />
-            </motion.div>
-            
-            {/* Yellow Quote Box - Animate from Bottom */}
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ 
-                duration: 0.8,
-                delay: 0.6,
-                ease: [0.25, 0.1, 0.25, 1] as const
               }}
-              whileHover={{ scale: 1.05 }}
-              className="absolute -bottom-6 -right-6 bg-primary text-primary-foreground p-8 rounded-sm shadow-2xl cursor-pointer transform-gpu will-change-transform"
+              className="flex items-center justify-center gap-4 mb-6"
             >
-              <motion.div
-                animate={{ 
-                  rotate: [0, 5, -5, 0],
-                  scale: [1, 1.05, 1]
-                }}
-                transition={{ 
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut" as const
-                }}
-              >
-                <Quote className="w-8 h-8 mb-2" />
-              </motion.div>
-              <motion.p 
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ delay: 0.8, duration: 0.6 }}
-                className="text-sm italic max-w-xs"
-              >
-                Every case is an opportunity to uphold rights, inspire trust, and leave a lasting impact - Solutions, Not Just Service.
-              </motion.p>
-              
-              {/* Decorative elements */}
-              <motion.div
-                animate={{ 
-                  scale: [1, 1.2, 1],
-                  opacity: [0.3, 0.6, 0.3]
-                }}
-                transition={{ 
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut" as const
-                }}
-                className="absolute top-2 right-2 w-12 h-12 bg-white/10 rounded-full blur-sm"
+              <motion.span
+                initial={{ width: 0 }}
+                whileInView={{ width: 48 }}
+                transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" as const }}
+                className="h-px bg-primary"
+              />
+              <span className="text-primary uppercase tracking-[0.2em] text-sm font-semibold">
+                Why Choose Us
+              </span>
+              <motion.span
+                initial={{ width: 0 }}
+                whileInView={{ width: 48 }}
+                transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" as const }}
+                className="h-px bg-primary"
               />
             </motion.div>
-            
-            {/* Border Decoration */}
+
+            {/* Main Title */}
+            <motion.h2
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    duration: 0.7,
+                    delay: 0.3,
+                    ease: "easeOut" as const
+                  }
+                }
+              }}
+              className="text-4xl md:text-5xl font-heading font-bold mb-8 text-foreground"
+            >
+              You're in the <span className="gold-gradient-text italic">Right Place</span>
+            </motion.h2>
+
+            {/* Description */}
+            <motion.p
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: {
+                    duration: 0.7,
+                    delay: 0.4,
+                    ease: "easeOut" as const
+                  }
+                }
+              }}
+              className="text-lg text-muted-foreground leading-relaxed mb-12"
+            >
+              The firm focuses on understanding clients’ legal requirements and drawing on the expertise of all practice groups to provide comprehensive assistance. Our approach also allows us to advise on policy frameworks, regulatory matters, and business-related legal concerns in a structured and professional manner.
+            </motion.p>
+
+            {/* Stats Cards */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="absolute -top-4 -left-4 w-32 h-32 border-4 border-primary/20 rounded-sm"
-            />
-          </div>
-        </motion.div>
-        
-        {/* Right Column - Content */}
-        <motion.div
-          variants={{
-            hidden: { opacity: 0, x: 100 },
-            visible: { 
-              opacity: 1, 
-              x: 0,
-              transition: { 
-                duration: 1,
-                ease: [0.25, 0.1, 0.25, 1] as const
-              }
-            }
-          }}
-          className="space-y-6"
-        >
-          {/* Subtitle */}
-          <motion.div 
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: { 
-                opacity: 1, 
-                y: 0,
-                transition: { duration: 0.6 }
-              }
-            }}
-            className="flex items-center gap-4 mb-6"
-          >
-            <motion.span 
-              initial={{ width: 0 }}
-              whileInView={{ width: 48 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" as const }}
-              className="h-px bg-primary"
-            />
-            <span className="text-primary uppercase tracking-[0.2em] text-sm font-semibold">
-              Meet Our Founder
-            </span>
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: 0.15,
+                    delayChildren: 0.2
+                  }
+                }
+              }}
+              className="grid grid-cols-1 md:grid-cols-3 gap-6"
+            >
+              {[
+                { number: "7+", label: "Regional Presence", icon: Users },
+                { number: "11+", label: "Areas of Practice", icon: UserCheck },
+                { number: "45+", label: "Legal Practitioner & Associates", icon: Clock },
+              ].map((stat, index) => (
+                <motion.div
+                  key={index}
+                  variants={{
+                    hidden: { opacity: 0, y: 30, scale: 0.9 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      scale: 1,
+                      transition: {
+                        duration: 0.4,
+                        ease: [0.25, 0.1, 0.25, 1] as const
+                      }
+                    }
+                  }}
+                  whileHover={{ y: -8, scale: 1.03 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                  className="p-6 bg-card/50 backdrop-blur-sm rounded-sm border border-border hover:border-primary/30 hover:shadow-lg transition-all duration-300"
+                >
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    transition={{ delay: 0.5 + index * 0.1, duration: 0.3, type: "spring", stiffness: 200 }}
+                  >
+                    <stat.icon className="w-8 h-8 text-primary mx-auto mb-3" />
+                  </motion.div>
+                  <div className="text-2xl font-heading font-bold text-foreground">
+                    <CountUpAnimation
+                      targetNumber={parseInt(stat.number)}
+                      duration={1.8}
+                      delay={0.8 + index * 0.1}
+                      suffix={stat.number.includes('+') ? '+' : stat.number.includes('%') ? '%' : ''}
+                    />
+                  </div>
+                  <div className="text-sm text-muted-foreground">{stat.label}</div>
+                </motion.div>
+              ))}
+            </motion.div>
           </motion.div>
-          
-          {/* Name */}
-          <motion.h2 
-            variants={{
-              hidden: { opacity: 0, y: 30 },
-              visible: { 
-                opacity: 1, 
-                y: 0,
-                transition: { duration: 0.7, delay: 0.2 }
-              }
-            }}
-            className="text-4xl md:text-5xl font-heading font-bold mb-4 text-gray-900"
-          >
-            {primaryFounder?.name}
-          </motion.h2>
-          
-          {/* Title */}
-          <motion.p 
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: { 
-                opacity: 1, 
-                y: 0,
-                transition: { duration: 0.7, delay: 0.3 }
-              }
-            }}
-            className="text-xl text-primary mb-6 italic"
-          >
-            {primaryFounder?.role}
-          </motion.p>
-          
-          {/* Stats with Icons */}
-          <motion.div 
+        </div>
+      </motion.section>
+
+      {/* Meet Founder */}
+      <motion.section
+        className="bg-white section-padding overflow-hidden"
+      >
+        <div className="container mx-auto">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnceMore}
             variants={{
               hidden: { opacity: 0 },
               visible: {
                 opacity: 1,
                 transition: {
-                  staggerChildren: 0.15,
-                  delayChildren: 0.4
+                  staggerChildren: 0.2,
+                  delayChildren: 0.1
                 }
               }
             }}
-            className="space-y-4 mb-8"
           >
-            <motion.div 
-              variants={{
-                hidden: { opacity: 0, x: -30 },
-                visible: { 
-                  opacity: 1, 
-                  x: 0,
-                  transition: { duration: 0.6 }
-                }
-              }}
-              whileHover={{ x: 10 }}
-              className="flex items-center gap-3"
-            >
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              {/* Left Column - Image with Yellow Box */}
               <motion.div
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.6 }}
-              >
-                <Award className="w-5 h-5 text-primary" />
-              </motion.div>
-              <span className="text-gray-700">4+ of legal excellence</span>
-            </motion.div>
-            
-            <motion.div 
-              variants={{
-                hidden: { opacity: 0, x: -30 },
-                visible: { 
-                  opacity: 1, 
-                  x: 0,
-                  transition: { duration: 0.6 }
-                }
-              }}
-              whileHover={{ x: 10 }}
-              className="flex items-center gap-3"
-            >
-              <motion.div
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.6 }}
-              >
-                <GraduationCapIcon className="w-5 h-5 text-primary" />
-              </motion.div>
-              <span className="text-gray-700">{primaryFounder?.details?.education?.[0]}</span>
-            </motion.div>
-            
-            <motion.div 
-              variants={{
-                hidden: { opacity: 0, x: -30 },
-                visible: { 
-                  opacity: 1, 
-                  x: 0,
-                  transition: { duration: 0.6 }
-                }
-              }}
-              whileHover={{ x: 10 }}
-              className="flex items-center gap-3"
-            >
-              <motion.div
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.6 }}
-              >
-                <Briefcase className="w-5 h-5 text-primary" />
-              </motion.div>
-              <span className="text-gray-700">Specializes in: {primaryFounder?.details?.practiceAreas?.join(", ")}</span>
-            </motion.div>
-          </motion.div>
-          
-          {/* Description - Animate from Bottom */}
-          <motion.p 
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ 
-              duration: 0.8,
-              delay: 0.8,
-              ease: [0.25, 0.1, 0.25, 1] as const
-            }}
-            className="text-gray-600 leading-relaxed mb-8"
-          >
-            J. Ashish, a first-generation lawyer, is appearing before the Supreme Court of India and multiple High Courts across the country, handling complex matters spanning litigation, advisory, and documentation. He leads a dynamic team of legal practitioners, delivering structured guidance while upholding the highest standards of professionalism, ethics, and integrity.
-          </motion.p>
-          
-          {/* Button - Animate from Right */}
-          <motion.div 
-            initial={{ opacity: 0, x: 100 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ 
-              duration: 0.8,
-              delay: 1.0,
-              ease: [0.25, 0.1, 0.25, 1] as const
-            }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-block"
-          >
-            <Link 
-              href="/about" 
-              className="inline-flex items-center gap-3 text-primary font-semibold group text-lg relative overflow-hidden"
-            >
-              <motion.span
-                initial={{ x: -20, opacity: 0 }}
-                whileInView={{ x: 0, opacity: 1 }}
-                transition={{ delay: 1.2, duration: 0.5 }}
-              >
-                Read Full Biography
-              </motion.span>
-              <motion.div
-                animate={{ x: [0, 5, 0] }}
-                transition={{ 
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: "easeInOut" as const
+                variants={{
+                  hidden: { opacity: 0, x: -100 },
+                  visible: {
+                    opacity: 1,
+                    x: 0,
+                    transition: {
+                      duration: 1,
+                      ease: [0.25, 0.1, 0.25, 1] as const
+                    }
+                  }
                 }}
+                className="relative"
               >
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                <div className="relative z-10">
+                  {/* Main Image */}
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] as const }}
+                    className="aspect-[3/4] rounded-sm overflow-hidden shadow-2xl transform-gpu will-change-transform relative"
+                  >
+                    <Image
+                      src={
+                        primaryFounder?.profileImage
+                          ? getFounderImageUrl(primaryFounder)
+                          : `https://ui-avatars.com/api/?name=${encodeURIComponent(primaryFounder?.name || 'Founder')}&background=E5E7EB&color=6B7280&size=128`
+                      }
+                      alt={primaryFounder?.name || 'Founder'}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 80vw, 400px"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary/30 via-transparent to-transparent" />
+                  </motion.div>
+
+                  {/* Yellow Quote Box - Animate from Bottom */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{
+                      duration: 0.8,
+                      delay: 0.6,
+                      ease: [0.25, 0.1, 0.25, 1] as const
+                    }}
+                    whileHover={{ scale: 1.05 }}
+                    className="absolute -bottom-6 -right-6 bg-primary text-primary-foreground p-8 rounded-sm shadow-2xl cursor-pointer transform-gpu will-change-transform"
+                  >
+                    <motion.div
+                      animate={{
+                        rotate: [0, 5, -5, 0],
+                        scale: [1, 1.05, 1]
+                      }}
+                      transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut" as const
+                      }}
+                    >
+                      <Quote className="w-8 h-8 mb-2" />
+                    </motion.div>
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      transition={{ delay: 0.8, duration: 0.6 }}
+                      className="text-sm italic max-w-xs"
+                    >
+                      Every case is an opportunity to uphold rights, inspire trust, and leave a lasting impact - Solutions, Not Just Service.
+                    </motion.p>
+
+                    {/* Decorative elements */}
+                    <motion.div
+                      animate={{
+                        scale: [1, 1.2, 1],
+                        opacity: [0.3, 0.6, 0.3]
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "easeInOut" as const
+                      }}
+                      className="absolute top-2 right-2 w-12 h-12 bg-white/10 rounded-full blur-sm"
+                    />
+                  </motion.div>
+
+                  {/* Border Decoration */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: 0.8 }}
+                    className="absolute -top-4 -left-4 w-32 h-32 border-4 border-primary/20 rounded-sm"
+                  />
+                </div>
               </motion.div>
-              
-              {/* Button underline animation */}
+
+              {/* Right Column - Content */}
               <motion.div
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                transition={{ delay: 1.3, duration: 0.8 }}
-                className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary origin-left"
-              />
-            </Link>
+                variants={{
+                  hidden: { opacity: 0, x: 100 },
+                  visible: {
+                    opacity: 1,
+                    x: 0,
+                    transition: {
+                      duration: 1,
+                      ease: [0.25, 0.1, 0.25, 1] as const
+                    }
+                  }
+                }}
+                className="space-y-6"
+              >
+                {/* Subtitle */}
+                <motion.div
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: { duration: 0.6 }
+                    }
+                  }}
+                  className="flex items-center gap-4 mb-6"
+                >
+                  <motion.span
+                    initial={{ width: 0 }}
+                    whileInView={{ width: 48 }}
+                    transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" as const }}
+                    className="h-px bg-primary"
+                  />
+                  <span className="text-primary uppercase tracking-[0.2em] text-sm font-semibold">
+                    Meet Our Founder
+                  </span>
+                </motion.div>
+
+                {/* Name */}
+                <motion.h2
+                  variants={{
+                    hidden: { opacity: 0, y: 30 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: { duration: 0.7, delay: 0.2 }
+                    }
+                  }}
+                  className="text-4xl md:text-5xl font-heading font-bold mb-4 text-gray-900"
+                >
+                  {primaryFounder?.name}
+                </motion.h2>
+
+                {/* Title */}
+                <motion.p
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: { duration: 0.7, delay: 0.3 }
+                    }
+                  }}
+                  className="text-xl text-primary mb-6 italic"
+                >
+                  {primaryFounder?.role}
+                </motion.p>
+
+                {/* Stats with Icons */}
+                <motion.div
+                  variants={{
+                    hidden: { opacity: 0 },
+                    visible: {
+                      opacity: 1,
+                      transition: {
+                        staggerChildren: 0.15,
+                        delayChildren: 0.4
+                      }
+                    }
+                  }}
+                  className="space-y-4 mb-8"
+                >
+                  <motion.div
+                    variants={{
+                      hidden: { opacity: 0, x: -30 },
+                      visible: {
+                        opacity: 1,
+                        x: 0,
+                        transition: { duration: 0.6 }
+                      }
+                    }}
+                    whileHover={{ x: 10 }}
+                    className="flex items-center gap-3"
+                  >
+                    <motion.div
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      <Award className="w-5 h-5 text-primary" />
+                    </motion.div>
+                    <span className="text-gray-700">4+ of legal excellence</span>
+                  </motion.div>
+
+                  <motion.div
+                    variants={{
+                      hidden: { opacity: 0, x: -30 },
+                      visible: {
+                        opacity: 1,
+                        x: 0,
+                        transition: { duration: 0.6 }
+                      }
+                    }}
+                    whileHover={{ x: 10 }}
+                    className="flex items-center gap-3"
+                  >
+                    <motion.div
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      <GraduationCapIcon className="w-5 h-5 text-primary" />
+                    </motion.div>
+                    <span className="text-gray-700">{primaryFounder?.details?.education?.[0]}</span>
+                  </motion.div>
+
+                  <motion.div
+                    variants={{
+                      hidden: { opacity: 0, x: -30 },
+                      visible: {
+                        opacity: 1,
+                        x: 0,
+                        transition: { duration: 0.6 }
+                      }
+                    }}
+                    whileHover={{ x: 10 }}
+                    className="flex items-center gap-3"
+                  >
+                    <motion.div
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      <Briefcase className="w-5 h-5 text-primary" />
+                    </motion.div>
+                    <span className="text-gray-700">Specializes in: {primaryFounder?.details?.practiceAreas?.join(", ")}</span>
+                  </motion.div>
+                </motion.div>
+
+                {/* Description - Animate from Bottom */}
+                <motion.p
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    duration: 0.8,
+                    delay: 0.8,
+                    ease: [0.25, 0.1, 0.25, 1] as const
+                  }}
+                  className="text-gray-600 leading-relaxed mb-8"
+                >
+                  J. Ashish, a first-generation lawyer, is appearing before the Supreme Court of India and multiple High Courts across the country, handling complex matters spanning litigation, advisory, and documentation. He leads a dynamic team of legal practitioners, delivering structured guidance while upholding the highest standards of professionalism, ethics, and integrity.
+                </motion.p>
+
+                {/* Button - Animate from Right */}
+                <motion.div
+                  initial={{ opacity: 0, x: 100 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{
+                    duration: 0.8,
+                    delay: 1.0,
+                    ease: [0.25, 0.1, 0.25, 1] as const
+                  }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="inline-block"
+                >
+                  <Link
+                    href="/about"
+                    className="inline-flex items-center gap-3 text-primary font-semibold group text-lg relative overflow-hidden"
+                  >
+                    <motion.span
+                      initial={{ x: -20, opacity: 0 }}
+                      whileInView={{ x: 0, opacity: 1 }}
+                      transition={{ delay: 1.2, duration: 0.5 }}
+                    >
+                      Read Full Biography
+                    </motion.span>
+                    <motion.div
+                      animate={{ x: [0, 5, 0] }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "easeInOut" as const
+                      }}
+                    >
+                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                    </motion.div>
+
+                    {/* Button underline animation */}
+                    <motion.div
+                      initial={{ scaleX: 0 }}
+                      whileInView={{ scaleX: 1 }}
+                      transition={{ delay: 1.3, duration: 0.8 }}
+                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary origin-left"
+                    />
+                  </Link>
+                </motion.div>
+              </motion.div>
+            </div>
           </motion.div>
-        </motion.div>
-      </div>
-    </motion.div>
-  </div>
-</motion.section>
+        </div>
+      </motion.section>
 
       {/* Global Attorneys Section */}
-<motion.section
-  initial="hidden"
-  whileInView="visible"
-  viewport={viewportOnceMore}
-  variants={premiumStagger}
-  className="bg-background section-padding relative overflow-hidden"
->
-  {/* Background Map */}
-  <motion.div
-    variants={fadeSoft}
-    className="absolute inset-0"
-  >
-    <Image
-      src={globalMap}
-      alt="World Map"
-      fill
-      className="object-cover opacity-[0.04]"
-      sizes="100vw"
-    />
-  </motion.div>
-
-  <div className="container mx-auto relative z-10">
-
-    {/* Heading */}
-    <motion.div
-      variants={premiumStagger}
-      className="text-center mb-16"
-    >
-      <motion.div
-        variants={fadeInUp}
-        className="flex items-center justify-center gap-4 mb-4"
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={viewportOnceMore}
+        variants={premiumStagger}
+        className="bg-background section-padding relative overflow-hidden"
       >
-        <span className="w-12 h-px bg-primary/60"></span>
-        <span className="text-primary uppercase tracking-[0.2em] text-sm font-semibold">
-          Regional Presence
-        </span>
-        <span className="w-12 h-px bg-primary/60"></span>
-      </motion.div>
-
-      <motion.h2
-        variants={fadeInUp}
-        className="text-4xl md:text-5xl font-heading font-bold text-foreground"
-      >
-        Our Attorneys{" "}
-        <span className="gold-gradient-text italic">
-          Presence
-        </span>
-      </motion.h2>
-    </motion.div>
-
-    {/* Cards */}
-    <motion.div
-      variants={premiumStagger}
-      className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5"
-    >
-      {globalAttorneys.map((item, index) => (
+        {/* Background Map */}
         <motion.div
-          key={item.country}
-          variants={cardReveal}
-          whileHover={{
-            y: -6,
-            scale: 1.03,
-            transition: { duration: 0.3, ease: "easeOut" }
-          }}
-          className="text-center p-6 bg-card/40 backdrop-blur-md border border-border rounded-sm 
+          variants={fadeSoft}
+          className="absolute inset-0"
+        >
+          <Image
+            src={globalMap}
+            alt="World Map"
+            fill
+            className="object-cover opacity-[0.04]"
+            sizes="100vw"
+          />
+        </motion.div>
+
+        <div className="container mx-auto relative z-10">
+
+          {/* Heading */}
+          <motion.div
+            variants={premiumStagger}
+            className="text-center mb-16"
+          >
+            <motion.div
+              variants={fadeInUp}
+              className="flex items-center justify-center gap-4 mb-4"
+            >
+              <span className="w-12 h-px bg-primary/60"></span>
+              <span className="text-primary uppercase tracking-[0.2em] text-sm font-semibold">
+                Regional Presence
+              </span>
+              <span className="w-12 h-px bg-primary/60"></span>
+            </motion.div>
+
+            <motion.h2
+              variants={fadeInUp}
+              className="text-4xl md:text-5xl font-heading font-bold text-foreground"
+            >
+              Our Attorneys{" "}
+              <span className="gold-gradient-text italic">
+                Presence
+              </span>
+            </motion.h2>
+          </motion.div>
+
+          {/* Cards */}
+          <motion.div
+            variants={premiumStagger}
+            className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5"
+          >
+            {globalAttorneys.map((item, index) => (
+              <motion.div
+                key={item.country}
+                variants={cardReveal}
+                whileHover={{
+                  y: -6,
+                  scale: 1.03,
+                  transition: { duration: 0.3, ease: "easeOut" }
+                }}
+                className="text-center p-6 bg-card/40 backdrop-blur-md border border-border rounded-sm 
           hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10 
           transition-all duration-500"
-        >
-          {/* Flag */}
-          {/* <motion.div
+              >
+                {/* Flag */}
+                {/* <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: index * 0.15 }}
@@ -1853,34 +1858,34 @@ const cardReveal: Variants = {
             {item.flag}
           </motion.div> */}
 
-          {/* Count */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: index * 0.2 }}
-            className="text-2xl font-heading font-bold text-foreground mb-2"
-          >
-            {item.count}
+                {/* Count */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: index * 0.2 }}
+                  className="text-2xl font-heading font-bold text-foreground mb-2"
+                >
+                  {item.count}
+                </motion.div>
+
+                {/* Country */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: index * 0.25 }}
+                  className="text-base text-muted-foreground"
+                >
+                  {item.country}
+                </motion.div>
+              </motion.div>
+            ))}
           </motion.div>
 
-          {/* Country */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: index * 0.25 }}
-            className="text-base text-muted-foreground"
-          >
-            {item.country}
-          </motion.div>
-        </motion.div>
-      ))}
-    </motion.div>
-
-  </div>
-</motion.section>
+        </div>
+      </motion.section>
 
       {/* Meet Attorneys - Auto Slide Design */}
-      <section 
+      <section
         ref={attorneysRef}
         className="bg-[#F7F7F5] py-20 px-4 md:px-8 overflow-hidden"
         onMouseEnter={() => setIsHovering(true)}
@@ -1935,57 +1940,57 @@ const cardReveal: Variants = {
 
             <div className="lg:col-span-2 overflow-hidden">
               {teamMembers.length === 0 ? null : (
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentAttorneyIndex}
-                  initial={{ x: 300, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  exit={{ x: -300, opacity: 0 }}
-                  transition={{ type: "spring", stiffness: 80, damping: 25 }} // Slower spring
-                  className="grid md:grid-cols-2 gap-6"
-                >
-                  {[0, 1].map((offset) => {
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentAttorneyIndex}
+                    initial={{ x: 300, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: -300, opacity: 0 }}
+                    transition={{ type: "spring", stiffness: 80, damping: 25 }} // Slower spring
+                    className="grid md:grid-cols-2 gap-6"
+                  >
+                    {[0, 1].map((offset) => {
 
-  if (!teamMembers.length) return null;
+                      if (!teamMembers.length) return null;
 
-  const index = (currentAttorneyIndex + offset) % teamMembers.length;
-  const attorney = teamMembers[index];
+                      const index = (currentAttorneyIndex + offset) % teamMembers.length;
+                      const attorney = teamMembers[index];
 
-  if (!attorney) return null;
-                    return (
-                      <motion.div
-                        key={index}
-                        whileHover={{ y: -15, scale: 1.02 }} // Reduced scale
-                        transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                        className="relative rounded-xl overflow-hidden group"
-                      >
-                        <div className="relative h-[450px]">
-                          <Image
-                            src={getEmployeeImageUrl(attorney)}
-                            alt={attorney?.name || "Attorney"}
-                            fill
-                            className="object-cover group-hover:scale-105 transition duration-700"
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-[#1F2A44] via-transparent to-transparent opacity-90"></div>
-                          
-                          <motion.div 
-                            initial={{ y: 20, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            transition={{ delay: 0.3, duration: 0.8 }} // Slower
-                            className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-0 group-hover:-translate-y-2 transition-transform duration-500"
-                          >
-                            <h3 className="text-xl font-semibold">{attorney.name}</h3>
-                            <p className="text-sm text-white/80 mb-2">{attorney.role}</p>
-                            <div className="flex items-center gap-4 mb-2">
-                              <span className="text-xs bg-white/20 px-2 py-1 rounded-full">
-                                {attorney.experience}+ experience
-                              </span>
-                              <span className="text-xs bg-white/20 px-2 py-1 rounded-full">
-                                {attorney.specialty}
-                              </span>
-                            </div>
-                            {/* <div className="flex items-center gap-1">
+                      if (!attorney) return null;
+                      return (
+                        <motion.div
+                          key={index}
+                          whileHover={{ y: -15, scale: 1.02 }} // Reduced scale
+                          transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                          className="relative rounded-xl overflow-hidden group"
+                        >
+                          <div className="relative h-[450px]">
+                            <Image
+                              src={getEmployeeImageUrl(attorney)}
+                              alt={attorney?.name || "Attorney"}
+                              fill
+                              className="object-cover group-hover:scale-105 transition duration-700"
+                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#1F2A44] via-transparent to-transparent opacity-90"></div>
+
+                            <motion.div
+                              initial={{ y: 20, opacity: 0 }}
+                              animate={{ y: 0, opacity: 1 }}
+                              transition={{ delay: 0.3, duration: 0.8 }} // Slower
+                              className="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-0 group-hover:-translate-y-2 transition-transform duration-500"
+                            >
+                              <h3 className="text-xl font-semibold">{attorney.name}</h3>
+                              <p className="text-sm text-white/80 mb-2">{attorney.role}</p>
+                              <div className="flex items-center gap-4 mb-2">
+                                <span className="text-xs bg-white/20 px-2 py-1 rounded-full">
+                                  {attorney.experience}+ experience
+                                </span>
+                                <span className="text-xs bg-white/20 px-2 py-1 rounded-full">
+                                  {attorney.specialty}
+                                </span>
+                              </div>
+                              {/* <div className="flex items-center gap-1">
                               {[...Array(5)].map((_, i) => (
                                 <motion.div
                                   key={i}
@@ -2004,16 +2009,16 @@ const cardReveal: Variants = {
                               ))}
                               <span className="ml-2 text-sm">5/5</span>
                             </div> */}
-                          </motion.div>
-                        </div>
-                      </motion.div>
-                    );
-                  })}
-                </motion.div>
-              </AnimatePresence>
-                    )}
+                            </motion.div>
+                          </div>
+                        </motion.div>
+                      );
+                    })}
+                  </motion.div>
+                </AnimatePresence>
+              )}
 
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.8, duration: 1 }} // Slower
@@ -2025,15 +2030,14 @@ const cardReveal: Variants = {
                     onClick={() => setCurrentAttorneyIndex(index)}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
-                    className={`w-2 h-2 rounded-full transition-all duration-500 ${
-                      index === currentAttorneyIndex
-                        ? "w-8 bg-[#C9A646]"
-                        : "bg-gray-300 hover:bg-[#C9A646]/50"
-                    }`}
+                    className={`w-2 h-2 rounded-full transition-all duration-500 ${index === currentAttorneyIndex
+                      ? "w-8 bg-[#C9A646]"
+                      : "bg-gray-300 hover:bg-[#C9A646]/50"
+                      }`}
                   />
                 ))}
               </motion.div>
-        
+
             </div>
           </div>
         </div>
@@ -2062,8 +2066,8 @@ const cardReveal: Variants = {
                   <Image src={aboutMain} alt="Our law firm" fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
                   <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-transparent" />
                 </motion.div>
-                
-                <motion.div 
+
+                <motion.div
                   variants={slideFromRight}
                   transition={{ delay: 0.5 }} // Increased delay
                   whileHover={{ scale: 1.05 }}
@@ -2080,7 +2084,7 @@ const cardReveal: Variants = {
                 />
               </div>
             </motion.div>
-            
+
             <motion.div
               variants={slideFromRight}
               className="order-1 lg:order-2"
@@ -2091,20 +2095,20 @@ const cardReveal: Variants = {
                   About Our Firm
                 </span>
               </div>
-              
+
               <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-foreground">
                 A Legacy of <span className="gold-gradient-text italic">Legal Excellence</span>
               </h2>
-              
+
               <p className="text-muted-foreground leading-relaxed mb-4 text-lg">
                 Since its establishment in 2026, J. Ashish Associates LLP has been committed to delivering professional and ethical legal services across India. Our team of experienced attorneys provides thoughtful guidance, meticulous analysis, and client-focused support across litigation, advisory, and documentation. Built on integrity, diligence, and strategic insight, the firm combines legal expertise with a collaborative approach to ensure every matter is handled with care, professionalism, and attention to detail.
               </p>
-              
+
               <p className="text-muted-foreground leading-relaxed mb-8 text-lg">
                 Our Mission: To provide structured, informed, and practical legal guidance while empowering clients to navigate complex legal challenges with confidence.
 
               </p>
-              
+
               {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                 {[
                   { label: "Award Winning", icon: Award },
@@ -2126,11 +2130,11 @@ const cardReveal: Variants = {
               </div> */}
 
               <motion.div whileHover={{ x: 15 }} transition={{ type: "spring", stiffness: 200, damping: 20 }} className="inline-block">
-                <Link 
-                  href="/about" 
+                <Link
+                  href="/about"
                   className="inline-flex items-center gap-3 text-primary font-semibold hover:gap-4 transition-all duration-500 group text-lg"
                 >
-                  Discover Our Story 
+                  Discover Our Story
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
                 </Link>
               </motion.div>
@@ -2144,74 +2148,74 @@ const cardReveal: Variants = {
         className="bg-gradient-to-br from-gray-50 to-white section-padding"
       >
         <motion.div initial="hidden"
-        whileInView="visible"
-        viewport={viewportOnceMore}
-        variants={staggerContainer}>
+          whileInView="visible"
+          viewport={viewportOnceMore}
+          variants={staggerContainer}>
           <div className="container mx-auto">
-          <motion.div
-            variants={staggerContainer}
-            className="text-center mb-16"
-          >
-            <motion.div variants={slideFromLeft} className="flex items-center justify-center gap-4 mb-4">
-              <span className="w-12 h-px bg-primary"></span>
-              <span className="text-primary uppercase tracking-[0.2em] text-sm font-semibold">
-                Our Foundation
-              </span>
-              <span className="w-12 h-px bg-primary"></span>
-            </motion.div>
-            <motion.h2 variants={slideFromRight} className="text-4xl md:text-5xl font-heading font-bold text-gray-900">
-              Core <span className="gold-gradient-text italic">Values</span>
-            </motion.h2>
-          </motion.div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {coreValues.map((value, index) => (
-              <motion.div
-                key={value.title}
-                variants={index % 2 === 0 ? slideFromLeft : slideFromRight}
-                transition={{ delay: index * 0.2 }} // Increased stagger
-                whileHover={{ y: -15, scale: 1.02 }} // Reduced scale
-                className="group relative"
-              >
-                <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 h-full">
-                  <div className="overflow-hidden min-w-0 w-full">
-                    {/* Top bar visible on load so border color always shows (no scaleX animation) */}
-                    <div
-                      className={`h-1 w-full bg-gradient-to-r ${value.color} scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 ease-out`}
-                    />
-                  </div>
-                  
-                  <div className="p-8">
-                    <motion.div 
-                      whileHover={{ rotate: 180 }}
-                      transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] as const }} // Slower
-                      className={`w-16 h-16 ${value.bgLight} rounded-xl flex items-center justify-center mb-6 group-hover:scale-105 transition-transform duration-500`}
-                    >
-                      <value.icon className={`w-8 h-8 ${value.iconColor}`} />
-                    </motion.div>
-                    
-                    <h3 className="text-xl font-heading font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors duration-500">
-                      {value.title}
-                    </h3>
-                    
-                    <p className="text-gray-600 leading-relaxed">
-                      {value.desc}
-                    </p>
-                    
-                    <motion.div 
-                      initial={{ scale: 0 }}
-                      whileInView={{ scale: 1 }}
-                      transition={{ delay: index * 0.4, duration: 1 }} // Slower
-                      className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-                    >
-                      <div className={`w-12 h-12 ${value.bgLight} rounded-full opacity-20`} />
-                    </motion.div>
-                  </div>
-                </div>
+            <motion.div
+              variants={staggerContainer}
+              className="text-center mb-16"
+            >
+              <motion.div variants={slideFromLeft} className="flex items-center justify-center gap-4 mb-4">
+                <span className="w-12 h-px bg-primary"></span>
+                <span className="text-primary uppercase tracking-[0.2em] text-sm font-semibold">
+                  Our Foundation
+                </span>
+                <span className="w-12 h-px bg-primary"></span>
               </motion.div>
-            ))}
+              <motion.h2 variants={slideFromRight} className="text-4xl md:text-5xl font-heading font-bold text-gray-900">
+                Core <span className="gold-gradient-text italic">Values</span>
+              </motion.h2>
+            </motion.div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {coreValues.map((value, index) => (
+                <motion.div
+                  key={value.title}
+                  variants={index % 2 === 0 ? slideFromLeft : slideFromRight}
+                  transition={{ delay: index * 0.2 }} // Increased stagger
+                  whileHover={{ y: -15, scale: 1.02 }} // Reduced scale
+                  className="group relative"
+                >
+                  <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 h-full">
+                    <div className="overflow-hidden min-w-0 w-full">
+                      {/* Top bar visible on load so border color always shows (no scaleX animation) */}
+                      <div
+                        className={`h-1 w-full bg-gradient-to-r ${value.color} scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 ease-out`}
+                      />
+                    </div>
+
+                    <div className="p-8">
+                      <motion.div
+                        whileHover={{ rotate: 180 }}
+                        transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] as const }} // Slower
+                        className={`w-16 h-16 ${value.bgLight} rounded-xl flex items-center justify-center mb-6 group-hover:scale-105 transition-transform duration-500`}
+                      >
+                        <value.icon className={`w-8 h-8 ${value.iconColor}`} />
+                      </motion.div>
+
+                      <h3 className="text-xl font-heading font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors duration-500">
+                        {value.title}
+                      </h3>
+
+                      <p className="text-gray-600 leading-relaxed">
+                        {value.desc}
+                      </p>
+
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        whileInView={{ scale: 1 }}
+                        transition={{ delay: index * 0.4, duration: 1 }} // Slower
+                        className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+                      >
+                        <div className={`w-12 h-12 ${value.bgLight} rounded-full opacity-20`} />
+                      </motion.div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
         </motion.div>
       </motion.section>
 
@@ -2225,7 +2229,7 @@ const cardReveal: Variants = {
       >
         <div className="absolute inset-0 opacity-10">
           <motion.div
-            animate={{ 
+            animate={{
               scale: [1, 1.15, 1],
               x: [0, 80, 0],
               y: [0, -80, 0]
@@ -2234,7 +2238,7 @@ const cardReveal: Variants = {
             className="absolute top-0 left-0 w-64 h-64 bg-primary rounded-full blur-3xl"
           />
           <motion.div
-            animate={{ 
+            animate={{
               scale: [1, 1.2, 1],
               x: [0, -80, 0],
               y: [0, 80, 0]
@@ -2243,7 +2247,7 @@ const cardReveal: Variants = {
             className="absolute bottom-0 right-0 w-96 h-96 bg-primary rounded-full blur-3xl"
           />
         </div>
-        
+
         <div className="container mx-auto relative z-10">
           <motion.div
             variants={staggerContainer}
@@ -2260,7 +2264,7 @@ const cardReveal: Variants = {
               Our Practice <span className="gold-gradient-text italic">Areas</span>
             </motion.h2>
           </motion.div>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {practiceAreas.map((area, i) => (
               <motion.div
@@ -2270,20 +2274,20 @@ const cardReveal: Variants = {
                 // whileHover={{ y: -15, scale: 1.02 }}
                 className="group will-change-transform"
               >
-                <Link 
-                  href="/practice-areas" 
+                <Link
+                  href="/practice-areas"
                   className="block relative h-[350px] overflow-hidden will-change-transform"
                 >
-                  <motion.img 
-                    src={area.image} 
+                  <motion.img
+                    src={area.image}
                     alt={area.title}
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  
+
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent opacity-90 group-hover:opacity-95 transition-opacity duration-700" />
-                  
+
                   <div className="absolute inset-0 p-8 flex flex-col justify-end">
-                    <motion.div 
+                    <motion.div
                       initial={{ scale: 0, rotate: -180 }}
                       whileInView={{ scale: 1, rotate: 0 }}
                       transition={{ delay: i * 0.3, duration: 1.2 }} // Slower
@@ -2292,11 +2296,11 @@ const cardReveal: Variants = {
                     >
                       <area.lightIcon className="w-6 h-6 text-white" />
                     </motion.div>
-                    
+
                     <h3 className="text-2xl font-heading font-bold mb-2 text-white">
                       {area.title}
                     </h3>
-                    
+
                     {/* <motion.div 
                       initial={{ x: -20, opacity: 0 }}
                       whileInView={{ x: 0, opacity: 1 }}
@@ -2307,12 +2311,12 @@ const cardReveal: Variants = {
                       <span className="text-sm text-gray-300">•</span>
                       <span className="text-sm text-gray-300">{area.experience}</span>
                     </motion.div> */}
-                    
+
                     <p className="text-gray-200 leading-relaxed mb-4 text-sm">
                       {area.desc}
                     </p>
-                    
-                    <motion.span 
+
+                    <motion.span
                       whileHover={{ x: 8 }}
                       transition={{ type: "spring", stiffness: 200, damping: 20 }}
                       className="inline-flex items-center gap-2 text-primary text-sm font-semibold group-hover:gap-3 transition-all duration-500"
@@ -2320,11 +2324,11 @@ const cardReveal: Variants = {
                       Learn More <ArrowRight className="w-4 h-4" />
                     </motion.span>
                   </div>
-                  
-                  <motion.div 
+
+                  <motion.div
                     initial={{ scaleX: 0 }}
                     whileHover={{ scaleX: 1 }}
-                    className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${area.color} transform origin-left transition-transform duration-700`} 
+                    className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${area.color} transform origin-left transition-transform duration-700`}
                   />
                 </Link>
               </motion.div>
@@ -2338,85 +2342,85 @@ const cardReveal: Variants = {
         className="bg-white section-padding"
       >
         <motion.div initial="hidden"
-        whileInView="visible"
-        viewport={viewportOnceMore}
-        variants={staggerContainer}>
+          whileInView="visible"
+          viewport={viewportOnceMore}
+          variants={staggerContainer}>
           <div className="container mx-auto">
-          <motion.div
-            variants={staggerContainer}
-            className="text-center mb-16"
-          >
-            <motion.div variants={slideFromLeft} className="flex items-center justify-center gap-4 mb-4">
-              <span className="w-12 h-px bg-primary"></span>
-              <span className="text-primary uppercase tracking-[0.2em] text-sm font-semibold">
-                Our Process
-              </span>
-              <span className="w-12 h-px bg-primary"></span>
+            <motion.div
+              variants={staggerContainer}
+              className="text-center mb-16"
+            >
+              <motion.div variants={slideFromLeft} className="flex items-center justify-center gap-4 mb-4">
+                <span className="w-12 h-px bg-primary"></span>
+                <span className="text-primary uppercase tracking-[0.2em] text-sm font-semibold">
+                  Our Process
+                </span>
+                <span className="w-12 h-px bg-primary"></span>
+              </motion.div>
+              <motion.h2 variants={slideFromRight} className="text-4xl md:text-5xl font-heading font-bold text-gray-900">
+                How We <span className="gold-gradient-text italic">Work</span>
+              </motion.h2>
             </motion.div>
-            <motion.h2 variants={slideFromRight} className="text-4xl md:text-5xl font-heading font-bold text-gray-900">
-              How We <span className="gold-gradient-text italic">Work</span>
-            </motion.h2>
-          </motion.div>
-          
-          <div className="relative">
-            <motion.div 
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              transition={{ duration: 1.5, delay: 0.8, ease: [0.25, 0.1, 0.25, 1] as const }} // Slower
-              className="absolute top-24 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary/30 to-transparent hidden lg:block origin-left"
-            />
-            
-            <div className="grid lg:grid-cols-4 gap-8">
-              {processSteps.map((step, index) => (
-                <motion.div
-                  key={step.step}
-                  variants={index % 2 === 0 ? slideFromLeft : slideFromRight}
-                  transition={{ delay: index * 0.2 }} // Increased stagger
-                  whileHover={{ y: -8 }}
-                  className="relative group"
-                >
-                  <motion.div 
-                    initial={{ scale: 0, x: -50 }}
-                    whileInView={{ scale: 1, x: 0 }}
-                    transition={{ delay: index * 0.3, duration: 1 }} // Slower
-                    className="absolute -top-6 left-1/2 -translate-x-1/2 text-8xl font-bold text-gray-100 group-hover:text-primary/10 transition-colors duration-700"
+
+            <div className="relative">
+              <motion.div
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                transition={{ duration: 1.5, delay: 0.8, ease: [0.25, 0.1, 0.25, 1] as const }} // Slower
+                className="absolute top-24 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-primary/30 to-transparent hidden lg:block origin-left"
+              />
+
+              <div className="grid lg:grid-cols-4 gap-8">
+                {processSteps.map((step, index) => (
+                  <motion.div
+                    key={step.step}
+                    variants={index % 2 === 0 ? slideFromLeft : slideFromRight}
+                    transition={{ delay: index * 0.2 }} // Increased stagger
+                    whileHover={{ y: -8 }}
+                    className="relative group"
                   >
-                    {step.step}
+                    <motion.div
+                      initial={{ scale: 0, x: -50 }}
+                      whileInView={{ scale: 1, x: 0 }}
+                      transition={{ delay: index * 0.3, duration: 1 }} // Slower
+                      className="absolute -top-6 left-1/2 -translate-x-1/2 text-8xl font-bold text-gray-100 group-hover:text-primary/10 transition-colors duration-700"
+                    >
+                      {step.step}
+                    </motion.div>
+
+                    <div className="relative z-10 w-14 h-14 mx-auto mb-8 rounded-full bg-gradient-to-br from-white to-gray-50 border-4 border-white shadow-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+                      <motion.div
+                        whileHover={{ rotate: 180 }}
+                        transition={{ duration: 1.2 }}
+                        className={`w-10 h-10 rounded-full bg-gradient-to-br ${step.color} flex items-center justify-center`}
+                      >
+                        <step.icon className="w-6 h-6 text-white" />
+                      </motion.div>
+                    </div>
+
+                    <div className="text-center">
+                      <h3 className="text-xl font-heading font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors duration-500">
+                        {step.title}
+                      </h3>
+                      <p className="text-gray-600 leading-relaxed">
+                        {step.desc}
+                      </p>
+                    </div>
+
+                    {index < processSteps.length - 1 && (
+                      <motion.div
+                        animate={{ x: [0, 8, 0] }}
+                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" as const }} // Slower
+                        className="hidden lg:block absolute top-20 -right-4 text-primary/30"
+                      >
+                        <ArrowRight className="w-6 h-6" />
+                      </motion.div>
+                    )}
                   </motion.div>
-                  
-                  <div className="relative z-10 w-14 h-14 mx-auto mb-8 rounded-full bg-gradient-to-br from-white to-gray-50 border-4 border-white shadow-xl flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                    <motion.div 
-                      whileHover={{ rotate: 180 }}
-                      transition={{ duration: 1.2 }}
-                      className={`w-10 h-10 rounded-full bg-gradient-to-br ${step.color} flex items-center justify-center`}
-                    >
-                      <step.icon className="w-6 h-6 text-white" />
-                    </motion.div>
-                  </div>
-                  
-                  <div className="text-center">
-                    <h3 className="text-xl font-heading font-bold mb-3 text-gray-900 group-hover:text-primary transition-colors duration-500">
-                      {step.title}
-                    </h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      {step.desc}
-                    </p>
-                  </div>
-                  
-                  {index < processSteps.length - 1 && (
-                    <motion.div 
-                      animate={{ x: [0, 8, 0] }}
-                      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" as const }} // Slower
-                      className="hidden lg:block absolute top-20 -right-4 text-primary/30"
-                    >
-                      <ArrowRight className="w-6 h-6" />
-                    </motion.div>
-                  )}
-                </motion.div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
-        </div>
         </motion.div>
       </motion.section>
 
@@ -2738,33 +2742,33 @@ const cardReveal: Variants = {
         whileInView="visible"
         viewport={viewportOnceMore}
         variants={staggerContainer}
-        className="bg-background section-padding border border-red-500"
+        className="bg-background section-padding "
       >
-        {/* <div className="border border-red-500"> */}
+        {/* <div className=""> */}
         <div className="container mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center border border-red-500">
+          <div className="grid lg:grid-cols-2 gap-12 items-center ">
             <motion.div
               variants={slideFromLeft}
-              className="border border-red-500 w-full"
+              className=" w-full"
             >
-              <div className="flex items-center gap-4 mb-6 border border-red-500">
+              <div className="flex items-center gap-4 mb-6 ">
                 <span className="w-12 h-px bg-primary"></span>
                 <span className="text-primary uppercase tracking-[0.2em] text-sm font-semibold">
                   Get In Touch
                 </span>
               </div>
-              
-              <h2 className="text-xl md:text-5xl font-heading font-bold mb-6 text-foreground border border-red-500">
+
+              <h2 className="text-xl md:text-5xl font-heading font-bold mb-6 text-foreground ">
                 Ready to <span className="gold-gradient-text italic">Discuss</span> Your Case?
               </h2>
-              
-              <p className="text-sm md:text-lg text-muted-foreground leading-relaxed mb-8 w-full border border-red-500">
+
+              <p className="text-sm md:text-lg text-muted-foreground leading-relaxed mb-8 w-full ">
                 Schedule a confidential consultation with our experienced attorneys.
                 We're here to provide the legal guidance you need.
               </p>
-              
+
               <div className="space-y-4 mb-8">
-                <motion.div 
+                <motion.div
                   variants={slideFromLeft}
                   whileHover={{ x: 8 }}
                   transition={{ type: "spring", stiffness: 200, damping: 20 }}
@@ -2778,8 +2782,8 @@ const cardReveal: Variants = {
                     <p className="text-sm md:text-lg font-semibold text-foreground">+91 887 887 3555</p>
                   </div>
                 </motion.div>
-                
-                <motion.div 
+
+                <motion.div
                   variants={slideFromLeft}
                   transition={{ delay: 0.2 }}
                   whileHover={{ x: 8 }}
@@ -2790,11 +2794,11 @@ const cardReveal: Variants = {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Email Us</p>
-                    <p className="text-sm md:text-lg font-semibold text-foreground">jashishadvocate@gmail.com</p>
+                    <p className="text-sm md:text-lg font-semibold text-foreground">jashishwebsite@gmail.com</p>
                   </div>
                 </motion.div>
-                
-                <motion.div 
+
+                <motion.div
                   variants={slideFromLeft}
                   transition={{ delay: 0.4 }}
                   whileHover={{ x: 8 }}
@@ -2806,14 +2810,14 @@ const cardReveal: Variants = {
                   <div>
                     <p className="text-sm text-muted-foreground">Visit Our Head Office</p>
                     <p className="text-sm md:text-lg font-semibold text-foreground">No. 137, Flat No. F-8, <br />
-1st Floor, Appu Manor Apartment, <br />
-Perambur Barracks Road, <br />
-Purasawalkam, Chennai 600 007. <br />
-</p>
+                      1st Floor, Appu Manor Apartment, <br />
+                      Perambur Barracks Road, <br />
+                      Purasawalkam, Chennai 600 007. <br />
+                    </p>
                   </div>
                 </motion.div>
               </div>
-              
+
               <div className="flex gap-4">
                 {[Linkedin, Twitter, Github].map((Icon, index) => (
                   <motion.a
@@ -2829,89 +2833,89 @@ Purasawalkam, Chennai 600 007. <br />
                 ))}
               </div>
             </motion.div>
-            
+
             <motion.div
               variants={slideFromRight}
-              className="border border-red-500 w-72 md:w-full"
+              className=" w-72 md:w-full"
             >
               <form onSubmit={handleSubmit} className="bg-card border border-border rounded-sm md:p-8 p-4 shadow-2xl">
                 {/* <div className="grid md:grid-cols-1 gap-4 mb-4"> */}
-                  <motion.div variants={slideFromLeft} className="mb-4">
-                    <label className="block text-sm font-medium text-foreground mb-2">First Name</label>
-                    <input
-                      name="fullName"
-                      value={formData.fullName}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      type="text"
-                      className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:outline-none focus:border-primary transition-colors"
-                      placeholder="First Name"
-                    />
-                    {touched.fullName && errors.fullName && (
-  <p className="text-red-500 text-sm mt-1">{errors.fullName}</p>
-)}
-                  </motion.div>
-                
+                <motion.div variants={slideFromLeft} className="mb-4">
+                  <label className="block text-sm font-medium text-foreground mb-2">First Name</label>
+                  <input
+                    name="fullName"
+                    value={formData.fullName}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    type="text"
+                    className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:outline-none focus:border-primary transition-colors"
+                    placeholder="First Name"
+                  />
+                  {touched.fullName && errors.fullName && (
+                    <p className="text-red-500 text-sm mt-1">{errors.fullName}</p>
+                  )}
+                </motion.div>
+
                 <motion.div variants={slideFromLeft} transition={{ delay: 0.4 }} className="mb-4">
                   <label className="block text-sm font-medium text-foreground mb-2">Email</label>
                   <input
-                  name="email"
-  value={formData.email}
-  onChange={handleChange}
-  onBlur={handleBlur}
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                     type="email"
                     className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:outline-none focus:border-primary transition-colors"
                     placeholder="[EMAIL_ADDRESS]"
                   />
                   {touched.email && errors.email && (
-  <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-)}
+                    <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                  )}
                 </motion.div>
-                
+
                 <motion.div variants={slideFromRight} transition={{ delay: 0.6 }} className="mb-4">
-  <label className="block text-sm font-medium text-foreground mb-2">Phone</label>
+                  <label className="block text-sm font-medium text-foreground mb-2">Phone</label>
 
-  <div className="flex gap-2">
+                  <div className="flex gap-2">
 
-    {/* Country Code */}
-    <select
-      name="countryCode"
-      value={formData.countryCode}
-      onChange={handleChange}
-      onBlur={handleBlur}
-      className="px-3 py-3 bg-background border border-border rounded-sm focus:outline-none focus:border-primary"
-    >
-      <option value="+91">🇮🇳 +91</option>
-      <option value="+1">🇺🇸 +1</option>
-      <option value="+44">🇬🇧 +44</option>
-      <option value="+61">🇦🇺 +61</option>
-      <option value="+971">🇦🇪 +971</option>
-      <option value="+65">🇸🇬 +65</option>
-    </select>
+                    {/* Country Code */}
+                    <select
+                      name="countryCode"
+                      value={formData.countryCode}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      className="px-3 py-3 bg-background border border-border rounded-sm focus:outline-none focus:border-primary"
+                    >
+                      <option value="+91">🇮🇳 +91</option>
+                      <option value="+1">🇺🇸 +1</option>
+                      <option value="+44">🇬🇧 +44</option>
+                      <option value="+61">🇦🇺 +61</option>
+                      <option value="+971">🇦🇪 +971</option>
+                      <option value="+65">🇸🇬 +65</option>
+                    </select>
 
-    {/* Phone Input */}
-    <input
-      name="phone"
-      value={formData.phone}
-      onChange={handleChange}
-      onBlur={handleBlur}
-      type="tel"
-      className="w-full md:flex-1 px-4 py-3 bg-background border border-border rounded-sm focus:outline-none focus:border-primary transition-colors"
-      placeholder="1234567890"
-    />
+                    {/* Phone Input */}
+                    <input
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      type="tel"
+                      className="w-full md:flex-1 px-4 py-3 bg-background border border-border rounded-sm focus:outline-none focus:border-primary transition-colors"
+                      placeholder="1234567890"
+                    />
 
-  </div>
+                  </div>
 
-  {touched.phone && errors.phone && (
-    <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
-  )}
-</motion.div>
-                
+                  {touched.phone && errors.phone && (
+                    <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
+                  )}
+                </motion.div>
+
                 <motion.div variants={slideFromLeft} transition={{ delay: 0.8 }} className="mb-4">
                   <label className="block text-sm font-medium text-foreground mb-2">Practice Area</label>
                   <select name="practiceArea" value={formData.practiceArea}
-  onChange={handleChange}
-  onBlur={handleBlur} className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:outline-none focus:border-primary transition-colors">
+                    onChange={handleChange}
+                    onBlur={handleBlur} className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:outline-none focus:border-primary transition-colors">
                     <option>Select a practice area</option>
                     <option>Corporate Law</option>
                     <option>Litigation</option>
@@ -2919,27 +2923,27 @@ Purasawalkam, Chennai 600 007. <br />
                     <option>Real Estate</option>
                   </select>
 
-{touched.practiceArea && errors.practiceArea && (
-  <p className="text-red-500 text-sm mt-1">{errors.practiceArea}</p>
-)}
+                  {touched.practiceArea && errors.practiceArea && (
+                    <p className="text-red-500 text-sm mt-1">{errors.practiceArea}</p>
+                  )}
                 </motion.div>
-                
+
                 <motion.div variants={slideFromRight} transition={{ delay: 1.0 }} className="mb-6">
                   <label className="block text-sm font-medium text-foreground mb-2">Message</label>
                   <textarea
-                  name="message"
-  value={formData.message}
-  onChange={handleChange}
-  onBlur={handleBlur}
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
                     rows={4}
                     className="w-full px-4 py-3 bg-background border border-border rounded-sm focus:outline-none focus:border-primary transition-colors"
                     placeholder="Tell us about your case..."
                   />
                   {touched.message && errors.message && (
-  <p className="text-red-500 text-sm mt-1">{errors.message}</p>
-)}
+                    <p className="text-red-500 text-sm mt-1">{errors.message}</p>
+                  )}
                 </motion.div>
-                
+
                 <Button
                   type="submit"
                   size="xl"
@@ -3097,11 +3101,11 @@ Purasawalkam, Chennai 600 007. <br />
         />
       </motion.section> */}
 
-       <section className="bg-white flex justify-center items-center h-screen">
+      <section className="bg-white flex justify-center items-center h-screen">
         <div className="">
           <img src={logo} alt="J. Ashish Associates LLP" />
         </div>
-       </section>
+      </section>
 
     </div>
   );

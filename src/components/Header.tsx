@@ -296,9 +296,9 @@ const Header = () => {
             variants={topBarRightVariants}
             className="flex items-center gap-4 flex-wrap justify-center md:justify-end"
           >
-            {/* <a href="mailto:jashishadvocate@gmail.com" className="flex items-center gap-2 hover:text-[#C9A646] transition-colors duration-300">
+            {/* <a href="mailto:jashishwebsite@gmail.com" className="flex items-center gap-2 hover:text-[#C9A646] transition-colors duration-300">
               <Mail className="w-4 h-4" />
-              jashishadvocate@gmail.com
+              jashishwebsite@gmail.com
             </a>
             <a href="tel:+1234567890" className="md:hidden lg:flex items-center gap-2 hover:text-[#C9A646] transition-colors duration-300">
               <Phone className="w-4 h-4" />
@@ -627,11 +627,11 @@ const Header = () => {
                       <span>7373663555</span>
                     </a>
 
-                    <a href="mailto:jashishadvocate@gmail.com" className="flex items-center gap-3 text-sm text-[#1E293B] hover:text-[#C9A646] transition-all duration-500 group">
+                    <a href="mailto:jashishwebsite@gmail.com" className="flex items-center gap-3 text-sm text-[#1E293B] hover:text-[#C9A646] transition-all duration-500 group">
                       <div className="w-8 h-8 bg-[#C9A646]/10 rounded-full flex items-center justify-center group-hover:bg-[#C9A646] group-hover:text-white transition-all duration-500">
                         <Mail className="w-4 h-4" />
                       </div>
-                      <span>jashishadvocate@gmail.com</span>
+                      <span>jashishwebsite@gmail.com</span>
                     </a>
 
                     {/* Social Icons */}

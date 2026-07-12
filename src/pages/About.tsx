@@ -3,8 +3,8 @@
 // About.tsx
 import Image from "next/image";
 import Link from "next/link";
-import { 
-  CheckCircle, Award, Users, Target, 
+import {
+  CheckCircle, Award, Users, Target,
   ChevronRight, Quote, MapPin, Briefcase,
   Star, Globe, TrendingUp, Shield, Mail,
   Phone, Linkedin, Twitter, Scale,
@@ -45,54 +45,54 @@ const founder = {
 };
 
 const attorneys = [
-  { 
-    name: "Sarah Chen", 
-    title: "Intellectual Property", 
+  {
+    name: "Sarah Chen",
+    title: "Intellectual Property",
     image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     experience: "12 years",
     cases: "450+",
     education: "Stanford Law",
     expertise: ["Patent Law", "Trademarks", "Copyright"]
   },
-  { 
-    name: "Michael Roberts", 
-    title: "Litigation", 
+  {
+    name: "Michael Roberts",
+    title: "Litigation",
     image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     experience: "15 years",
     cases: "600+",
     education: "Columbia Law",
     expertise: ["Civil Litigation", "Arbitration", "Appeals"]
   },
-  { 
-    name: "Elizabeth Ward", 
-    title: "Real Estate", 
+  {
+    name: "Elizabeth Ward",
+    title: "Real Estate",
     image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     experience: "10 years",
     cases: "350+",
     education: "NYU Law",
     expertise: ["Commercial Real Estate", "Zoning", "Property Development"]
   },
-  { 
-    name: "James Mitchell", 
-    title: "Corporate Law", 
+  {
+    name: "James Mitchell",
+    title: "Corporate Law",
     image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     experience: "18 years",
     cases: "700+",
     education: "Harvard Law",
     expertise: ["Mergers", "Corporate Governance", "Securities"]
   },
-  { 
-    name: "Patricia Lewis", 
-    title: "Tax Law", 
+  {
+    name: "Patricia Lewis",
+    title: "Tax Law",
     image: "https://images.unsplash.com/photo-1581403341630-a6e0b9d2d257?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     experience: "14 years",
     cases: "500+",
     education: "Georgetown Law",
     expertise: ["Tax Planning", "IRS Disputes", "International Tax"]
   },
-  { 
-    name: "David Kim", 
-    title: "Employment Law", 
+  {
+    name: "David Kim",
+    title: "Employment Law",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     experience: "11 years",
     cases: "400+",
@@ -102,19 +102,19 @@ const attorneys = [
 ];
 
 const successStories = [
-  { 
+  {
     quote: "J. Ashish Associates LLP handled our $500M merger with exceptional expertise.",
     author: "Robert Thompson",
     position: "CEO, Thompson Industries",
     result: "500M Deal"
   },
-  { 
+  {
     quote: "They protected our intellectual property across 15 countries.",
     author: "Dr. Elena Martinez",
     position: "Founder, BioTech Innovations",
     result: "15 Countries"
   },
-  { 
+  {
     quote: "Won a landmark case that set industry precedent.",
     author: "David Chen",
     position: "General Counsel, Global Tech",
@@ -123,7 +123,7 @@ const successStories = [
 ];
 
 const clients = [
-  "TechCorp", "GlobalBank", "MediHealth", "EcoEnergy", 
+  "TechCorp", "GlobalBank", "MediHealth", "EcoEnergy",
   "FutureFund", "BuildPro", "DataFlow", "GreenLife",
   "InnovateLabs", "SecureTrust", "UrbanDev", "NextGen",
 ];
@@ -131,8 +131,8 @@ const clients = [
 // Animation variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 60 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: { duration: 0.6, ease: "easeOut" as const }
   }
@@ -140,8 +140,8 @@ const fadeInUp = {
 
 const fadeInLeft = {
   hidden: { opacity: 0, x: -60 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     x: 0,
     transition: { duration: 0.6, ease: "easeOut" as const }
   }
@@ -149,8 +149,8 @@ const fadeInLeft = {
 
 const fadeInRight = {
   hidden: { opacity: 0, x: 60 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     x: 0,
     transition: { duration: 0.6, ease: "easeOut" as const }
   }
@@ -169,8 +169,8 @@ const staggerContainer = {
 
 const scaleIn = {
   hidden: { opacity: 0, scale: 0.8 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     scale: 1,
     transition: { duration: 0.5, ease: "easeOut" as const }
   }
@@ -179,7 +179,7 @@ const scaleIn = {
 // Custom hook for parallax effect
 const useParallax = (speed: number = 0.5) => {
   const ref = useRef<HTMLDivElement>(null);
-  
+
   useEffect(() => {
     const handleScroll = () => {
       if (ref.current) {
@@ -187,11 +187,11 @@ const useParallax = (speed: number = 0.5) => {
         ref.current.style.transform = `translateY(${scrolled * speed}px)`;
       }
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, [speed]);
-  
+
   return ref;
 };
 
@@ -199,42 +199,42 @@ const About = () => {
   const parallaxRef = useParallax(0.3);
 
   const [founders, setFounders] = useState<Founder[]>([]);
-      const [teamMembers, setTeamMembers] = useState<any[]>([]);
-      const [isLoading, setIsLoading] = useState(true);
-      
-      // Fetch CMS data on component mount
-      useEffect(() => {
-        const fetchTeamData = async () => {
-          try {
-            setIsLoading(true);
-            const cmsData = await getCMSData();
-            // Filter employees by category for founders (founder/senior categories)
-            const foundersData = cmsData.founders;
-            
-            // Get all employees for team members section
-            const teamMembersData = cmsData.employees;
-            
-            setFounders(foundersData);
-            
-            setTeamMembers(teamMembersData);
-          } catch (error) {
-            if (process.env.NODE_ENV === 'development') console.error('Failed to fetch team data:', error);
-            // Keep fallback data in case of error
-          } finally {
-            setIsLoading(false);
-          }
-        };
-        
-        fetchTeamData();
-      }, []);
-      const primaryFounder = founders?.[0];
+  const [teamMembers, setTeamMembers] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Fetch CMS data on component mount
+  useEffect(() => {
+    const fetchTeamData = async () => {
+      try {
+        setIsLoading(true);
+        const cmsData = await getCMSData();
+        // Filter employees by category for founders (founder/senior categories)
+        const foundersData = cmsData.founders;
+
+        // Get all employees for team members section
+        const teamMembersData = cmsData.employees;
+
+        setFounders(foundersData);
+
+        setTeamMembers(teamMembersData);
+      } catch (error) {
+        if (process.env.NODE_ENV === 'development') console.error('Failed to fetch team data:', error);
+        // Keep fallback data in case of error
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchTeamData();
+  }, []);
+  const primaryFounder = founders?.[0];
 
   return (
     <div className="overflow-hidden -mt-20">
       {/* Hero Section - Premium Dark Theme with Gold Accents */}
       <section className="relative min-h-screen flex items-center section-padding pt-32 bg-background">
         {/* Animated Background */}
-        <motion.div 
+        <motion.div
           ref={parallaxRef}
           initial={{ scale: 1.2, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
@@ -254,14 +254,14 @@ const About = () => {
               transition={{ duration: 0.8 }}
             >
               <div className="flex items-center justify-start gap-3 mb-4">
-              <span className="w-10 h-px bg-[#C9A646]"></span>
-              <p className="text-sm uppercase tracking-[0.2em] text-[#C9A646] font-semibold">
-                EST. 2026
-              </p>
-            </div>
+                <span className="w-10 h-px bg-[#C9A646]"></span>
+                <p className="text-sm uppercase tracking-[0.2em] text-[#C9A646] font-semibold">
+                  EST. 2026
+                </p>
+              </div>
             </motion.div>
 
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -271,7 +271,7 @@ const About = () => {
               <span className="gold-gradient-text italic">Legal Excellence</span>
             </motion.h1>
 
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -280,7 +280,7 @@ const About = () => {
               Founded in 2026, J. Ashish Associates LLP is dedicated to providing professional, ethical, and client-focused legal services. Our team blends legal knowledge with a modern, forward-thinking approach to support clients in navigating complex legal challenges.
             </motion.p>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
@@ -298,8 +298,8 @@ const About = () => {
                   <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </Link>
               </Button> */}
-              <Link 
-                href="/contact" 
+              <Link
+                href="/contact"
                 className="group w-full sm:w-auto px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 bg-primary 
                 text-primary-foreground font-semibold rounded-sm hover:bg-accent transition-all duration-300 
                 btn-shine text-center inline-flex items-center justify-center gap-2 text-sm sm:text-base"
@@ -307,8 +307,8 @@ const About = () => {
                 Schedule Consultation
                 <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
-              <Link 
-                href="/team" 
+              <Link
+                href="/team"
                 className="group px-6 sm:px-8 py-3 sm:py-4 border border-white text-foreground font-semibold 
                 rounded-sm hover:bg-white hover:text-primary transition-all duration-300 inline-flex items-center gap-2"
               >
@@ -324,20 +324,20 @@ const About = () => {
       <section className="section-padding bg-white relative overflow-hidden">
         {/* Decorative Elements */}
         <div className="absolute inset-0 pattern-grid opacity-5" />
-        <motion.div 
+        <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 40, repeat: Infinity, ease: "linear" as const }}
           className="absolute -right-20 -top-20 w-64 h-64 border-2 border-amber-200/30 rounded-full"
         />
-        <motion.div 
-          animate={{ 
-            scale: [1, 1.1, 1], 
-            opacity: [0.1, 0.15, 0.1] 
+        <motion.div
+          animate={{
+            scale: [1, 1.1, 1],
+            opacity: [0.1, 0.15, 0.1]
           }}
           transition={{ duration: 8, repeat: Infinity }}
           className="absolute -left-20 -bottom-20 w-80 h-80 bg-amber-100 rounded-full blur-3xl"
         />
-        
+
         <div className="container relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <motion.div
@@ -349,18 +349,18 @@ const About = () => {
             >
               <div>
                 <div className="flex items-center justify-start gap-3 mb-4">
-              <span className="w-10 h-px bg-[#C9A646]"></span>
-              <p className="text-sm uppercase tracking-[0.2em] text-[#C9A646] font-semibold">
-                Our Legacy
-              </p>
-            </div>
+                  <span className="w-10 h-px bg-[#C9A646]"></span>
+                  <p className="text-sm uppercase tracking-[0.2em] text-[#C9A646] font-semibold">
+                    Our Legacy
+                  </p>
+                </div>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-bold mb-6 text-gray-900">
                   {/* Building Trust Since{' '}
                   <span className="text-[#C9A646] italic">2026</span> */}
                   Delivering Legal <span className="text-[#C9A646] italic">Excellence</span>
                 </h2>
               </div>
-              
+
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p className="text-base sm:text-lg">
                   Since its inception in 2026, <span className="italic font-semibold">J. Ashish Associates LLP</span> has built a <span>foundation of trust, integrity, and client-centered service</span>. Our legacy is defined by the <span className="italic font-semibold">dedication of our team and the confidence our clients place in us</span>, reflecting a firm commitment to <span className="italic font-semibold">delivering legal solutions with professionalism and ethical rigor</span>.
@@ -373,27 +373,27 @@ const About = () => {
                 </p>
               </div>
 
-              <motion.div 
+              <motion.div
                 variants={scaleIn}
                 className="flex items-center gap-4 pt-4"
               >
                 <div className="flex -space-x-3">
-  {[
-    "https://images.unsplash.com/photo-1595152772835-219674b2a8a6",
-    "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2",
-    "https://images.unsplash.com/photo-1560250097-0b93528c311a",
-    "https://images.unsplash.com/photo-1556157382-97eda2d62296"
-  ].map((img, i) => (
-    <motion.img
-      key={i}
-      src={`${img}?w=200&h=200&fit=crop`}
-      whileHover={{ scale: 1.1, y: -5 }}
-      className="w-10 h-10 rounded-full border-2 border-white shadow-lg object-cover"
-    />
-  ))}
-</div>
+                  {[
+                    "https://images.unsplash.com/photo-1595152772835-219674b2a8a6",
+                    "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2",
+                    "https://images.unsplash.com/photo-1560250097-0b93528c311a",
+                    "https://images.unsplash.com/photo-1556157382-97eda2d62296"
+                  ].map((img, i) => (
+                    <motion.img
+                      key={i}
+                      src={`${img}?w=200&h=200&fit=crop`}
+                      whileHover={{ scale: 1.1, y: -5 }}
+                      className="w-10 h-10 rounded-full border-2 border-white shadow-lg object-cover"
+                    />
+                  ))}
+                </div>
                 <div className="text-sm">
-                  
+
                   <span className="text-gray-500">Industrial awards as </span>
                   <span className="font-bold text-[#C9A646]">15+</span>{' '}
                 </div>
@@ -433,35 +433,35 @@ const About = () => {
       <section className="section-alt section-padding relative overflow-hidden">
         {/* Premium Background Elements */}
         <div className="absolute inset-0 pattern-gold opacity-5" />
-        <motion.div 
-          animate={{ 
+        <motion.div
+          animate={{
             scale: [1, 1.2, 1],
             rotate: [0, 45, 0],
           }}
           transition={{ duration: 20, repeat: Infinity }}
           className="absolute top-20 right-20 w-96 h-96 border border-primary/10 rounded-full"
         />
-        <motion.div 
-          animate={{ 
+        <motion.div
+          animate={{
             scale: [1, 1.3, 1],
             rotate: [0, -30, 0],
           }}
           transition={{ duration: 15, repeat: Infinity }}
           className="absolute bottom-20 left-20 w-80 h-80 bg-primary/5 rounded-full blur-3xl"
         />
-        
+
         {/* Decorative Law Elements */}
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
         <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-        
-        <motion.div 
+
+        <motion.div
           animate={{ rotate: [0, 10, -10, 0] }}
           transition={{ duration: 8, repeat: Infinity }}
           className="absolute top-40 left-10 opacity-5 hidden lg:block"
         >
           <Gavel className="w-24 h-24 text-primary" />
         </motion.div>
-        <motion.div 
+        <motion.div
           animate={{ rotate: [0, -10, 10, 0] }}
           transition={{ duration: 8, repeat: Infinity }}
           className="absolute bottom-40 right-10 opacity-5 hidden lg:block"
@@ -502,14 +502,14 @@ const About = () => {
                 {/* Corner Accents */}
                 <div className="absolute top-0 left-0 w-24 sm:w-32 h-24 sm:h-32 border-t-2 border-l-2 border-primary/30 rounded-tl-3xl" />
                 <div className="absolute bottom-0 right-0 w-24 sm:w-32 h-24 sm:h-32 border-b-2 border-r-2 border-primary/30 rounded-br-3xl" />
-                
+
                 {/* Glowing Orbs */}
-                <motion.div 
+                <motion.div
                   animate={{ scale: [1, 1.2, 1], opacity: [0.2, 0.3, 0.2] }}
                   transition={{ duration: 4, repeat: Infinity }}
                   className="absolute -top-10 -right-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl"
                 />
-                <motion.div 
+                <motion.div
                   animate={{ scale: [1, 1.3, 1], opacity: [0.1, 0.2, 0.1] }}
                   transition={{ duration: 5, repeat: Infinity }}
                   className="absolute -bottom-10 -left-10 w-40 h-40 bg-accent/20 rounded-full blur-3xl"
@@ -520,19 +520,19 @@ const About = () => {
                   <div className="relative h-[400px] lg:h-[600px] overflow-hidden group">
                     {/* Overlays */}
                     <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-transparent to-transparent mix-blend-overlay z-10" />
-                    <motion.img 
+                    <motion.img
                       src={primaryFounder?.profileImage
-      ? getFounderImageUrl(primaryFounder)
-      : `https://ui-avatars.com/api/?name=${encodeURIComponent(primaryFounder?.name || 'Founder')}&background=E5E7EB&color=6B7280&size=128`} 
+                        ? getFounderImageUrl(primaryFounder)
+                        : `https://ui-avatars.com/api/?name=${encodeURIComponent(primaryFounder?.name || 'Founder')}&background=E5E7EB&color=6B7280&size=128`}
                       alt={primaryFounder?.name || 'Founder'}
                       className="w-full h-full object-cover object-center"
                       whileHover={{ scale: 1.05 }}
                       transition={{ duration: 0.6 }}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-                    
+
                     {/* Floating Badges */}
-                    <motion.div 
+                    {/* <motion.div 
                       initial={{ x: -20, opacity: 0 }}
                       whileInView={{ x: 0, opacity: 1 }}
                       transition={{ delay: 0.5 }}
@@ -542,7 +542,7 @@ const About = () => {
                         <Trophy className="w-4 h-4 text-primary-foreground" />
                         <span className="text-xs font-semibold text-primary-foreground">LEGENDARY LEADER</span>
                       </div>
-                    </motion.div>
+                    </motion.div> */}
 
                     {/* Social Icons */}
                     {/* <motion.div 
@@ -570,47 +570,47 @@ const About = () => {
                       })}
                     </motion.div> */}
 
-                    <motion.div 
-  initial={{ y: 20, opacity: 0 }}
-  whileInView={{ y: 0, opacity: 1 }}
-  transition={{ delay: 0.7 }}
-  className="absolute bottom-6 left-6 flex gap-3 z-20"
->
-  {primaryFounder && [
-    { 
-      icon: Linkedin, 
-      color: "hover:bg-[#0077b5]",
-      link: primaryFounder.social?.linkedin
-    },
-    { 
-      icon: Mail, 
-      color: "hover:bg-primary",
-      link: `mailto:${primaryFounder.email}`
-    },
-    { 
-      icon: Twitter, 
-      color: "hover:bg-[#1DA1F2]",
-      link: primaryFounder.social?.twitter
-    },
-  ].map((item, index) => {
-    const Icon = item.icon;
+                    <motion.div
+                      initial={{ y: 20, opacity: 0 }}
+                      whileInView={{ y: 0, opacity: 1 }}
+                      transition={{ delay: 0.7 }}
+                      className="absolute bottom-6 left-6 flex gap-3 z-20"
+                    >
+                      {primaryFounder && [
+                        {
+                          icon: Linkedin,
+                          color: "hover:bg-[#0077b5]",
+                          link: primaryFounder.social?.linkedin
+                        },
+                        {
+                          icon: Mail,
+                          color: "hover:bg-primary",
+                          link: `mailto:${primaryFounder.email}`
+                        },
+                        {
+                          icon: Twitter,
+                          color: "hover:bg-[#1DA1F2]",
+                          link: primaryFounder.social?.twitter
+                        },
+                      ].map((item, index) => {
+                        const Icon = item.icon;
 
-    return (
-      <motion.div
-        key={index}
-        whileHover={{ scale: 1.2, y: -5 }}
-        whileTap={{ scale: 0.9 }}
-        onClick={() => item.link && window.open(item.link, "_blank")}
-        className={`w-10 h-10 rounded-full bg-background/50 backdrop-blur-md border border-primary/20 flex items-center justify-center cursor-pointer transition-all duration-300 ${item.color} group/social`}
-      >
-        <Icon className="w-4 h-4 text-primary group-hover/social:text-primary-foreground transition-colors" />
-      </motion.div>
-    );
-  })}
-</motion.div>
+                        return (
+                          <motion.div
+                            key={index}
+                            whileHover={{ scale: 1.2, y: -5 }}
+                            whileTap={{ scale: 0.9 }}
+                            onClick={() => item.link && window.open(item.link, "_blank")}
+                            className={`w-10 h-10 rounded-full bg-background/50 backdrop-blur-md border border-primary/20 flex items-center justify-center cursor-pointer transition-all duration-300 ${item.color} group/social`}
+                          >
+                            <Icon className="w-4 h-4 text-primary group-hover/social:text-primary-foreground transition-colors" />
+                          </motion.div>
+                        );
+                      })}
+                    </motion.div>
 
                     {/* Experience Badge */}
-                    <div className="absolute bottom-8 right-8 w-28 h-28">
+                    {/* <div className="absolute bottom-8 right-8 w-28 h-28">
                       <motion.div
                         animate={{ rotate: 360 }}
                         transition={{ duration: 20, repeat: Infinity, ease: "linear" as const }}
@@ -620,11 +620,11 @@ const About = () => {
                         <span className="text-xs font-bold text-primary">{founder.experience}</span>
                         <span className="text-[8px] text-muted-foreground">Experience</span>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
 
                   {/* Content Section */}
-                  <motion.div 
+                  <motion.div
                     variants={staggerContainer}
                     initial="hidden"
                     whileInView="visible"
@@ -665,7 +665,7 @@ const About = () => {
                       </p>
                       <div className="flex flex-wrap gap-2">
                         {primaryFounder?.details?.practiceAreas?.map((practiceareas, index) => (
-                          <motion.span 
+                          <motion.span
                             key={index}
                             whileHover={{ scale: 1.05, y: -2 }}
                             className="px-2 sm:px-3 py-1 sm:py-1.5 bg-primary/10 border border-primary/20 rounded-full text-xs font-medium text-primary"
@@ -680,12 +680,12 @@ const About = () => {
                       <p className="text-xs sm:text-sm font-semibold text-primary mb-3">Awards & Achievements</p>
                       <div className="grid grid-cols-2 gap-2 sm:gap-3">
                         {primaryFounder?.details?.awards?.map((achievements, index) => (
-                          <motion.div 
+                          <motion.div
                             key={index}
                             whileHover={{ x: 5 }}
                             className="flex items-center gap-2 bg-primary/5 backdrop-blur-sm border border-primary/10 rounded-lg p-2"
                           >
-                            <motion.div 
+                            <motion.div
                               animate={{ scale: [1, 1.5, 1] }}
                               transition={{ duration: 2, repeat: Infinity, delay: index * 0.3 }}
                               className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0"
@@ -705,7 +705,7 @@ const About = () => {
 
       {/* Global Presence - Light Theme */}
       <section className="section-padding bg-white border-y border-gray-200 relative overflow-hidden">
-        <motion.div 
+        <motion.div
           animate={{ x: [0, 100, 0], opacity: [0, 0.1, 0] }}
           transition={{ duration: 20, repeat: Infinity }}
           className="absolute top-0 right-0 w-64 h-64 bg-blue-100 rounded-full blur-3xl"
@@ -737,8 +737,8 @@ const About = () => {
           <div className="relative overflow-hidden">
             <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-r from-white to-transparent z-10" />
             <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-l from-white to-transparent z-10" />
-            
-            <motion.div 
+
+            <motion.div
               className="flex animate-infinite-scroll select-none"
             >
               {[...clients, ...clients].map((client, index) => (
@@ -757,7 +757,7 @@ const About = () => {
             </motion.div>
           </div>
 
-          <motion.div 
+          <motion.div
             variants={fadeInUp}
             initial="hidden"
             whileInView="visible"
@@ -765,7 +765,7 @@ const About = () => {
           >
             <div className="inline-flex items-center gap-2 text-sm text-gray-600">
               <MapPin className="w-4 h-4 text-[#C9A646]" />
-              <span>Offices in Chennai · London · Singapore · Dubai · Sydney</span>
+              <span>Offices in Chennai, Kanchipuram, Madurai, Bangalore, Mumbai, Kolkata, Delhi</span>
             </div>
           </motion.div>
         </div>
@@ -774,7 +774,7 @@ const About = () => {
       {/* Meet Attorneys - Dark Theme with Gold */}
       <section className="section-alt section-padding relative overflow-hidden">
         <div className="absolute inset-0 pattern-dots opacity-5" />
-        
+
         <div className="container relative z-10">
           <motion.div
             initial="hidden"
@@ -798,7 +798,7 @@ const About = () => {
             </p>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
@@ -806,58 +806,58 @@ const About = () => {
             className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
           >
             {teamMembers.map((member, index) => (
-  <motion.div
-    key={member._id}
-    variants={fadeInUp}
-    whileHover={{ y: -10 }}
-    transition={{ type: "spring", stiffness: 300 }}
-    className="group bg-card border border-border rounded-xl overflow-hidden hover:shadow-2xl transition-all duration-500"
-  >
-    <div className="relative h-56 sm:h-64 overflow-hidden">
-      <Image 
-        src={getEmployeeImageUrl(member)}
-        alt={member.name}
-        fill
-        className="object-cover object-center group-hover:scale-110 transition-transform duration-700"
-        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-      />
+              <motion.div
+                key={member._id}
+                variants={fadeInUp}
+                whileHover={{ y: -10 }}
+                transition={{ type: "spring", stiffness: 300 }}
+                className="group bg-card border border-border rounded-xl overflow-hidden hover:shadow-2xl transition-all duration-500"
+              >
+                <div className="relative h-56 sm:h-64 overflow-hidden">
+                  <Image
+                    src={getEmployeeImageUrl(member)}
+                    alt={member.name}
+                    fill
+                    className="object-cover object-center group-hover:scale-110 transition-transform duration-700"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  />
 
-      <div className="absolute top-4 right-4 bg-primary/90 backdrop-blur-sm px-3 py-1 rounded-full z-20">
-        <span className="text-xs font-semibold text-primary-foreground">
-          {member.role}
-        </span>
-      </div>
-    </div>
+                  <div className="absolute top-4 right-4 bg-primary/90 backdrop-blur-sm px-3 py-1 rounded-full z-20">
+                    <span className="text-xs font-semibold text-primary-foreground">
+                      {member.role}
+                    </span>
+                  </div>
+                </div>
 
-    <div className="p-4 sm:p-6">
-      <h3 className="text-lg sm:text-xl font-heading font-bold mb-2 group-hover:text-primary transition-colors text-foreground">
-        {member.name}
-      </h3>
+                <div className="p-4 sm:p-6">
+                  <h3 className="text-lg sm:text-xl font-heading font-bold mb-2 group-hover:text-primary transition-colors text-foreground">
+                    {member.name}
+                  </h3>
 
-      <div className="flex flex-wrap items-center gap-3 mb-3 text-sm">
-        <div className="flex items-center gap-1">
-          <Briefcase className="w-4 h-4 text-primary" />
-          <span className="text-muted-foreground">
-            {member.experience} yrs
-          </span>
-        </div>
-      </div>
+                  {/* <div className="flex flex-wrap items-center gap-3 mb-3 text-sm">
+                    <div className="flex items-center gap-1">
+                      <Briefcase className="w-4 h-4 text-primary" />
+                      <span className="text-muted-foreground">
+                        {member.experience} yrs
+                      </span>
+                    </div>
+                  </div> */}
 
-      <div className="mb-3">
-        <div className="flex items-center gap-2">
-          <Landmark className="w-4 h-4 text-primary flex-shrink-0" />
-          <span className="text-sm text-muted-foreground truncate">
-            {member.specialty}
-          </span>
-        </div>
-      </div>
+                  <div className="mb-3">
+                    <div className="flex items-center gap-2">
+                      <Landmark className="w-4 h-4 text-primary flex-shrink-0" />
+                      <span className="text-sm text-muted-foreground truncate">
+                        {member.specialty}
+                      </span>
+                    </div>
+                  </div>
 
-      <p className="text-xs text-muted-foreground line-clamp-3">
-        {member.bio}
-      </p>
-    </div>
-  </motion.div>
-))}
+                  <p className="text-xs text-muted-foreground line-clamp-3">
+                    {member.bio}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
 
           <motion.div
@@ -880,7 +880,7 @@ const About = () => {
       {/* Success Stories - Light Theme */}
       <section className="section-padding bg-white relative overflow-hidden">
         <div className="absolute inset-0 pattern-grid opacity-5" />
-        
+
         <div className="container relative z-10">
           <motion.div
             initial="hidden"
@@ -889,7 +889,7 @@ const About = () => {
             variants={fadeInUp}
             className="text-center mb-12"
           >
-           <div className="flex items-center justify-center gap-3 mb-4">
+            <div className="flex items-center justify-center gap-3 mb-4">
               <span className="w-10 h-px bg-[#C9A646]"></span>
               <p className="text-sm uppercase tracking-[0.2em] text-[#C9A646] font-semibold">
                 Testimonials
@@ -900,7 +900,7 @@ const About = () => {
             </h2>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
@@ -916,7 +916,7 @@ const About = () => {
               >
                 <Quote className="w-8 h-8 sm:w-10 sm:h-10 text-amber-300 mb-4" />
                 <p className="text-sm sm:text-base text-gray-600 mb-4 flex-grow italic">"{story.quote}"</p>
-                
+
                 <div className="border-t border-gray-200 pt-4">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
                     <div>
@@ -928,7 +928,7 @@ const About = () => {
                     </div>
                   </div>
                   <div className="flex gap-1">
-                    {[1,2,3,4,5].map((star) => (
+                    {[1, 2, 3, 4, 5].map((star) => (
                       <Star key={star} className="w-3 h-3 fill-[#C9A646] text-[#C9A646]" />
                     ))}
                   </div>
@@ -942,7 +942,7 @@ const About = () => {
       {/* Core Values - Dark Theme */}
       <section className="section-alt section-padding relative overflow-hidden">
         <div className="absolute inset-0 pattern-gold opacity-5" />
-        
+
         <div className="container relative z-10">
           <motion.div
             initial="hidden"
@@ -963,7 +963,7 @@ const About = () => {
             </h2>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="visible"
@@ -980,16 +980,16 @@ const About = () => {
                   className="group p-6 bg-card border border-border rounded-xl text-center relative overflow-hidden"
                 >
                   <Icon className="absolute -right-4 -bottom-4 w-20 h-20 text-primary/5 group-hover:text-primary/10 transition-colors" />
-                  
+
                   <div className="relative z-10">
                     <div className="w-14 h-14 sm:w-16 sm:h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                       <Icon className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
                     </div>
-                    
+
                     <h3 className="text-base sm:text-lg font-heading font-semibold mb-2 sm:mb-3 group-hover:text-primary transition-colors text-foreground">
                       {v.title}
                     </h3>
-                    
+
                     <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">{v.desc}</p>
                   </div>
                 </motion.div>
@@ -1001,12 +1001,12 @@ const About = () => {
 
       {/* CTA Section - Premium Corporate */}
       <section className="relative section-padding bg-white overflow-hidden">
-        <motion.div 
+        <motion.div
           animate={{ scale: [1, 1.2, 1], rotate: [0, 45, 0] }}
           transition={{ duration: 20, repeat: Infinity }}
           className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(59,130,246,0.05),transparent_50%)]"
         />
-        
+
         <div className="container relative z-10">
           <motion.div
             initial="hidden"
@@ -1030,14 +1030,14 @@ const About = () => {
               <span className="text-[#C9A646] italic">Goals</span>, Our{' '}
               <span className="text-[#C9A646] italic">Commitment</span>
             </h2>
-            
+
             <p className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-10 leading-relaxed">
               Work with a legal team dedicated to guiding you with clarity, care, and professionalism. Schedule your confidential consultation today.
             </p>
 
             <div className="flex flex-wrap gap-4 justify-center">
-              <Link 
-                href="/contact" 
+              <Link
+                href="/contact"
                 className="group px-6 sm:px-10 py-3 sm:py-4 bg-[#C9A646] hover:bg-accent text-white font-semibold rounded-lg transition-all duration-300 btn-shine inline-flex items-center gap-2 text-base sm:text-base shadow-lg"
               >
                 Schedule Consultation

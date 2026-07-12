@@ -13,56 +13,56 @@ const teamImage = "/assets/team-image-banner.png";
 // Animation variants
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { 
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
       duration: 0.9
-    } 
+    }
   }
 };
 
 const fadeInDown = {
   hidden: { opacity: 0, y: -40 },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { 
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
       duration: 0.9
-    } 
+    }
   }
 };
 
 const slideFromLeft = {
   hidden: { opacity: 0, x: -50 },
-  visible: { 
-    opacity: 1, 
-    x: 0, 
-    transition: { 
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
       duration: 1
-    } 
+    }
   }
 };
 
 const slideFromRight = {
   hidden: { opacity: 0, x: 50 },
-  visible: { 
-    opacity: 1, 
-    x: 0, 
-    transition: { 
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
       duration: 1
-    } 
+    }
   }
 };
 
 const scaleIn = {
   hidden: { opacity: 0, scale: 0.95 },
-  visible: { 
-    opacity: 1, 
-    scale: 1, 
-    transition: { 
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
       duration: 0.8
-    } 
+    }
   }
 };
 
@@ -83,7 +83,7 @@ const Team = () => {
   const [founders, setFounders] = useState<Founder[]>([]);
   const [teamMembers, setTeamMembers] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  
+
   // Fetch CMS data on component mount
   useEffect(() => {
     const fetchTeamData = async () => {
@@ -92,12 +92,12 @@ const Team = () => {
         const cmsData = await getCMSData();
         // Filter employees by category for founders (founder/senior categories)
         const foundersData = cmsData.founders;
-        
+
         // Get all employees for team members section
         const teamMembersData = cmsData.employees;
-        
+
         setFounders(foundersData);
-        
+
         setTeamMembers(teamMembersData);
       } catch (error) {
         if (process.env.NODE_ENV === 'development') console.error('Failed to fetch team data:', error);
@@ -106,7 +106,7 @@ const Team = () => {
         setIsLoading(false);
       }
     };
-    
+
     fetchTeamData();
   }, []);
 
@@ -124,39 +124,39 @@ const Team = () => {
   return (
     <div className="-mt-20">
       {/* Banner Section - Dark Theme with Background Image */}
-      <section 
+      <section
         className="relative w-full bg-cover bg-center bg-no-repeat overflow-hidden"
         style={{
           backgroundImage: "url('" + teamImage + "')",
         }}
       >
         {/* Dark Overlay */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.5 }}
           className="absolute inset-0 bg-gradient-to-br from-background/60 via-background/50 to-background/60"
         />
-        
+
         {/* Animated Pattern Overlay */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.1 }}
           transition={{ duration: 2, delay: 0.5 }}
           className="absolute inset-0 pattern-gold"
         />
-        
+
         {/* Floating particles */}
         <div className="absolute inset-0 overflow-hidden">
           {[...Array(20)].map((_, i) => (
             <motion.div
               key={i}
-              initial={{ 
+              initial={{
                 x: typeof window !== "undefined" ? Math.random() * window.innerWidth : 0,
                 y: typeof window !== "undefined" ? Math.random() * window.innerHeight : 0,
                 scale: 0
               }}
-              animate={{ 
+              animate={{
                 y: [null, -100],
                 scale: [0, 1, 0],
                 opacity: [0, 0.5, 0]
@@ -171,52 +171,52 @@ const Team = () => {
             />
           ))}
         </div>
-        
+
         {/* Content */}
         <div className="relative z-10 container mx-auto px-4 py-32 md:py-40 lg:py-56">
-          <motion.div 
+          <motion.div
             initial="hidden"
             animate="visible"
             variants={staggerContainer}
             className="text-center max-w-3xl mx-auto"
           >
-            <motion.div 
+            <motion.div
               variants={fadeInDown}
               className="flex items-center justify-center gap-3 mb-6"
             >
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 animate={{ width: 40 }}
                 transition={{ delay: 0.6, duration: 1.2 }}
                 className="h-px bg-primary"
               />
-              <motion.p 
+              <motion.p
                 variants={slideFromLeft}
                 className="text-sm uppercase tracking-[0.2em] text-primary font-semibold"
               >
                 Our Team
               </motion.p>
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 animate={{ width: 40 }}
                 transition={{ delay: 0.6, duration: 1.2 }}
                 className="h-px bg-primary"
               />
             </motion.div>
-            
-            <motion.h1 
+
+            <motion.h1
               variants={fadeInUp}
               className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 text-foreground"
             >
-              Meet Our <motion.span 
+              Meet Our <motion.span
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1.2, duration: 0.8 }}
                 className="text-primary italic inline-block"
               >Attorneys</motion.span>
             </motion.h1>
-            
-            <motion.p 
+
+            <motion.p
               variants={fadeInUp}
               className="text-muted-foreground text-lg leading-relaxed max-w-2xl mx-auto"
             >
@@ -226,7 +226,7 @@ const Team = () => {
         </div>
 
         {/* Decorative bottom gradient */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 1.5 }}
@@ -237,31 +237,31 @@ const Team = () => {
       {/* Founders Section - White Theme */}
       <section className="section-padding bg-white">
         <div className="container mx-auto">
-          <motion.div 
+          <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
             variants={staggerContainer}
             className="text-center max-w-3xl mx-auto mb-16"
           >
-            <motion.div 
+            <motion.div
               variants={fadeInDown}
               className="flex items-center justify-center gap-3 mb-4"
             >
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 whileInView={{ width: 40 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.4, duration: 1.2 }}
                 className="h-px bg-primary"
               />
-              <motion.p 
+              <motion.p
                 variants={slideFromLeft}
                 className="text-sm uppercase tracking-[0.2em] text-primary font-semibold"
               >
                 Our Leaders
               </motion.p>
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 whileInView={{ width: 40 }}
                 viewport={{ once: true }}
@@ -269,8 +269,8 @@ const Team = () => {
                 className="h-px bg-primary"
               />
             </motion.div>
-            
-            <motion.h2 
+
+            <motion.h2
               variants={fadeInUp}
               className="text-3xl md:text-4xl font-heading font-bold text-black mb-4"
             >
@@ -281,7 +281,7 @@ const Team = () => {
           <div className="grid lg:grid-cols-12 gap-8">
             {/* Left Column - Sticky Founder Cards Slider */}
             <div className="lg:col-span-5 lg:sticky lg:top-24 h-fit">
-              <motion.div 
+              <motion.div
                 variants={scaleIn}
                 className="bg-white p-0 md:p-6"
               >
@@ -291,7 +291,7 @@ const Team = () => {
                     {isLoading ? 'Loading...' : `Slide ${currentSlide + 1} / ${totalSlides}`}
                   </span>
                 </div>
-                
+
                 {/* Loading State for Founders */}
                 {isLoading ? (
                   <div className="flex items-center justify-center h-96 bg-gray-50 rounded-lg">
@@ -302,75 +302,74 @@ const Team = () => {
                   </div>
                 ) : (
                   <div className="relative overflow-hidden">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={currentSlide}
-                      initial={{ opacity: 0, x: 50 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -50 }}
-                      transition={{ duration: 0.5 }}
-                      className="space-y-4"
-                    >
-                      {visibleFounders.map((founder, index) => {
-                        const actualIndex = currentSlide * 1 + index;
-                        return (
-                          <motion.div
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={currentSlide}
+                        initial={{ opacity: 0, x: 50 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -50 }}
+                        transition={{ duration: 0.5 }}
+                        className="space-y-4"
+                      >
+                        {visibleFounders.map((founder, index) => {
+                          const actualIndex = currentSlide * 1 + index;
+                          return (
+                            <motion.div
                               key={founder._id}
-                            onClick={() => setSelectedFounder(actualIndex)}
-                            className={`p-5 rounded-lg cursor-pointer transition-all duration-300 ${
-                              selectedFounder === actualIndex 
-                                ? 'bg-primary/10 border-2 border-primary/30' 
+                              onClick={() => setSelectedFounder(actualIndex)}
+                              className={`p-5 rounded-lg cursor-pointer transition-all duration-300 ${selectedFounder === actualIndex
+                                ? 'bg-primary/10 border-2 border-primary/30'
                                 : 'bg-gray-50 hover:bg-primary/5 border border-gray-200'
-                            }`}
-                          >
-                            <div className="flex flex-col items-center gap-4">
-                              <div className="w-full h-full lg:h-80 overflow-hidden flex-shrink-0 relative">
-                                <Image 
-                                  src={getFounderImageUrl(founder)}
-                                  alt={founder?.name || 'Founder'}
-                                  fill
-                                  className="object-cover rounded-lg"
-                                  sizes="(max-width: 1024px) 100vw, 33vw"
-                                />
-                              </div>
-                              <div className="flex-1 min-w-0 w-full">
-                                <h4 className="font-heading font-semibold text-black text-lg mb-1 truncate">
-                                  {founder.name}
-                                </h4>
-                                <p className="text-sm text-primary mb-2 line-clamp-1">{founder.role}</p>
-                                
-                                {/* Contact Details */}
-                                <div className="space-y-1 mb-2">
-                                  <a href={`mailto:${founder.email}`} className="text-xs text-gray-600 hover:text-primary transition-colors flex items-center gap-1 truncate">
-                                    <Mail className="w-3 h-3 flex-shrink-0" />
-                                    {founder.email}
-                                  </a>
-                                  <a href={`tel:${founder.phone}`} className="text-xs text-gray-600 hover:text-primary transition-colors flex items-center gap-1">
-                                    <Phone className="w-3 h-3 flex-shrink-0" />
-                                    {founder.phone}
-                                  </a>
+                                }`}
+                            >
+                              <div className="flex flex-col items-center gap-4">
+                                <div className="w-full h-full lg:h-96 overflow-hidden flex-shrink-0 relative">
+                                  <Image
+                                    src={getFounderImageUrl(founder)}
+                                    alt={founder?.name || 'Founder'}
+                                    fill
+                                    className="object-cover rounded-lg"
+                                    sizes="(max-width: 1024px) 100vw, 33vw"
+                                  />
                                 </div>
-                                
-                                {/* Social Icons */}
-                                <div className="flex items-center gap-2">
-                                  <a href={founder?.social?.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary transition-colors">
-                                    <Linkedin className="w-4 h-4" />
-                                  </a>
-                                  <a href={founder?.social?.twitter} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary transition-colors">
-                                    <Twitter className="w-4 h-4" />
-                                  </a>
-                                  <a href={founder?.social?.facebook} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary transition-colors">
-                                    <Facebook className="w-4 h-4" />
-                                  </a>
+                                <div className="flex-1 min-w-0 w-full">
+                                  <h4 className="font-heading font-semibold text-black text-lg mb-1 truncate">
+                                    {founder.name}
+                                  </h4>
+                                  <p className="text-sm text-primary mb-2 line-clamp-1">{founder.role}</p>
+
+                                  {/* Contact Details */}
+                                  <div className="space-y-1 mb-2">
+                                    <a href={`mailto:${founder.email}`} className="text-xs text-gray-600 hover:text-primary transition-colors flex items-center gap-1 truncate">
+                                      <Mail className="w-3 h-3 flex-shrink-0" />
+                                      {founder.email}
+                                    </a>
+                                    <a href={`tel:${founder.phone}`} className="text-xs text-gray-600 hover:text-primary transition-colors flex items-center gap-1">
+                                      <Phone className="w-3 h-3 flex-shrink-0" />
+                                      {founder.phone}
+                                    </a>
+                                  </div>
+
+                                  {/* Social Icons */}
+                                  <div className="flex items-center gap-2">
+                                    <a href={founder?.social?.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary transition-colors">
+                                      <Linkedin className="w-4 h-4" />
+                                    </a>
+                                    <a href={founder?.social?.twitter} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary transition-colors">
+                                      <Twitter className="w-4 h-4" />
+                                    </a>
+                                    <a href={founder?.social?.facebook} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary transition-colors">
+                                      <Facebook className="w-4 h-4" />
+                                    </a>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          </motion.div>
-                        );
-                      })}
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
+                            </motion.div>
+                          );
+                        })}
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
                 )}
 
                 {/* Navigation Arrows */}
@@ -388,9 +387,8 @@ const Team = () => {
                       <button
                         key={idx}
                         onClick={() => setCurrentSlide(idx)}
-                        className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                          currentSlide === idx ? 'w-6 bg-primary' : 'bg-gray-300'
-                        }`}
+                        className={`w-2 h-2 rounded-full transition-all duration-300 ${currentSlide === idx ? 'w-6 bg-primary' : 'bg-gray-300'
+                          }`}
                       />
                     ))}
                   </div>
@@ -428,8 +426,8 @@ const Team = () => {
                     {/* Founder Header */}
                     <div className="flex flex-col md:flex-row items-start md:items-center gap-6 pb-6 border-b border-gray-200 mb-6">
                       <div className="w-28 h-28 rounded-full overflow-hidden ring-4 ring-primary/20 flex-shrink-0 relative">
-                        <Image 
-                          src={founders[selectedFounder]?.profileImage ? getFounderImageUrl(founders[selectedFounder]) : `https://ui-avatars.com/api/?name=${encodeURIComponent(founders[selectedFounder]?.name || 'Team Member')}&background=E5E7EB&color=6B7280&size=128`} 
+                        <Image
+                          src={founders[selectedFounder]?.profileImage ? getFounderImageUrl(founders[selectedFounder]) : `https://ui-avatars.com/api/?name=${encodeURIComponent(founders[selectedFounder]?.name || 'Team Member')}&background=E5E7EB&color=6B7280&size=128`}
                           alt={founders[selectedFounder]?.name || 'Team Member'}
                           fill
                           className="object-cover"
@@ -441,7 +439,7 @@ const Team = () => {
                           {founders[selectedFounder]?.name || 'Team Member'}
                         </h3>
                         <p className="text-primary text-lg mb-3">{founders[selectedFounder]?.role || founders[selectedFounder]?.designation || ''}</p>
-                        
+
                         {/* Contact Info */}
                         <div className="flex flex-wrap items-center gap-4">
                           {founders[selectedFounder]?.email && (
@@ -510,39 +508,39 @@ const Team = () => {
                     {/* Education & Bar Associations */}
                     {(((founders[selectedFounder]?.details?.education ?? []).length > 0) ||
                       ((founders[selectedFounder]?.details?.barAssociations ?? []).length > 0)) && (
-                      <div className="mb-6 pb-6 border-b border-gray-200">
-                        <h4 className="text-lg font-heading font-semibold text-black mb-4 flex items-center gap-2">
-                          <BookOpen className="w-5 h-5 text-primary" />
-                          Education & Bar Associations
-                        </h4>
-                        <div className="space-y-3">
-                          {founders[selectedFounder]?.details?.education?.map((edu, idx) => (
-                            <motion.div
-                              key={idx}
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: idx * 0.05 }}
-                              className="flex items-start gap-3"
-                            >
-                              <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
-                              <p className="text-gray-700 text-sm flex-1">{edu}</p>
-                            </motion.div>
-                          ))}
-                          {founders[selectedFounder]?.details?.barAssociations?.map((bar, idx) => (
-                            <motion.div
-                              key={`bar-${idx}`}
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: (idx + (founders[selectedFounder]?.details?.education?.length || 0)) * 0.05 }}
-                              className="flex items-start gap-3"
-                            >
-                              <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
-                              <p className="text-gray-700 text-sm flex-1">{bar}</p>
-                            </motion.div>
-                          ))}
+                        <div className="mb-6 pb-6 border-b border-gray-200">
+                          <h4 className="text-lg font-heading font-semibold text-black mb-4 flex items-center gap-2">
+                            <BookOpen className="w-5 h-5 text-primary" />
+                            Education & Bar Associations
+                          </h4>
+                          <div className="space-y-3">
+                            {founders[selectedFounder]?.details?.education?.map((edu, idx) => (
+                              <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: idx * 0.05 }}
+                                className="flex items-start gap-3"
+                              >
+                                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                                <p className="text-gray-700 text-sm flex-1">{edu}</p>
+                              </motion.div>
+                            ))}
+                            {founders[selectedFounder]?.details?.barAssociations?.map((bar, idx) => (
+                              <motion.div
+                                key={`bar-${idx}`}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: (idx + (founders[selectedFounder]?.details?.education?.length || 0)) * 0.05 }}
+                                className="flex items-start gap-3"
+                              >
+                                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2" />
+                                <p className="text-gray-700 text-sm flex-1">{bar}</p>
+                              </motion.div>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
 
                     {/* Organizations */}
                     {(founders[selectedFounder]?.details?.organizations ?? []).length > 0 && (
@@ -612,31 +610,31 @@ const Team = () => {
       {/* Meet Our Team Section - Dark Theme with Image Hover Animation */}
       <section className="section-padding bg-background">
         <div className="container mx-auto">
-          <motion.div 
+          <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
             variants={staggerContainer}
             className="text-center max-w-3xl mx-auto mb-16"
           >
-            <motion.div 
+            <motion.div
               variants={fadeInDown}
               className="flex items-center justify-center gap-3 mb-4"
             >
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 whileInView={{ width: 40 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.4, duration: 1.2 }}
                 className="h-px bg-primary"
               />
-              <motion.p 
+              <motion.p
                 variants={slideFromLeft}
                 className="text-sm uppercase tracking-[0.2em] text-primary font-semibold"
               >
                 Our Team
               </motion.p>
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 whileInView={{ width: 40 }}
                 viewport={{ once: true }}
@@ -644,8 +642,8 @@ const Team = () => {
                 className="h-px bg-primary"
               />
             </motion.div>
-            
-            <motion.h2 
+
+            <motion.h2
               variants={fadeInUp}
               className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4"
             >
@@ -679,13 +677,13 @@ const Team = () => {
                   transition={{ delay: i * 0.1 }}
                   className="bg-card border border-border rounded-lg overflow-hidden group relative"
                 >
-                  
+
                   {/* Image Container */}
                   <div className="relative overflow-hidden">
 
                     {/* Image */}
-                    <motion.img 
-                      src={getEmployeeImageUrl(member)} 
+                    <motion.img
+                      src={getEmployeeImageUrl(member)}
                       alt={member.name}
                       className="w-full h-96 object-cover transition-transform duration-700 group-hover:scale-110"
                     />
@@ -717,15 +715,14 @@ const Team = () => {
                       </p>
 
                       <div className="flex items-center justify-between pt-3 border-t border-border">
-                        <span className={`text-xs px-2 py-1 rounded-full ${
-                          member.category === 'senior' ? 'bg-primary/20 text-primary' :
+                        <span className={`text-xs px-2 py-1 rounded-full ${member.category === 'senior' ? 'bg-primary/20 text-primary' :
                           member.category === 'associate' ? 'bg-blue-500/20 text-blue-500' :
-                          member.category === 'intern' ? 'bg-green-500/20 text-green-500' :
-                          'bg-primary text-white'
-                        }`}>
+                            member.category === 'intern' ? 'bg-green-500/20 text-green-500' :
+                              'bg-primary text-white'
+                          }`}>
                           {member.category === 'senior' ? 'Senior Associate' :
-                           member.category === 'associate' ? 'Associate' :
-                           member.category === 'intern' ? 'Intern' : 'Staff'}
+                            member.category === 'associate' ? 'Associate' :
+                              member.category === 'intern' ? 'Intern' : 'Staff'}
                         </span>
 
                         <a href={`mailto:${member.email}`} className="text-primary hover:text-accent transition-colors">
@@ -768,8 +765,8 @@ const Team = () => {
             We welcome exceptional legal talent to join our growing firm and contribute to delivering client-focused, professional, and globally-aligned legal solutions.
           </motion.p>
           <motion.div variants={scaleIn}>
-            <Link 
-              href="/careers" 
+            <Link
+              href="/careers"
               className="inline-block px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-accent transition-all duration-500 btn-shine"
             >
               View Open Positions

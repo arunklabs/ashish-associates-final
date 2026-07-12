@@ -115,7 +115,7 @@ const Footer = () => {
   const contactDetails = {
     address: "No. 137, Flat No. F-8, 1st Floor, Appu Manor Apartment, Perambur Barracks Road, Purasawalkam, Chennai 600 007.",
     phone: "887 887 3555",
-    email: "jashishadvocate@gmail.com",
+    email: " jashishwebsite@gmail.com",
     hours: "Mon – Fri: 9:00 AM – 7:00 PM",
     emergency: "887 887 3555"
   };

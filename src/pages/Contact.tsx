@@ -12,227 +12,227 @@ const Contact = () => {
   const [form, setForm] = useState({ countryCode: "+91", name: "", email: "", phone: "", subject: "", message: "" });
 
   const [errors, setErrors] = useState({
-  countryCode: "+91",
-  name: "",
-  email: "",
-  phone: "",
-  subject: "",
-  message: ""
-});
-
-
-const validateForm = () => {
-  let newErrors = {
     countryCode: "+91",
     name: "",
     email: "",
     phone: "",
     subject: "",
     message: ""
+  });
+
+
+  const validateForm = () => {
+    let newErrors = {
+      countryCode: "+91",
+      name: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: ""
+    };
+
+    let isValid = true;
+
+    // Name
+    const nameRegex = /^[A-Za-z\s]+$/;
+
+    if (!form.name.trim()) {
+      newErrors.name = "Full name is required";
+      isValid = false;
+    }
+    else if (!nameRegex.test(form.name)) {
+      newErrors.name = "Name should contain only letters";
+      isValid = false;
+    }
+
+    // Email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!form.email.trim()) {
+      newErrors.email = "Email is required";
+      isValid = false;
+    } else if (!emailRegex.test(form.email)) {
+      newErrors.email = "Enter a valid email";
+      isValid = false;
+    }
+
+    // Phone (Indian format)
+    const phoneRegex = /^\d+$/;
+    if (form.phone && !phoneRegex.test(form.phone)) {
+      newErrors.phone = "Only numbers are allowed";
+      isValid = false;
+    }
+
+    // Subject
+    if (!form.subject) {
+      newErrors.subject = "Please select subject";
+      isValid = false;
+    }
+
+    // Message
+    if (!form.message.trim()) {
+      newErrors.message = "Message is required";
+      isValid = false;
+    } else if (form.message.length < 10) {
+      newErrors.message = "Message must be at least 10 characters";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
   };
 
-  let isValid = true;
-
-// Name
-const nameRegex = /^[A-Za-z\s]+$/;
-
-if (!form.name.trim()) {
-  newErrors.name = "Full name is required";
-  isValid = false;
-} 
-else if (!nameRegex.test(form.name)) {
-  newErrors.name = "Name should contain only letters";
-  isValid = false;
-}
-
-  // Email
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!form.email.trim()) {
-    newErrors.email = "Email is required";
-    isValid = false;
-  } else if (!emailRegex.test(form.email)) {
-    newErrors.email = "Enter a valid email";
-    isValid = false;
-  }
-
-  // Phone (Indian format)
-  const phoneRegex = /^\d+$/;
-  if (form.phone && !phoneRegex.test(form.phone)) {
-    newErrors.phone = "Only numbers are allowed";
-    isValid = false;
-  }
-
-  // Subject
-  if (!form.subject) {
-    newErrors.subject = "Please select subject";
-    isValid = false;
-  }
-
-  // Message
-  if (!form.message.trim()) {
-    newErrors.message = "Message is required";
-    isValid = false;
-  } else if (form.message.length < 10) {
-    newErrors.message = "Message must be at least 10 characters";
-    isValid = false;
-  }
-
-  setErrors(newErrors);
-  return isValid;
-};
-
-const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  if (!validateForm()) return;
+    if (!validateForm()) return;
 
-  setLoading(true);
+    setLoading(true);
 
-  const data = {
-    name: form.name,
-    email: form.email,
-    phone: form.countryCode.replace("+","") + "-" + form.phone,
-    subject: form.subject,
-    message: form.message
+    const data = {
+      name: form.name,
+      email: form.email,
+      phone: form.countryCode.replace("+", "") + "-" + form.phone,
+      subject: form.subject,
+      message: form.message
+    };
+
+    try {
+      const res = await fetch(
+        "https://script.google.com/macros/s/AKfycbz7FviNYJN_H8-b5soje9uGOpC9EGGGhD5lqd5UJ4qcfKNL9rDtUnGbz-Y1tQgkqp9Qkg/exec",
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+          mode: "no-cors"
+        }
+      );
+
+      alert("Thank you for your message. We will contact you shortly.");
+
+
+      setForm({
+        countryCode: "+91",
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: ""
+      });
+
+      setErrors({
+        countryCode: "+91",
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: ""
+      });
+
+    } catch (error) {
+
+      console.error(error);
+      alert("Something went wrong. Please try again.");
+
+    } finally {
+
+      setLoading(false);
+
+    }
   };
-
-  try {
-    const res = await fetch(
-  "https://script.google.com/macros/s/AKfycbz7FviNYJN_H8-b5soje9uGOpC9EGGGhD5lqd5UJ4qcfKNL9rDtUnGbz-Y1tQgkqp9Qkg/exec",
-  {
-    method: "POST",
-    body: JSON.stringify(data),
-    mode: "no-cors"
-  }
-);
-
-    alert("Thank you for your message. We will contact you shortly."); 
-
-    
-    setForm({
-      countryCode: "+91",
-      name: "",
-      email: "",
-      phone: "",
-      subject: "",
-      message: ""
-    });
-
-    setErrors({
-      countryCode: "+91",
-      name: "",
-      email: "",
-      phone: "",
-      subject: "",
-      message: ""
-    });
-
-  } catch (error) {
-
-    console.error(error);
-    alert("Something went wrong. Please try again.");
-
-  } finally {
-
-    setLoading(false);
-
-  }
-};
 
   // Animation variants - Professional and smooth
   const fadeInUp = {
-    hidden: { 
-      opacity: 0, 
-      y: 40 
+    hidden: {
+      opacity: 0,
+      y: 40
     },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { 
-        duration: 0.9, 
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.9,
         ease: [0.25, 0.1, 0.25, 1] as const // Cubic-bezier for smooth acceleration/deceleration
-      } 
+      }
     }
   };
 
   const fadeInDown = {
-    hidden: { 
-      opacity: 0, 
-      y: -40 
+    hidden: {
+      opacity: 0,
+      y: -40
     },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { 
-        duration: 0.9, 
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.9,
         ease: [0.25, 0.1, 0.25, 1] as const
-      } 
+      }
     }
   };
 
   const fadeIn = {
-    hidden: { 
-      opacity: 0 
+    hidden: {
+      opacity: 0
     },
-    visible: { 
-      opacity: 1, 
-      transition: { 
-        duration: 1.2, 
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 1.2,
         ease: [0.25, 0.1, 0.25, 1] as const
-      } 
+      }
     }
   };
 
   const slideFromLeft = {
-    hidden: { 
-      opacity: 0, 
-      x: -50 
+    hidden: {
+      opacity: 0,
+      x: -50
     },
-    visible: { 
-      opacity: 1, 
-      x: 0, 
-      transition: { 
-        duration: 1, 
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 1,
         ease: [0.25, 0.1, 0.25, 1] as const
-      } 
+      }
     }
   };
 
   const slideFromRight = {
-    hidden: { 
-      opacity: 0, 
-      x: 50 
+    hidden: {
+      opacity: 0,
+      x: 50
     },
-    visible: { 
-      opacity: 1, 
-      x: 0, 
-      transition: { 
-        duration: 1, 
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 1,
         ease: [0.25, 0.1, 0.25, 1] as const
-      } 
+      }
     }
   };
 
   const scaleIn = {
-    hidden: { 
-      opacity: 0, 
-      scale: 0.95 
+    hidden: {
+      opacity: 0,
+      scale: 0.95
     },
-    visible: { 
-      opacity: 1, 
-      scale: 1, 
-      transition: { 
-        duration: 0.8, 
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.8,
         ease: [0.25, 0.1, 0.25, 1] as const
-      } 
+      }
     }
   };
 
   const staggerContainer = {
-    hidden: { 
-      opacity: 0 
+    hidden: {
+      opacity: 0
     },
     visible: {
       opacity: 1,
@@ -245,12 +245,12 @@ const [loading, setLoading] = useState(false);
   };
 
   const cardHover = {
-    rest: { 
+    rest: {
       scale: 1,
       y: 0,
       transition: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] as const }
     },
-    hover: { 
+    hover: {
       scale: 1.02,
       y: -8,
       boxShadow: '0 30px 60px -15px rgba(0,0,0,0.2)',
@@ -259,22 +259,22 @@ const [loading, setLoading] = useState(false);
   };
 
   const buttonHover = {
-    rest: { 
+    rest: {
       scale: 1,
       transition: { duration: 0.3 }
     },
-    hover: { 
+    hover: {
       scale: 1.05,
       transition: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] as const }
     }
   };
 
   const iconHover = {
-    rest: { 
+    rest: {
       rotate: 0,
       scale: 1
     },
-    hover: { 
+    hover: {
       rotate: 360,
       scale: 1.1,
       transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] as const }
@@ -283,36 +283,49 @@ const [loading, setLoading] = useState(false);
 
   // Chennai location details
   const chennaiLocations = [
-  {
-    name: "Head Office - Anna Salai",
-    address: "No. 137, Flat No. F-8, 1st Floor, Appu Manor Apartment, Perambur Barracks Road, Purasawalkam, Chennai 600 007",
-    phone: "7373663555",
-    email: "jashishadvocate@gmail.com",
-    hours: "Mon – Fri: 9:00 AM – 7:00 PM",
-    map: "Anna Salai, Chennai",
-    mapEmbed: "https://www.google.com/maps?q=Purasawalkam,Chennai&output=embed"
-  },
-  {
-    name: "Bangalore Office",
-    address: "No. 24, 2nd Floor, Brigade Road, Ashok Nagar, Bengaluru, Karnataka 560025",
-    phone: "7373663555",
-    email: "jashishadvocate@gmail.com",
-    hours: "Mon – Fri: 9:30 AM – 6:30 PM",
-    map: "Brigade Road, Bangalore",
-    mapEmbed: "https://www.google.com/maps?q=Brigade+Road,Bangalore&output=embed"
-  },
-  {
-    name: "Mumbai Office",
-    address: "Unit 402, 4th Floor, The Capital Building, Bandra Kurla Complex, Bandra East, Mumbai, Maharashtra 400051",
-    phone: "7373663555",
-    email: "jashishadvocate@gmail.com",
-    hours: "Mon – Fri: 10:00 AM – 7:00 PM",
-    map: "Bandra Kurla Complex, Mumbai",
-    mapEmbed: "https://www.google.com/maps?q=Bandra+Kurla+Complex,Mumbai&output=embed"
-  }
-];
+    {
+      name: "Head Office - CHENNAI",
+      address: "No. 137, Flat No. F-8, 1st Floor, Appu Manor Apartment, Perambur Barracks Road, Purasawalkam, Chennai 600 007.",
+      phone: "+91 887 887 3555",
+      email: "jashishwebsite@gmail.com",
+      hours: "Mon – Fri: 9:00 AM – 7:00 PM",
+      map: "Anna Salai, Chennai",
+      mapEmbed: "https://www.google.com/maps?q=Purasawalkam,Chennai&output=embed",
+      direction: "https://g.co/kgs/yQp7zr",
+    },
+    {
+      name: "Bangalore Office",
+      address: "11th Cross, Baab-e-rehmat, Govindapura, Near Noorul Hudha Masjid, Rashad Nagar, Benguluru – 560045.",
+      phone: "+91 887 887 3555",
+      email: "jashishwebsite@gmail.com",
+      hours: "Mon – Fri: 9:30 AM – 6:30 PM",
+      map: "Brigade Road, Bangalore",
+      mapEmbed: "https://www.google.com/maps?q=Brigade+Road,Bangalore&output=embed",
+      direction: "https://www.google.com/maps/search/Baab-e-Rehmat,+Govindapura,+Bengaluru",
+    },
+    {
+      name: "Kolkata Office",
+      address: "Olisa House, 7th Floor, Room No. 706, 4th Government Place, Lal Dighi, B.B.D. Bagh Kolkata- 700 001. (Beside Registry Office)",
+      phone: "+91 887 887 3555",
+      email: "jashishwebsite@gmail.com",
+      hours: "Mon – Fri: 10:00 AM – 7:00 PM",
+      map: "Bandra Kurla Complex, Mumbai",
+      mapEmbed: "https://www.google.com/maps?q=Bandra+Kurla+Complex,Mumbai&output=embed",
+      direction: "https://maps.app.goo.gl/6ZArDMSGQiXuH8sz6?g_st=aw",
+    },
+    {
+      name: "Delhi Office",
+      address: "137A, Lawyers’ Chamber, Patiala House Court (Near India Gate Circle), Tilak Marg, New Delhi- 110 001.",
+      phone: "+91 887 887 3555",
+      email: "jashishwebsite@gmail.com",
+      hours: "Mon – Fri: 10:00 AM – 7:00 PM",
+      map: "Bandra Kurla Complex, Mumbai",
+      mapEmbed: "https://www.google.com/maps?q=Bandra+Kurla+Complex,Mumbai&output=embed",
+      direction: "https://maps.app.goo.gl/jXCmX9DYj6BFvqUQ7?g_st=aw",
+    }
+  ];
 
-const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
+  const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
   const socialLinks = [
     { icon: Facebook, href: "https://facebook.com", label: "Facebook", color: "#1877F2" },
     { icon: Twitter, href: "https://twitter.com", label: "Twitter", color: "#1DA1F2" },
@@ -323,39 +336,39 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
   return (
     <div className="-mt-20">
       {/* Banner Section - Dark Theme with Background Image */}
-      <section 
+      <section
         className="relative w-full bg-cover bg-center bg-no-repeat overflow-hidden"
         style={{
           backgroundImage: "url('" + contactImage + "')",
         }}
       >
         {/* Dark Overlay with animated gradient */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.5 }}
           className="absolute inset-0 bg-gradient-to-br from-background/70 via-background/60 to-background/70"
         />
-        
+
         {/* Animated Pattern Overlay */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.1 }}
           transition={{ duration: 2, delay: 0.5 }}
           className="absolute inset-0 pattern-gold"
         />
-        
+
         {/* Floating particles animation */}
         <div className="absolute inset-0 overflow-hidden">
           {[...Array(20)].map((_, i) => (
             <motion.div
               key={i}
-              initial={{ 
+              initial={{
                 x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1000),
                 y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 1000),
                 scale: 0
               }}
-              animate={{ 
+              animate={{
                 y: [null, -100],
                 scale: [0, 1, 0],
                 opacity: [0, 0.5, 0]
@@ -370,45 +383,45 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
             />
           ))}
         </div>
-        
+
         {/* Content */}
         <div className="relative z-10 container mx-auto px-4 py-32 md:py-40 lg:py-48">
-          <motion.div 
+          <motion.div
             initial="hidden"
             animate="visible"
             variants={staggerContainer}
             className="text-center max-w-3xl mx-auto"
           >
-            <motion.div 
+            <motion.div
               variants={fadeInDown}
               className="flex items-center justify-center gap-3 mb-6"
             >
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 animate={{ width: 40 }}
                 transition={{ delay: 0.6, duration: 1.2, ease: [0.25, 0.1, 0.25, 1] as const }}
                 className="h-px bg-primary"
               />
-              <motion.p 
+              <motion.p
                 variants={slideFromLeft}
                 className="text-sm uppercase tracking-[0.2em] text-primary font-semibold"
               >
                 Contact Us
               </motion.p>
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 animate={{ width: 40 }}
                 transition={{ delay: 0.6, duration: 1.2, ease: [0.25, 0.1, 0.25, 1] as const }}
                 className="h-px bg-primary"
               />
             </motion.div>
-            
-            <motion.h1 
+
+            <motion.h1
               variants={fadeInUp}
               className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 text-foreground"
             >
               Schedule a{" "}
-              <motion.span 
+              <motion.span
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1.2, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] as const }}
@@ -417,18 +430,18 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
                 Consultation
               </motion.span>
             </motion.h1>
-            
-            <motion.p 
+
+            <motion.p
               variants={fadeInUp}
               className="text-muted-foreground text-lg leading-relaxed max-w-2xl mx-auto"
             >
               Take the first step toward addressing your legal matter. Our team provides expert guidance and personalized, client-focused support.
-            </motion.p>            
+            </motion.p>
           </motion.div>
         </div>
 
         {/* Decorative bottom gradient */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 1.5 }}
@@ -437,36 +450,36 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
       </section>
 
       {/* Chennai Locations Section - White Theme */}
-      <motion.section 
+      <motion.section
         className="section-padding bg-white"
       >
         <motion.div initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={staggerContainer} className="container mx-auto">
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={staggerContainer} className="container mx-auto">
           {/* Section Header */}
-          <motion.div 
+          <motion.div
             variants={staggerContainer}
             className="text-center max-w-3xl mx-auto mb-16"
           >
-            <motion.div 
+            <motion.div
               variants={fadeInDown}
               className="flex items-center justify-center gap-3 mb-4"
             >
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 whileInView={{ width: 40 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.4, duration: 1.2 }}
                 className="h-px bg-primary"
               />
-              <motion.p 
+              <motion.p
                 variants={slideFromLeft}
                 className="text-sm uppercase tracking-[0.2em] text-primary font-semibold"
               >
                 Our Offices
               </motion.p>
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 whileInView={{ width: 40 }}
                 viewport={{ once: true }}
@@ -474,15 +487,15 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
                 className="h-px bg-primary"
               />
             </motion.div>
-            
-            <motion.h2 
+
+            <motion.h2
               variants={fadeInUp}
               className="text-3xl md:text-4xl font-heading font-bold text-black mb-4"
             >
               <span className="text-primary">Our</span> Nationwide Presence
             </motion.h2>
-            
-            <motion.p 
+
+            <motion.p
               variants={fadeInUp}
               className="text-muted-foreground text-lg"
             >
@@ -502,12 +515,12 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
                 animate="rest"
                 className="bg-white border border-gray-200 rounded-lg overflow-hidden group"
               >
-                <motion.div 
+                <motion.div
                   variants={cardHover}
                   className="p-8"
                 >
                   <div className="flex items-center gap-3 mb-4">
-                    <motion.div 
+                    <motion.div
                       variants={iconHover}
                       whileHover="hover"
                       className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary transition-colors duration-500"
@@ -519,21 +532,21 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
                     </h3>
                   </div>
 
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 + index * 0.1 }}
                     className="space-y-4 ml-15"
                   >
-                    <motion.div 
+                    <motion.div
                       whileHover={{ x: 5 }}
                       className="flex items-start gap-3"
                     >
                       <MapPin className="w-4 h-4 text-primary mt-1 flex-shrink-0" />
                       <p className="text-muted-foreground text-sm whitespace-pre-line">{location.address}</p>
                     </motion.div>
-                    
-                    <motion.div 
+
+                    <motion.div
                       whileHover={{ x: 5 }}
                       className="flex items-center gap-3"
                     >
@@ -542,8 +555,8 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
                         {location.phone}
                       </a>
                     </motion.div>
-                    
-                    <motion.div 
+
+                    <motion.div
                       whileHover={{ x: 5 }}
                       className="flex items-center gap-3"
                     >
@@ -552,8 +565,8 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
                         {location.email}
                       </a>
                     </motion.div>
-                    
-                    <motion.div 
+
+                    <motion.div
                       whileHover={{ x: 5 }}
                       className="flex items-center gap-3"
                     >
@@ -562,9 +575,20 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
                     </motion.div>
                   </motion.div>
 
-                  <Button variant="outline" size="lg" className="mt-6 w-full border-primary text-white bg-primary hover:text-white">
-                    <span>Get Directions</span>
-                    <ChevronRight className="w-4 h-4" />
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="lg"
+                    className="mt-6 w-full border-primary bg-primary text-white hover:text-white"
+                  >
+                    <a
+                      href={location.direction}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span>Get Directions</span>
+                      <ChevronRight className="w-4 h-4 ml-2" />
+                    </a>
                   </Button>
 
                   {/* Animated underline */}
@@ -582,36 +606,36 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
       </motion.section>
 
       {/* Contact Form Section - Light Theme */}
-      <motion.section 
-        className="section-padding bg-gray-50 border border-red-500"
+      <motion.section
+        className="section-padding bg-gray-50"
       >
         <motion.div className="container mx-auto" initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={staggerContainer}>
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={staggerContainer}>
           {/* Section Header */}
-          <motion.div 
+          <motion.div
             variants={staggerContainer}
             className="text-center max-w-3xl mx-auto mb-16"
           >
-            <motion.div 
+            <motion.div
               variants={fadeInDown}
               className="flex items-center justify-center gap-3 mb-4"
             >
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 whileInView={{ width: 40 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.4, duration: 1.2 }}
                 className="h-px bg-primary"
               />
-              <motion.p 
+              <motion.p
                 variants={slideFromLeft}
                 className="text-sm uppercase tracking-[0.2em] text-primary font-semibold"
               >
                 Get In Touch
               </motion.p>
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 whileInView={{ width: 40 }}
                 viewport={{ once: true }}
@@ -619,8 +643,8 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
                 className="h-px bg-primary"
               />
             </motion.div>
-            
-            <motion.h2 
+
+            <motion.h2
               variants={fadeInUp}
               className="text-3xl md:text-4xl font-heading font-bold text-black mb-4"
             >
@@ -639,17 +663,17 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
                 <div className="space-y-6">
                   {[
                     { icon: Phone, label: "Call Us", value: "7373663555", href: "tel:+914423456789" },
-                    { icon: Mail, label: "Email Us", value: "jashishadvocate@gmail.com", href: "mailto:jashishadvocate@gmail.com" },
+                    { icon: Mail, label: "Email Us", value: "jashishwebsite@gmail.com", href: "mailto:jashishwebsite@gmail.com" },
                     { icon: Clock, label: "Office Hours", value: "Mon – Fri: 9:00 AM – 7:00 PM" },
                   ].map((item, idx) => (
-                    <motion.div 
-                      key={item.label} 
+                    <motion.div
+                      key={item.label}
                       variants={slideFromLeft}
                       whileHover={{ x: 5 }}
                       transition={{ delay: idx * 0.1 }}
                       className="flex items-start gap-4 group"
                     >
-                      <motion.div 
+                      <motion.div
                         whileHover={iconHover.hover}
                         className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center shrink-0 group-hover:bg-primary transition-colors duration-500"
                       >
@@ -683,7 +707,7 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
                       initial={{ opacity: 0, scale: 0 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       transition={{ delay: 0.3 + index * 0.1 }}
-                      whileHover={{ 
+                      whileHover={{
                         y: -5,
                         backgroundColor: social.color,
                         scale: 1.1,
@@ -699,7 +723,7 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
                       >
                         <social.icon className="w-5 h-5 text-primary group-hover:text-white transition-colors duration-300" />
                       </motion.div>
-                      
+
                       {/* Tooltip */}
                       <motion.span
                         initial={{ opacity: 0, y: 10 }}
@@ -735,13 +759,13 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
               className="lg:col-span-2"
             >
               <form onSubmit={handleSubmit} className="bg-white border border-gray-200 rounded-lg p-8 md:p-10 shadow-sm">
-                <motion.h3 
+                <motion.h3
                   variants={fadeInDown}
                   className="text-xl font-heading font-semibold text-black mb-6"
                 >
                   Send us a Message
                 </motion.h3>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                   <motion.div variants={fadeInUp} custom={0}>
                     <label className="text-sm font-medium text-black mb-2 block">Full Name *</label>
@@ -756,7 +780,7 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
                     />
                     {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
                   </motion.div>
-                  
+
                   <motion.div variants={fadeInUp} custom={1}>
                     <label className="text-sm font-medium text-black mb-2 block">Email *</label>
                     <motion.input
@@ -807,7 +831,7 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
 
                     {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
                   </motion.div>
-                  
+
                   <motion.div variants={fadeInUp} custom={3}>
                     <label className="text-sm font-medium text-black mb-2 block">Subject *</label>
                     <motion.select
@@ -831,7 +855,7 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
                     {errors.subject && <p className="text-red-500 text-xs mt-1">{errors.subject}</p>}
                   </motion.div>
                 </div>
-                
+
                 <motion.div variants={fadeInUp} custom={4} className="mb-6">
                   <label className="text-sm font-medium text-black mb-2 block">Message *</label>
                   <motion.textarea
@@ -845,7 +869,7 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
                   />
                   {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
                 </motion.div>
-                
+
                 {/* <Button type="submit" size="xl" className="w-full md:w-auto btn-shine">
                   <span className="font-semibold">Submit Request</span>
                   <Send className="w-4 h-4 font-semibold" />
@@ -872,7 +896,7 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
       </motion.section>
 
       {/* Multi Location Map Section */}
-{/* <motion.section className="relative bg-gray-100 overflow-hidden py-12">
+      {/* <motion.section className="relative bg-gray-100 overflow-hidden py-12">
 
   <div className="container mx-auto px-4">
 
@@ -909,59 +933,86 @@ const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
   </div>
 </motion.section> */}
 
-{/* India Map Location Section */}
-<motion.section className="bg-gray-100 py-16">
-  <div className="container mx-auto px-4">
+      {/* India Map Location Section */}
+      <motion.section className="bg-gray-100 py-16">
+        <div className="container mx-auto px-4">
 
-    {/* Title */}
-    <div className="text-center mb-10">
-      <h2 className="text-3xl md:text-4xl font-bold text-black">
-        Our <span className="text-primary">Presence Across India</span>
-      </h2>
-      <p className="text-gray-600 mt-2">
-        Hover on locations to explore our offices
-      </p>
-    </div>
+          {/* Title */}
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-black">
+              Our <span className="text-primary">Presence Across India</span>
+            </h2>
+            <p className="text-gray-600 mt-2">
+              Hover on locations to explore our offices
+            </p>
+          </div>
 
-    {/* Map Wrapper */}
-    <div className="relative max-w-4xl mx-auto">
+          {/* Map Wrapper */}
+          <div className="relative max-w-4xl mx-auto">
 
-      {/* REAL INDIA MAP IMAGE */}
-      <img
-        src="/india-map.svg"
-        alt="India Map"
-        className="w-full h-auto"
-      />
+            {/* REAL INDIA MAP IMAGE */}
+            <img
+              src="/india-map.svg"
+              alt="India Map"
+              className="w-full h-auto"
+            />
 
-      {/* PINS */}
-      {[
-        { name: "Delhi", top: "22%", left: "48%" },
-        { name: "Mumbai", top: "55%", left: "38%" },
-        { name: "Bangalore", top: "70%", left: "48%" },
-        { name: "Chennai", top: "82%", left: "38%" },
-      ].map((loc, i) => (
-        <div
-          key={i}
-          className="absolute group cursor-pointer"
-          style={{ top: loc.top, left: loc.left }}
-        >
-          {/* Ping Effect */}
-          <span className="absolute inline-flex h-4 w-4 rounded-full bg-primary opacity-75 animate-ping"></span>
+            {/* PINS */}
+            {[
+              {
+                name: "Delhi Office",
+                city: "New Delhi",
+                top: "26%",
+                left: "33%",
+                direction: "https://maps.app.goo.gl/jXCmX9DYj6BFvqUQ7?g_st=aw",
+              },
+              {
+                name: "Kolkata Office",
+                city: "Kolkata",
+                top: "47%",
+                left: "63%",
+                direction: "https://maps.app.goo.gl/6ZArDMSGQiXuH8sz6?g_st=aw",
+              },
+              {
+                name: "Bangalore Office",
+                city: "Bengaluru",
+                top: "72%",
+                left: "35%",
+                direction: "https://www.google.com/maps/search/Baab-e-Rehmat,+Govindapura,+Bengaluru",
+              },
+              {
+                name: "Head Office - Chennai",
+                city: "Chennai",
+                top: "73%",
+                left: "41%",
+                direction: "https://g.co/kgs/yQp7zr",
+              },
+            ].map((loc, i) => (
+              <a
+                key={i}
+                href={loc.direction}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute group cursor-pointer"
+                style={{ top: loc.top, left: loc.left }}
+              >
+                {/* Ping Effect */}
+                <span className="absolute inline-flex h-4 w-4 rounded-full bg-primary opacity-75 animate-ping"></span>
 
-          {/* Dot */}
-          <span className="relative inline-flex h-3 w-3 rounded-full bg-primary"></span>
+                {/* Dot */}
+                <span className="relative inline-flex h-3 w-3 rounded-full bg-primary"></span>
 
-          {/* Tooltip */}
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 
+                {/* Tooltip */}
+                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 
             bg-black text-white text-xs px-3 py-1 rounded 
             opacity-0 group-hover:opacity-100 transition duration-300 whitespace-nowrap shadow-lg">
-            {loc.name}
+                  {loc.name}
+                </div>
+              </a>
+            ))}
           </div>
         </div>
-      ))}
-    </div>
-  </div>
-</motion.section>
+      </motion.section>
     </div>
   );
 };
