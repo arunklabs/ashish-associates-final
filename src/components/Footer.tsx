@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram, ArrowRight, Clock } from "lucide-react";
 import { motion } from "framer-motion";
+import { BsTwitterX } from "react-icons/bs";
 
 const SCROLL_ISOLATION_MS = 250;
 
@@ -32,46 +33,46 @@ const Footer = () => {
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 40 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { duration: 0.9, ease: cubicBezier } 
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.9, ease: cubicBezier }
     }
   };
 
   const fadeInDown = {
     hidden: { opacity: 0, y: -40 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      transition: { duration: 0.9, ease: cubicBezier } 
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.9, ease: cubicBezier }
     }
   };
 
   const slideFromLeft = {
     hidden: { opacity: 0, x: -50 },
-    visible: { 
-      opacity: 1, 
-      x: 0, 
-      transition: { duration: 1, ease: cubicBezier } 
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 1, ease: cubicBezier }
     }
   };
 
   const slideFromRight = {
     hidden: { opacity: 0, x: 50 },
-    visible: { 
-      opacity: 1, 
-      x: 0, 
-      transition: { duration: 1, ease: cubicBezier } 
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 1, ease: cubicBezier }
     }
   };
 
   const scaleIn = {
     hidden: { opacity: 0, scale: 0.95 },
-    visible: { 
-      opacity: 1, 
-      scale: 1, 
-      transition: { duration: 0.8, ease: cubicBezier } 
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.8, ease: cubicBezier }
     }
   };
 
@@ -91,44 +92,44 @@ const Footer = () => {
   const practiceAreaLinks = [
     { id: 1, label: "Corporate Law", path: "/practice-areas/corporate-law" },
     { id: 2, label: "Criminal Law", path: "/practice-areas/criminal-law" },
-      { id: 3, label: "Civil Law", path: "/practice-areas/civil-law" },
-      { id: 4, label: "Family Law", path: "/practice-areas/family-law" },
-      { id: 5, label: "Property Law", path: "/practice-areas/property-law" },
-      { id: 6, label: "Arbitration", path: "/practice-areas/arbitration" },
-      { id: 7, label: "Intellectual Property", path: "/practice-areas/intellectual-property" },
-      { id: 8, label: "Tax Law", path: "/practice-areas/tax-law" },
-      { id: 9, label: "Contract & Agreement Reviewing", path: "/practice-areas/contract-and-agreement-reviewing" },
-      { id: 10, label: "Insurance", path: "/practice-areas/insurance-law" },
-      { id: 11, label: "Labour & Employment", path: "/practice-areas/labour-employment-law" },
-      { id: 12, label: "Insolvancy & Bankruptcy", path: "/practice-areas/insolvency-bankruptcy-law" },
+    { id: 3, label: "Civil Law", path: "/practice-areas/civil-law" },
+    { id: 4, label: "Family Law", path: "/practice-areas/family-law" },
+    { id: 5, label: "Property Law", path: "/practice-areas/property-law" },
+    { id: 6, label: "Arbitration", path: "/practice-areas/arbitration" },
+    { id: 7, label: "Intellectual Property", path: "/practice-areas/intellectual-property" },
+    { id: 8, label: "Tax Law", path: "/practice-areas/tax-law" },
+    { id: 9, label: "Contract & Agreement Reviewing", path: "/practice-areas/contract-and-agreement-reviewing" },
+    { id: 10, label: "Insurance", path: "/practice-areas/insurance-law" },
+    { id: 11, label: "Labour & Employment", path: "/practice-areas/labour-employment-law" },
+    { id: 12, label: "Insolvancy & Bankruptcy", path: "/practice-areas/insolvency-bankruptcy-law" },
   ];
 
   // Social media links
   const socialLinks = [
-    { icon: Facebook, href: "https://facebook.com", label: "Facebook", color: "#1877F2" },
-    { icon: Twitter, href: "https://twitter.com", label: "Twitter", color: "#1DA1F2" },
+    { icon: Facebook, href: "https://www.facebook.com/share/1DEDCmjJha/", label: "Facebook", color: "#1877F2" },
+    { icon: BsTwitterX, href: "https://x.com/JAshishAsso_LLP", label: "Twitter", color: "#1DA1F2" },
     { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn", color: "#0A66C2" },
-    { icon: Instagram, href: "https://instagram.com", label: "Instagram", color: "#E4405F" }
+    { icon: Instagram, href: "https://www.instagram.com/j_ashish_associates_llp?igsh=MW1xbXhKZTM1Z3BnZw==", label: "Instagram", color: "#E4405F" }
   ];
 
   // Chennai contact details
   const contactDetails = {
     address: "No. 137, Flat No. F-8, 1st Floor, Appu Manor Apartment, Perambur Barracks Road, Purasawalkam, Chennai 600 007.",
     phone: "887 887 3555",
-    email: " jashishwebsite@gmail.com",
+    email: " jashishassociatesllp@gmail.com",
     hours: "Mon – Fri: 9:00 AM – 7:00 PM",
     emergency: "887 887 3555"
   };
 
   // Better infinite scroll text - legal phrases in English and Tamil mix
-const infiniteText = [
-  "JUSTICE FOR ALL • ",
-  "EXCELLENCE IN LAW • ",
-  "TRUSTED ADVISORS • ",
-  "SINCE 2026 • ",
-  "DEFENDING YOUR RIGHTS • ",
-  "STRATEGIC LEGAL SOLUTIONS • ",
-];
+  const infiniteText = [
+    "JUSTICE FOR ALL • ",
+    "EXCELLENCE IN LAW • ",
+    "TRUSTED ADVISORS • ",
+    "SINCE 2026 • ",
+    "DEFENDING YOUR RIGHTS • ",
+    "STRATEGIC LEGAL SOLUTIONS • ",
+  ];
 
   // Duplicate array multiple times for seamless loop
   const scrollText = Array(10).fill(infiniteText).flat();
@@ -146,12 +147,12 @@ const infiniteText = [
             variants={slideFromLeft}
           >
             <Link href="/" className="flex items-center lg:ml-0 flex-1 pb-4 lg:flex-none justify-start group">
-              <motion.img 
+              <motion.img
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 0.3 }}
                 src="/assets/logo.jpeg"
-                alt="J. Ashish Associates LLP" 
-                className="h-16 md:h-20 w-auto object-contain" 
+                alt="J. Ashish Associates LLP"
+                className="h-16 md:h-20 w-auto object-contain"
               />
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
@@ -168,7 +169,7 @@ const infiniteText = [
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.3 + index * 0.1 }}
-                  whileHover={{ 
+                  whileHover={{
                     y: -5,
                     backgroundColor: social.color,
                     scale: 1.1,
@@ -183,7 +184,7 @@ const infiniteText = [
                   >
                     <social.icon className="w-4 h-4 group-hover:text-white transition-colors duration-300" />
                   </motion.div>
-                  
+
                   {/* Tooltip */}
                   <motion.span
                     initial={{ opacity: 0, y: 10 }}
@@ -216,15 +217,15 @@ const infiniteText = [
                 { label: "Careers", path: "/careers" },
                 { label: "Contact", path: "/contact" },
               ].map((l, index) => (
-                <motion.li 
+                <motion.li
                   key={l.path}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.05 }}
                 >
-                  <Link 
-                    href={l.path} 
+                  <Link
+                    href={l.path}
                     className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1 group"
                   >
                     <span>{l.label}</span>
@@ -245,15 +246,15 @@ const infiniteText = [
             <h4 className="text-sm font-semibold uppercase tracking-widest text-primary mb-6">Practice Areas</h4>
             <ul className="space-y-3">
               {practiceAreaLinks.map((area, index) => (
-                <motion.li 
+                <motion.li
                   key={area.id}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.05 }}
                 >
-                  <Link 
-                    href={area.path} 
+                  <Link
+                    href={area.path}
                     className="text-sm text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1 group"
                   >
                     <span>{area.label}</span>
@@ -273,7 +274,7 @@ const infiniteText = [
           >
             <h4 className="text-sm font-semibold uppercase tracking-widest text-primary mb-6">Head Office</h4>
             <ul className="space-y-4">
-              <motion.li 
+              <motion.li
                 whileHover={{ x: 5 }}
                 className="flex items-start gap-3 text-sm text-muted-foreground group"
               >
@@ -282,8 +283,8 @@ const infiniteText = [
                 </div>
                 <span className="text-sm text-muted-foreground whitespace-pre-line">{contactDetails.address}</span>
               </motion.li>
-              
-              <motion.li 
+
+              <motion.li
                 whileHover={{ x: 5 }}
                 className="flex items-center gap-3 text-sm text-muted-foreground group"
               >
@@ -297,8 +298,8 @@ const infiniteText = [
                   <span className="text-xs text-muted-foreground/70">Emergency: {contactDetails.emergency}</span>
                 </div>
               </motion.li>
-              
-              <motion.li 
+
+              <motion.li
                 whileHover={{ x: 5 }}
                 className="flex items-center gap-3 text-sm text-muted-foreground group"
               >
@@ -310,7 +311,7 @@ const infiniteText = [
                 </a>
               </motion.li>
 
-              <motion.li 
+              <motion.li
                 whileHover={{ x: 5 }}
                 className="flex items-center gap-3 text-sm text-muted-foreground group"
               >
@@ -345,7 +346,7 @@ const infiniteText = [
         </div>
 
         {/* Bottom Bar */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -356,14 +357,14 @@ const infiniteText = [
             © {new Date().getFullYear()} J. Ashish Associates LLP. All rights reserved. | Chennai, India
           </p>
           <div className="flex flex-wrap justify-center gap-4 md:gap-6">
-            <Link 
-            href="/privacy-policy"
-             className="text-xs text-muted-foreground hover:text-primary transition-colors">
+            <Link
+              href="/privacy-policy"
+              className="text-xs text-muted-foreground hover:text-primary transition-colors">
               Privacy Policy
             </Link>
-            <Link 
-            href="/legal-disclaimer"
-             className="text-xs text-muted-foreground hover:text-primary transition-colors">
+            <Link
+              href="/legal-disclaimer"
+              className="text-xs text-muted-foreground hover:text-primary transition-colors">
               Legal Disclaimer
             </Link>
           </div>
@@ -375,9 +376,9 @@ const infiniteText = [
         className="w-full overflow-hidden bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 py-4 border-y border-primary/20 select-none"
         style={{ pointerEvents: stripPointerEvents }}
       >
-        <motion.div 
+        <motion.div
           className="whitespace-nowrap inline-block"
-          animate={{ 
+          animate={{
             x: [0, -2000]
           }}
           transition={{
@@ -390,10 +391,10 @@ const infiniteText = [
           }}
         >
           {scrollText.map((text, index) => (
-            <span 
-              key={index} 
+            <span
+              key={index}
               className="inline-block text-lg md:text-xl xl:text-2xl font-heading font-semibold mx-6"
-              style={{ 
+              style={{
                 color: index % 2 === 0 ? '#C9A646' : '#ffffff',
                 textShadow: index % 2 === 0 ? '0 0 15px rgba(201, 166, 70, 0.4)' : '0 0 15px rgba(255, 255, 255, 0.2)',
                 letterSpacing: '0.5px'

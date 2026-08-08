@@ -6,6 +6,7 @@ import { useEffect, useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { getCMSData, safeDataExtraction } from "../lib/cmsCache";
 import { BlogPost, formatDate, getBlogImageUrl } from "../lib/sanityQueries";
+import Link from "next/link";
 
 // Animation variants
 const fadeInUp = {
@@ -306,12 +307,7 @@ const Blog = () => {
                     {/* Content */}
                     <div className="p-5 md:p-6 flex-grow flex flex-col">
                       <div className="flex items-center gap-3 mb-3 flex-wrap">
-                        <motion.span
-                          whileHover={{ scale: 1.05 }}
-                          className="text-xs text-[#D4AF37] font-semibold uppercase tracking-wider"
-                        >
-                          {post.category}
-                        </motion.span>
+
                         <span className="text-xs text-gray-500">
                           {formatDate(post.date)}
                         </span>
@@ -327,6 +323,18 @@ const Blog = () => {
                       <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-3 flex-grow">
                         {post.excerpt}
                       </p>
+                      <Link
+                        href={post.category}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <motion.span
+                          whileHover={{ scale: 1.05 }}
+                          className="text-xs text-[#D4AF37] font-semibold tracking-wider cursor-pointer"
+                        >
+                          {post.category}
+                        </motion.span>
+                      </Link>
                     </div>
                   </article>
                 </motion.div>

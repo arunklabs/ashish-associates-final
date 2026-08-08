@@ -1,10 +1,14 @@
 "use client";
 
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { Button } from "@/components/ui/button";
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight, Maximize2, Grid, Image as ImageIcon, Users, Building2, Scale, Award, ChevronDown, Calendar, Clock, Eye, Loader2 } from 'lucide-react';
+import galleryImg1 from "../../public/assets/our collections.jpg"
+import galleryImg2 from "../../public/assets/our collections 2.jpg"
+import galleryImg3 from "../../public/assets/our collections 3.jpg"
+import galleryImg4 from "../../public/assets/our collections 4.jpg"
 
 // Gallery categories with gold theme
 const categories = [
@@ -21,8 +25,8 @@ const galleryImages = [
     id: 1,
     title: 'Main Conference Room',
     category: 'office',
-    imageUrl: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=300&h=400&q=60',
+    imageUrl: galleryImg1,
+    thumbnailUrl: galleryImg1,
     description: 'State-of-the-art conference facility for client meetings',
     date: '2026',
     views: 234,
@@ -31,8 +35,8 @@ const galleryImages = [
     id: 2,
     title: 'Legal Team Meeting',
     category: 'team',
-    imageUrl: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=300&h=400&q=60',
+    imageUrl: galleryImg2,
+    thumbnailUrl: galleryImg2,
     description: 'Senior partners discussing case strategy',
     date: '2026',
     views: 189,
@@ -41,8 +45,8 @@ const galleryImages = [
     id: 3,
     title: 'Annual Legal Symposium',
     category: 'events',
-    imageUrl: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&q=80',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=300&h=400&q=60',
+    imageUrl: galleryImg3,
+    thumbnailUrl: galleryImg3,
     description: 'Our team at the annual legal conference',
     date: '2023',
     views: 456,
@@ -51,173 +55,105 @@ const galleryImages = [
     id: 4,
     title: 'Modern Library',
     category: 'office',
-    imageUrl: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&q=80',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=300&h=400&q=60',
+    imageUrl: galleryImg4,
+    thumbnailUrl: galleryImg4,
     description: 'Extensive legal research library',
     date: '2026',
     views: 167,
-  },
-  {
-    id: 5,
-    title: 'Federal Court Appearance',
-    category: 'courtroom',
-    imageUrl: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=300&h=400&q=60',
-    description: 'Outside the Supreme Court',
-    date: '2023',
-    views: 892,
-  },
-  {
-    id: 6,
-    title: 'Partner Portraits',
-    category: 'team',
-    imageUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=300&h=400&q=60',
-    description: 'Executive leadership team',
-    date: '2026',
-    views: 345,
-  },
-  {
-    id: 7,
-    title: 'Client Reception Area',
-    category: 'office',
-    imageUrl: 'https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&q=80',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&w=300&h=400&q=60',
-    description: 'Welcoming reception with modern amenities',
-    date: '2026',
-    views: 278,
-  },
-  {
-    id: 8,
-    title: 'Pro Bono Award Ceremony',
-    category: 'events',
-    imageUrl: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=300&h=400&q=60',
-    description: 'Receiving community service award',
-    date: '2023',
-    views: 567,
-  },
-  {
-    id: 9,
-    title: 'Partner Meeting Room',
-    category: 'office',
-    imageUrl: 'https://images.unsplash.com/photo-1517502884422-41eaead166d4?auto=format&fit=crop&q=80',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1517502884422-41eaead166d4?auto=format&fit=crop&w=300&h=400&q=60',
-    description: 'Executive meeting space with modern amenities',
-    date: '2026',
-    views: 198,
-  },
-  {
-    id: 10,
-    title: 'Legal Research Team',
-    category: 'team',
-    imageUrl: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=300&h=400&q=60',
-    description: 'Research team analyzing case files',
-    date: '2026',
-    views: 276,
-  },
-  {
-    id: 11,
-    title: 'Corporate Law Seminar',
-    category: 'events',
-    imageUrl: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=300&h=400&q=60',
-    description: 'Annual corporate law seminar',
-    date: '2023',
-    views: 432,
-  },
-  {
-    id: 12,
-    title: 'Law Library Interior',
-    category: 'office',
-    imageUrl: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&q=80',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=300&h=400&q=60',
-    description: 'Historic law library with extensive collection',
-    date: '2026',
-    views: 321,
-  },
-  {
-    id: 13,
-    title: 'Mediation Session',
-    category: 'courtroom',
-    imageUrl: 'https://images.unsplash.com/photo-1589391886645-d51941baf7fb?auto=format&fit=crop&q=80',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1589391886645-d51941baf7fb?auto=format&fit=crop&w=300&h=400&q=60',
-    description: 'Mediation in progress',
-    date: '2023',
-    views: 156,
-  },
-  {
-    id: 14,
-    title: 'Team Building Event',
-    category: 'team',
-    imageUrl: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=300&h=400&q=60',
-    description: 'Annual team building retreat',
-    date: '2026',
-    views: 243,
-  },
-  {
-    id: 15,
-    title: 'Client Meeting',
-    category: 'office',
-    imageUrl: 'https://images.unsplash.com/photo-1557425955-df376b5903c8?auto=format&fit=crop&q=80',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1557425955-df376b5903c8?auto=format&fit=crop&w=300&h=400&q=60',
-    description: 'Confidential client consultation',
-    date: '2026',
-    views: 187,
-  },
-  {
-    id: 16,
-    title: 'Award Ceremony',
-    category: 'events',
-    imageUrl: 'https://images.unsplash.com/photo-1505373877841-8d25f95d1e81?auto=format&fit=crop&q=80',
-    thumbnailUrl: 'https://images.unsplash.com/photo-1505373877841-8d25f95d1e81?auto=format&fit=crop&w=300&h=400&q=60',
-    description: 'Receiving "Law Firm of the Year" award',
-    date: '2023',
-    views: 654,
-  },
+  }
 ];
 
 // Progressive Image Component (uses next/image for optimization)
-const ProgressiveImage = ({ src, thumbnail, alt, onLoad, className, ...props }: { src: string; thumbnail: string; alt: string; onLoad?: () => void; className?: string;[key: string]: unknown }) => {
-  const [isLoading, setIsLoading] = useState(true);
+// const ProgressiveImage = ({ src, thumbnail, alt, onLoad, className, ...props }: { src: string | StaticImageData; thumbnail: string | StaticImageData; alt: string; onLoad?: () => void; className?: string;[key: string]: unknown }) => {
+//   const [isLoading, setIsLoading] = useState(true);
+//   const [error, setError] = useState(false);
+//   const imgRef = useRef<HTMLImageElement | null>(null);
+
+//   return (
+//     <div className="relative w-full h-full">
+//       <Image
+//         ref={imgRef as React.Ref<HTMLImageElement>}
+//         src={src}
+//         alt={alt}
+//         width={1600}
+//         height={1000}
+//         className={`${className} transition-opacity duration-500 ${isLoading ? 'opacity-90 scale-105 filter blur-sm' : 'opacity-100 scale-100 filter blur-0'
+//           }`}
+//         sizes="100vw"
+//         onLoad={() => {
+//           setIsLoading(false);
+//           if (onLoad) onLoad();
+//         }}
+//         onError={() => {
+//           setError(true);
+//           setIsLoading(false);
+//         }}
+//         {...(props as Record<string, unknown>)}
+//       />
+
+//       {/* Loading spinner for slow connections */}
+//       {isLoading && (
+//         <div className="absolute inset-0 flex items-center justify-center bg-black/10">
+//           <div className="w-8 h-8 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" />
+//         </div>
+//       )}
+
+//       {/* Error fallback */}
+//       {error && (
+//         <div className="absolute inset-0 flex items-center justify-center bg-gray-200">
+//           <ImageIcon className="w-8 h-8 text-gray-400" />
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+const ProgressiveImage = ({
+  src,
+  alt,
+  onLoad,
+  className = "",
+}: {
+  src: string | StaticImageData;
+  alt: string;
+  onLoad?: () => void;
+  className?: string;
+}) => {
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const imgRef = useRef<HTMLImageElement | null>(null);
 
   return (
     <div className="relative w-full h-full">
-      <Image
-        ref={imgRef as React.Ref<HTMLImageElement>}
-        src={src}
-        alt={alt}
-        fill
-        className={`${className} transition-opacity duration-500 ${isLoading ? 'opacity-90 scale-105 filter blur-sm' : 'opacity-100 scale-100 filter blur-0'
-          }`}
-        sizes="100vw"
-        onLoad={() => {
-          setIsLoading(false);
-          if (onLoad) onLoad();
-        }}
-        onError={() => {
-          setError(true);
-          setIsLoading(false);
-        }}
-        {...(props as Record<string, unknown>)}
-      />
-
-      {/* Loading spinner for slow connections */}
-      {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black/10">
-          <div className="w-8 h-8 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" />
+      {loading && (
+        <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/20">
+          <Loader2 className="w-8 h-8 animate-spin text-amber-500" />
         </div>
       )}
 
-      {/* Error fallback */}
-      {error && (
+      {error ? (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-200">
-          <ImageIcon className="w-8 h-8 text-gray-400" />
+          <ImageIcon className="w-10 h-10 text-gray-400" />
         </div>
+      ) : (
+        <Image
+          src={src}
+          alt={alt}
+          width={1600}
+          height={1000}
+          priority
+          onLoadingComplete={() => {
+            setLoading(false);
+            onLoad?.();
+          }}
+          onError={() => {
+            setLoading(false);
+            setError(true);
+          }}
+          className={`${className} ${loading
+            ? "opacity-0"
+            : "opacity-100 transition-opacity duration-500"
+            }`}
+        />
       )}
     </div>
   );
@@ -241,7 +177,7 @@ const useIntersectionObserver = (options: IntersectionObserverInit = {}) => {
   return [setElements, entries];
 };
 
-type GalleryImage = { id: number; title: string; category: string; imageUrl: string; thumbnailUrl: string; description: string; date: string; views: number };
+type GalleryImage = { id: number; title: string; category: string; imageUrl: string | StaticImageData; thumbnailUrl: string | StaticImageData; description: string; date: string; views: number };
 
 const galleryimg = "/assets/OurGallery.png"
 
@@ -441,7 +377,7 @@ const GalleryPage = () => {
         >
           <ProgressiveImage
             src={galleryimg}
-            thumbnail={galleryimg}
+            // thumbnail={galleryimg}
             alt="Law Firm Gallery"
             className="w-full h-full object-cover"
           />
@@ -491,20 +427,20 @@ const GalleryPage = () => {
             {/* Quick Stats with Gold Numbers */}
             <motion.div
               variants={bannerVariants}
-              className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-6 mt-8 md:mt-10 max-w-2xl mx-auto"
+              className="grid grid-cols-2 sm:grid-cols-3 gap-4 md:gap-6 mt-8 md:mt-10 max-w-6xl mx-auto"
             >
               {[
-                { number: '4+', label: 'Years' },
-                { number: '30+', label: 'Team Members' },
-                { number: '50+', label: 'Cases Won' },
-                { number: '15+', label: 'Awards' },
+                { number: '4+', label: 'Regional Presence' },
+                { number: '30+', label: 'Area of Practice' },
+                { number: '50+', label: 'Legal Practitioners and Associates' },
+                // { number: '15+', label: 'Awards' },
               ].map((stat, index) => (
                 <motion.div
                   key={index}
                   variants={bannerItemVariants}
                   className="text-center"
                 >
-                  <motion.div
+                  {/* <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{
@@ -517,7 +453,7 @@ const GalleryPage = () => {
                     className="text-2xl md:text-3xl font-bold text-amber-500 mb-1"
                   >
                     {stat.number}
-                  </motion.div>
+                  </motion.div> */}
                   <div className="text-xs md:text-sm text-gray-300 uppercase tracking-wider">
                     {stat.label}
                   </div>
@@ -630,7 +566,7 @@ const GalleryPage = () => {
                     <div className="aspect-[4/5] overflow-hidden bg-gray-100">
                       <ProgressiveImage
                         src={image.imageUrl}
-                        thumbnail={image.thumbnailUrl}
+                        // thumbnail={image.thumbnailUrl}
                         alt={image.title}
                         onLoad={() => handleImageLoad(image.id)}
                         className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
@@ -656,10 +592,6 @@ const GalleryPage = () => {
                               {image.date}
                             </span>
                           </div>
-                          {/* <div className="flex items-center gap-1">
-                            <Eye className="w-3 h-3 text-white" />
-                            <span className="text-white text-xs">{image.views}</span>
-                          </div> */}
                         </div>
                       </motion.div>
                     </div>
@@ -831,12 +763,19 @@ const GalleryPage = () => {
               className="relative w-full max-w-6xl mx-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="relative rounded-lg overflow-hidden bg-black/50 shadow-2xl">
-                <ProgressiveImage
-                  src={visibleImages[currentIndex]?.imageUrl}
-                  thumbnail={visibleImages[currentIndex]?.thumbnailUrl}
-                  alt={visibleImages[currentIndex]?.title}
+              {/* <div className="relative rounded-lg overflow-hidden bg-black/50 shadow-2xl"> */}
+              <div className="relative flex items-center justify-center w-full h-[80vh] rounded-lg overflow-hidden bg-black shadow-2xl">
+                {/* <ProgressiveImage
+                  src={visibleImages[currentIndex].imageUrl}
+                  thumbnail={visibleImages[currentIndex].thumbnailUrl}
+                  alt={visibleImages[currentIndex].title}
                   className="w-full h-auto max-h-[60vh] md:max-h-[75vh] lg:max-h-[85vh] object-contain"
+                /> */}
+                <ProgressiveImage
+                  key={visibleImages[currentIndex].id}
+                  src={visibleImages[currentIndex].imageUrl}
+                  alt={visibleImages[currentIndex].title}
+                  className="max-h-full max-w-full object-contain"
                 />
               </div>
 

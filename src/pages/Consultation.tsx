@@ -22,6 +22,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { getCMSData } from '../lib/cmsCache';
 import { Employee, Founder, getEmployeeImageUrl, getFounderImageUrl } from '../lib/sanityQueries';
+import consultation from "../../public/assets/free consultation.png"
 
 // Custom hook to detect when an element is in view
 const useInView = (options: IntersectionObserverInit = {}): [React.RefObject<HTMLElement | null>, boolean] => {
@@ -214,10 +215,10 @@ const StatsSection = () => {
   });
 
   const stats = [
-    { icon: <Briefcase className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />, value: "50+", label: "Cases Won" },
-    { icon: <Users className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />, value: "100+", label: "Happy Clients" },
-    { icon: <Award className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />, value: "4+", label: "Years Experience" },
-    { icon: <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />, value: "₹10L+", label: "Recovered" }
+    { icon: <Briefcase className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />, value: "5", label: "Regional Presence" },
+    { icon: <Users className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />, value: "100+", label: "Area of Practice" },
+    { icon: <Award className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />, value: "4+", label: "Legal Practitioners and Associates" },
+    // { icon: <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />, value: "₹10L+", label: "" }
   ];
 
   return (
@@ -231,7 +232,7 @@ const StatsSection = () => {
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
           variants={staggerContainer}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8"
         >
           {stats.map((stat, index) => (
             <motion.div
@@ -252,14 +253,14 @@ const StatsSection = () => {
                   {stat.icon}
                 </motion.div>
               </div>
-              <motion.div
+              {/* <motion.div
                 initial={{ scale: 0.5, opacity: 0 }}
                 animate={inView ? { scale: 1, opacity: 1 } : {}}
                 transition={{ delay: 0.3 + index * 0.1, duration: 0.7, type: "spring", stiffness: 100 }}
                 className="text-xl sm:text-2xl md:text-3xl font-bold mb-1 sm:mb-2"
               >
                 {stat.value}
-              </motion.div>
+              </motion.div> */}
               <motion.p
                 variants={fadeInUp}
                 className="text-xs sm:text-sm md:text-base font-medium text-gray-800"
@@ -325,7 +326,7 @@ const AttorneysSection = () => {
             variants={fadeInUp}
             className="text-sm uppercase tracking-[0.2em] text-[#C9A646] font-semibold"
           >
-            MEET OUR DEDICATED ATTORNEY
+            MEET OUR ASSOCIATED PARTNERS
           </motion.p>
         </motion.div>
 
@@ -336,9 +337,9 @@ const AttorneysSection = () => {
           variants={fadeInUp}
           className="text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-800 leading-snug max-w-4xl mx-auto mb-8 sm:mb-10 md:mb-12 lg:mb-14 px-4"
         >
-          A leading personal injury team with a passion{' '}
+          The pictures of {` `}
           <span className="italic font-light block sm:inline">
-            for helping all our clients to get their lives back.
+            all the Associate partners and legal addiction.
           </span>
         </motion.h2>
 
@@ -741,7 +742,7 @@ const ConsultationFormSection = () => {
                 initial={{ scale: 1.1 }}
                 animate={{ scale: 1 }}
                 transition={{ duration: 1.5 }}
-                src="https://plus.unsplash.com/premium_photo-1661767419918-441080a18873?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE2fHx8ZW58MHx8fHx8"
+                src={consultation.src}
                 alt="Legal consultation"
                 className="w-full h-[450px] sm:h-[400px] md:h-[450px] lg:h-full object-cover"
               />
@@ -771,16 +772,16 @@ const ConsultationFormSection = () => {
                 transition={{ delay: 0.4, duration: 0.8 }}
                 className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 md:p-10 text-white"
               >
-                <motion.p
+                {/* <motion.p
                   whileHover={{ x: 5 }}
                   transition={{ duration: 0.3 }}
                   className="text-lg sm:text-xl md:text-2xl font-light italic mb-4 sm:mb-6 leading-relaxed"
                 >
                   "The team at J. Ashish Associates LLP handled my case with exceptional care and professionalism. They fought for my rights and achieved justice when I needed it most."
-                </motion.p>
+                </motion.p> */}
 
                 {/* Rating Stars */}
-                <motion.div
+                {/* <motion.div
                   initial={{ scale: 0 }}
                   animate={inView ? { scale: 1 } : {}}
                   transition={{ delay: 0.6, duration: 0.5, type: "spring" }}
@@ -795,10 +796,10 @@ const ConsultationFormSection = () => {
                       <Star className="w-4 h-4 sm:w-5 sm:h-5 fill-amber-400 text-amber-400" />
                     </motion.div>
                   ))}
-                </motion.div>
+                </motion.div> */}
 
                 {/* Client Info */}
-                <motion.div
+                {/* <motion.div
                   whileHover={{ x: 5 }}
                   transition={{ duration: 0.3 }}
                   className="flex items-center gap-3 sm:gap-4"
@@ -820,7 +821,7 @@ const ConsultationFormSection = () => {
                     <h4 className="font-semibold text-base sm:text-lg">Sarah Johnson</h4>
                     <p className="text-xs sm:text-sm text-gray-300">Personal Injury Client</p>
                   </div>
-                </motion.div>
+                </motion.div> */}
               </motion.div>
             </motion.div>
 

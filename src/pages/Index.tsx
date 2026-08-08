@@ -69,8 +69,10 @@ import {
   Lock as LockIcon,
   Heart as HeartIcon2,
   Rocket as RocketIcon2,
-  Compass as CompassIcon
+  Compass as CompassIcon,
+  Facebook
 } from "lucide-react";
+import { FaXTwitter as TwitterX } from "react-icons/fa6";
 import { useState, useEffect, useRef } from "react";
 import { getCMSData } from '../lib/cmsCache';
 import { Employee, Founder, getEmployeeImageUrl, getFounderImageUrl, BlogPost, formatDate, getBlogImageUrl } from '../lib/sanityQueries';
@@ -112,6 +114,21 @@ const coreValue3 = "/assets/hero2.webp";
 const coreValue4 = "/assets/hero2.webp";
 const logo = "/assets/logo.png"
 import CountUpAnimation from "../components/CountUpAnimation";
+
+const socialLinks = [
+  {
+    icon: Linkedin,
+    href: "https://in.linkedin.com/", // Replace with actual LinkedIn URL if available
+  },
+  {
+    icon: TwitterX,
+    href: "https://x.com/JAshishAsso_LLP",
+  },
+  {
+    icon: Facebook,
+    href: "https://www.facebook.com/share/1DEDCmjJha/",
+  },
+];
 
 const practiceAreas = [
   {
@@ -288,10 +305,11 @@ const heroSlides = [
 
 const infiniteScrollItems = [
   { icon: Trophy, text: "J.Ashish Associates LLP since 2026" },
+  { icon: Trophy, text: "J.Ashish Associates LLP since 2026" },
 ];
 
 const globalAttorneys = [
-  { country: "Chennai", count: 3, flag: "🇺🇸" },
+  { country: "Chennai", count: 1, flag: "🇺🇸" },
   { country: "Kanchipuram", count: 1, flag: "🇬🇧" },
   { country: "Madurai", count: 1, flag: "🇸🇬" },
   { country: "Bengaluru", count: 1, flag: "🇦🇪" },
@@ -1649,7 +1667,7 @@ const Index = () => {
                   }}
                   className="space-y-4 mb-8"
                 >
-                  <motion.div
+                  {/* <motion.div
                     variants={{
                       hidden: { opacity: 0, x: -30 },
                       visible: {
@@ -1668,7 +1686,7 @@ const Index = () => {
                       <Award className="w-5 h-5 text-primary" />
                     </motion.div>
                     <span className="text-gray-700">4+ of legal excellence</span>
-                  </motion.div>
+                  </motion.div> */}
 
                   <motion.div
                     variants={{
@@ -1983,9 +2001,9 @@ const Index = () => {
                               <h3 className="text-xl font-semibold">{attorney.name}</h3>
                               <p className="text-sm text-white/80 mb-2">{attorney.role}</p>
                               <div className="flex items-center gap-4 mb-2">
-                                <span className="text-xs bg-white/20 px-2 py-1 rounded-full">
+                                {/* <span className="text-xs bg-white/20 px-2 py-1 rounded-full">
                                   {attorney.experience}+ experience
-                                </span>
+                                </span> */}
                                 <span className="text-xs bg-white/20 px-2 py-1 rounded-full">
                                   {attorney.specialty}
                                 </span>
@@ -2067,7 +2085,7 @@ const Index = () => {
                   <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-transparent" />
                 </motion.div>
 
-                <motion.div
+                {/* <motion.div
                   variants={slideFromRight}
                   transition={{ delay: 0.5 }} // Increased delay
                   whileHover={{ scale: 1.05 }}
@@ -2075,7 +2093,7 @@ const Index = () => {
                 >
                   <div className="text-4xl font-heading font-bold">4+</div>
                   <div className="text-sm uppercase tracking-wider">Years of Excellence</div>
-                </motion.div>
+                </motion.div> */}
 
                 <motion.div
                   variants={slideFromLeft}
@@ -2612,7 +2630,7 @@ const Index = () => {
       </motion.section> */}
 
       {/* Testimonials (below-the-fold, dynamic to reduce initial bundle) */}
-      <IndexTestimonialsSection />
+      {/* <IndexTestimonialsSection /> */}
 
       {/* Latest News */}
       {/* <section ref={newsRef} className="bg-white section-padding overflow-hidden">
@@ -2794,7 +2812,7 @@ const Index = () => {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Email Us</p>
-                    <p className="text-sm md:text-lg font-semibold text-foreground">jashishwebsite@gmail.com</p>
+                    <p className="text-sm md:text-lg font-semibold text-foreground">jashishassociatesllp@gmail.com</p>
                   </div>
                 </motion.div>
 
@@ -2819,10 +2837,11 @@ const Index = () => {
               </div>
 
               <div className="flex gap-4">
-                {[Linkedin, Twitter, Github].map((Icon, index) => (
+                {socialLinks.map(({ icon: Icon, href }, index) => (
                   <motion.a
                     key={index}
-                    href="#"
+                    href={href}
+                    target="_blank"
                     whileHover={{ y: -5, scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     transition={{ duration: 0.3 }}

@@ -1353,10 +1353,10 @@ export const PracticeAreaDetail = ({ slug }: { slug: string }) => {
                       <Link href="/contact">Schedule Now</Link>
                     </Button>
                     <a
-                      href="mailto:jashishwebsite@gmail.com"
+                      href="mailto:jashishassociatesllp@gmail.com"
                       className="text-sm text-primary hover:text-accent transition-colors flex items-center justify-center gap-1"
                     >
-                      <Mail className="w-4 h-4" /> jashishwebsite@gmail.com
+                      <Mail className="w-4 h-4" /> jashishassociatesllp@gmail.com
                     </a>
                   </div>
                 </motion.div>
@@ -1437,7 +1437,7 @@ export const PracticeAreaDetail = ({ slug }: { slug: string }) => {
               </motion.div>
 
               {/* Why Choose Us */}
-              <motion.div
+              {/* <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={viewportOnce}
@@ -1465,7 +1465,7 @@ export const PracticeAreaDetail = ({ slug }: { slug: string }) => {
                     </motion.div>
                   ))}
                 </div>
-              </motion.div>
+              </motion.div> */}
 
               {/* FAQ Section */}
               <motion.div
@@ -1654,8 +1654,8 @@ export const PracticeAreaDetail = ({ slug }: { slug: string }) => {
                     </div>
                     <div>
                       <p className="text-sm font-semibold text-foreground mb-1">Call Us</p>
-                      <a href="tel:+12125550100" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                        7373663555
+                      <a href="tel:+8878873555" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                        8878873555, 044 2662 3555
                       </a>
                     </div>
                   </div>
@@ -1666,8 +1666,8 @@ export const PracticeAreaDetail = ({ slug }: { slug: string }) => {
                     </div>
                     <div>
                       <p className="text-sm font-semibold text-foreground mb-1">Email Us</p>
-                      <a href="mailto:jashishwebsite@gmail.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                        jashishwebsite@gmail.com
+                      <a href="mailto:jashishassociatesllp@gmail.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                        jashishassociatesllp@gmail.com
                       </a>
                     </div>
                   </div>

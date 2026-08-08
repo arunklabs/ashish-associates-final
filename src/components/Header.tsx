@@ -12,12 +12,12 @@ import { BsTwitterX } from "react-icons/bs";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
-  { 
-    label: "Home", 
-    path: "/" 
+  {
+    label: "Home",
+    path: "/"
   },
-  { 
-    label: "Pages", 
+  {
+    label: "Pages",
     path: "/about",
     hasSubmenu: true,
     submenu: [
@@ -30,8 +30,8 @@ const navLinks = [
       // { label: "Careers", path: "/careers" }
     ]
   },
-  { 
-    label: "Practice Areas", 
+  {
+    label: "Practice Areas",
     path: "/practice-areas",
     hasSubmenu: true,
     submenu: [
@@ -55,16 +55,24 @@ const navLinks = [
   { label: "Contact Us", path: "/contact" },
 ];
 
+const SOCIAL_LINKS = {
+  whatsapp: "https://wa.me/918878873555",
+  email: "mailto:jashishassociatesllp@gmail.com",
+  instagram: "https://www.instagram.com/j_ashish_associates_llp?igsh=MW1xbXhKZTM1Z3BnZw==",
+  twitter: "https://x.com/JAshishAsso_LLP",
+  facebook: "https://www.facebook.com/share/1DEDCmjJha/",
+};
+
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
   const [mobileOpenSubmenus, setMobileOpenSubmenus] = useState<Record<string, boolean>>({});
-  
+
   // Refs for dropdown menus
   const menuRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  
+
   const pathname = usePathname();
 
   useEffect(() => {
@@ -103,7 +111,7 @@ const Header = () => {
     setIsOpen(false);
     setActiveSubmenu(null);
     setMobileOpenSubmenus({});
-  }, [pathname ]);
+  }, [pathname]);
 
   // Clean up timeout on unmount
   useEffect(() => {
@@ -120,9 +128,9 @@ const Header = () => {
   };
 
   const isSubmenuItemActive = (submenu: { path: string }[] | undefined): boolean => {
-  if (!submenu) return false;
-  return submenu.some(item => pathname === item.path);
-};
+    if (!submenu) return false;
+    return submenu.some(item => pathname === item.path);
+  };
 
   // Handle mobile submenu toggle
   const toggleMobileSubmenu = (path: string) => {
@@ -212,15 +220,15 @@ const Header = () => {
 
   // Submenu animation variants
   const submenuVariants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       y: -10,
       transition: {
         duration: 0.2
       }
     },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       transition: {
         duration: 0.3,
@@ -233,8 +241,8 @@ const Header = () => {
 
   const submenuItemVariants = {
     hidden: { opacity: 0, x: -10 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       x: 0,
       transition: {
         duration: 0.3,
@@ -271,19 +279,19 @@ const Header = () => {
   return (
     <>
       {/* ================= TOP BAR ================= */}
-      <motion.div 
+      <motion.div
         initial="hidden"
         animate="visible"
         className="hidden md:block fixed top-0 left-0 w-full z-50 bg-[#0F172A] text-white text-sm"
       >
         <div className="container py-2 flex flex-col md:flex-row justify-between items-center gap-2 md:gap-0">
           {/* Left - Contact page link with animation */}
-          <motion.div 
+          <motion.div
             variants={topBarLeftVariants}
             className="flex items-center gap-2 flex-wrap justify-center md:justify-start"
           >
             <p>The Lord is my Shepherd!</p>
-              {/* <Link 
+            {/* <Link 
                 href="/contact" 
                 className="flex items-center gap-2 hover:text-[#C9A646] transition-colors duration-300 group"
               >
@@ -292,23 +300,67 @@ const Header = () => {
           </motion.div>
 
           {/* Right - Contact details with animation */}
-          <motion.div 
+          <motion.div
             variants={topBarRightVariants}
             className="flex items-center gap-4 flex-wrap justify-center md:justify-end"
           >
-            {/* <a href="mailto:jashishwebsite@gmail.com" className="flex items-center gap-2 hover:text-[#C9A646] transition-colors duration-300">
+            {/* <a href="mailto:jashishassociatesllp@gmail.com" className="flex items-center gap-2 hover:text-[#C9A646] transition-colors duration-300">
               <Mail className="w-4 h-4" />
-              jashishwebsite@gmail.com
+              jashishassociatesllp@gmail.com
             </a>
             <a href="tel:+1234567890" className="md:hidden lg:flex items-center gap-2 hover:text-[#C9A646] transition-colors duration-300">
               <Phone className="w-4 h-4" />
               7373663555
             </a> */}
-            <div className="flex items-center gap-4 ml-2">
+            {/* <div className="flex items-center gap-4 ml-2">
               <FaWhatsapp className="w-4 h-4 cursor-pointer hover:text-[#C9A646] transition-colors duration-300" />
               <MdOutlineMail className="w-4 h-4 cursor-pointer hover:text-[#C9A646] transition-colors duration-300" />
               <FaInstagram className="w-4 h-4 cursor-pointer hover:text-[#C9A646] transition-colors duration-300" />
               <BsTwitterX className="w-4 h-4 cursor-pointer hover:text-[#C9A646] transition-colors duration-300" />
+            </div> */}
+            <div className="flex items-center gap-4 ml-2">
+              <a
+                href={SOCIAL_LINKS.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#C9A646] transition-colors duration-300"
+              >
+                <FaWhatsapp className="w-4 h-4 cursor-pointer" />
+              </a>
+
+              <a
+                href={SOCIAL_LINKS.email}
+                className="hover:text-[#C9A646] transition-colors duration-300"
+              >
+                <MdOutlineMail className="w-4 h-4 cursor-pointer" />
+              </a>
+
+              <a
+                href={SOCIAL_LINKS.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#C9A646] transition-colors duration-300"
+              >
+                <FaInstagram className="w-4 h-4 cursor-pointer" />
+              </a>
+
+              <a
+                href={SOCIAL_LINKS.twitter}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#C9A646] transition-colors duration-300"
+              >
+                <BsTwitterX className="w-4 h-4 cursor-pointer" />
+              </a>
+
+              <a
+                href={SOCIAL_LINKS.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#C9A646] transition-colors duration-300"
+              >
+                <Facebook className="w-4 h-4 cursor-pointer" />
+              </a>
             </div>
           </motion.div>
         </div>
@@ -316,11 +368,10 @@ const Header = () => {
 
       {/* ================= MAIN HEADER ================= */}
       <header
-        className={`fixed top-0 md:top-[36px] left-0 right-0 z-40 transition-all duration-500 ${
-          scrolled
-            ? "bg-white shadow-md border-b border-gray-200"
-            : "bg-white md:bg-white/20 backdrop-blur-xl shadow-[0_8px_32px_0_rgba(31,38,135,0.15)]"
-        }`}
+        className={`fixed top-0 md:top-[36px] left-0 right-0 z-40 transition-all duration-500 ${scrolled
+          ? "bg-white shadow-md border-b border-gray-200"
+          : "bg-white md:bg-white/20 backdrop-blur-xl shadow-[0_8px_32px_0_rgba(31,38,135,0.15)]"
+          }`}
       >
         <div className="container">
           <div className="flex items-center justify-between h-20">
@@ -339,7 +390,7 @@ const Header = () => {
 
             {/* LOGO */}
             <Link href="/" className="flex items-center lg:ml-0 flex-1 lg:flex-none justify-center relative h-[5rem] w-[180px]">
-              <Image src="/assets/logo.png" alt="J. Ashish Associates LLP" fill className="object-contain object-center" priority sizes="180px" />
+              <Image src="/assets/logo.jpeg" alt="J. Ashish Associates LLP" fill className="object-contain object-center" priority sizes="180px" />
             </Link>
 
             {/* Empty div for spacing */}
@@ -351,7 +402,7 @@ const Header = () => {
                 const isActive = isPathActive(link.path);
                 const isSubmenuActive = link.hasSubmenu ? isSubmenuItemActive(link.submenu) : false;
                 const shouldHighlight = isActive || isSubmenuActive;
-                
+
                 if (link.hasSubmenu) {
                   return (
                     <div
@@ -365,15 +416,13 @@ const Header = () => {
                     >
                       {/* Menu Button */}
                       <button
-                        className={`flex items-center gap-1 relative text-sm font-semibold transition-colors duration-300 py-2 ${
-                          shouldHighlight ? "text-[#C9A646]" : scrolled ? "text-[#1E293B]" : "text-white"
-                        } group`}
+                        className={`flex items-center gap-1 relative text-sm font-semibold transition-colors duration-300 py-2 ${shouldHighlight ? "text-[#C9A646]" : scrolled ? "text-[#1E293B]" : "text-white"
+                          } group`}
                       >
                         {link.label}
-                        <ChevronDown className={`w-4 h-4 transition-all duration-500 ${
-                          activeSubmenu === link.label ? 'rotate-180' : ''
-                        } ${shouldHighlight ? "text-[#C9A646]" : scrolled ? "text-[#1E293B]" : "text-white"}`} />
-                        
+                        <ChevronDown className={`w-4 h-4 transition-all duration-500 ${activeSubmenu === link.label ? 'rotate-180' : ''
+                          } ${shouldHighlight ? "text-[#C9A646]" : scrolled ? "text-[#1E293B]" : "text-white"}`} />
+
                         {/* Active indicator line - only shows when active, not on hover */}
                         {shouldHighlight && (
                           <span className="absolute left-0 -bottom-1 h-[1.5px] bg-[#C9A646] w-full"></span>
@@ -402,11 +451,10 @@ const Header = () => {
                                   >
                                     <Link
                                       href={subItem.path}
-                                      className={`block px-4 py-2.5 text-sm transition-all duration-500 ${
-                                        isSubItemActive
-                                          ? "text-[#C9A646] bg-[#C9A646]/10 font-medium"
-                                          : "text-[#1E293B] hover:bg-[#C9A646]/10 hover:text-[#C9A646] hover:pl-6"
-                                      }`}
+                                      className={`block px-4 py-2.5 text-sm transition-all duration-500 ${isSubItemActive
+                                        ? "text-[#C9A646] bg-[#C9A646]/10 font-medium"
+                                        : "text-[#1E293B] hover:bg-[#C9A646]/10 hover:text-[#C9A646] hover:pl-6"
+                                        }`}
                                     >
                                       {subItem.label}
                                     </Link>
@@ -427,15 +475,13 @@ const Header = () => {
                   <Link
                     key={link.path}
                     href={link.path}
-                    className={`relative text-base font-semibold group transition-colors duration-300 py-2 ${
-                      isActive ? "text-[#C9A646]" : scrolled ? "text-[#1E293B]" : "text-white"
-                    }`}
+                    className={`relative text-base font-semibold group transition-colors duration-300 py-2 ${isActive ? "text-[#C9A646]" : scrolled ? "text-[#1E293B]" : "text-white"
+                      }`}
                   >
                     {link.label}
                     <span
-                      className={`absolute left-0 bottom-1 h-[1.5px] bg-[#C9A646] transition-all duration-500 ${
-                        isActive ? "w-full" : "w-0 group-hover:w-full"
-                      }`}
+                      className={`absolute left-0 bottom-1 h-[1.5px] bg-[#C9A646] transition-all duration-500 ${isActive ? "w-full" : "w-0 group-hover:w-full"
+                        }`}
                     ></span>
                   </Link>
                 );
@@ -446,11 +492,10 @@ const Header = () => {
             <div className="hidden xl:flex items-center">
               <Link
                 href="/contact"
-                className={`px-6 py-2.5 border font-semibold rounded-sm transition-all duration-500 ${
-                  scrolled 
-                    ? "border-[#C9A646] text-[#1E293B] hover:bg-[#C9A646] hover:text-white" 
-                    : "border-white text-white hover:bg-white hover:text-[#1E293B]"
-                }`}
+                className={`px-6 py-2.5 border font-semibold rounded-sm transition-all duration-500 ${scrolled
+                  ? "border-[#C9A646] text-[#1E293B] hover:bg-[#C9A646] hover:text-white"
+                  : "border-white text-white hover:bg-white hover:text-[#1E293B]"
+                  }`}
               >
                 Free Consultation
               </Link>
@@ -480,7 +525,7 @@ const Header = () => {
                 animate="open"
                 exit="closed"
                 className="fixed top-0 left-0 h-full w-[85%] max-w-[400px] bg-white shadow-2xl lg:hidden overflow-y-auto"
-                style={{ 
+                style={{
                   zIndex: 46,
                   position: 'fixed',
                   top: 0,
@@ -527,18 +572,16 @@ const Header = () => {
                         >
                           <button
                             onClick={() => toggleMobileSubmenu(link.path)}
-                            className={`w-full flex items-center justify-between py-3 px-4 border-b border-gray-100 transition-all duration-500 ${
-                              shouldHighlight
-                                ? "text-[#C9A646] bg-[#C9A646]/5"
-                                : "text-[#1E293B] hover:text-[#C9A646]"
-                            }`}
+                            className={`w-full flex items-center justify-between py-3 px-4 border-b border-gray-100 transition-all duration-500 ${shouldHighlight
+                              ? "text-[#C9A646] bg-[#C9A646]/5"
+                              : "text-[#1E293B] hover:text-[#C9A646]"
+                              }`}
                           >
                             <span className="text-sm font-semibold tracking-wide">
                               {link.label}
                             </span>
-                            <ChevronDown className={`w-4 h-4 transition-transform duration-500 ${
-                              isSubmenuOpen ? 'rotate-180' : ''
-                            } ${shouldHighlight ? 'text-[#C9A646]' : ''}`} />
+                            <ChevronDown className={`w-4 h-4 transition-transform duration-500 ${isSubmenuOpen ? 'rotate-180' : ''
+                              } ${shouldHighlight ? 'text-[#C9A646]' : ''}`} />
                           </button>
 
                           {/* Mobile Submenu */}
@@ -559,11 +602,10 @@ const Header = () => {
                                         key={subItem.path}
                                         href={subItem.path}
                                         onClick={() => setIsOpen(false)}
-                                        className={`block py-2.5 px-4 text-sm transition-all duration-500 border-l-2 ${
-                                          isSubItemActive
-                                            ? "text-[#C9A646] border-[#C9A646] bg-[#C9A646]/5 font-medium"
-                                            : "text-[#1E293B] hover:text-[#C9A646] hover:pl-6 border-transparent hover:border-[#C9A646]"
-                                        }`}
+                                        className={`block py-2.5 px-4 text-sm transition-all duration-500 border-l-2 ${isSubItemActive
+                                          ? "text-[#C9A646] border-[#C9A646] bg-[#C9A646]/5 font-medium"
+                                          : "text-[#1E293B] hover:text-[#C9A646] hover:pl-6 border-transparent hover:border-[#C9A646]"
+                                          }`}
                                       >
                                         {subItem.label}
                                       </Link>
@@ -589,18 +631,16 @@ const Header = () => {
                         <Link
                           href={link.path}
                           onClick={() => setIsOpen(false)}
-                          className={`flex items-center justify-between py-3 px-4 border-b border-gray-100 transition-all duration-500 ${
-                            isActive
-                              ? "text-[#C9A646] bg-[#C9A646]/5"
-                              : "text-[#1E293B] hover:text-[#C9A646] hover:pl-6"
-                          }`}
+                          className={`flex items-center justify-between py-3 px-4 border-b border-gray-100 transition-all duration-500 ${isActive
+                            ? "text-[#C9A646] bg-[#C9A646]/5"
+                            : "text-[#1E293B] hover:text-[#C9A646] hover:pl-6"
+                            }`}
                         >
                           <span className="text-sm font-semibold tracking-wide">
                             {link.label}
                           </span>
-                          <ChevronRight className={`w-4 h-4 transition-all duration-500 ${
-                            isActive ? "text-[#C9A646]" : "opacity-0 group-hover:opacity-100"
-                          }`} />
+                          <ChevronRight className={`w-4 h-4 transition-all duration-500 ${isActive ? "text-[#C9A646]" : "opacity-0 group-hover:opacity-100"
+                            }`} />
                         </Link>
                       </motion.div>
                     );
@@ -619,23 +659,25 @@ const Header = () => {
                     <p className="text-center text-[#C9A646] text-xs tracking-widest font-semibold mb-3">
                       — CONTACT —
                     </p>
-                    
-                    <a href="tel:+1234567890" className="flex items-center gap-3 text-sm text-[#1E293B] hover:text-[#C9A646] transition-all duration-500 group">
+
+                    <a href="https://wa.me/918878873555"
+                      target="_blank"
+                      rel="noopener noreferrer" className="flex items-center gap-3 text-sm text-[#1E293B] hover:text-[#C9A646] transition-all duration-500 group">
                       <div className="w-8 h-8 bg-[#C9A646]/10 rounded-full flex items-center justify-center group-hover:bg-[#C9A646] group-hover:text-white transition-all duration-500">
                         <Phone className="w-4 h-4" />
                       </div>
-                      <span>7373663555</span>
+                      <span>+91 88788 73555</span>
                     </a>
 
-                    <a href="mailto:jashishwebsite@gmail.com" className="flex items-center gap-3 text-sm text-[#1E293B] hover:text-[#C9A646] transition-all duration-500 group">
+                    <a href="mailto:jashishassociatesllp@gmail.com" className="flex items-center gap-3 text-sm text-[#1E293B] hover:text-[#C9A646] transition-all duration-500 group">
                       <div className="w-8 h-8 bg-[#C9A646]/10 rounded-full flex items-center justify-center group-hover:bg-[#C9A646] group-hover:text-white transition-all duration-500">
                         <Mail className="w-4 h-4" />
                       </div>
-                      <span>jashishwebsite@gmail.com</span>
+                      <span>jashishassociatesllp@gmail.com</span>
                     </a>
 
                     {/* Social Icons */}
-                    <div className="flex items-center justify-center gap-4 pt-4">
+                    {/* <div className="flex items-center justify-center gap-4 pt-4">
                       <a href="#" className="w-10 h-10 bg-[#0F172A] rounded-full flex items-center justify-center text-white hover:bg-[#C9A646] transition-all duration-500 hover:scale-110">
                         <Facebook className="w-4 h-4" />
                       </a>
@@ -644,6 +686,34 @@ const Header = () => {
                       </a>
                       <a href="#" className="w-10 h-10 bg-[#0F172A] rounded-full flex items-center justify-center text-white hover:bg-[#C9A646] transition-all duration-500 hover:scale-110">
                         <Linkedin className="w-4 h-4" />
+                      </a>
+                    </div> */}
+                    <div className="flex items-center justify-center gap-4 pt-4">
+                      <a
+                        href={SOCIAL_LINKS.facebook}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 bg-[#0F172A] rounded-full flex items-center justify-center text-white hover:bg-[#C9A646] transition-all duration-500 hover:scale-110"
+                      >
+                        <Facebook className="w-4 h-4" />
+                      </a>
+
+                      <a
+                        href={SOCIAL_LINKS.instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 bg-[#0F172A] rounded-full flex items-center justify-center text-white hover:bg-[#C9A646] transition-all duration-500 hover:scale-110"
+                      >
+                        <FaInstagram className="w-4 h-4" />
+                      </a>
+
+                      <a
+                        href={SOCIAL_LINKS.twitter}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 bg-[#0F172A] rounded-full flex items-center justify-center text-white hover:bg-[#C9A646] transition-all duration-500 hover:scale-110"
+                      >
+                        <BsTwitterX className="w-4 h-4" />
                       </a>
                     </div>
                   </div>

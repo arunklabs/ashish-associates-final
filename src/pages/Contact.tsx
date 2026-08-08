@@ -6,6 +6,7 @@ import AnimatedSection from "../components/AnimatedSection";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 const contactImage = "/assets/contact-image-1.png";
+import { BsTwitterX } from "react-icons/bs";
 const indiamap = "/india-map.svg";
 
 const Contact = () => {
@@ -287,7 +288,7 @@ const Contact = () => {
       name: "Head Office - CHENNAI",
       address: "No. 137, Flat No. F-8, 1st Floor, Appu Manor Apartment, Perambur Barracks Road, Purasawalkam, Chennai 600 007.",
       phone: "+91 887 887 3555",
-      email: "jashishwebsite@gmail.com",
+      email: "jashishassociatesllp@gmail.com",
       hours: "Mon – Fri: 9:00 AM – 7:00 PM",
       map: "Anna Salai, Chennai",
       mapEmbed: "https://www.google.com/maps?q=Purasawalkam,Chennai&output=embed",
@@ -297,7 +298,7 @@ const Contact = () => {
       name: "Bangalore Office",
       address: "11th Cross, Baab-e-rehmat, Govindapura, Near Noorul Hudha Masjid, Rashad Nagar, Benguluru – 560045.",
       phone: "+91 887 887 3555",
-      email: "jashishwebsite@gmail.com",
+      email: "jashishassociatesllp@gmail.com",
       hours: "Mon – Fri: 9:30 AM – 6:30 PM",
       map: "Brigade Road, Bangalore",
       mapEmbed: "https://www.google.com/maps?q=Brigade+Road,Bangalore&output=embed",
@@ -307,7 +308,7 @@ const Contact = () => {
       name: "Kolkata Office",
       address: "Olisa House, 7th Floor, Room No. 706, 4th Government Place, Lal Dighi, B.B.D. Bagh Kolkata- 700 001. (Beside Registry Office)",
       phone: "+91 887 887 3555",
-      email: "jashishwebsite@gmail.com",
+      email: "jashishassociatesllp@gmail.com",
       hours: "Mon – Fri: 10:00 AM – 7:00 PM",
       map: "Bandra Kurla Complex, Mumbai",
       mapEmbed: "https://www.google.com/maps?q=Bandra+Kurla+Complex,Mumbai&output=embed",
@@ -317,7 +318,7 @@ const Contact = () => {
       name: "Delhi Office",
       address: "137A, Lawyers’ Chamber, Patiala House Court (Near India Gate Circle), Tilak Marg, New Delhi- 110 001.",
       phone: "+91 887 887 3555",
-      email: "jashishwebsite@gmail.com",
+      email: "jashishassociatesllp@gmail.com",
       hours: "Mon – Fri: 10:00 AM – 7:00 PM",
       map: "Bandra Kurla Complex, Mumbai",
       mapEmbed: "https://www.google.com/maps?q=Bandra+Kurla+Complex,Mumbai&output=embed",
@@ -327,10 +328,10 @@ const Contact = () => {
 
   const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
   const socialLinks = [
-    { icon: Facebook, href: "https://facebook.com", label: "Facebook", color: "#1877F2" },
-    { icon: Twitter, href: "https://twitter.com", label: "Twitter", color: "#1DA1F2" },
+    { icon: Facebook, href: "https://www.facebook.com/share/1DEDCmjJha/", label: "Facebook", color: "#1877F2" },
+    { icon: BsTwitterX, href: "https://x.com/JAshishAsso_LLP", label: "Twitter", color: "#1DA1F2" },
     { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn", color: "#0A66C2" },
-    { icon: Instagram, href: "https://instagram.com", label: "Instagram", color: "#E4405F" }
+    { icon: Instagram, href: "https://www.instagram.com/j_ashish_associates_llp?igsh=MW1xbXhKZTM1Z3BnZw==", label: "Instagram", color: "#E4405F" }
   ];
 
   return (
@@ -662,8 +663,8 @@ const Contact = () => {
                 <h3 className="text-xl font-heading font-semibold text-black mb-6">Quick Contact</h3>
                 <div className="space-y-6">
                   {[
-                    { icon: Phone, label: "Call Us", value: "7373663555", href: "tel:+914423456789" },
-                    { icon: Mail, label: "Email Us", value: "jashishwebsite@gmail.com", href: "mailto:jashishwebsite@gmail.com" },
+                    { icon: Phone, label: "Call Us", value: "8878873555, 044 2662 3555", href: "tel:+918878873555" },
+                    { icon: Mail, label: "Email Us", value: "jashishassociatesllp@gmail.com", href: "mailto:jashishassociatesllp@gmail.com" },
                     { icon: Clock, label: "Office Hours", value: "Mon – Fri: 9:00 AM – 7:00 PM" },
                   ].map((item, idx) => (
                     <motion.div
@@ -748,7 +749,7 @@ const Contact = () => {
                 <p className="text-sm text-muted-foreground mb-3">Available 24/7 for urgent legal matters, providing prompt and professional guidance whenever needed.</p>
                 <a href="tel:+919876543210" className="text-primary font-semibold hover:text-accent transition-colors flex items-center gap-2">
                   <Phone className="w-4 h-4" />
-                  7373663555
+                  8878873555, 044 2662 3555
                 </a>
               </motion.div>
             </motion.div>

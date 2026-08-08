@@ -269,7 +269,7 @@ const ReviewsPage = () => {
       </section>
 
       {/* Reviews Grid Section - White Theme */}
-      <motion.section
+      {/* <motion.section
         className="py-20 md:py-28 bg-white relative overflow-hidden"
       >
         <motion.div
@@ -279,7 +279,6 @@ const ReviewsPage = () => {
           variants={staggerContainer}
         >
           <div className="container relative z-10">
-            {/* Section Header */}
             <motion.div
               variants={staggerContainer}
               className="text-center max-w-3xl mx-auto mb-16"
@@ -328,7 +327,6 @@ const ReviewsPage = () => {
               </motion.h2>
             </motion.div>
 
-            {/* Slider Controls */}
             <motion.div
               variants={slideFromRight}
               className="flex justify-end items-center gap-3 mb-8"
@@ -353,7 +351,6 @@ const ReviewsPage = () => {
               </motion.button>
             </motion.div>
 
-            {/* Reviews Cards Slider - Premium Modern Design */}
             <motion.div
               variants={scaleIn}
               className="relative overflow-hidden"
@@ -362,7 +359,6 @@ const ReviewsPage = () => {
                 className="flex transition-transform duration-1000 ease-[cubic-bezier(0.25,0.1,0.25,1)]" // Slower slide transition
                 style={{ transform: `translateX(-${currentSlide * 100}%)` }}
               >
-                {/* Split reviews into chunks of 3 for slider */}
                 {Array.from({ length: Math.ceil(reviews.length / 3) }).map((_, slideIndex) => (
                   <div key={slideIndex} className="w-full flex-shrink-0">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
@@ -383,13 +379,11 @@ const ReviewsPage = () => {
                             boxShadow: '0 20px 40px -15px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.02)',
                           }}
                         >
-                          {/* Background Pattern */}
                           <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
                             <div className="absolute top-0 right-0 w-32 h-32 bg-primary rounded-full blur-3xl" />
                             <div className="absolute bottom-0 left-0 w-40 h-40 bg-primary rounded-full blur-3xl" />
                           </div>
 
-                          {/* Quote Icon - Premium Style */}
                           <motion.div
                             initial={{ rotate: -10, scale: 0 }}
                             whileInView={{ rotate: 0, scale: 1 }}
@@ -400,7 +394,6 @@ const ReviewsPage = () => {
                           </motion.div>
 
                           <div className="p-8 relative">
-                            {/* Rating with Premium Design */}
                             <motion.div
                               initial="hidden"
                               whileInView="visible"
@@ -432,7 +425,6 @@ const ReviewsPage = () => {
                               ))}
                             </motion.div>
 
-                            {/* Case Type Badge */}
                             <motion.div
                               initial={{ opacity: 0, x: -20 }}
                               whileInView={{ opacity: 1, x: 0 }}
@@ -444,7 +436,6 @@ const ReviewsPage = () => {
                               </span>
                             </motion.div>
 
-                            {/* Review Content - Premium Typography */}
                             <motion.div
                               initial={{ opacity: 0 }}
                               whileInView={{ opacity: 1 }}
@@ -456,7 +447,6 @@ const ReviewsPage = () => {
                               </p>
                             </motion.div>
 
-                            {/* Client Info with Premium Styling */}
                             <motion.div
                               initial={{ opacity: 0, y: 20 }}
                               whileInView={{ opacity: 1, y: 0 }}
@@ -490,7 +480,6 @@ const ReviewsPage = () => {
                             </motion.div>
                           </div>
 
-                          {/* Bottom Gradient on Hover */}
                           <motion.div
                             initial={{ opacity: 0 }}
                             whileHover={{ opacity: 1 }}
@@ -505,7 +494,6 @@ const ReviewsPage = () => {
               </div>
             </motion.div>
 
-            {/* Slider Dots */}
             <motion.div
               variants={fadeInUp}
               className="flex justify-center items-center gap-3 mt-12"
@@ -532,7 +520,7 @@ const ReviewsPage = () => {
             </motion.div>
           </div>
         </motion.div>
-      </motion.section>
+      </motion.section> */}
 
       {/* Call to Action Section */}
       <motion.section
@@ -544,7 +532,7 @@ const ReviewsPage = () => {
       >
         <div className="absolute inset-0">
           <motion.img
-            src={hero1}
+            src={backgroundImage}
             alt="Background"
             className="w-full h-full object-cover"
             initial={{ scale: 1.2 }}

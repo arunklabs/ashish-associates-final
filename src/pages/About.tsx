@@ -373,7 +373,7 @@ const About = () => {
                 </p>
               </div>
 
-              <motion.div
+              {/* <motion.div
                 variants={scaleIn}
                 className="flex items-center gap-4 pt-4"
               >
@@ -397,7 +397,7 @@ const About = () => {
                   <span className="text-gray-500">Industrial awards as </span>
                   <span className="font-bold text-[#C9A646]">15+</span>{' '}
                 </div>
-              </motion.div>
+              </motion.div> */}
             </motion.div>
 
             <motion.div
@@ -411,7 +411,7 @@ const About = () => {
                 <CounterAnimation end={11} suffix="+" label="Area of practice" theme="light" />
                 <CounterAnimation end={45} suffix="+" label="Expert Attorneys" theme="light" />
                 <CounterAnimation end={7} suffix="+" label=" Regional Presence" theme="light" />
-                <CounterAnimation end={15} suffix="+" label="Industry Awards" theme="light" />
+                <CounterAnimation label="Industry Awards" theme="light" />
               </div>
 
               {/* <motion.div 
@@ -878,7 +878,7 @@ const About = () => {
       </section>
 
       {/* Success Stories - Light Theme */}
-      <section className="section-padding bg-white relative overflow-hidden">
+      {/* <section className="section-padding bg-white relative overflow-hidden">
         <div className="absolute inset-0 pattern-grid opacity-5" />
 
         <div className="container relative z-10">
@@ -937,7 +937,7 @@ const About = () => {
             ))}
           </motion.div>
         </div>
-      </section>
+      </section> */}
 
       {/* Core Values - Dark Theme */}
       <section className="section-alt section-padding relative overflow-hidden">
