@@ -10,96 +10,96 @@ import { Career, getJobTypeDisplay } from "../lib/sanityQueries";
 
 // Animation variants - Professional and smooth
 const fadeInUp = {
-  hidden: { 
-    opacity: 0, 
-    y: 40 
+  hidden: {
+    opacity: 0,
+    y: 40
   },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { 
-      duration: 0.9, 
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.9,
       ease: [0.25, 0.1, 0.25, 1] as const // Cubic-bezier for smooth acceleration/deceleration
-    } 
+    }
   }
 };
 
 const fadeInDown = {
-  hidden: { 
-    opacity: 0, 
-    y: -40 
+  hidden: {
+    opacity: 0,
+    y: -40
   },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    transition: { 
-      duration: 0.9, 
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.9,
       ease: [0.25, 0.1, 0.25, 1] as const
-    } 
+    }
   }
 };
 
 const fadeIn = {
-  hidden: { 
-    opacity: 0 
+  hidden: {
+    opacity: 0
   },
-  visible: { 
-    opacity: 1, 
-    transition: { 
-      duration: 1.2, 
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 1.2,
       ease: [0.25, 0.1, 0.25, 1] as const
-    } 
+    }
   }
 };
 
 const slideFromLeft = {
-  hidden: { 
-    opacity: 0, 
-    x: -50 
+  hidden: {
+    opacity: 0,
+    x: -50
   },
-  visible: { 
-    opacity: 1, 
-    x: 0, 
-    transition: { 
-      duration: 1, 
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 1,
       ease: [0.25, 0.1, 0.25, 1] as const
-    } 
+    }
   }
 };
 
 const slideFromRight = {
-  hidden: { 
-    opacity: 0, 
-    x: 50 
+  hidden: {
+    opacity: 0,
+    x: 50
   },
-  visible: { 
-    opacity: 1, 
-    x: 0, 
-    transition: { 
-      duration: 1, 
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 1,
       ease: [0.25, 0.1, 0.25, 1] as const
-    } 
+    }
   }
 };
 
 const scaleIn = {
-  hidden: { 
-    opacity: 0, 
-    scale: 0.95 
+  hidden: {
+    opacity: 0,
+    scale: 0.95
   },
-  visible: { 
-    opacity: 1, 
-    scale: 1, 
-    transition: { 
-      duration: 0.8, 
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.8,
       ease: [0.25, 0.1, 0.25, 1] as const
-    } 
+    }
   }
 };
 
 const staggerContainer = {
-  hidden: { 
-    opacity: 0 
+  hidden: {
+    opacity: 0
   },
   visible: {
     opacity: 1,
@@ -112,12 +112,12 @@ const staggerContainer = {
 };
 
 const cardHover = {
-  rest: { 
+  rest: {
     scale: 1,
     y: 0,
     transition: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] as const }
   },
-  hover: { 
+  hover: {
     scale: 1.02,
     y: -5,
     transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] as const }
@@ -125,11 +125,11 @@ const cardHover = {
 };
 
 const buttonHover = {
-  rest: { 
+  rest: {
     scale: 1,
     transition: { duration: 0.3 }
   },
-  hover: { 
+  hover: {
     scale: 1.05,
     transition: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1] as const }
   }
@@ -146,11 +146,11 @@ const Careers = () => {
       try {
         setLoading(true);
         setError(null);
-        
+
         // Get all CMS data from cache (fetches only once per session)
         const cmsData = await getCMSData();
         const careerData = cmsData.careers || [];
-        
+
         // Apply data safety with proper fallbacks for each career position
         const safePositions = careerData.map((position: any) => ({
           _id: safeDataExtraction.getString(position._id, 'unknown'),
@@ -180,7 +180,7 @@ const Careers = () => {
             'Briefcase'
           ),
         }));
-        
+
         // Use fetched data, or fallback to default data if empty
         if (safePositions.length > 0) {
           setPositions(safePositions);
@@ -200,84 +200,84 @@ const Careers = () => {
   return (
     <div className="-mt-20">
       {/* Banner Section - Dark Theme */}
-      <section 
+      <section
         className="relative w-full bg-cover bg-center bg-no-repeat overflow-hidden"
         style={{
           backgroundImage: "url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
         }}
       >
         {/* Animated Background Overlay */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1.5 }}
           className="absolute inset-0 bg-background/60"
         />
-        
+
         {/* Animated Pattern Overlay */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.1 }}
           transition={{ duration: 2, delay: 0.5 }}
           className="absolute inset-0 pattern-gold"
         />
-        
+
         {/* Content */}
         <div className="relative z-10 container mx-auto px-4 py-32 md:py-40 lg:py-48 xl:py-52">
-          <motion.div 
+          <motion.div
             initial="hidden"
             animate="visible"
             variants={staggerContainer}
             className="text-center max-w-3xl mx-auto"
           >
-            <motion.div 
+            <motion.div
               variants={fadeInDown}
               className="flex items-center justify-center gap-3 mb-6"
             >
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 animate={{ width: 40 }}
                 transition={{ delay: 0.6, duration: 1.2, ease: [0.25, 0.1, 0.25, 1] as const }}
                 className="h-px bg-primary"
               />
-              <motion.p 
+              <motion.p
                 variants={slideFromLeft}
                 className="text-sm uppercase tracking-[0.2em] text-primary font-semibold"
               >
                 Join Our Team
               </motion.p>
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 animate={{ width: 40 }}
                 transition={{ delay: 0.6, duration: 1.2, ease: [0.25, 0.1, 0.25, 1] as const }}
                 className="h-px bg-primary"
               />
             </motion.div>
-            
-            <motion.h1 
+
+            <motion.h1
               variants={fadeInUp}
               className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 text-foreground"
             >
-              Build Your <motion.span 
+              Build Your <motion.span
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1.2, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] as const }}
                 className="text-primary italic inline-block"
               >Future</motion.span> With Us
             </motion.h1>
-            
-            <motion.p 
+
+            <motion.p
               variants={fadeInUp}
               className="text-muted-foreground text-lg leading-relaxed max-w-2xl mx-auto"
             >
-              Join a team of exceptional legal minds dedicated to excellence, innovation, and making a difference. 
+              Join a team of exceptional legal minds dedicated to excellence, innovation, and making a difference.
               We offer challenging work, mentorship, and unparalleled growth opportunities.
             </motion.p>
           </motion.div>
         </div>
 
         {/* Decorative bottom gradient */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 1.5 }}
@@ -286,27 +286,27 @@ const Careers = () => {
       </section>
 
       {/* Stats Section - Light Theme */}
-      <motion.section 
+      <motion.section
         className="py-16 bg-white border-b border-border"
       >
         <motion.div initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={staggerContainer} className="container mx-auto px-4">
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={staggerContainer} className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {[
               { number: "45+", label: "Expert Attorneys", delay: 0.1 },
               { number: "11+", label: "Practice Areas", delay: 0.2 },
-              { number: "5+", label: "States", delay: 0.3 }
+              { number: "7+", label: "States", delay: 0.3 }
             ].map((stat, index) => (
-              <motion.div 
+              <motion.div
                 key={index}
                 variants={scaleIn}
                 transition={{ delay: stat.delay }}
                 whileHover={{ y: -5 }}
                 className="text-center group"
               >
-                <motion.div 
+                <motion.div
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
                   transition={{ delay: stat.delay + 0.2, duration: 0.6, type: "spring" as const, stiffness: 100 }}
@@ -322,7 +322,7 @@ const Careers = () => {
       </motion.section>
 
       {/* Careers Section - Dark Theme */}
-      <motion.section 
+      <motion.section
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
@@ -331,28 +331,28 @@ const Careers = () => {
       >
         <div className="container mx-auto px-4 max-w-5xl">
           {/* Section Header */}
-          <motion.div 
+          <motion.div
             variants={staggerContainer}
             className="text-center max-w-3xl mx-auto mb-16"
           >
-            <motion.div 
+            <motion.div
               variants={fadeInDown}
               className="flex items-center justify-center gap-3 mb-4"
             >
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 whileInView={{ width: 40 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.4, duration: 1.2, ease: [0.25, 0.1, 0.25, 1] as const }}
                 className="h-px bg-primary"
               />
-              <motion.p 
+              <motion.p
                 variants={slideFromLeft}
                 className="text-sm uppercase tracking-[0.2em] text-primary font-semibold"
               >
                 Open Positions
               </motion.p>
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 whileInView={{ width: 40 }}
                 viewport={{ once: true }}
@@ -360,18 +360,18 @@ const Careers = () => {
                 className="h-px bg-primary"
               />
             </motion.div>
-            
-            <motion.h2 
+
+            <motion.h2
               variants={fadeInUp}
               className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4"
             >
-              Current <motion.span 
+              Current <motion.span
                 variants={slideFromRight}
                 className="text-primary italic inline-block"
               >Opportunities</motion.span>
             </motion.h2>
-            
-            <motion.p 
+
+            <motion.p
               variants={fadeInUp}
               className="text-muted-foreground text-lg"
             >
@@ -380,7 +380,7 @@ const Careers = () => {
           </motion.div>
 
           {/* Positions Grid */}
-          <motion.div 
+          <motion.div
             variants={staggerContainer}
             className="space-y-6"
           >
@@ -420,8 +420,8 @@ const Careers = () => {
               <div className="text-center py-12">
                 <div className="text-red-500 font-semibold mb-2">Error loading career positions</div>
                 <div className="text-gray-600 mb-4">Please try again later</div>
-                <button 
-                  onClick={() => window.location.reload()} 
+                <button
+                  onClick={() => window.location.reload()}
                   className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
                 >
                   Retry
@@ -445,19 +445,19 @@ const Careers = () => {
                   animate="rest"
                   className="bg-card border border-border rounded-lg overflow-hidden hover:border-primary transition-colors duration-500 group"
                 >
-                  <motion.div 
+                  <motion.div
                     variants={cardHover}
                     className="p-8"
                   >
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                       <div className="flex-1">
-                        <motion.div 
+                        <motion.div
                           initial={{ x: -20, opacity: 0 }}
                           whileInView={{ x: 0, opacity: 1 }}
                           transition={{ delay: 0.2 + i * 0.1, duration: 0.6 }}
                           className="flex items-center gap-3 mb-3"
                         >
-                          <motion.div 
+                          <motion.div
                             whileHover={{ rotate: 360 }}
                             transition={{ duration: 0.6 }}
                             className="p-2 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors duration-500"
@@ -468,7 +468,7 @@ const Careers = () => {
                             {pos.title}
                           </h3>
                         </motion.div>
-                        
+
                         {/* <motion.div 
                           initial={{ y: 20, opacity: 0 }}
                           whileInView={{ y: 0, opacity: 1 }}
@@ -488,8 +488,8 @@ const Careers = () => {
                             <Clock className="w-4 h-4" /> {getJobTypeDisplay(pos.type)}
                           </motion.span>
                         </motion.div> */}
-                        
-                        <motion.p 
+
+                        <motion.p
                           initial={{ opacity: 0 }}
                           whileInView={{ opacity: 1 }}
                           transition={{ delay: 0.4 + i * 0.1, duration: 0.8 }}
@@ -498,7 +498,7 @@ const Careers = () => {
                           {pos.desc}
                         </motion.p>
                       </div>
-                      
+
                       <motion.div
                         variants={buttonHover}
                         initial="rest"
@@ -506,8 +506,8 @@ const Careers = () => {
                         whileTap={{ scale: 0.95 }}
                         className="shrink-0"
                       >
-                        <Link 
-                          href="/contact" 
+                        <Link
+                          href="/contact"
                           className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-accent transition-all duration-500 group/btn btn-shine"
                         >
                           <span>Apply Now</span>
@@ -528,7 +528,7 @@ const Careers = () => {
 
           {/* View All Button */}
           {positions.length > 6 && (
-            <motion.div 
+            <motion.div
               variants={fadeInUp}
               className="text-center mt-12"
             >
@@ -541,35 +541,35 @@ const Careers = () => {
       </motion.section>
 
       {/* Why Join Us Section - Light Theme */}
-      <motion.section 
+      <motion.section
         className="bg-white section-padding"
       >
         <motion.div initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={staggerContainer} className="container mx-auto px-4">
-          <motion.div 
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={staggerContainer} className="container mx-auto px-4">
+          <motion.div
             variants={staggerContainer}
             className="text-center max-w-3xl mx-auto mb-16"
           >
-            <motion.div 
+            <motion.div
               variants={fadeInDown}
               className="flex items-center justify-center gap-3 mb-4"
             >
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 whileInView={{ width: 40 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.4, duration: 1.2 }}
                 className="h-px bg-primary"
               />
-              <motion.p 
+              <motion.p
                 variants={slideFromLeft}
                 className="text-sm uppercase tracking-[0.2em] text-primary font-semibold"
               >
                 Why Join Us
               </motion.p>
-              <motion.span 
+              <motion.span
                 initial={{ width: 0 }}
                 whileInView={{ width: 40 }}
                 viewport={{ once: true }}
@@ -577,8 +577,8 @@ const Careers = () => {
                 className="h-px bg-primary"
               />
             </motion.div>
-            
-            <motion.h2 
+
+            <motion.h2
               variants={fadeInUp}
               className="text-3xl md:text-4xl font-heading font-bold text-black mb-4"
             >
@@ -596,14 +596,14 @@ const Careers = () => {
                 key={index}
                 variants={scaleIn}
                 transition={{ delay: 0.2 + index * 0.1 }}
-                whileHover={{ 
+                whileHover={{
                   y: -10,
                   boxShadow: '0 30px 60px -15px rgba(0,0,0,0.1)',
                   transition: { duration: 0.4 }
                 }}
                 className="bg-white p-8 rounded-lg border border-primary/20 hover:border-primary transition-all duration-500 text-center group"
               >
-                <motion.div 
+                <motion.div
                   whileHover={{ rotate: 360 }}
                   transition={{ duration: 0.6 }}
                   className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary transition-colors duration-500"
@@ -612,7 +612,7 @@ const Careers = () => {
                 </motion.div>
                 <h3 className="text-xl font-heading font-semibold text-black mb-3 group-hover:text-primary transition-colors duration-500">{item.title}</h3>
                 <p className="text-muted-foreground">{item.desc}</p>
-                
+
                 {/* Animated underline on hover */}
                 <motion.div
                   initial={{ scaleX: 0 }}
@@ -627,7 +627,7 @@ const Careers = () => {
       </motion.section>
 
       {/* Don't See Your Role Section - Dark Theme */}
-      <motion.section 
+      <motion.section
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
@@ -641,32 +641,32 @@ const Careers = () => {
           transition={{ duration: 20, repeat: Infinity, ease: "linear" as const }}
           className="absolute inset-0 pattern-gold"
         />
-        
+
         <div className="container mx-auto px-4 max-w-3xl relative z-10">
           <motion.div
             variants={staggerContainer}
           >
-            <motion.h2 
+            <motion.h2
               variants={fadeInUp}
               className="text-3xl md:text-4xl font-heading font-bold text-foreground mb-4"
             >
               Don't See Your Role?
             </motion.h2>
-            
-            <motion.p 
+
+            <motion.p
               variants={fadeInUp}
               className="text-muted-foreground text-lg mb-10"
             >
               We're always looking for exceptional talent. Send us your resume and we'll keep you in mind for future opportunities.
             </motion.p>
-            
+
             <motion.div
               variants={slideFromLeft}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Link 
-                href="/contact" 
+              <Link
+                href="/contact"
                 className="inline-flex items-center gap-2 px-10 py-5 bg-primary text-primary-foreground font-semibold rounded-lg hover:bg-accent transition-all duration-500 group btn-shine"
               >
                 <span>Get in Touch</span>

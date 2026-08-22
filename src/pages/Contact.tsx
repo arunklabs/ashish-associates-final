@@ -323,7 +323,17 @@ const Contact = () => {
       map: "Bandra Kurla Complex, Mumbai",
       mapEmbed: "https://www.google.com/maps?q=Bandra+Kurla+Complex,Mumbai&output=embed",
       direction: "https://maps.app.goo.gl/jXCmX9DYj6BFvqUQ7?g_st=aw",
-    }
+    },
+    {
+      name: "Kanchipuram Office",
+      address: "No 60B Vallal pachaiyappan street kanchipuram 631501",
+      phone: "+91 887 887 3555",
+      email: "jashishassociatesllp@gmail.com",
+      hours: "Mon – Fri: 10:00 AM – 7:00 PM",
+      map: "Kanchipuram",
+      mapEmbed: "https://www.google.com/maps/place/12%C2%B049'47.8%22N+79%C2%B042'12.6%22E/@12.8299444,79.7035,863m/data=!3m2!1e3!4b1!4m4!3m3!8m2!3d12.8299444!4d79.7035?hl=en&entry=ttu&g_ep=EgoyMDI2MDgxOS4wIKXMDSoASAFQAw%3D%3D",
+      direction: "https://maps.app.goo.gl/F2XKHmhUrxYjcgLn8",
+    },
   ];
 
   const [activeLocation, setActiveLocation] = useState(chennaiLocations[0]);
@@ -984,8 +994,22 @@ const Contact = () => {
               {
                 name: "Head Office - Chennai",
                 city: "Chennai",
-                top: "73%",
-                left: "41%",
+                top: "77%",
+                left: "41.5%",
+                direction: "https://g.co/kgs/yQp7zr",
+              },
+              {
+                name: "Kanchipuram Office",
+                city: "Kanchipuram",
+                top: "77.5%",
+                left: "40%",
+                direction: "https://g.co/kgs/yQp7zr",
+              },
+              {
+                name: "Madurai Office",
+                city: "Madurai",
+                top: "85%",
+                left: "37%",
                 direction: "https://g.co/kgs/yQp7zr",
               },
             ].map((loc, i) => (

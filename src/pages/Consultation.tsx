@@ -215,9 +215,9 @@ const StatsSection = () => {
   });
 
   const stats = [
-    { icon: <Briefcase className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />, value: "5", label: "Regional Presence" },
-    { icon: <Users className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />, value: "100+", label: "Area of Practice" },
-    { icon: <Award className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />, value: "4+", label: "Legal Practitioners and Associates" },
+    { icon: <Briefcase className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />, value: "7", label: "Regional Presence" },
+    { icon: <Users className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />, value: "11", label: "Area of Practice" },
+    { icon: <Award className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />, value: "45", label: "Legal Practitioners and Associates" },
     // { icon: <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />, value: "₹10L+", label: "" }
   ];
 
@@ -253,20 +253,21 @@ const StatsSection = () => {
                   {stat.icon}
                 </motion.div>
               </div>
-              {/* <motion.div
-                initial={{ scale: 0.5, opacity: 0 }}
-                animate={inView ? { scale: 1, opacity: 1 } : {}}
-                transition={{ delay: 0.3 + index * 0.1, duration: 0.7, type: "spring", stiffness: 100 }}
-                className="text-xl sm:text-2xl md:text-3xl font-bold mb-1 sm:mb-2"
-              >
-                {stat.value}
-              </motion.div> */}
+
               <motion.p
                 variants={fadeInUp}
                 className="text-xs sm:text-sm md:text-base font-medium text-gray-800"
               >
                 {stat.label}
               </motion.p>
+              <motion.div
+                initial={{ scale: 0.5, opacity: 0 }}
+                animate={inView ? { scale: 1, opacity: 1 } : {}}
+                transition={{ delay: 0.3 + index * 0.1, duration: 0.7, type: "spring", stiffness: 100 }}
+                className="text-xl sm:text-2xl md:text-3xl font-bold mb-1 sm:mb-2"
+              >
+                {stat.value}
+              </motion.div>
             </motion.div>
           ))}
         </motion.div>
@@ -275,12 +276,137 @@ const StatsSection = () => {
   );
 };
 
+// // ==================== MEET OUR ATTORNEYS SECTION ====================
+// const AttorneysSection = () => {
+//   const [ref, inView] = useInView({
+//     threshold: 0.2
+//   });
+
+
+//   const [teamMembers, setTeamMembers] = useState<any[]>([]);
+//   const [isLoading, setIsLoading] = useState(true);
+
+//   // Fetch CMS data on component mount
+//   useEffect(() => {
+//     const fetchTeamData = async () => {
+//       try {
+//         setIsLoading(true);
+//         const cmsData = await getCMSData();
+//         // Get all employees for team members section
+//         const teamMembersData = cmsData.employees;
+
+//         setTeamMembers(teamMembersData);
+//       } catch (error) {
+//         if (process.env.NODE_ENV === 'development') console.error('Failed to fetch team data:', error);
+//         // Keep fallback data in case of error
+//       } finally {
+//         setIsLoading(false);
+//       }
+//     };
+
+//     fetchTeamData();
+//   }, []);
+
+//   const filteredMembers = teamMembers.slice(0, 3)
+
+//   return (
+//     <section ref={ref} className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white">
+//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+//         {/* Subtitle */}
+//         <motion.div
+//           initial="hidden"
+//           animate={inView ? "visible" : "hidden"}
+//           variants={fadeInDown}
+//           className="flex items-center justify-center gap-3 mb-6"
+//         >
+//           <motion.span
+//             variants={lineAnimation}
+//             className="h-px bg-[#C9A646]"
+//           ></motion.span>
+//           <motion.p
+//             variants={fadeInUp}
+//             className="text-sm uppercase tracking-[0.2em] text-[#C9A646] font-semibold"
+//           >
+//             MEET OUR ASSOCIATED PARTNERS
+//           </motion.p>
+//         </motion.div>
+
+//         {/* Heading */}
+//         <motion.h2
+//           initial="hidden"
+//           animate={inView ? "visible" : "hidden"}
+//           variants={fadeInUp}
+//           className="text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-800 leading-snug max-w-4xl mx-auto mb-8 sm:mb-10 md:mb-12 lg:mb-14 px-4"
+//         >
+//           The pictures of {` `}
+//           <span className="italic font-light block sm:inline">
+//             all the Associate partners and legal addiction.
+//           </span>
+//         </motion.h2>
+
+//         {/* Grid */}
+//         <motion.div
+//           initial="hidden"
+//           animate={inView ? "visible" : "hidden"}
+//           variants={staggerContainer}
+//           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+//         >
+//           {filteredMembers.map((member, index) => (
+//             <motion.div
+//               key={index}
+//               variants={fadeInUp}
+//               whileHover={{
+//                 y: -10,
+//                 transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] as const }
+//               }}
+//               className="relative rounded-2xl overflow-hidden group cursor-pointer"
+//             >
+//               {/* Image */}
+//               <div className="overflow-hidden">
+//                 <motion.img
+//                   whileHover={{ scale: 1.1 }}
+//                   transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] as const }}
+//                   src={getEmployeeImageUrl(member)}
+//                   alt={member.name}
+//                   className="w-full h-[350px] sm:h-[380px] md:h-[400px] lg:h-[420px] object-cover"
+//                 />
+//               </div>
+
+//               {/* Gradient Overlay */}
+//               <motion.div
+//                 initial={{ opacity: 0.8 }}
+//                 whileHover={{ opacity: 0.9 }}
+//                 transition={{ duration: 0.4 }}
+//                 className="absolute inset-0 bg-gradient-to-t from-[#0b1c3d] via-[#0b1c3d]/60 to-transparent"
+//               ></motion.div>
+
+//               {/* Content */}
+//               <motion.div
+//                 initial={{ y: 20, opacity: 0 }}
+//                 animate={{ y: 0, opacity: 1 }}
+//                 transition={{ delay: 0.3 + index * 0.1, duration: 0.6 }}
+//                 className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 text-white"
+//               >
+//                 <h3 className="text-lg sm:text-xl font-semibold">
+//                   {member.name}
+//                 </h3>
+//                 <p className="text-xs sm:text-sm text-gray-200">
+//                   {member.role}
+//                 </p>
+//               </motion.div>
+//             </motion.div>
+//           ))}
+//         </motion.div>
+//       </div>
+//     </section>
+//   );
+// };
+
 // ==================== MEET OUR ATTORNEYS SECTION ====================
 const AttorneysSection = () => {
   const [ref, inView] = useInView({
     threshold: 0.2
   });
-
 
   const [teamMembers, setTeamMembers] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -290,14 +416,102 @@ const AttorneysSection = () => {
     const fetchTeamData = async () => {
       try {
         setIsLoading(true);
-        const cmsData = await getCMSData();
-        // Get all employees for team members section
-        const teamMembersData = cmsData.employees;
 
-        setTeamMembers(teamMembersData);
+        const cmsData = await getCMSData();
+
+        // Get founders and employees separately
+        const founders = cmsData?.founders || [];
+        const employees = cmsData?.employees || [];
+
+        // Normalize name for safe matching
+        const normalizeName = (name: string = "") =>
+          name
+            .toLowerCase()
+            .replace(/[^a-z0-9]/g, "")
+            .trim();
+
+        // ----------------------------------------------------
+        // Get A.R. Ashwin Kandaswamy from Founder collection
+        // ----------------------------------------------------
+        const ashwin = founders.find((founder: any) => {
+          const normalized = normalizeName(founder?.name);
+
+          return (
+            normalized.includes("ashwin") &&
+            normalized.includes("kandaswamy")
+          );
+        });
+
+        // ----------------------------------------------------
+        // Get Ajeet Yadav from Employee collection
+        // ----------------------------------------------------
+        const ajeet = employees.find((employee: any) => {
+          const normalized = normalizeName(employee?.name);
+
+          return (
+            normalized.includes("ajeet") &&
+            normalized.includes("yadav")
+          );
+        });
+
+        // ----------------------------------------------------
+        // Get Prasant Das from Employee collection
+        // ----------------------------------------------------
+        const prasant = employees.find((employee: any) => {
+          const normalized = normalizeName(employee?.name);
+
+          return (
+            normalized.includes("prasant") &&
+            normalized.includes("das")
+          );
+        });
+
+        // ----------------------------------------------------
+        // Keep the exact order:
+        // 1. Ashwin
+        // 2. Ajeet
+        // 3. Prasant
+        // ----------------------------------------------------
+        const selectedMembers: any[] = [];
+
+        if (ashwin) {
+          selectedMembers.push({
+            ...ashwin,
+            _source: "founder",
+            _imageUrl: getFounderImageUrl(ashwin),
+          });
+        }
+
+        if (ajeet) {
+          selectedMembers.push({
+            ...ajeet,
+            _source: "employee",
+            _imageUrl: getEmployeeImageUrl(ajeet),
+          });
+        }
+
+        if (prasant) {
+          selectedMembers.push({
+            ...prasant,
+            _source: "employee",
+            _imageUrl: getEmployeeImageUrl(prasant),
+          });
+        }
+
+        setTeamMembers(selectedMembers);
+
+        if (process.env.NODE_ENV === "development") {
+          console.log(
+            "Associated Partners:",
+            selectedMembers.map((member) => member.name)
+          );
+        }
       } catch (error) {
-        if (process.env.NODE_ENV === 'development') console.error('Failed to fetch team data:', error);
-        // Keep fallback data in case of error
+        if (process.env.NODE_ENV === 'development') {
+          console.error('Failed to fetch team data:', error);
+        }
+
+        setTeamMembers([]);
       } finally {
         setIsLoading(false);
       }
@@ -306,11 +520,14 @@ const AttorneysSection = () => {
     fetchTeamData();
   }, []);
 
-  const filteredMembers = teamMembers.slice(0, 3)
+  // No slice() here.
+  // The array already contains only the required 3 people.
+  const filteredMembers = teamMembers;
 
   return (
     <section ref={ref} className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
         {/* Subtitle */}
         <motion.div
           initial="hidden"
@@ -322,6 +539,7 @@ const AttorneysSection = () => {
             variants={lineAnimation}
             className="h-px bg-[#C9A646]"
           ></motion.span>
+
           <motion.p
             variants={fadeInUp}
             className="text-sm uppercase tracking-[0.2em] text-[#C9A646] font-semibold"
@@ -352,11 +570,14 @@ const AttorneysSection = () => {
         >
           {filteredMembers.map((member, index) => (
             <motion.div
-              key={index}
+              key={member._id || member.name || index}
               variants={fadeInUp}
               whileHover={{
                 y: -10,
-                transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] as const }
+                transition: {
+                  duration: 0.4,
+                  ease: [0.25, 0.1, 0.25, 1] as const
+                }
               }}
               className="relative rounded-2xl overflow-hidden group cursor-pointer"
             >
@@ -364,8 +585,11 @@ const AttorneysSection = () => {
               <div className="overflow-hidden">
                 <motion.img
                   whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] as const }}
-                  src={getEmployeeImageUrl(member)}
+                  transition={{
+                    duration: 0.7,
+                    ease: [0.25, 0.1, 0.25, 1] as const
+                  }}
+                  src={member._imageUrl}
                   alt={member.name}
                   className="w-full h-[350px] sm:h-[380px] md:h-[400px] lg:h-[420px] object-cover"
                 />
@@ -383,12 +607,16 @@ const AttorneysSection = () => {
               <motion.div
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.3 + index * 0.1, duration: 0.6 }}
+                transition={{
+                  delay: 0.3 + index * 0.1,
+                  duration: 0.6
+                }}
                 className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 text-white"
               >
                 <h3 className="text-lg sm:text-xl font-semibold">
                   {member.name}
                 </h3>
+
                 <p className="text-xs sm:text-sm text-gray-200">
                   {member.role}
                 </p>

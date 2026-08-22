@@ -323,7 +323,7 @@ const Team = () => {
                                 }`}
                             >
                               <div className="flex flex-col items-center gap-4">
-                                <div className="w-full h-full lg:h-96 overflow-hidden flex-shrink-0 relative">
+                                <div className="w-full h-full lg:h-[70vh] overflow-hidden flex-shrink-0 relative">
                                   <Image
                                     src={getFounderImageUrl(founder)}
                                     alt={founder?.name || 'Founder'}
@@ -710,9 +710,9 @@ const Team = () => {
                         Specialty: {member.specialty}
                       </p>
 
-                      <p className="text-xs text-muted-foreground mb-2">
+                      {/* <p className="text-xs text-muted-foreground mb-2">
                         Experience: {member.experience}
-                      </p>
+                      </p> */}
 
                       <div className="flex items-center justify-between pt-3 border-t border-border">
                         <span className={`text-xs px-2 py-1 rounded-full ${member.category === 'senior' ? 'bg-primary/20 text-primary' :

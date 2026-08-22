@@ -84,7 +84,7 @@ const hero2 = "/assets/hero-2.png";
 const hero3 = "/assets/hero-3.png";
 const aboutMain = "/assets/About Our Firm- Homepage.png";
 const practiceCorporate = "/assets/Corporatelaw.jpg";
-const practiceCriminal = "/assets/criminallaw.jpg";
+const practiceCriminal = "/assets/criminallaw.jpeg";
 const practiceFamily = "/assets/familylaw.png";
 const practiceLitigation = "/assets/civillaw.jpg";
 const practiceIntellectual = "/assets/Intellectuallaw.jpg";
@@ -1079,7 +1079,7 @@ const Index = () => {
 
       {/* Highlighted Infinite Scroll - no text selection while scrolling */}
       <section
-        className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 py-8 overflow-hidden border-y border-primary/20 select-none"
+        className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 py-8 overflow-hidden border-y border-primary/20 select-none "
         style={{ pointerEvents: infiniteStripPointerEvents }}
       >
         <motion.div
@@ -1089,10 +1089,10 @@ const Index = () => {
             repeat: Infinity,
             ease: "linear"
           }}
-          className="flex whitespace-nowrap"
+          className="flex w-max gap-20 md:gap-80 whitespace-nowrap"
         >
           {[...infiniteScrollItems].map((item, index) => (
-            <div key={index} className="inline-flex items-center mx-8">
+            <div key={index} className="inline-flex items-center mx-8 ">
               <item.icon className="w-5 h-5 text-primary mr-3" />
               <span className="text-foreground font-medium">{item.text}</span>
             </div>

@@ -522,8 +522,34 @@ const ReviewsPage = () => {
         </motion.div>
       </motion.section> */}
 
+      <section className="flex min-h-[60vh] items-center justify-center bg-white px-6">
+        <div className="text-center">
+          <div className="mb-6 inline-block rounded-full border border-yellow-400 bg-yellow-50 px-5 py-2">
+            <span className="text-sm font-semibold uppercase tracking-wider text-yellow-600">
+              Coming Soon
+            </span>
+          </div>
+
+          <h2 className="text-4xl font-bold text-gray-900 sm:text-5xl md:text-6xl">
+            Client Reviews
+            <br />
+            <span className="text-yellow-500">
+              Is Coming Soon
+            </span>
+          </h2>
+
+          <p className="mx-auto mt-5 max-w-xl text-sm leading-7 text-gray-500 sm:text-base">
+            We are working on something exciting. Stay tuned for the
+            announcement.
+          </p>
+
+          <div className="mx-auto mt-8 h-1 w-20 rounded-full bg-yellow-400" />
+        </div>
+      </section>
+
+
       {/* Call to Action Section */}
-      <motion.section
+      {/* <motion.section
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
@@ -692,7 +718,7 @@ const ReviewsPage = () => {
           transition={{ duration: 30, repeat: Infinity, ease: "linear" as const }} // Slower rotation
           className="absolute bottom-0 right-0 w-32 h-32 border-b-4 border-r-4 border-white/20"
         />
-      </motion.section>
+      </motion.section> */}
     </div>
   );
 };

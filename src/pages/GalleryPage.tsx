@@ -427,12 +427,12 @@ const GalleryPage = () => {
             {/* Quick Stats with Gold Numbers */}
             <motion.div
               variants={bannerVariants}
-              className="grid grid-cols-2 sm:grid-cols-3 gap-4 md:gap-6 mt-8 md:mt-10 max-w-6xl mx-auto"
+              className="grid grid-cols-2 sm:grid-cols-3 gap-4 md:gap-6 mt-8 md:mt-10"
             >
               {[
-                { number: '4+', label: 'Regional Presence' },
-                { number: '30+', label: 'Area of Practice' },
-                { number: '50+', label: 'Legal Practitioners and Associates' },
+                { number: '7', label: 'Regional Presence' },
+                { number: '11', label: 'Area of Practice' },
+                { number: '45', label: 'Legal Practitioners and Associates' },
                 // { number: '15+', label: 'Awards' },
               ].map((stat, index) => (
                 <motion.div
@@ -440,7 +440,10 @@ const GalleryPage = () => {
                   variants={bannerItemVariants}
                   className="text-center"
                 >
-                  {/* <motion.div
+                  <div className="text-xs md:text-sm text-gray-300 uppercase tracking-wider">
+                    {stat.label}
+                  </div>
+                  <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
                     transition={{
@@ -450,13 +453,10 @@ const GalleryPage = () => {
                       stiffness: 200,
                       damping: 15
                     }}
-                    className="text-2xl md:text-3xl font-bold text-amber-500 mb-1"
+                    className="text-2xl md:text-3xl font-bold text-amber-500 mt-1"
                   >
                     {stat.number}
-                  </motion.div> */}
-                  <div className="text-xs md:text-sm text-gray-300 uppercase tracking-wider">
-                    {stat.label}
-                  </div>
+                  </motion.div>
                 </motion.div>
               ))}
             </motion.div>
