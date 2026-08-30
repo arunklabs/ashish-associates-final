@@ -430,9 +430,9 @@ const GalleryPage = () => {
               className="grid grid-cols-2 sm:grid-cols-3 gap-4 md:gap-6 mt-8 md:mt-10"
             >
               {[
-                { number: '7', label: 'Regional Presence' },
-                { number: '11', label: 'Area of Practice' },
-                { number: '45', label: 'Legal Practitioners and Associates' },
+                { number: '7+', label: 'Regional Presence' },
+                { number: '11+', label: 'Area of Practice' },
+                { number: '45+', label: 'Legal Practitioners and Associates' },
                 // { number: '15+', label: 'Awards' },
               ].map((stat, index) => (
                 <motion.div

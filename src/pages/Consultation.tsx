@@ -215,9 +215,9 @@ const StatsSection = () => {
   });
 
   const stats = [
-    { icon: <Briefcase className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />, value: "7", label: "Regional Presence" },
-    { icon: <Users className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />, value: "11", label: "Area of Practice" },
-    { icon: <Award className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />, value: "45", label: "Legal Practitioners and Associates" },
+    { icon: <Briefcase className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />, value: "7+", label: "Regional Presence" },
+    { icon: <Users className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />, value: "11+", label: "Area of Practice" },
+    { icon: <Award className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />, value: "45+", label: "Legal Practitioners and Associates" },
     // { icon: <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />, value: "₹10L+", label: "" }
   ];
 
@@ -276,12 +276,13 @@ const StatsSection = () => {
   );
 };
 
-// // ==================== MEET OUR ATTORNEYS SECTION ====================
+
+
+// ==================== MEET OUR ATTORNEYS SECTION ====================
 // const AttorneysSection = () => {
 //   const [ref, inView] = useInView({
 //     threshold: 0.2
 //   });
-
 
 //   const [teamMembers, setTeamMembers] = useState<any[]>([]);
 //   const [isLoading, setIsLoading] = useState(true);
@@ -291,14 +292,102 @@ const StatsSection = () => {
 //     const fetchTeamData = async () => {
 //       try {
 //         setIsLoading(true);
-//         const cmsData = await getCMSData();
-//         // Get all employees for team members section
-//         const teamMembersData = cmsData.employees;
 
-//         setTeamMembers(teamMembersData);
+//         const cmsData = await getCMSData();
+
+//         // Get founders and employees separately
+//         const founders = cmsData?.founders || [];
+//         const employees = cmsData?.employees || [];
+
+//         // Normalize name for safe matching
+//         const normalizeName = (name: string = "") =>
+//           name
+//             .toLowerCase()
+//             .replace(/[^a-z0-9]/g, "")
+//             .trim();
+
+//         // ----------------------------------------------------
+//         // Get A.R. aswin KANDASAMY from Founder collection
+//         // ----------------------------------------------------
+//         const aswin = founders.find((founder: any) => {
+//           const normalized = normalizeName(founder?.name);
+
+//           return (
+//             normalized.includes("aswin") &&
+//             normalized.includes("KANDASAMY")
+//           );
+//         });
+
+//         // ----------------------------------------------------
+//         // Get Ajeet Yadav from Employee collection
+//         // ----------------------------------------------------
+//         const ajeet = employees.find((employee: any) => {
+//           const normalized = normalizeName(employee?.name);
+
+//           return (
+//             normalized.includes("ajeet") &&
+//             normalized.includes("yadav")
+//           );
+//         });
+
+//         // ----------------------------------------------------
+//         // Get Prasant Das from Employee collection
+//         // ----------------------------------------------------
+//         const prasant = employees.find((employee: any) => {
+//           const normalized = normalizeName(employee?.name);
+
+//           return (
+//             normalized.includes("prasant") &&
+//             normalized.includes("das")
+//           );
+//         });
+
+//         // ----------------------------------------------------
+//         // Keep the exact order:
+//         // 1. aswin
+//         // 2. Ajeet
+//         // 3. Prasant
+//         // ----------------------------------------------------
+//         const selectedMembers: any[] = [];
+
+//         if (aswin) {
+//           selectedMembers.push({
+//             ...aswin,
+//             _source: "founder",
+//             _imageUrl: getFounderImageUrl(aswin),
+//           });
+//         }
+
+//         if (ajeet) {
+//           selectedMembers.push({
+//             ...ajeet,
+//             _source: "employee",
+//             _imageUrl: getEmployeeImageUrl(ajeet),
+//           });
+//         }
+
+//         if (prasant) {
+//           selectedMembers.push({
+//             ...prasant,
+//             _source: "employee",
+//             _imageUrl: getEmployeeImageUrl(prasant),
+//           });
+//         }
+
+//         setTeamMembers(selectedMembers);
+
+//         if (process.env.NODE_ENV === "development") {
+//           console.log(
+//             "Associated Partners:",
+//             selectedMembers.map((member) => member.name)
+//           );
+//         }
 //       } catch (error) {
-//         if (process.env.NODE_ENV === 'development') console.error('Failed to fetch team data:', error);
-//         // Keep fallback data in case of error
+//         if (process.env.NODE_ENV === 'development') {
+//           console.error('Failed to fetch team data:', error);
+//         }
+
+//         setTeamMembers([]);
 //       } finally {
 //         setIsLoading(false);
 //       }
@@ -307,11 +396,14 @@ const StatsSection = () => {
 //     fetchTeamData();
 //   }, []);
 
-//   const filteredMembers = teamMembers.slice(0, 3)
+//   // No slice() here.
+//   // The array already contains only the required 3 people.
+//   const filteredMembers = teamMembers;
 
 //   return (
 //     <section ref={ref} className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white">
 //       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
 //         {/* Subtitle */}
 //         <motion.div
 //           initial="hidden"
@@ -323,6 +415,7 @@ const StatsSection = () => {
 //             variants={lineAnimation}
 //             className="h-px bg-[#C9A646]"
 //           ></motion.span>
+
 //           <motion.p
 //             variants={fadeInUp}
 //             className="text-sm uppercase tracking-[0.2em] text-[#C9A646] font-semibold"
@@ -353,11 +446,14 @@ const StatsSection = () => {
 //         >
 //           {filteredMembers.map((member, index) => (
 //             <motion.div
-//               key={index}
+//               key={member._id || member.name || index}
 //               variants={fadeInUp}
 //               whileHover={{
 //                 y: -10,
-//                 transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] as const }
+//                 transition: {
+//                   duration: 0.4,
+//                   ease: [0.25, 0.1, 0.25, 1] as const
+//                 }
 //               }}
 //               className="relative rounded-2xl overflow-hidden group cursor-pointer"
 //             >
@@ -365,8 +461,11 @@ const StatsSection = () => {
 //               <div className="overflow-hidden">
 //                 <motion.img
 //                   whileHover={{ scale: 1.1 }}
-//                   transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] as const }}
-//                   src={getEmployeeImageUrl(member)}
+//                   transition={{
+//                     duration: 0.7,
+//                     ease: [0.25, 0.1, 0.25, 1] as const
+//                   }}
+//                   src={member._imageUrl}
 //                   alt={member.name}
 //                   className="w-full h-[350px] sm:h-[380px] md:h-[400px] lg:h-[420px] object-cover"
 //                 />
@@ -384,12 +483,16 @@ const StatsSection = () => {
 //               <motion.div
 //                 initial={{ y: 20, opacity: 0 }}
 //                 animate={{ y: 0, opacity: 1 }}
-//                 transition={{ delay: 0.3 + index * 0.1, duration: 0.6 }}
+//                 transition={{
+//                   delay: 0.3 + index * 0.1,
+//                   duration: 0.6
+//                 }}
 //                 className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 text-white"
 //               >
 //                 <h3 className="text-lg sm:text-xl font-semibold">
 //                   {member.name}
 //                 </h3>
+
 //                 <p className="text-xs sm:text-sm text-gray-200">
 //                   {member.role}
 //                 </p>
@@ -402,84 +505,166 @@ const StatsSection = () => {
 //   );
 // };
 
+
 // ==================== MEET OUR ATTORNEYS SECTION ====================
 const AttorneysSection = () => {
   const [ref, inView] = useInView({
-    threshold: 0.2
+    threshold: 0.2,
   });
 
   const [teamMembers, setTeamMembers] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch CMS data on component mount
   useEffect(() => {
+    let isMounted = true;
+
+    const normalizeName = (value: unknown): string => {
+      if (!value) return "";
+
+      return String(value)
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, "");
+    };
+
+    const getPersonName = (person: any): string => {
+      return (
+        person?.name ||
+        person?.fullName ||
+        person?.title ||
+        person?.displayName ||
+        ""
+      );
+    };
+
+    const getPersonRole = (person: any): string => {
+      return (
+        person?.role ||
+        person?.designation ||
+        person?.position ||
+        ""
+      );
+    };
+
+    const findPerson = (
+      people: any[],
+      firstName: string,
+      lastName: string
+    ) => {
+      const first = normalizeName(firstName);
+      const last = normalizeName(lastName);
+
+      return people.find((person) => {
+        const name = normalizeName(getPersonName(person));
+
+        return (
+          name.includes(first) &&
+          name.includes(last)
+        );
+      });
+    };
+
     const fetchTeamData = async () => {
       try {
         setIsLoading(true);
 
         const cmsData = await getCMSData();
 
-        // Get founders and employees separately
-        const founders = cmsData?.founders || [];
-        const employees = cmsData?.employees || [];
+        /*
+         * IMPORTANT:
+         * Sanity Founder documents must be available inside
+         * cmsData.founders.
+         */
+        const founders = Array.isArray(cmsData?.founders)
+          ? cmsData.founders
+          : [];
 
-        // Normalize name for safe matching
-        const normalizeName = (name: string = "") =>
-          name
-            .toLowerCase()
-            .replace(/[^a-z0-9]/g, "")
-            .trim();
+        const employees = Array.isArray(cmsData?.employees)
+          ? cmsData.employees
+          : [];
 
-        // ----------------------------------------------------
-        // Get A.R. Ashwin Kandaswamy from Founder collection
-        // ----------------------------------------------------
-        const ashwin = founders.find((founder: any) => {
-          const normalized = normalizeName(founder?.name);
+        /*
+         * Development debugging.
+         *
+         * This will immediately tell you whether Aswin is actually
+         * coming from Sanity into the frontend.
+         */
+        if (process.env.NODE_ENV === "development") {
+          console.log("========== ATTORNEYS CMS DATA ==========");
 
-          return (
-            normalized.includes("ashwin") &&
-            normalized.includes("kandaswamy")
+          console.log(
+            "Founders returned from CMS:",
+            founders.map((founder: any) => ({
+              id: founder?._id,
+              name: getPersonName(founder),
+              role: getPersonRole(founder),
+              image: founder?.profileImage || founder?.image,
+            }))
           );
-        });
 
-        // ----------------------------------------------------
-        // Get Ajeet Yadav from Employee collection
-        // ----------------------------------------------------
-        const ajeet = employees.find((employee: any) => {
-          const normalized = normalizeName(employee?.name);
-
-          return (
-            normalized.includes("ajeet") &&
-            normalized.includes("yadav")
+          console.log(
+            "Employees returned from CMS:",
+            employees.map((employee: any) => ({
+              id: employee?._id,
+              name: getPersonName(employee),
+              role: getPersonRole(employee),
+              image: employee?.profileImage || employee?.image,
+            }))
           );
-        });
 
-        // ----------------------------------------------------
-        // Get Prasant Das from Employee collection
-        // ----------------------------------------------------
-        const prasant = employees.find((employee: any) => {
-          const normalized = normalizeName(employee?.name);
+          console.log("========================================");
+        }
 
-          return (
-            normalized.includes("prasant") &&
-            normalized.includes("das")
-          );
-        });
+        /*
+         * Find Aswin from Founder collection.
+         *
+         * Expected Sanity name:
+         * A.R. ASWIN KANDASAMY
+         */
+        const aswin = findPerson(
+          founders,
+          "aswin",
+          "KANDASAMY"
+        );
 
-        // ----------------------------------------------------
-        // Keep the exact order:
-        // 1. Ashwin
-        // 2. Ajeet
-        // 3. Prasant
-        // ----------------------------------------------------
+        /*
+         * Find Ajeet from Employee collection.
+         */
+        const ajeet = findPerson(
+          employees,
+          "ajeet",
+          "yadav"
+        );
+
+        /*
+         * Find Prasant from Employee collection.
+         */
+        const prasant = findPerson(
+          employees,
+          "prasant",
+          "das"
+        );
+
+        /*
+         * Create the final list in the exact required order:
+         *
+         * 1. A.R. Aswin Kandasamy
+         * 2. Ajeet Yadav
+         * 3. Prasant Das
+         */
         const selectedMembers: any[] = [];
 
-        if (ashwin) {
+        if (aswin) {
           selectedMembers.push({
-            ...ashwin,
+            ...aswin,
             _source: "founder",
-            _imageUrl: getFounderImageUrl(ashwin),
+            _imageUrl: getFounderImageUrl(aswin),
           });
+        } else if (process.env.NODE_ENV === "development") {
+          console.warn(
+            "A.R. ASWIN KANDASAMY was NOT found in cmsData.founders."
+          );
         }
 
         if (ajeet) {
@@ -488,6 +673,10 @@ const AttorneysSection = () => {
             _source: "employee",
             _imageUrl: getEmployeeImageUrl(ajeet),
           });
+        } else if (process.env.NODE_ENV === "development") {
+          console.warn(
+            "Ajeet Yadav was NOT found in cmsData.employees."
+          );
         }
 
         if (prasant) {
@@ -496,39 +685,58 @@ const AttorneysSection = () => {
             _source: "employee",
             _imageUrl: getEmployeeImageUrl(prasant),
           });
+        } else if (process.env.NODE_ENV === "development") {
+          console.warn(
+            "Prasant Das was NOT found in cmsData.employees."
+          );
         }
-
-        setTeamMembers(selectedMembers);
 
         if (process.env.NODE_ENV === "development") {
           console.log(
-            "Associated Partners:",
-            selectedMembers.map((member) => member.name)
+            "Final Associated Partners:",
+            selectedMembers.map((member) => ({
+              name: getPersonName(member),
+              role: getPersonRole(member),
+              source: member._source,
+              imageUrl: member._imageUrl,
+            }))
           );
         }
-      } catch (error) {
-        if (process.env.NODE_ENV === 'development') {
-          console.error('Failed to fetch team data:', error);
-        }
 
-        setTeamMembers([]);
+        if (isMounted) {
+          setTeamMembers(selectedMembers);
+        }
+      } catch (error) {
+        console.error(
+          "Failed to fetch attorneys/team data:",
+          error
+        );
+
+        if (isMounted) {
+          setTeamMembers([]);
+        }
       } finally {
-        setIsLoading(false);
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
     };
 
     fetchTeamData();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
-  // No slice() here.
-  // The array already contains only the required 3 people.
-  const filteredMembers = teamMembers;
-
   return (
-    <section ref={ref} className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white">
+    <section
+      ref={ref}
+      className="py-12 sm:py-16 md:py-20 lg:py-24 bg-white"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Subtitle */}
+        {/* ==================== SECTION LABEL ==================== */}
         <motion.div
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
@@ -538,7 +746,7 @@ const AttorneysSection = () => {
           <motion.span
             variants={lineAnimation}
             className="h-px bg-[#C9A646]"
-          ></motion.span>
+          />
 
           <motion.p
             variants={fadeInUp}
@@ -548,82 +756,149 @@ const AttorneysSection = () => {
           </motion.p>
         </motion.div>
 
-        {/* Heading */}
+        {/* ==================== HEADING ==================== */}
         <motion.h2
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
           variants={fadeInUp}
           className="text-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-gray-800 leading-snug max-w-4xl mx-auto mb-8 sm:mb-10 md:mb-12 lg:mb-14 px-4"
         >
-          The pictures of {` `}
+          The pictures of{" "}
           <span className="italic font-light block sm:inline">
             all the Associate partners and legal addiction.
           </span>
         </motion.h2>
 
-        {/* Grid */}
-        <motion.div
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          variants={staggerContainer}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
-        >
-          {filteredMembers.map((member, index) => (
-            <motion.div
-              key={member._id || member.name || index}
-              variants={fadeInUp}
-              whileHover={{
-                y: -10,
-                transition: {
-                  duration: 0.4,
-                  ease: [0.25, 0.1, 0.25, 1] as const
-                }
-              }}
-              className="relative rounded-2xl overflow-hidden group cursor-pointer"
-            >
-              {/* Image */}
-              <div className="overflow-hidden">
-                <motion.img
-                  whileHover={{ scale: 1.1 }}
-                  transition={{
-                    duration: 0.7,
-                    ease: [0.25, 0.1, 0.25, 1] as const
-                  }}
-                  src={member._imageUrl}
-                  alt={member.name}
-                  className="w-full h-[350px] sm:h-[380px] md:h-[400px] lg:h-[420px] object-cover"
-                />
-              </div>
-
-              {/* Gradient Overlay */}
-              <motion.div
-                initial={{ opacity: 0.8 }}
-                whileHover={{ opacity: 0.9 }}
-                transition={{ duration: 0.4 }}
-                className="absolute inset-0 bg-gradient-to-t from-[#0b1c3d] via-[#0b1c3d]/60 to-transparent"
-              ></motion.div>
-
-              {/* Content */}
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{
-                  delay: 0.3 + index * 0.1,
-                  duration: 0.6
-                }}
-                className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 text-white"
+        {/* ==================== LOADING ==================== */}
+        {isLoading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {[1, 2, 3].map((item) => (
+              <div
+                key={item}
+                className="relative rounded-2xl overflow-hidden bg-gray-100 animate-pulse"
               >
-                <h3 className="text-lg sm:text-xl font-semibold">
-                  {member.name}
-                </h3>
+                <div className="w-full h-[350px] sm:h-[380px] md:h-[400px] lg:h-[420px] bg-gray-200" />
 
-                <p className="text-xs sm:text-sm text-gray-200">
-                  {member.role}
-                </p>
-              </motion.div>
-            </motion.div>
-          ))}
-        </motion.div>
+                <div className="absolute bottom-6 left-6">
+                  <div className="h-5 w-40 bg-gray-300 rounded mb-2" />
+                  <div className="h-4 w-28 bg-gray-300 rounded" />
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : teamMembers.length > 0 ? (
+
+          /* ==================== ATTORNEYS GRID ==================== */
+          <motion.div
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+            variants={staggerContainer}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+          >
+            {teamMembers.map((member, index) => {
+              const name =
+                member?.name ||
+                member?.fullName ||
+                member?.title ||
+                "Team Member";
+
+              const role =
+                member?.role ||
+                member?.designation ||
+                member?.position ||
+                "";
+
+              const imageUrl = member?._imageUrl;
+
+              return (
+                <motion.div
+                  key={
+                    member?._id ||
+                    `${member?._source}-${name}-${index}`
+                  }
+                  variants={fadeInUp}
+                  whileHover={{
+                    y: -10,
+                    transition: {
+                      duration: 0.4,
+                      ease: [0.25, 0.1, 0.25, 1] as const,
+                    },
+                  }}
+                  className="relative rounded-2xl overflow-hidden group cursor-pointer bg-gray-100"
+                >
+
+                  {/* ==================== IMAGE ==================== */}
+                  <div className="overflow-hidden">
+                    {imageUrl ? (
+                      <motion.img
+                        whileHover={{ scale: 1.1 }}
+                        transition={{
+                          duration: 0.7,
+                          ease: [0.25, 0.1, 0.25, 1] as const,
+                        }}
+                        src={imageUrl}
+                        alt={name}
+                        className="w-full h-[350px] sm:h-[380px] md:h-[400px] lg:h-[420px] object-cover"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="w-full h-[350px] sm:h-[380px] md:h-[400px] lg:h-[420px] flex items-center justify-center bg-gray-200">
+                        <span className="text-gray-500 text-sm">
+                          No profile image
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* ==================== GRADIENT ==================== */}
+                  <motion.div
+                    initial={{ opacity: 0.8 }}
+                    whileHover={{ opacity: 0.9 }}
+                    transition={{ duration: 0.4 }}
+                    className="absolute inset-0 bg-gradient-to-t from-[#0b1c3d] via-[#0b1c3d]/60 to-transparent pointer-events-none"
+                  />
+
+                  {/* ==================== CONTENT ==================== */}
+                  <motion.div
+                    initial={{
+                      y: 20,
+                      opacity: 0,
+                    }}
+                    animate={{
+                      y: 0,
+                      opacity: 1,
+                    }}
+                    transition={{
+                      delay: 0.3 + index * 0.1,
+                      duration: 0.6,
+                    }}
+                    className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 text-white"
+                  >
+                    <h3 className="text-lg sm:text-xl font-semibold">
+                      {name}
+                    </h3>
+
+                    {role && (
+                      <p className="text-xs sm:text-sm text-gray-200">
+                        {role}
+                      </p>
+                    )}
+                  </motion.div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+
+        ) : (
+
+          /* ==================== EMPTY STATE ==================== */
+          <div className="py-16 text-center">
+            <p className="text-gray-500 text-base">
+              No associated partners found.
+            </p>
+          </div>
+        )}
+
       </div>
     </section>
   );
